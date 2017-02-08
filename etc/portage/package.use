@@ -36,6 +36,9 @@ dev-python/logilab-common -doc
 gnustep-base/gnustep-make -doc
 <dev-python/sphinx-1.3 -doc
 
+# Causes dependency problem
+dev-python/botocore -doc
+
 # https://bugs.gentoo.org/show_bug.cgi?id=526358
 # To build redland-bindings, either unset USE=php on it or
 # unset USE=threads on php and apache (until the issue's fixed).
