@@ -52,6 +52,7 @@ dev-libs/redland-bindings -ruby
 sys-apps/smartmontools update_drivedb
 net-misc/youtube-dl offensive
 app-office/libreoffice binfilter
+sys-libs/libomp ompt
 
 # FIXME: Figure out what of this bunch is needed, and if anything's breaking anything.
 app-admin/gkrellm hddtemp lm_sensors ntlm ssl

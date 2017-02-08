@@ -258,6 +258,7 @@ sys-fabric/perftest ~amd64
 sys-fabric/qperf ~amd64
 sys-fabric/rds-tools ~amd64
 sys-fabric/srptools ~amd64
+sys-libs/libomp ~amd64
 virtual/liblash ~amd64
 virtual/perl6 ~amd64
 www-client/otter ~amd64
