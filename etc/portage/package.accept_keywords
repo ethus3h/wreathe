@@ -29,8 +29,6 @@ dev-lang/mono ~amd64
 */*::trinity **
 */*::compiz-reloaded **
 */*::bar ~amd64
-=trinity-base/tdelibs-9999 **
-=trinity-base/ksquirrel-9999 **
 =media-sound/carla-9999 **
 
 # =app-office/calligra-l10n-2.9.11 conflicts with the krita 3.1 ebuild
@@ -43,9 +41,6 @@ app-office/calligra-l10n ~amd64
 
 # build failure with stable
 app-antivirus/clamav ~amd64
-
-# required to use with man-db instead of man
-=dev-tex/latex2rtf-2.3.8 ~amd64
 
 # To use Lilypond with texlive 2014
 =dev-tex/metapost-1.902 ~amd64
@@ -139,7 +134,6 @@ net-misc/youtube-dl **
 
 # Apps that aren't yet stabilised
 =app-portage/repoman-2.3.0-r1 ~amd64
-=sys-kernel/gentoo-sources-4.7.1 ~amd64
 app-accessibility/onboard ~amd64
 app-admin/systemdgenie ~amd64
 app-doc/devmanual ~amd64

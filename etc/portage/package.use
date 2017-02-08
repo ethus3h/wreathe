@@ -31,7 +31,6 @@ sys-block/open-iscsi -slp
 app-text/xindy -doc
 dev-java/libreadline-java -doc
 dev-java/rxtx -doc
-dev-python/logilab -doc
 dev-python/logilab-common -doc
 gnustep-base/gnustep-make -doc
 <dev-python/sphinx-1.3 -doc
@@ -73,7 +72,7 @@ app-office/calligra xbase
 app-office/libreoffice gnome gtk
 app-office/libreoffice odk quickstarter vlc libreoffice_extensions_nlpsolver libreoffice_extensions_scripting-beanshell libreoffice_extensions_scripting-javascript libreoffice_extensions_wiki-publisher java
 app-text/evince -nsplugin
-app-text/tesseract_rc1 scrollview training l10n_ar l10n_bg l10n_ca l10n_chr l10n_cs l10n_da l10n_el l10n_es l10n_fi l10n_fr l10n_he l10n_hi l10n_hu l10n_id l10n_it l10n_ja l10n_ko l10n_lt l10n_lv l10n_nl l10n_no l10n_pl l10n_pt l10n_ro l10n_ru l10n_sk l10n_sl l10n_sr l10n_sv l10n_th l10n_tl l10n_tr l10n_uk l10n_vi l10n_zh-CN l10n_zh-TW
+app-text/tesseract scrollview training l10n_ar l10n_bg l10n_ca l10n_chr l10n_cs l10n_da l10n_el l10n_es l10n_fi l10n_fr l10n_he l10n_hi l10n_hu l10n_id l10n_it l10n_ja l10n_ko l10n_lt l10n_lv l10n_nl l10n_no l10n_pl l10n_pt l10n_ro l10n_ru l10n_sk l10n_sl l10n_sr l10n_sv l10n_th l10n_tl l10n_tr l10n_uk l10n_vi l10n_zh-CN l10n_zh-TW
 dev-db/mariadb embedded
 dev-dotnet/mono-addins gtk
 dev-haskell/json generic hscolour parsec pretty
@@ -155,7 +154,7 @@ media-video/vlc atmo faad live lua postproc vlm
 net-analyzer/wireshark androiddump ciscodump sbc smi sshdump tfshark
 net-dialup/mgetty -fax
 net-dns/avahi mdnsresponder-compat autoipd gtk3
-net-dns/bind-tools_p4 gssapi
+net-dns/bind-tools gssapi
 net-fs/cifs-utils ads
 net-fs/s3ql contrib
 net-fs/samba addc addns ads bundled-heimdal client cluster dmapi fam iprint quota -system-mitkrb5 gnutls winbind
@@ -210,7 +209,7 @@ x11-plugins/bfm gkrellm
 x11-wm/compiz -kde gtk
 x11-wm/compiz-fusion emerald
 x11-wm/compiz-meta boxmenu
-x11-wm/compiz-plugins-meta experimental
+x11-plugins/compiz-plugins-meta experimental
 
 # abi_x86_32
 app-accessibility/at-spi2-atk abi_x86_32
@@ -238,7 +237,7 @@ dev-libs/elfutils abi_x86_32
 dev-libs/expat abi_x86_32
 dev-libs/fribidi abi_x86_32
 dev-libs/glib abi_x86_32
-dev-libs/gmpa abi_x86_32
+dev-libs/gmp abi_x86_32
 dev-libs/icu abi_x86_32
 dev-libs/json-c abi_x86_32
 dev-libs/json-glib abi_x86_32
@@ -264,7 +263,6 @@ dev-libs/libxslt abi_x86_32
 dev-libs/lzo abi_x86_32
 dev-libs/nettle abi_x86_32
 dev-libs/openssl abi_x86_32
-dev-libs/opensslh abi_x86_32
 dev-libs/popt abi_x86_32
 dev-libs/wayland abi_x86_32
 dev-python/subunit abi_x86_32
@@ -317,7 +315,7 @@ media-libs/libgphoto2 abi_x86_32
 media-libs/libiec61883 abi_x86_32
 media-libs/libilbc abi_x86_32
 media-libs/libjpeg-turbo abi_x86_32
-media-libs/libmadb abi_x86_32
+media-libs/libmad abi_x86_32
 media-libs/libmms abi_x86_32
 media-libs/libmng abi_x86_32
 media-libs/libmodplug abi_x86_32
@@ -343,7 +341,7 @@ media-libs/openjpeg abi_x86_32
 media-libs/opus abi_x86_32
 media-libs/schroedinger abi_x86_32
 media-libs/soxr abi_x86_32
-media-libs/speex_rc1 abi_x86_32
+media-libs/speex abi_x86_32
 media-libs/taglib abi_x86_32
 media-libs/tiff abi_x86_32
 media-libs/vo-aacenc abi_x86_32
@@ -438,11 +436,9 @@ sys-libs/libavc1394 abi_x86_32
 sys-libs/libcap abi_x86_32
 sys-libs/libraw1394 abi_x86_32
 sys-libs/ncurses abi_x86_32
-sys-libs/ncurses-r99 abi_x86_32
 sys-libs/nss_wrapper abi_x86_32
 sys-libs/ntdb abi_x86_32
 sys-libs/readline abi_x86_32
-sys-libs/readline_p8 abi_x86_32
 sys-libs/talloc abi_x86_32
 sys-libs/tdb abi_x86_32
 sys-libs/tevent abi_x86_32
