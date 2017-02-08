@@ -1,0 +1,273 @@
+# Wreathe overlay
+*/*::wreathe-overlay ~amd64
+=app-doc/ember-web-site-9999::wreathe-overlay **
+=app-misc/crystallize-9999::wreathe-overlay **
+=app-misc/futuramerlin-web-toolkit-9999::wreathe-overlay **
+=app-misc/ember-dev-environment-9999::wreathe-overlay **
+=app-misc/ember-information-technology-environment-9999::wreathe-overlay **
+=app-misc/gentoo-portage-tree-9999::wreathe-overlay **
+=app-misc/gentoo-portage-tree-cvs-9999::wreathe-overlay **
+=app-misc/wreathe-backgrounds-9999::wreathe-overlay **
+=app-misc/wreathe-base-9999::wreathe-overlay **
+=app-misc/wreathe-media-resources-9999 **
+=app-misc/wreathe-meta-9999::wreathe-overlay **
+=app-misc/wreathe-office-resources-9999::wreathe-overlay **
+=app-misc/wreathe-overlays-redist-9999::wreathe-overlay **
+=app-misc/wreathe-typeface-family-9999::wreathe-overlay **
+=app-misc/wreathe-typefaces-redist-9999::wreathe-overlay **
+# =dev-libs/libplatform-9999::wreathe-overlay **
+=kde-apps/thumbnailers-9999::wreathe-overlay **
+=kde-apps/wreathe-charselect-9999::wreathe-overlay **
+=media-sound/cadence-9999::wreathe-overlay **
+=media-sound/jackmix-9999::wreathe-overlay **
+=x11-misc/compiz-debug-utils-9999::wreathe-overlay **
+
+# Trying to get moonlight to build
+dev-lang/mono ~amd64
+
+# Overlays
+*/*::trinity **
+*/*::compiz-reloaded **
+*/*::bar ~amd64
+=trinity-base/tdelibs-9999 **
+=trinity-base/ksquirrel-9999 **
+=media-sound/carla-9999 **
+
+# =app-office/calligra-l10n-2.9.11 conflicts with the krita 3.1 ebuild
+# 2.9.11-r1 fixes the issue
+app-office/calligra-l10n ~amd64
+
+# zfsonlinux
+=sys-fs/zfs-kmod-0.6.5.4-r1 ~amd64
+=sys-kernel/spl-0.6.5.4-r1 ~amd64
+
+# build failure with stable
+app-antivirus/clamav ~amd64
+
+# required to use with man-db instead of man
+=dev-tex/latex2rtf-2.3.8 ~amd64
+
+# To use Lilypond with texlive 2014
+=dev-tex/metapost-1.902 ~amd64
+
+# The older version of gstreamer that stable uses has now broken for playing ALAC
+media-sound/gmusicbrowser ~amd64
+
+# Epson scanner driver (depends on gnulib)
+=dev-libs/gnulib-9999-r1 **
+=media-gfx/utsushi-9999 **
+
+# Use git oyranos
+=media-libs/oyranos-9999 **
+
+# Update blocked by ffmpeg 3 dependency
+<media-sound/ardour-5 ~amd64
+<media-tv/kodi-17 ~amd64
+
+# Use the latest versions of these apps
+app-misc/recoll ~amd64
+app-text/calibre ~amd64
+media-sound/gmusicbrowser ~amd64
+net-p2p/ktorrent ~amd64
+
+# Not yet stabilised, used by Ring
+=net-libs/opendht-9999 **
+=net-voip/ring-daemon-9999 **
+dev-libs/msgpack ~amd64
+net-libs/pjsip ~amd64
+=net-libs/libringclient-9999 **
+=net-voip/gnome-ring-9999 **
+
+# Not yet stabilized, used by hangups
+dev-python/multidict ~amd64
+dev-java/protobuf-java ~amd64
+dev-python/protobuf-python ~amd64
+dev-libs/protobuf ~amd64
+dev-python/MechanicalSoup ~amd64
+dev-python/yarl ~amd64
+dev-python/readlike ~amd64
+dev-python/urwid ~amd64
+dev-python/configargparse ~amd64
+dev-python/async_timeout ~amd64
+dev-python/ReParser ~amd64
+dev-python/aiohttp ~amd64
+
+# Not yet stabilised, used by MonoDevelop
+=x11-misc/obkey-1.0 ~amd64
+=dev-util/monodevelop-6.0.0.4761 ~amd64
+=dev-dotnet/gtk-sharp-2.12.21 ~amd64
+=www-servers/xsp-2014.12-r2014120900 ~amd64
+=dev-dotnet/referenceassemblies-pcl-4.6 ~amd64
+=dev-dotnet/xdt-for-monodevelop-2.8.1 ~amd64
+=dev-dotnet/nuget-2.8.7-r1 ~amd64
+=dev-libs/gmime-2.6.20-r3 ~amd64
+=dev-python/pytest-catchlog-1.2.2 ~amd64
+
+# Not yet stabilised, used by infinality
+=media-fonts/infinality-ultimate-meta-1 ~amd64
+=media-fonts/tex-gyre-2.005 ~amd64
+=media-libs/fontconfig-ultimate-2015.08.01 ~amd64
+=media-fonts/signika-1.001 ~amd64
+=media-fonts/heuristica-0.2.1 ~amd64
+=media-fonts/courier-prime-1.203 ~amd64
+
+# Required for Noise (Pantheon music player)
+=dev-db/sqlheavy-0.2_p20121114 ~amd64
+
+#Use live zfs ebuilds and newer ati-drivers to allow newer kernel version
+=sys-fs/zfs-9999 **
+=sys-kernel/spl-9999 **
+=sys-fs/zfs-kmod-9999 **
+
+# Only live (~amd64) ebuilds are available for these
+=dev-libs/libp8-platform-9999 ~amd64
+=media-libs/kodiplatform-9999 ~amd64
+=net-im/hangups-9999 **
+
+# Use GRUB from git for now, since it's needed for nvme
+=sys-boot/grub-9999 **
+
+# Use youtube-dl from git to avoid breakage
+net-misc/youtube-dl **
+
+# Not yet stabilised, needed for touchegg
+=dev-libs/frame-2.5.0 ~amd64
+=x11-misc/touchegg-1.1.1 ~amd64
+=x11-misc/touchegg-gui-1.1.1 ~amd64
+=x11-libs/geis-2.2.17 ~amd64
+=dev-libs/grail-3.1.1 ~amd64
+
+# Apps that aren't yet stabilised
+=app-portage/repoman-2.3.0-r1 ~amd64
+=sys-kernel/gentoo-sources-4.7.1 ~amd64
+app-accessibility/onboard ~amd64
+app-admin/systemdgenie ~amd64
+app-doc/devmanual ~amd64
+app-editors/atom ~amd64
+app-emulation/bochs ~amd64
+app-eselect/eselect-electron ~amd64
+app-eselect/eselect-opencascade ~amd64
+app-forensics/afl ~amd64
+app-misc/ddate ~amd64
+app-pda/libplist ~amd64
+dev-cpp/ETL ~amd64
+dev-db/sqlitestudio ~amd64
+dev-dotnet/dotnet-cli ~amd64
+dev-dotnet/log4net ~amd64
+dev-java/icedtea ~amd64
+dev-java/jna ~amd64
+dev-lang/gforth ~amd64
+dev-lang/moarvm ~amd64
+dev-lang/nqp ~amd64
+dev-lang/open-cobol ~amd64
+dev-lang/rakudo ~amd64
+dev-libs/appstream
+dev-libs/crossguid ~amd64
+dev-libs/dbus-c++ ~amd64
+dev-libs/quazip ~amd64
+dev-libs/vala-common ~amd64
+dev-perl/Glib-Object-Introspection ~amd64
+dev-perl/glib-perl ~amd64
+dev-python/awscli ~amd64
+dev-python/botocore ~amd64
+dev-python/guzzle_sphinx_theme ~amd64
+dev-python/jmespath ~amd64
+dev-python/llfuse ~amd64
+dev-python/lxml ~amd64
+dev-python/pivy ~amd64
+dev-python/pydb ~amd64
+dev-python/s3transfer ~amd64
+dev-util/electron ~amd64
+dev-util/lttng-ust ~amd64
+dev-util/shellcheck ~amd64
+games-kids/scratch ~amd64
+kde-misc/kdeconnect ~amd64
+kde-misc/kolor-manager ~amd64
+lxqt-base/liblxqt ~amd64
+lxqt-base/lxqt-config ~amd64
+mail-client/nmh ~amd64
+media-gfx/displaycal ~amd64
+media-gfx/freecad ~amd64
+media-gfx/inkscape ~amd64
+media-gfx/krita ~amd64
+media-gfx/synfig ~amd64
+media-libs/fidlib ~amd64
+media-libs/libbluray ~amd64
+media-libs/libffado ~amd64
+media-libs/libilbc ~amd64
+media-libs/libXcm ~amd64
+media-libs/lv2 ~amd64
+media-libs/openicc ~amd64
+media-libs/SoQt ~amd64
+media-libs/suil ~amd64
+media-libs/volpack ~amd64
+media-plugins/kipi-plugins ~amd64
+media-sound/dcadec ~amd64
+media-sound/jack_capture ~amd64
+media-sound/jack-audio-connection-kit ~amd64
+media-sound/jack2 ~amd64
+media-sound/jackmix ~amd64
+media-sound/ladish ~amd64
+media-video/ffmpeg ~amd64
+media-video/simplescreenrecorder ~amd64
+net-fs/s3backer ~amd64
+net-fs/s3ql ~amd64
+net-libs/libktorrent ~amd64
+net-libs/tox ~amd64
+sci-geosciences/opencpn
+sci-geosciences/opencpn-plugin-br24radar
+sci-geosciences/opencpn-plugin-dr
+sci-geosciences/opencpn-plugin-findit
+sci-geosciences/opencpn-plugin-gxradar
+sci-geosciences/opencpn-plugin-iacfleet
+sci-geosciences/opencpn-plugin-launcher
+sci-geosciences/opencpn-plugin-logbookkonni
+sci-geosciences/opencpn-plugin-objsearch
+sci-geosciences/opencpn-plugin-ocpn_draw
+sci-geosciences/opencpn-plugin-ocpndebugger
+sci-geosciences/opencpn-plugin-otcurrent ~amd64
+sci-geosciences/opencpn-plugin-polar
+sci-geosciences/opencpn-plugin-radar
+sci-geosciences/opencpn-plugin-route
+sci-geosciences/opencpn-plugin-squiddio
+sci-geosciences/opencpn-plugin-watchdog
+sci-geosciences/opencpn-plugin-weather_routing
+sci-geosciences/opencpn-plugins-meta
+sci-geosciences/routino ~amd64
+sci-libs/matio ~amd64
+sci-libs/opencascade ~amd64
+sci-mathematics/freemat ~amd64
+sci-mathematics/octave-epstk ~amd64
+sys-apps/hwloc ~amd64
+sys-apps/smartmontools ~amd64
+sys-block/open-isns ~amd64
+sys-cluster/openmpi ~amd64
+sys-fabric/dapl ~amd64
+sys-fabric/ibacm ~amd64
+sys-fabric/infiniband-diags ~amd64
+sys-fabric/infinipath-psm ~amd64
+sys-fabric/libcxgb3 ~amd64
+sys-fabric/libcxgb4 ~amd64
+sys-fabric/libibcm ~amd64
+sys-fabric/libibmad ~amd64
+sys-fabric/libibumad ~amd64
+sys-fabric/libipathverbs ~amd64
+sys-fabric/libmlx4 ~amd64
+sys-fabric/libmlx5 ~amd64
+sys-fabric/libmthca ~amd64
+sys-fabric/libnes ~amd64
+sys-fabric/libocrdma ~amd64
+sys-fabric/mstflint ~amd64
+sys-fabric/ofed ~amd64
+sys-fabric/opensm ~amd64
+sys-fabric/perftest ~amd64
+sys-fabric/qperf ~amd64
+sys-fabric/rds-tools ~amd64
+sys-fabric/srptools ~amd64
+virtual/liblash ~amd64
+virtual/perl6 ~amd64
+www-client/otter ~amd64
+www-plugins/lightspark ~amd64
+x11-libs/libdrm ~amd64
+x11-misc/cairo-dock ~amd64
+x11-misc/keynav ~amd64

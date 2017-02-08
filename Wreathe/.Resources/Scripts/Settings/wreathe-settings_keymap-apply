@@ -1,0 +1,21 @@
+#!/bin/bash
+# Updates the keyboard layout settings.
+
+# Apply changes to file
+sudo cp /usr/share/X11/xkb/symbols/us /tmp/wreathe-settings_keymap-apply.tmp
+sudo perl -0777 -p -i -e 's/\/\/ DO NOT MODIFY THIS LINE\! 2263d1e9-d9f5-4b1a-91fb-2536ea268212.*//g'
+sudo cat /Wreathe/.Resources/Keymaps/wreathe >> /usr/share/X11/xkb/symbols/us
+# Read and apply settings
+(
+    cd /etc/wreathe/keyboard/mapping/
+    geometry="$(<geometry)"
+    layout="$(<layout)"
+    variant="$(<variant)"
+    wreathe="$(<use_wreathe_layout)"
+    if [[ "$wreathe" == "true" ]]; then
+        variant="wreathe-$layout"
+        layout="us"
+    fi
+    setxkbmap -v 10 "$layout" "$variant"
+    sudo localectl set-x11-keymap "$layout" "$geometry" "$variant"
+)

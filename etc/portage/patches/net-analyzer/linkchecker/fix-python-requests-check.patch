@@ -1,0 +1,12 @@
+--- linkcheck/__init__.py	2016-10-25 10:53:38.266747170 +0100
++++ linkcheck/__init__.py	2016-10-25 10:55:27.759691947 +0100
+@@ -26,7 +26,8 @@
+         sys.version_info < (2, 7, 2, 'final', 0)):
+     raise SystemExit("This program requires Python 2.7.2 or later.")
+ import requests
+-if requests.__version__ <= '2.2.0':
++from distutils.version import StrictVersion
++if StrictVersion(requests.__version__) < StrictVersion('2.2.0'):
+     raise SystemExit("This program requires Python requests 2.2.0 or later.")
+ 
+ import os

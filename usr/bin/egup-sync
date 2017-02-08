@@ -1,0 +1,4 @@
+#!/bin/bash
+#Ember Git UPdater (and binhost updater)
+egup
+egup-synconly

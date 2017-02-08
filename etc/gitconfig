@@ -1,0 +1,9 @@
+[core]
+	autocrlf = false
+	hooksPath = /etc/git/hooks
+[filter "xz"]
+	clean = xz
+	smudge = unxz
+[filter "smallify"]
+	clean = smallify-stream
+	smudge = biggify-stream

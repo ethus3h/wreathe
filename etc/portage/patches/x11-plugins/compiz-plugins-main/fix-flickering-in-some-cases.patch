@@ -1,0 +1,37 @@
+From f497ad2b91f2e31dbfad36bb7f1e6277746ce997 Mon Sep 17 00:00:00 2001
+From: ethus3h <kolubat@gmail.com>
+Date: Wed, 2 Nov 2016 21:16:52 -0400
+Subject: [PATCH] Prevents flickering in some cases when highlight-activates is
+ disabled, but not always.
+
+---
+ src/staticswitcher/staticswitcher.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/src/staticswitcher/staticswitcher.c b/src/staticswitcher/staticswitcher.c
+index 9143ade..c6d8719 100644
+--- a/src/staticswitcher/staticswitcher.c
++++ b/src/staticswitcher/staticswitcher.c
+@@ -737,6 +737,22 @@ switchTerminate (CompDisplay     *d,
+ 
+ 	if (ss->grabIndex)
+ 	{
++	    removeScreenGrab (s, ss->grabIndex, 0);
++	    ss->grabIndex = 0;
++	    sendWindowActivationRequest (s, ss->selectedWindow->id);
++	    damageScreen (s);
++	    Bool mouseSelect;
++	    mouseSelect = staticswitcherGetMouseSelect (s) &&
++						ss->selection != Panels;
++
++	    if (!ss->grabIndex)
++		    ss->grabIndex = pushScreenGrab (s, switchGetCursor (s, mouseSelect),
++						"switcher");
++	    else if (mouseSelect != ss->mouseSelect)
++		    updateScreenGrab (s, ss->grabIndex, switchGetCursor (s, mouseSelect));
++
++	    ss->mouseSelect = mouseSelect;
++
+ 	    CompWindow *w;
+ 
+ 	    if (ss->popupDelayHandle)

@@ -1,0 +1,351 @@
+diff -urN compiz/compiz-kconfig.pc.in compizedit3/compiz-kconfig.pc.in
+--- compiz/compiz-kconfig.pc.in	1969-12-31 19:00:00.000000000 -0500
++++ compizedit3/compiz-kconfig.pc.in	2016-08-20 20:30:47.000000000 -0400
+@@ -0,0 +1,7 @@
++prefix=@prefix@
++xsltdir=@datarootdir@/compiz
++kcfgdir=@kcfgdir@
++
++Name: compiz-kconfig
++Description: Kconfig plugin for compiz
++Version: @VERSION@
+diff -urN compiz/configure.ac compizedit3/configure.ac
+--- compiz/configure.ac	2016-08-20 20:09:48.000000000 -0400
++++ compizedit3/configure.ac	2016-08-20 19:59:36.000000000 -0400
+@@ -384,6 +384,181 @@
+   AC_DEFINE(USE_MATE, 1, [Build basic mate compatibility])
+ fi
+ 
++AC_ARG_ENABLE(kde,
++  [  --disable-kde           Disable kde window decorator],
++  [use_kde=$enableval], [use_kde=yes])
++
++if test "x$use_kde" = "xyes"; then
++  qt_incdirs="$QTINC /usr/local/qt/include /usr/include/qt /usr/include 
++/usr/X11R6/include/X11/qt /usr/X11R6/include/qt /usr/lib/qt3/include 
++/usr/lib/qt/include /usr/share/qt3/include"
++  qt_libdirs="$QTLIB /usr/local/qt/lib /usr/lib/qt /usr/lib 
++/usr/X11R6/lib/X11/qt /usr/X11R6/lib/qt /usr/lib/qt3/lib /usr/lib/qt/lib 
++/usr/share/qt3/lib"
++
++  if test -n "$QTDIR" ; then
++    qt_incdirs="$QTDIR/include $qt_incdirs"
++    qt_libdirs="$QTDIR/lib $qt_libdirs"
++  fi
++
++  qt_test_include="qstyle.h"
++  qt_test_library="libqt-mt.so"
++
++  dnl Check for Qt headers
++  AC_MSG_CHECKING([for Qt headers])
++  qt_incdir="no"
++  for it in $qt_incdirs ; do
++    if test -r "$it/$qt_test_include" ; then
++      qt_incdir="$it"
++      break
++    fi
++  done
++  AC_MSG_RESULT([$qt_incdir])
++
++  dnl Check for Qt libraries
++  AC_MSG_CHECKING([for Qt libraries])
++  qt_libdir="no"
++  for qt_check in $qt_libdirs ; do
++    if test -r "$qt_check/$qt_test_library" ; then
++      qt_libdir="$qt_check"
++      break
++    fi
++  done
++  AC_MSG_RESULT([$qt_libdir])
++
++  use_kde=no;
++  if test "x$qt_libdir" != "xno" ; then
++    if test "x$qt_incdir" != "xno" ; then
++      use_kde=yes;
++    fi
++  fi
++
++  QT_CXXFLAGS="-I$qt_incdir"
++  QT_LIBS="-L$qt_libdir"
++
++  if test "x$use_kde" = xyes; then
++    kdedir=`kde-config --prefix --expandvars 2>/dev/null`
++    kdelibs=`kde-config --install lib --expandvars 2>/dev/null`
++    kdeincs=`kde-config --install include --expandvars 2>/dev/null`
++    if test -d "$kdelibs"; then
++      PKG_CHECK_MODULES(KDE_WINDOW_DECORATOR,
++			dbus-1 xdamage xcomposite,
++			[use_kde=yes], [use_kde=no])
++
++      KDE_CFLAGS="$QT_CXXFLAGS -I$kdeincs"
++      KDE_LIBS="$QT_LIBS -L$kdelibs -lkdecore -lkdecorations -ldbus-qt-1"
++
++      QT_MOC=$QTDIR/bin/moc
++      DCOPIDL=$kdedir/bin/dcopidl
++      DCOPIDL2CPP=$kdedir/bin/dcopidl2cpp
++    else
++      use_kde=no;
++    fi
++  fi
++fi
++
++AM_CONDITIONAL(USE_KDE, test "x$use_kde" = "xyes")
++if test "$use_kde" = yes; then
++  AC_DEFINE(USE_KDE, 1, [Build kde window decorator])
++fi
++
++AC_SUBST(KDE_CFLAGS)
++AC_SUBST(KDE_LIBS)
++AC_SUBST(QT_MOC)
++AC_SUBST(DCOPIDL)
++AC_SUBST(DCOPIDL2CPP)
++
++AC_ARG_ENABLE(kde4,
++  [  --disable-kde4          Disable kde4 window decorator],
++  [use_kde4=$enableval], [use_kde4=yes])
++
++if test "x$use_kde4" = "xyes"; then
++  
++  kde4dir=`kde4-config --prefix --expandvars 2>/dev/null`
++  kde4libs=/usr/lib64/kde4/devel #`kde4-config --install lib --expandvars 
++2>/dev/null`
++  kde4incs=`kde4-config --install include --expandvars 2>/dev/null`
++
++  kde4_test_includes="kdecoration.h kcommondecoration.h kdecorationbridge.h 
++plasma/framesvg.h"
++
++  dnl Check for KWin headers
++  AC_MSG_CHECKING([for KWin headers])
++
++  kde4_notfound=""
++  for file in $kde4_test_includes ; do
++    status=" $file"
++    for it in $kde4incs ; do
++      if test -r "$it/$file" ; then
++        status=""
++        break;
++      fi
++    done
++    kde4_notfound="$kde4_notfound$status"
++  done
++  if test -z "$kde4_notfound" ; then
++      kde4_notfound="yes"
++  else
++      kde4_notfound="$kde4_notfound not found"
++      kde4libs=""
++  fi
++
++  AC_MSG_RESULT([$kde4_notfound])
++
++  if test -d "$kde4libs"; then
++    PKG_CHECK_MODULES(KDE4_WINDOW_DECORATOR,
++		      dbus-1 xdamage xext xcomposite QtCore >= 4.5.0 QtGui 
++QtDBus,
++			[use_kde4=yes], [use_kde4=no])
++
++    KDE4_CFLAGS="-I$kde4incs"
++    KDE4_LIBS="-L$kde4libs -lkdecore -lkdecorations -lkdeui -lplasma"
++
++    QT4_MOC=`pkg-config QtGui --variable=moc_location`
++    QDBUSXML2CPP=`pkg-config QtGui --variable=exec_prefix`"/bin/qdbusxml2cpp"
++  else
++    use_kde4=no;
++  fi
++fi
++
++AM_CONDITIONAL(USE_KDE4, test "x$use_kde4" = "xyes")
++if test "$use_kde4" = yes; then
++  AC_DEFINE(USE_KDE4, 1, [Build kde4 window decorator])
++fi
++
++AC_SUBST(KDE4_CFLAGS)
++AC_SUBST(KDE4_LIBS)
++AC_SUBST(QT4_MOC)
++AC_SUBST(QDBUSXML2CPP)
++
++AC_ARG_ENABLE(kconfig,
++  [  --disable-kconfig       Disable kconfig plugin],
++  [use_kconfig=$enableval], [use_kconfig=yes])
++
++if test "x$use_kde" != "xyes"; then
++  use_kconfig=no;
++fi
++
++if test "x$use_kconfig" = "xyes"; then
++  KCONFIG_CFLAGS=$KDE_CFLAGS
++  KCONFIG_LIBS=$KDE_LIBS
++  KDE_KCFG_DIR=`kde-config --install kcfg --expandvars 2>/dev/null`
++  KDE_KCONFIG_DIR=`kde-config --install config --expandvars 2>/dev/null`
++fi
++
++AM_CONDITIONAL(USE_KCONFIG, test "x$use_kconfig" = "xyes")
++if test "$use_kconfig" = yes; then
++  AC_DEFINE(USE_KCONFIG, 1, [Build kconfig plugin])
++fi
++
++AC_SUBST(KCONFIG_CFLAGS)
++AC_SUBST(KCONFIG_LIBS)
++AC_SUBST(KDE_KCFG_DIR)
++AC_SUBST(KDE_KCONFIG_DIR)
++
++kcfgdir=$KDE_KCFG_DIR
++AC_SUBST(kcfgdir)
++
+ AM_CONDITIONAL(USE_GSETTINGS, test "x$use_gsettings" = "xyes")
+ if test "$use_gsettings" = yes; then
+   AC_DEFINE(USE_GSETTINGS, 1, [Build gsettings support in gtk-window-decorator])
+@@ -445,6 +620,7 @@
+ compiz.pc
+ compiz-cube.pc
+ compiz-scale.pc
++compiz-kconfig.pc
+ Makefile
+ src/Makefile
+ libdecoration/Makefile
+diff -urN compiz/Makefile.am compizedit3/Makefile.am
+--- compiz/Makefile.am	2016-08-20 20:09:48.000000000 -0400
++++ compizedit3/Makefile.am	2016-08-20 20:00:19.000000000 -0400
+@@ -1,4 +1,5 @@
+-SUBDIRS = include src libdecoration plugins images gtk-window-decorator po mate metadata
++SUBDIRS = include src libdecoration plugins images gtk-window-decorator po mate 
++kde metadata
+ 
+ EXTRA_DIST =		   \
+ 	AUTHORS		    \
+@@ -25,6 +26,10 @@
+ 
+ ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+ 
++if USE_KCONFIG
++kconfigdata = compiz-kconfig.pc
++endif
++
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA =	\
+ 	compiz.pc	 \
+diff -urN compiz/metadata/Makefile.am compizedit3/metadata/Makefile.am
+--- compiz/metadata/Makefile.am	2016-08-20 20:09:48.000000000 -0400
++++ compizedit3/metadata/Makefile.am	2016-08-20 20:06:02.000000000 -0400
+@@ -44,6 +44,7 @@
+ 	$(matecompat_in)   \
+ 	ini.xml.in	   \
+ 	$(inotify_in)	   \
++	kconfig.xml.in     \
+ 	minimize.xml.in	   \
+ 	move.xml.in	   \
+ 	obs.xml.in	   \
+@@ -62,6 +63,62 @@
+ 	zoom.xml.in
+ xml_files    = $(xml_in_files:.xml.in=.xml)
+ xml_DATA     = $(xml_files)
++xsltdir    = $(stylesheetdir)
++xslt_files =		       	  \
++$(schemas_stylesheets)	  \
++$(kde_kcfg_stylesheets)	  \
++$(kde_config_stylesheets)
++
++if USE_KCONFIG
++kde_kcfgdir    = $(DESTDIR)$(KDE_KCFG_DIR)
++kde_kcfg_files = $(patsubst %.xml.in,compiz-%.kcfg,$(xml_in_files))
++
++kde_kcfg_stylesheets = kcfg.xslt
++
++%.kcfg: $(xml_files)
++	xsltproc -o $@ $(srcdir)/kcfg.xslt $(subst compiz-,,$*).xml;
++
++kde_configdir    = $(DESTDIR)$(KDE_KCONFIG_DIR)
++kde_config_files = compizrc
++
++compizrc: $(kde_kcfg_files)
++	xsltproc --stringparam screen 0 $(srcdir)/kconfig.xslt \
++	$(kde_kcfg_files) > $@;
++
++kde_config_stylesheets = kconfig.xslt
++
++endif
++
++if USE_KCONFIG
++	if mkdir -p $(kde_kcfgdir) && test -w $(kde_kcfgdir); then ( \
++		$(INSTALL) -m 644 $(kde_kcfg_files) $(kde_kcfgdir) \
++		); \
++	fi
++	if mkdir -p $(kde_configdir) && test -w $(kde_configdir); then ( \
++		$(INSTALL) -m 644 $(kde_config_files) $(kde_configdir) \
++		); \
++	fi
++endif
++
++uninstall-local:
++if USE_KCONFIG
++	if test -w $(kde_kcfgdir); then ( \
++		for file in $(kde_kcfg_files); do \
++			rm -f $(kde_kcfgdir)/$$file; \
++		done \
++		); \
++	fi
++	if test -w $(kde_configdir); then ( \
++		for file in $(kde_config_files); do \
++			rm -f $(kde_configdir)/$$file; \
++		done \
++		); \
++	fi
++endif
++
++noinst_DATA =		  \
++	$(kde_kcfg_files) \
++	$(kde_config_files)
+ 
+ core.xml.in: core.xml.in.in Makefile
+ 	plugins=$(default_plugins); \
+@@ -77,5 +134,7 @@
+ 
+ DISTCLEANFILES =	    \
+ 	$(xml_files)        \
+-	core.xml.in
+-
++	core.xml.in         \
++	$(schema_files)     \
++	$(kde_kcfg_files)   \
++	$(kde_config_files)
+diff -urN compiz/plugins/Makefile.am compizedit3/plugins/Makefile.am
+--- compiz/plugins/Makefile.am	2016-08-20 20:09:48.000000000 -0400
++++ compizedit3/plugins/Makefile.am	2016-08-20 20:08:05.000000000 -0400
+@@ -121,11 +121,19 @@
+ libmatecompat_module = libmatecompat.la
+ endif
+ 
++if USE_KCONFIG
++libkconfig_la_LDFLAGS = -module -avoid-version -no-undefined
++libkconfig_la_LIBADD = @KCONFIG_LIBS@
++libkconfig_la_SOURCES = kconfig.cpp
++libkconfig_module = libkconfig.la
++endif
++
+ AM_CPPFLAGS =					\
+ 	@COMPIZ_CFLAGS@				\
+ 	@LIBPNG_CFLAGS@				\
+ 	@LIBRSVG_CFLAGS@			\
+ 	@ANNOTATE_CFLAGS@			\
++	@KCONFIG_CFLAGS@                        \
+ 	@DBUS_CFLAGS@				\
+ 	@GLIB_CFLAGS@				\
+ 	@FUSE_CFLAGS@				\
+@@ -143,6 +151,7 @@
+ 
+ module_LTLIBRARIES =		\
+ 	$(libglib_module)	\
++	$(libkconfig_module)	\
+ 	libdecoration.la	\
+ 	libwobbly.la		\
+ 	libfade.la		\
+diff -urN compiz/po/POTFILES.in compizedit3/po/POTFILES.in
+--- compiz/po/POTFILES.in	2016-08-20 20:09:48.000000000 -0400
++++ compizedit3/po/POTFILES.in	2016-08-20 20:08:48.000000000 -0400
+@@ -13,6 +13,7 @@
+ metadata/matecompat.xml.in
+ metadata/ini.xml.in
+ metadata/inotify.xml.in
++metadata/kconfig.xml.in
+ metadata/minimize.xml.in
+ metadata/move.xml.in
+ metadata/obs.xml.in

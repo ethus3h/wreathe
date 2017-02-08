@@ -1,0 +1,194 @@
+atom-text-editor,
+:host {
+
+  background: @background;
+  color: @text;
+
+  &::shadow {
+    .wrap-guide {
+      background-color: fade(@text, 10%);
+    }
+
+    atom-text-editor-minimap {
+      overflow: visible; // hope this doesn't break anything; was originally hidden
+
+      &::shadow {
+        .minimap-visible-area {
+          background-color: fade(@neutral, 25%);
+          opacity: 1;
+
+          &:after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0;
+            width: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  &.is-focused {
+    background: @background;
+    color: @text;
+
+    &::shadow {
+      atom-text-editor-minimap {
+        &::shadow {
+          .minimap-visible-area {
+            background-color: fade(@variable, 25%);
+
+            &:after {
+              background: @variable;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  .indent-guide {
+    color: fade(@text, 10%);
+  }
+
+  .invisible-character {
+    color: fade(@text, 25%);
+  }
+
+  .gutter {
+    background: transparent;
+    color: fade(@text, 50%);
+
+    .custom-decorations {
+      background: transparent !important;
+    }
+
+    .line-number {
+      &.cursor-line {
+        color: fade(@text, 50%);
+      }
+
+      &.cursor-line-no-selection {
+        color: fade(@text, 100%);
+      }
+
+      &.git-line-added {
+        color: @content;
+      }
+
+      &.git-line-modified {
+        color: @comment;
+      }
+    }
+
+    &.git-diff-icon {
+
+      .line-number.git-line-added:before {
+        opacity: 0.5;
+        color: @content !important;
+      }
+
+      .line-number.git-line-modified:before {
+        opacity: 0.5;
+        color: @comment !important;
+      }
+
+      .line-number.git-line-removed:before {
+        color: @constant !important;
+      }
+    }
+
+  }
+
+  .gutter .line-number.folded,
+  .gutter .line-number:after,
+  .fold-marker:after
+  {
+    color: @constant;
+  }
+
+  .invisible {
+    color: fade(@text, 25%);
+  }
+
+  .cursor {
+    color: average(@text, @variable);
+    transition: opacity 0.333s;
+    border-left-width: 2px;
+  }
+
+  .highlights {
+    .highlight {
+      .region {
+        background: fade(@text, 10%);
+      }
+
+      &.selection {
+        .region {
+          // background: fade(average(@text, @variable), 25%);
+          background: fade(@variable, 25%);
+        }
+      }
+
+      &.bracket-matcher {
+        .region {
+          border: none;
+          background: fade(@highlight, 50%);
+          display: inline-block;
+        }
+      }
+
+      &.current-result,
+      &.find-result {
+        .region {
+          background: fade(@highlight, 50%);
+          border: none;
+          border-radius: 0;
+          box-shadow: 3px 3px 0 fade(@text, 25%);
+        }
+      }
+
+      &.current-result {
+        .region {
+          background: fade(@highlight, 50%);
+          box-shadow: 3px 3px 0 fade(@text, 50%);
+        }
+      }
+    }
+  }
+
+  .cursor-line {
+    // background-color: fade(average(@text, @variable), 5%);
+    background-color: fade(@variable, 10%);
+  }
+
+  .highlight-column {
+    background-color: fade(average(@text, @variable), 33%) !important;
+  }
+}
+
+// ---------- embedded styles ----------
+
+.embedded {
+  &.begin,
+  &.end {
+    color: @text;
+  }
+
+  &.line {
+    background-color: fade(@text, 5%);
+
+    .begin,
+    .end {
+      opacity: 0.667;
+    }
+  }
+
+  &.block {
+    .php.meta.begin,
+    .php.meta.end {
+      opacity: 1;
+    }
+  }
+}

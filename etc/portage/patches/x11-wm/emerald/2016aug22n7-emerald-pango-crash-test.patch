@@ -1,0 +1,19 @@
+diff -urN emerald-clean/src/main.c emerald/src/main.c
+--- emerald-clean/src/main.c	2016-08-22 14:12:30.000000000 -0400
++++ emerald/src/main.c	2016-08-22 15:18:01.000000000 -0400
+@@ -3110,7 +3110,14 @@
+ 
+     pango_layout_set_auto_dir (d->layout, FALSE);
+     pango_layout_set_width(d->layout, -1);
+-    pango_layout_set_text(d->layout, name, strlen(name));
++    int i;
++    for (i=0;i<128;i++) {
++        printf("%02x %c, ", name[i], name[i]);
++        if (i%16==0) {
++            printf("\n");
++        }
++    }
++    pango_layout_set_text(d->layout, name, mbstowcs(NULL, name, 0) - 1);
+     pango_layout_get_pixel_size(d->layout, &w, NULL);
+ 
+     if (d->name)

@@ -1,0 +1,62 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+        "spec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-1161131-5540-1hoc4v1.gioggjsjor"
+    ]
+  ],
+  "_from": "../d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+  "_id": "language-diff@0.6.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/language-diff",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+    "spec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+  "_shasum": "dd1db7dfc96bc0abada3fda3e6fbefdfa0201001",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+  "_where": "/tmp/apm-install-dir-1161131-5540-1hoc4v1.gioggjsjor",
+  "bugs": {
+    "url": "https://github.com/miketheman/language-diff/issues"
+  },
+  "dependencies": {},
+  "description": "Interact with *.diff files",
+  "devDependencies": {
+    "temp": "^0.8.3"
+  },
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "homepage": "https://github.com/miketheman/language-diff#readme",
+  "license": "MIT",
+  "name": "language-diff",
+  "optionalDependencies": {},
+  "private": true,
+  "readme": "# language-diff package\n\n[![Build Status](https://travis-ci.org/miketheman/language-diff.svg?branch=master)](https://travis-ci.org/miketheman/language-diff)\n[![GitHub forks](https://img.shields.io/github/forks/miketheman/language-diff.svg)](https://github.com/miketheman/language-diff/network)\n[![GitHub stars](https://img.shields.io/github/stars/miketheman/language-diff.svg)](https://github.com/miketheman/language-diff/stargazers)\n[![GitHub issues](https://img.shields.io/github/issues/miketheman/language-diff.svg)](https://github.com/miketheman/language-diff/issues)\n\nOrigin: Conversion of Textmate [`diff` bundle](https://github.com/textmate/diff.tmbundle)\n\nSee [CHANGELOG.md](https://github.com/miketheman/language-diff/blob/master/CHANGELOG.md) for details.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miketheman/language-diff.git"
+  },
+  "version": "0.6.0"
+}

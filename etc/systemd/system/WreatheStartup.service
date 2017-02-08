@@ -1,0 +1,10 @@
+[Unit]
+Description=Wreathe Startup Services
+Wants=usbmuxd
+
+[Service]
+Type=oneshot
+ExecStart=/Wreathe/.Resources/Scripts/StartupServices.w7axn
+
+[Install]
+WantedBy=multi-user.target

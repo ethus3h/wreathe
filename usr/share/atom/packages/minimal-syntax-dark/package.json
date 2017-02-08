@@ -1,0 +1,87 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-1161131-5589-1s03un5.zl77ytlnmi/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-1161131-5589-1s03un5.zl77ytlnmi/package.tgz",
+        "spec": "/tmp/d-1161131-5589-1s03un5.zl77ytlnmi/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-1161131-5589-10oi6xi.3vczph9f6r"
+    ]
+  ],
+  "_from": "../d-1161131-5589-1s03un5.zl77ytlnmi/package.tgz",
+  "_id": "minimal-syntax-dark@0.5.2",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/minimal-syntax-dark",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-1161131-5589-1s03un5.zl77ytlnmi/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-1161131-5589-1s03un5.zl77ytlnmi/package.tgz",
+    "spec": "/tmp/d-1161131-5589-1s03un5.zl77ytlnmi/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-1161131-5589-1s03un5.zl77ytlnmi/package.tgz",
+  "_shasum": "353ab9274ef470bd38453ca43d79b9418579cdda",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-1161131-5589-1s03un5.zl77ytlnmi/package.tgz",
+  "_where": "/tmp/apm-install-dir-1161131-5589-10oi6xi.3vczph9f6r",
+  "author": {
+    "name": "David van Gemeren",
+    "email": "david@burodepeper.nl"
+  },
+  "bugs": {
+    "url": "https://github.com/burodepeper/minimal-syntax-dark/issues"
+  },
+  "dependencies": {},
+  "description": "Dark version of minimal-syntax",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "homepage": "https://github.com/burodepeper/minimal-syntax-dark#readme",
+  "keywords": [
+    "syntax",
+    "theme",
+    "minimal",
+    "dark",
+    "colorful",
+    "bright",
+    "high contrast",
+    "web",
+    "webdev",
+    "web development",
+    "html",
+    "php",
+    "coffeescript",
+    "javascript",
+    "css",
+    "scss",
+    "sass",
+    "mysql",
+    "markdown"
+  ],
+  "license": "MIT",
+  "main": "./lib/main.coffee",
+  "name": "minimal-syntax-dark",
+  "optionalDependencies": {},
+  "private": true,
+  "readme": "# Minimal (dark)\n\nA _work-in-progress_ attempt at creating a dark version for [minimal-syntax](https://github.com/burodepeper/minimal-syntax). Use with caution ;)\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burodepeper/minimal-syntax-dark.git"
+  },
+  "theme": "syntax",
+  "version": "0.5.2"
+}

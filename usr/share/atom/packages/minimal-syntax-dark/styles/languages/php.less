@@ -1,0 +1,104 @@
+.php {
+
+  &.storage.modifier.extends, // extends
+  &.storage.modifier.abstract, // abstract
+  &.basic-functions, // define()
+  &.function.support,
+  &.function.math, // floor()
+  &.function.file, // realpath(), file_exists(), is_writable()
+  &.function.dir, // opendir(), readdir()
+  &.function.info, // ini_get()
+  &.function.array, // array_merge()
+  &.storage.type, // parent, (int)
+  &.storage.type.class, // class
+  &.storage.type.function, // function
+  &.support.construct, // array(), isset(), empty()
+  // &.property.variable, // $var->property->function
+  &.class.variable // Validate::$type ($type)
+  {
+    color: @syntax;
+  }
+
+  &.classobj,
+  // &.storage.modifier, // public, private, global
+  &.storage.modifier.reference, // &
+  &.new, // new
+  &.session, // session_start()
+  &.import, // require(), include()
+  &.network, // header()
+  &.support.network, // header()
+  &.control, // if, then, else, return, exit(), foreach, switch, case, default, break, die, while
+  &.construct // echo
+  {
+    color: @syntax-alt;
+  }
+
+  &.inherited-class,
+  &.class.name
+  {
+    color: @syntax-alt;
+  }
+
+  &.string,
+  &.string-contents {
+    color: @content;
+  }
+
+  &.constant {
+    color: @constant;
+  }
+
+  &.control,
+  &.classobj,
+  &.network,
+  &.import
+  {
+    font-weight: bold;
+  }
+
+  &.keyword.operator.string
+  {
+    opacity: 0.667;
+  }
+
+  .operator {
+    &.arithmetic, // +, *
+    &.assignment, // =
+    &.comparison, // >
+    &.increment-decrement, // ++, --
+    &.key, // =>
+    &.class,
+    &.string,
+    {
+      color:@syntax-alt;
+    }
+
+    &.class { // ->, ::
+      font-weight: normal;
+    }
+
+    &.logical // ||, as, &&, !
+    {
+      color: @syntax-alt;
+      // color: @constant;
+    }
+  }
+
+  &.arguments {
+    &:not(.argument) {
+      color: fade(@text, 66%);
+    }
+  }
+
+  &.embedded {
+    &.begin,
+    &.end,
+    &.line {
+      color: @neutral;
+
+      .source.php {
+        color: inherit;
+      }
+    }
+  }
+}

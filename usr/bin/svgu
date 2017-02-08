@@ -1,0 +1,6 @@
+#!/bin/bash
+#unpack svgs
+set -e
+find . -maxdepth 1 -name '*\.svgz' -type f -print0 | xargs -i{} -0 -P 15 sh -c '
+    gunzip -cS .svgz "$1" > "$1.svg"
+' -- '{}' \;

@@ -1,0 +1,30 @@
+[Desktop Entry]
+Name=Wreathe-7.3
+
+X-KDE-PluginInfo-Author=KDE Visual Design Group; Ember
+X-KDE-PluginInfo-Email=kde-artists@kde.org; info@futuramerlin.com
+X-KDE-PluginInfo-Name=default
+X-KDE-PluginInfo-Version=0.1.1.2
+X-KDE-PluginInfo-Website=http://futuramerlin.com
+X-KDE-PluginInfo-Category=
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=LGPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-Plasma-API=5.0
+
+[Wallpaper]
+defaultWallpaperTheme=Elegiac
+defaultFileSuffix=.png
+defaultWidth=1600
+defaultHeight=1200
+
+[KDE]
+contrast=7
+saturation=7
+
+[ContrastEffect]
+enabled=true
+contrast=7
+#intensity is disabled, in order to auto adjust to the chosen theme color
+#intensity=2.0
+saturation=7

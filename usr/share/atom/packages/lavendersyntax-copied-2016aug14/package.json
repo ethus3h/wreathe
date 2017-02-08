@@ -1,0 +1,15 @@
+{
+  "name": "lavendersyntax-copied-2016aug14",
+  "theme": "syntax",
+  "version": "0.0.1",
+  "description": "A short description of your syntax theme",
+  "keywords": [
+    "syntax",
+    "theme"
+  ],
+  "repository": "https://github.com/ethus3h/ember",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  }
+}

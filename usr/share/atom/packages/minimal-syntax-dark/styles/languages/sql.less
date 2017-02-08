@@ -1,0 +1,34 @@
+.sql {
+  &.keyword {
+    font-weight: bold;
+  }
+
+  &.keyword.operator {
+    font-weight: normal;
+    // color: @content;
+    color: @syntax;
+  }
+
+  &.storage.type {
+    color: @syntax-alt;
+  }
+
+  &.meta.alter,
+  &.meta.create {
+    color: @content;
+
+    .entity.name {
+      color: inherit;
+    }
+  }
+
+  &.constant {
+    &.other {
+      font-weight: normal;
+    }
+    &.database-name,
+    &.table-name {
+      color: @content;
+    }
+  }
+}

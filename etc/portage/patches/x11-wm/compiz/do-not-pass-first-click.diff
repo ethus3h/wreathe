@@ -1,0 +1,23 @@
+--- compiz-0.8.12.1/src/event.c	2016-04-10 17:47:23.000000000 +0000
++++ compiz-0.8.12.3/src/event.c	2016-09-02 11:32:13.520867882 +0000
+@@ -1433,10 +1433,18 @@ handleEvent (CompDisplay *d,
+ 			updateWindowAttributes (w,
+ 					CompStackingUpdateModeAboveFullscreen);
+ 
+-		    if (w->id != d->activeWindow)
+-			if (!(w->type & CompWindowTypeDockMask))
++		    if (w->id != d->activeWindow) {
++			if (!(w->type & CompWindowTypeDockMask)) {
+ 			    if ((*s->focusWindow) (w))
+ 				moveInputFocusToWindow (w);
++
++			    if (w->frame != event->xbutton.window) {
++			        if (!s->maxGrab)
++			            XAllowEvents (d->display, AsyncPointer, event->xbutton.time);
++			    	return;
++			    }
++			}
++		    }
+ 		}
+ 	    }
+ 

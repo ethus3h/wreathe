@@ -1,0 +1,15 @@
+'.platform-win32 atom-text-editor, .platform-linux atom-text-editor':
+  'ctrl-g': 'find-and-replace:find-next'
+  'shift-ctrl-g': 'find-and-replace:find-previous'
+'body .unset-key-bindings':
+  'backspace': 'unset!'
+  'shift-backspace': 'unset!'
+  '-': 'unset!'
+'body':
+  'shift-backspace': 'abort!'
+  'backspace': 'abort!'
+  '-': 'abort!'
+'.editor:not([mini])':
+  'shift-backspace': 'native!'
+  'backspace': 'native!'
+  '-': 'native!'

@@ -1,0 +1,2 @@
+#!/bin/bash
+GENTOO_MIRRORS="${GENTOO_MIRRORS} http://163.172.11.172/portage/distfiles"

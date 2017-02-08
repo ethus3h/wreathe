@@ -1,0 +1,1 @@
+{".platform-win32 atom-text-editor, .platform-linux atom-text-editor":{"ctrl-g":"find-and-replace:find-next","shift-ctrl-g":"find-and-replace:find-previous"},"body .native-key-bindings":{"backspace":"unset!","delete":"unset!"}}

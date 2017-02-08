@@ -1,0 +1,7 @@
+#!/bin/bash
+#pack svgs
+set -e
+find . -maxdepth 1 -name '*\.svgz\.svg' -type f -print0 | xargs -i{} -0 -P 15 sh -c '
+    gzip -c "$1" > "${1::-4}"
+    rm "$1"
+' -- '{}' \;

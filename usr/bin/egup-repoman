@@ -1,0 +1,5 @@
+#!/bin/bash
+egup
+repoman -x fix
+repoman -x manifest-check
+repoman -x full

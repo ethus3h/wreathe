@@ -1,0 +1,57 @@
+.c {
+  &.meta {
+    color: @text;
+
+    &.parens {
+      color: @variable;
+    }
+  }
+
+  &.preprocessor,
+  &.include,
+  &.function,
+  &.initialization .variable,
+  {
+    color: @syntax;
+  }
+
+  &.string {
+    color: @content;
+  }
+
+  &.storage {
+    &.modifier { // static, const
+      color: @syntax-alt;
+    }
+
+    &.type { // char, int, struct
+      color: @syntax-alt;
+    }
+  }
+
+  &.entity {
+    &.name { // function-name
+
+    }
+  }
+
+  &.keyword {
+    // font-weight: bold;
+  }
+
+  &.control {
+    font-weight: bold;
+  }
+
+  &.import {
+    font-weight: normal;
+  }
+
+
+
+  &.punctuation {
+    color: inherit;
+    opacity: 0.5;
+    font-weight: normal;
+  }
+}

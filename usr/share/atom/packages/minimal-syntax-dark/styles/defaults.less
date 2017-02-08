@@ -1,0 +1,127 @@
+atom-text-editor, :host {
+
+  color: @text;
+
+  .comment {
+    color: @comment;
+
+    .markup.link {
+      color: inherit;
+    }
+
+    .doc {
+      &.tag {
+        font-weight: bold;
+        color: @constant;
+
+        .punctuation {
+          font-weight: normal;
+        }
+      }
+    }
+
+    .jsdoc,
+    .phpdoc {
+      color: @constant;
+      font-weight: bold;
+    }
+  }
+
+  .operator {
+    color: @text;
+
+    &.logical {
+      font-weight: bold;
+    }
+  }
+
+  .support,
+  .storage,
+  .modifier,
+  .tag,
+  .keyword,
+  .function-call,
+  .function,
+  .object,
+  .control
+  {
+    color: @syntax;
+  }
+
+  .constant,
+  .unit,
+  .numeric
+  {
+    color: @constant;
+  }
+
+  .variable
+  {
+    color: @variable;
+  }
+
+  .url,
+  .string
+  {
+    color: @content;
+  }
+
+  .attribute,
+  .at-rule, // less/scss
+  .pseudo-class,
+  .pseudo-element,
+  .sgml,
+  .support.class, // coffee: Math
+  .terminator
+  {
+    color: @syntax-alt;
+  }
+
+  .sgml,
+  .sgml .punctuation
+  {
+    color: @constant;
+  }
+
+  .invalid
+  {
+    background: @constant;
+    color: @background;
+  }
+
+  // .meta {} // ???
+
+  .at-rule .keyword, // less/scss
+  .doctype,
+  .constant,
+  // .heading,
+  .bold,
+  .name,
+  .magic,
+  .class
+  {
+    font-weight: bold;
+  }
+
+  .comment,
+  .italic
+  {
+    font-style: italic;
+  }
+
+  .terminator,
+  .punctuation
+  {
+    opacity: 0.667;
+  }
+
+  .punctuation {
+    color: inherit;
+    font-weight: normal;
+  }
+
+  .uri {
+    color: @syntax;
+  }
+
+}

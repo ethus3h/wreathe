@@ -1,0 +1,10 @@
+#!/bin/bash
+# Usage: run-per-user command
+users="$(who | awk '{print $1,$5}' | sort -u)"
+for user in $users; do
+    userName="$(awk '{print $1}' <<< "$user")"
+    xLine="$(awk '{print $2}' <<< "$user")"
+    xPortA="$(tail -c+2 <<< "$xLine")"
+    xPort="$(head -c-2 <<< "$xPortA")"
+    sudo -u "$userName" DISPLAY="$xPort" "$@"
+done

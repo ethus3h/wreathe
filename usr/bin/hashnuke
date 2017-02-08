@@ -1,0 +1,27 @@
+#!/bin/bash
+# Replace given file(s) with its/their checksums. DANGEROUS, only do this if you are sure you want to
+
+delay=10
+
+if [[ $1 == "--" ]]; then
+    shift
+else
+    if [[ $1 == "--no-delay" ]]; then
+        delay=0
+        shift
+    fi
+fi
+
+warn-timeout "The chosen files will be ERASED! Make sure you really want to continue." "$delay"
+
+while [ $# -gt 0 ]; do
+    currentFile="$1"
+    if [ -f "$currentFile" ]; then
+        hashes="$(quickhashes "$currentFile")"
+        echo "$hashes" > "$currentFile"
+        echo "Done with $currentFile"
+    else
+        warn "File $currentFile is not normal, skipping"
+    fi
+    shift
+done

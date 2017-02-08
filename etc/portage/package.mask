@@ -1,0 +1,62 @@
+# Mask overlays
+*/*::bar
+*/*::booboo
+*/*::elementary
+*/*::gentoo-kodi-overlay
+*/*::jscinoz
+*/*::mv
+*/*::proaudio
+*/*::sabayon
+*/*::themactep
+=dev-libs/libplatform-9999::wreathe-overlay
+
+# KDE SC 4.8+ drop miller columns from Dolphin
+>kde-apps/dolphin-4.7.4
+>kde-apps/dolphin-plugins-4.14.3
+>kde-apps/kfind-4.14.3
+
+# Use tdelibs instead
+trinity-base/kdelibs
+
+# Misc. nonlibre software
+net-wireless/broadcom-sta
+x11-drivers/ati-drivers
+x11-drivers/nvidia-drivers
+
+# Fake source packages that are actually binaries (WTF?!) Seriously, what the fuck?
+dev-util/android-studio
+dev-util/idea-community
+dev-util/pycharm-community
+
+# To prevent blocks when emerge can't decide whether to use this or imagemagick to fulfill dependencies
+media-gfx/graphicsmagick
+
+# Blocked by media-plugins/gst-plugins-x264, vlc, and mplayer
+=media-libs/x264-0.0.20160712
+
+# Blocked by Atom
+>=dev-libs/libgit2-0.24
+>=dev-libs/libgit2-glib-0.24
+
+# Blocked by VLC
+>=net-misc/freerdp-2
+
+# Blocked by inkscape and media-gfx/uniconverter
+>=media-gfx/imagemagick-6.9.6.6
+
+# Blocked by dependency on giflib-5
+>=dev-dotnet/libgdiplus-4.2-r2
+>=media-libs/imlib-1.9.15-r5
+>=media-libs/giflib-5
+
+# Blocked by lots of things
+>=media-video/ffmpeg-3.2.2
+
+# Blocked by dev-libs/nettle, net-libs/gnutls, and dev-libs/openssl
+# Wtf? This is already installed... USE flag change maybe? Weird.
+# >=dev-libs/gmp-6.1.0
+# Blocked by kde-apps/kdesdk-kioslaves
+>=dev-vcs/subversion-1.9
+
+# Getting pulled in by something.
+<dev-python/pyxattr-0.5.5

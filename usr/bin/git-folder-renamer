@@ -1,0 +1,4 @@
+#!/bin/bash
+# Rename the .git folders in the cwd to .git.disabled
+find . -name ".git" -type d -exec mv -v {} {}.disabled \;
+echo "Done. Note: It's ok to ignore messages about find cannot locate folder \".git\"."

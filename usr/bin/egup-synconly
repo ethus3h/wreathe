@@ -1,0 +1,3 @@
+#!/bin/bash
+#Ember binhost updater
+sudo rsync -av --checksum --progress --no-i-r /usr/portage rochu@163.172.11.172:/portage/
