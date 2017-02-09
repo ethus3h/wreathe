@@ -30,9 +30,6 @@ dev-util/pycharm-community
 # To prevent blocks when emerge can't decide whether to use this or imagemagick to fulfill dependencies
 media-gfx/graphicsmagick
 
-# Build failure https://bugs.gentoo.org/show_bug.cgi?id=608252
-=net-libs/libproxy-0.4.13-r1
-
 # Blocked by media-plugins/gst-plugins-x264, vlc, and mplayer
 =media-libs/x264-0.0.20160712
 
