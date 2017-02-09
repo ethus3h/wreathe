@@ -48,11 +48,11 @@ egup-env() {
         fi
 
         if [ -f "$egupDir/.egup.nopush" ]; then
+            echo "Applying .egup.nopush override"
             if [[ "$noMoveOverrides" != "true" ]]; then
-                echo "Applying .egup.nopush override"
                 mv -v .egup.nopush .egup.nopush.bak || echo "(no .egup.nopush found so not moving)"
-                cp -v "$egupDir/.egup.nopush" .egup.nopush
             fi
+            cp -v "$egupDir/.egup.nopush" .egup.nopush
         fi
 
         if [ -f "$egupDir/.egup.gitattributes" ]; then
