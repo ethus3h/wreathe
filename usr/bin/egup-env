@@ -100,7 +100,7 @@ egup-exit() {
         if [[ "$(readlink -f "$(pwd)")" != "$(readlink -f "$egupDir")" ]]; then
             if [ -f .egup.nopush ]; then
                 if [ -f "$egupDir/.egup.nopush" ]; then
-                    cp .egup.nopush "$egupDir/.egup.nopush"
+                    mv -v .egup.nopush "$egupDir/.egup.nopush"
                 fi
             fi
             if [ -f .egup.nopush.bak ]; then
@@ -110,7 +110,7 @@ egup-exit() {
 
             if [ -f .gitattributes ]; then
                 if [ -f "$egupDir/.egup.gitattributes" ]; then
-                    cp .gitattributes "$egupDir/.egup.gitattributes"
+                    mv -v .gitattributes "$egupDir/.egup.gitattributes"
                 fi
             fi
             if [ -f .egup.gitattributes.bak ]; then
@@ -120,7 +120,7 @@ egup-exit() {
 
             if [ -f .gitignore ]; then
                 if [ -f "$egupDir/.egup.gitignore" ]; then
-                    cp .gitignore "$egupDir/.egup.gitignore"
+                    mv -v .gitignore "$egupDir/.egup.gitignore"
                 fi
             fi
             if [ -f .egup.gitignore.bak ]; then
@@ -130,7 +130,7 @@ egup-exit() {
 
             if [ -f .gitmodules ]; then
                 if [ -f "$egupDir/.egup.gitmodules" ]; then
-                    cp .gitmodules "$egupDir/.egup.gitmodules"
+                    mv -v .gitmodules "$egupDir/.egup.gitmodules"
                 fi
             fi
             if [ -f .egup.gitmodules.bak ]; then
@@ -140,7 +140,7 @@ egup-exit() {
 
             if [ -f README.md ]; then
                 if [ -f "$egupDir/.egup.readme" ]; then
-                    cp README.md "$egupDir/.egup.readme"
+                    mv -v README.md "$egupDir/.egup.readme"
                 fi
             fi
             if [ -f .egup.readme.bak ]; then
