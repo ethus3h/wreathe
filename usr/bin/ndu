@@ -1,3 +1,2 @@
 #!/bin/bash
-# Because rfdu is hard to type. This is just ncdu minus the second letter.
-rfdu
+rubberfs usage
