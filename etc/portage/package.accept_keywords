@@ -158,6 +158,7 @@ dev-lang/rakudo ~amd64
 dev-libs/appstream
 dev-libs/crossguid ~amd64
 dev-libs/dbus-c++ ~amd64
+dev-libs/libevent ~amd64
 dev-libs/quazip ~amd64
 dev-libs/vala-common ~amd64
 dev-perl/Glib-Object-Introspection ~amd64
