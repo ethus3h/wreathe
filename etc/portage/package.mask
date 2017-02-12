@@ -33,10 +33,6 @@ media-gfx/graphicsmagick
 # Blocked by media-plugins/gst-plugins-x264, vlc, and mplayer
 =media-libs/x264-0.0.20160712
 
-# Blocked by Atom
->=dev-libs/libgit2-0.24
->=dev-libs/libgit2-glib-0.24
-
 # Blocked by VLC
 >=net-misc/freerdp-2
 
@@ -51,9 +47,6 @@ media-gfx/graphicsmagick
 # Blocked by lots of things
 >=media-video/ffmpeg-3.2.2
 
-# Blocked by dev-libs/nettle, net-libs/gnutls, and dev-libs/openssl
-# Wtf? This is already installed... USE flag change maybe? Weird.
-# >=dev-libs/gmp-6.1.0
 # Blocked by kde-apps/kdesdk-kioslaves
 >=dev-vcs/subversion-1.9
 
