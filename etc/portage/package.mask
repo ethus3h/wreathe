@@ -48,7 +48,7 @@ media-gfx/graphicsmagick
 >=media-video/ffmpeg-3.2.2
 
 # Blocked by kde-apps/kdesdk-kioslaves
->=dev-vcs/subversion-1.9
+#>=dev-vcs/subversion-1.9
 
 # Getting pulled in by something.
 <dev-python/pyxattr-0.5.5
