@@ -45,7 +45,7 @@ media-gfx/graphicsmagick
 #>=media-libs/giflib-5
 
 # Blocked by lots of things
->=media-video/ffmpeg-3.2.2
+#>=media-video/ffmpeg-3.2.2
 
 # Blocked by kde-apps/kdesdk-kioslaves
 #>=dev-vcs/subversion-1.9
