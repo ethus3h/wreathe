@@ -31,13 +31,13 @@ dev-util/pycharm-community
 media-gfx/graphicsmagick
 
 # Blocked by media-plugins/gst-plugins-x264, vlc, and mplayer
-=media-libs/x264-0.0.20160712
+#=media-libs/x264-0.0.20160712
 
 # Blocked by VLC
->=net-misc/freerdp-2
+#>=net-misc/freerdp-2
 
 # Blocked by inkscape and media-gfx/uniconverter
->=media-gfx/imagemagick-6.9.6.6
+#>=media-gfx/imagemagick-6.9.6.6
 
 # Blocked by dependency on giflib-5
 >=dev-dotnet/libgdiplus-4.2-r2
