@@ -1,5 +1,6 @@
 #!/bin/bash
 # Replace given file(s) with its/their checksums. DANGEROUS, only do this if you are sure you want to
+# I just wrote this... what was it for?! I don't remember...
 
 delay=10
 
