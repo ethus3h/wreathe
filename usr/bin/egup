@@ -30,6 +30,8 @@ set +e
         cd Ember || error-notify "Could not open Ember directory!"
         (
             cd ember-library || error-notify "Could not open Ember library directory!"
+            # FIXME: When running egup, gives error when applying README.md override: cp: cannot create regular file 'README.md': Permission denied
+            # (running cd Ember\ Library/Ember/ember-library/; egup-single ember-library-2 works fine)
             findemberlibraryfolders || error-notify "ERROR running Ember library folders update!"
         )
         findemberfolders || error-notify "ERROR running Ember folders update!"
