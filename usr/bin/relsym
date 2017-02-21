@@ -1,0 +1,110 @@
+#!/bin/bash
+
+# FIXME: The next line shouldn't be necessary
+source "$(which bash_setup)"
+
+set -e
+
+action="$1"
+target="$2"
+
+[ "$(whoami)" != "root" ] && exec sudo -- "$0" "$@"
+
+set -e
+
+case $action in
+create)
+    if [ -e "$target" ]; then
+        echo "ERROR: The requested name \"$target\" is already in use." >&2
+        exit 1
+    fi
+    mkdir -p "$target/.relsym"
+    mkdir -p "$target/characters"
+    echo "-1" > "$target/characters/.latest"
+    mkdir -p "$target/relationships"
+    echo "-1" > "$target/relationships/.latest"
+    relsym add-character
+    echo "Started a game in $1. You're character #0. Right now, you're the only one here, all alone."
+    ;;
+add-character)
+    latest="$(<characters/.latest)"
+    next=$(( latest + 1 ))
+    mkdir "characters/$next"
+    echo "$next" > "characters/.latest"
+    # Set lifespan
+    # First, pick a random number less than 122
+    rand=$(( ( RANDOM % 122 )  + 1 ))
+    # Then, figure out how far away from the average lifespan it is
+    deltaFromAverage="$(abs $(( 55 - rand )))"
+    altRand=$(( ( RANDOM % 122 )  + 1 ))
+    # 2/3 of the time, keep it near the average (I don't think this is how statistics works, but IDK how to actually do this)
+    if [ "$altRand" -lt 80 ]; then
+        if [ "$deltaFromAverage" -gt 10 ]; then
+            if [ "$altRand" -lt 61 ]; then
+                rand=$(( 55 + (rand / 3) ))
+            else
+                rand=$(( 55 - (rand / 3) ))
+            fi
+        fi
+    fi
+    echo "$rand" > "characters/$next/lifespan"
+    ;;
+status)
+    if [ -f ".relsym" ]; then
+        echo "In a relationship graph"
+    else
+        echo "Not in a relationship graph"
+    fi
+    ;;
+list)
+    echo "Current character statuses:"
+    find characters -type d -exec relsym list-one {} \;
+    ;;
+list-one)
+    (
+        cd "characters/$target"
+        echo "Report for character #$1:"
+        if [ -e "dead" ]; then
+            echo "Character is dead."
+        else
+            echo "Age: $(<age)"
+        fi
+    )
+    ;;
+tick)
+    find characters -type d -exec relsym tick-one {} \;
+    echo "Updated relationship statuses."
+    ;;
+tick-one)
+    (
+        cd "characters/$target"
+        if ! [ -e "dead" ]; then
+            age="$(<age)"
+            newAge=$(( age + 1 ))
+            echo "$newAge" > "age"
+            if [ "$newAge" -gt "$(<lifespan)" ]; then
+                touch "dead"
+            fi
+        fi
+        # If the character has a deceased employer, set them to unemployed
+        if [ -e "../$(<employer)/dead" ]; then
+            truncate -s 0 employer
+        fi
+    )
+    ;;
+find-nearby-characters)
+    depth="$3"
+    if [ -z "$depth" ]; then
+        depth=2
+    fi
+    (
+        cd "characters/$target"
+        if [ "$depth" -gt 1 ]; then
+            relsym find-nearby-characters $(( depth - 1 ))
+        fi
+    )
+*)
+    echo "Unknown action."
+    exit 1
+    ;;
+esac

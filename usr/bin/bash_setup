@@ -17,6 +17,8 @@ shopt -s histappend
 PS4='+($?) $BASH_SOURCE:$FUNCNAME:$LINENO:'
 export PS4
 
+source "$(which bash_math_functions)"
+
 source "$(which futuramerlin-web-toolkit-aliases)"
 source "$(which crystallize-bash_setup)"
 source "$(which egup-env)"
