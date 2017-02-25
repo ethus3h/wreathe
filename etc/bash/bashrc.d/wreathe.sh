@@ -1,3 +1,3 @@
 #!/bin/bash
-source /usr/bin/bash_setup
+source "$(which ember_bash_setup)"
 eval $(thefuck --alias)
