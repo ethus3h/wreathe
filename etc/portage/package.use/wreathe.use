@@ -48,6 +48,9 @@ www-servers/apache -threads
 # https://bugs.gentoo.org/show_bug.cgi?id=602584
 dev-libs/redland-bindings -ruby
 
+# https://bugs.gentoo.org/show_bug.cgi?id=444470
+media-video/ffmpeg -libilbc
+
 # Various extra capabilities
 sys-apps/smartmontools update_drivedb
 net-misc/youtube-dl offensive
