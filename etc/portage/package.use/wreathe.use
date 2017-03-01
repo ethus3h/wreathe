@@ -284,6 +284,7 @@ media-libs/a52dec abi_x86_32
 media-libs/alsa-lib abi_x86_32
 media-libs/audiofile abi_x86_32
 media-libs/celt abi_x86_32
+media-libs/chromaprint abi_x86_32
 media-libs/faac abi_x86_32
 media-libs/faad2 abi_x86_32
 media-libs/flac abi_x86_32
@@ -312,6 +313,7 @@ media-libs/libdv abi_x86_32
 media-libs/libdvdcss abi_x86_32
 media-libs/libdvdnav abi_x86_32
 media-libs/libdvdread abi_x86_32
+media-libs/libebur128 abi_x86_32
 media-libs/libepoxy abi_x86_32
 media-libs/libexif abi_x86_32
 media-libs/libffado abi_x86_32
