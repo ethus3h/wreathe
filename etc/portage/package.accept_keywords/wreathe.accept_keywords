@@ -133,7 +133,6 @@ net-misc/youtube-dl **
 =dev-libs/grail-3.1.1 ~amd64
 
 # Apps with no stable version
-=app-portage/repoman-2.3.0-r1 ~amd64
 app-accessibility/onboard ~amd64
 app-admin/systemdgenie ~amd64
 app-doc/devmanual ~amd64
@@ -167,6 +166,7 @@ dev-python/awscli ~amd64
 dev-python/botocore ~amd64
 dev-python/certauth ~amd64
 dev-python/doublethink ~amd64
+dev-python/gntp ~amd64
 dev-python/guzzle_sphinx_theme ~amd64
 dev-python/internetarchive ~amd64
 dev-python/jmespath ~amd64
@@ -176,6 +176,7 @@ dev-python/lxml ~amd64
 dev-python/pivy ~amd64
 dev-python/pydb ~amd64
 dev-python/python-rethinkdb ~amd64
+dev-python/pythonutils ~amd64
 dev-python/requests-file ~amd64
 dev-python/rethinkstuff ~amd64
 dev-python/s3transfer ~amd64
@@ -183,6 +184,7 @@ dev-python/surt ~amd64
 dev-python/tldextract ~amd64
 dev-python/warcprox ~amd64
 dev-python/warctools ~amd64
+dev-python/yenc ~amd64
 dev-util/electron ~amd64
 dev-util/lttng-ust ~amd64
 dev-util/shellcheck ~amd64
@@ -221,6 +223,7 @@ net-fs/s3backer ~amd64
 net-fs/s3ql ~amd64
 net-libs/libktorrent ~amd64
 net-libs/tox ~amd64
+net-nntp/sabnzbd ~amd64
 sci-geosciences/opencpn
 sci-geosciences/opencpn-plugin-br24radar
 sci-geosciences/opencpn-plugin-dr
