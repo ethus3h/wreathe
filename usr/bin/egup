@@ -3,8 +3,9 @@
 set -e
 rubberfs save || error-notify "ERROR running rubberfs save!"
 set +e
+EmberLibrary="$(crystallize-getconf EmberLibrary)"
 (
-    cd /Ember\ Library || error-notify "Could not open Ember Library directory!"
+    cd "$EmberLibrary" || error-notify "Could not open Ember Library directory!"
     set -e
     (
         cd Ember\ satellite\ projects/wreathe-bootstrap/usr/local/portage || error-notify "Could not open wreathe-bootstrap directory!"
@@ -44,6 +45,6 @@ set +e
     egup-single Ember\ satellite\ projects/wreathe-overlays-redist || warn "Note: failed updating redistributed overlays; this is normal if you only have a partial clone of the Ember tree"
     egup-single Ember\ satellite\ projects || warn "Note: failed updating satellite projects meta-repository; this is normal if you only have a partial clone of the Ember tree"
 )
-egup-single /Ember\ Library || warn "Note: failed updating Ember meta-repository; this is normal if you only have a partial clone of the Ember tree"
+egup-single "$EmberLibrary" || warn "Note: failed updating Ember meta-repository; this is normal if you only have a partial clone of the Ember tree"
 printf "\033c"
 echo "Done updating."

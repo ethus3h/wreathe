@@ -162,7 +162,7 @@ export -f egup-exit
 
 elen() {
     originalDir="$(pwd)"
-    cd /Ember\ Library/Ember/ember-library/ember-library-2/ || exit 1
+    cd "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/ember-library-2/ || exit 1
     egup-env
 }
 export -f elen
