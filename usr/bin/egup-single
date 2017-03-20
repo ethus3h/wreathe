@@ -12,7 +12,7 @@ git add -A . || error-notify "ERROR adding changes."
 set +e
 git commit -a -m "Update Ember tree"
 set -e
-if [ -f .egup.hooks ]; then
+if [[ -f .egup.hooks ]]; then
     echo "Beginning running hooks..."
     ./.egup.hooks || warn "WARNING! pre-build-hooks failed; continuing anyway."
     echo "Done running hooks."
@@ -33,7 +33,7 @@ git commit -a -m "Update Ember tree"
 set -e
 git pull --all || error-notify "ERROR pulling."
 git submodule update --remote || warn "ERROR updating submodules. Maybe a remote server is down?"
-if ! [ -f .egup.nopush ]; then
+if ! [[ -f .egup.nopush ]]; then
     git push --verbose --tags -u origin master || error-notify "ERROR pushing changes."
     git push --verbose --all -u origin || error-notify "ERROR pushing changes."
 fi
