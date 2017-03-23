@@ -199,7 +199,6 @@ virtual/mpi threads
 virtual/mysql embedded
 www-client/firefox bindist
 www-plugins/gnash gtk gnome ffmpeg -kde -vaapi -nsplugin
-www-plugins/lightspark -nsplugin
 www-servers/apache apache2_modules_auth_digest
 x11-apps/fusion-icon -qt4
 x11-base/xorg-server dmx
