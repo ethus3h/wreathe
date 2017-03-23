@@ -52,11 +52,13 @@ dev-libs/redland-bindings -ruby
 media-video/ffmpeg -libilbc
 
 # Various extra capabilities
-sys-apps/smartmontools update_drivedb
-net-misc/youtube-dl offensive
-app-office/libreoffice binfilter
-sys-libs/libomp ompt
 app-doc/doxygen clang dot doxysearch
+app-office/libreoffice binfilter
+net-misc/youtube-dl offensive
+sys-apps/smartmontools update_drivedb
+sys-libs/libomp ompt
+x11-libs/gtk+ broadway
+x11-misc/colord extra-print-profiles
 
 # FIXME: Figure out what of this bunch is needed, and if anything's breaking anything.
 app-admin/gkrellm hddtemp lm_sensors ntlm ssl
