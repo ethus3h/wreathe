@@ -18,7 +18,7 @@
   editor:
     backUpBeforeSaving: true
     fontFamily: "Courier New"
-    fontSize: 21
+    fontSize: 17
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true

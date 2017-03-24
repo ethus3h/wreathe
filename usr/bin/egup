@@ -28,6 +28,10 @@ EmberLibrary="$(crystallize-getconf EmberLibrary)"
     }
     set -e
     (
+        (
+            cd Futuramerlin\ Projects/Data/Crystal\ Index || error-notify "Could not open crystal index directory!"
+            egup-single .
+        )
         cd Ember || error-notify "Could not open Ember directory!"
         (
             cd ember-library || error-notify "Could not open Ember library directory!"
