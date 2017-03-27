@@ -13,6 +13,9 @@ dev-lang/python:2.7 readline
 # Depends on nonfree x11-drivers/ati-drivers
 sys-apps/hwloc -opencl
 
+# Conflicts with jack
+media-sound/supercollider -portaudio
+
 # Not supported by upstream
 sci-libs/hdf5 -mpi
 sci-libs/netcdf -mpi

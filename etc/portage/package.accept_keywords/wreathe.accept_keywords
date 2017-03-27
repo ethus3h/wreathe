@@ -217,6 +217,7 @@ media-sound/jack-audio-connection-kit ~amd64
 media-sound/jack2 ~amd64
 media-sound/jackmix ~amd64
 media-sound/ladish ~amd64
+media-sound/supercollider ~amd64
 media-video/ffmpeg ~amd64
 media-video/simplescreenrecorder ~amd64
 net-fs/s3backer ~amd64
