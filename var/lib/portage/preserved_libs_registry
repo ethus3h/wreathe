@@ -21,16 +21,14 @@
         [
             "/usr/lib64/libavcodec.so.56.60.100", 
             "/usr/lib64/libavformat.so.56.40.101", 
-            "/usr/lib64/libavresample.so.2.1.0", 
             "/usr/lib64/libavutil.so.54.31.100", 
             "/usr/lib64/libswresample.so.1.2.101", 
             "/usr/lib64/libswscale.so.3.1.101", 
             "/usr/lib64/libavcodec.so.56", 
-            "/usr/lib64/libswscale.so.3", 
             "/usr/lib64/libavutil.so.54", 
-            "/usr/lib64/libavformat.so.56", 
             "/usr/lib64/libswresample.so.1", 
-            "/usr/lib64/libavresample.so.2"
+            "/usr/lib64/libswscale.so.3", 
+            "/usr/lib64/libavformat.so.56"
         ]
     ], 
     "net-libs/libtirpc:0": [

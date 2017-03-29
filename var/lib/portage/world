@@ -1,5 +1,6 @@
 app-editors/emacs
 app-emulation/fuse-utils
+app-emulation/libspectrum
 app-i18n/poedit
 app-misc/crystallize
 app-misc/futuramerlin-web-toolkit
@@ -49,6 +50,7 @@ net-misc/freerdp
 net-misc/youtube-dl
 net-nntp/sabnzbd
 sys-devel/crossdev
+sys-fs/fuse
 sys-libs/libomp
 sys-process/parallel
 www-apps/bugzilla

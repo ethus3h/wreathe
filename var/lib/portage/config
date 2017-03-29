@@ -1,6 +1,6 @@
 /etc/conf.d/keymaps c8fa9256b5a7b70c4dd473c6062b2739
 /etc/conf.d/hwclock 4d2ca100708dddac4c3ce821a61a4489
-/usr/local/etc/crystallize.conf c51ec1db19435cc853e1048176bc89df
+/etc/portage/package.mask f51b7267cd3979c292dac8602f9900ef
 /etc/bash/bashrc.d/wreathe.sh 96cb0c86942de38f956589c02c412c3e
 /usr/share/X11/xkb/symbols/us 67518bb7123e52f7758a4724a7987f31
 /etc/portage/package.use/wreathe.use fec20afa19f193ca6a3fd3ba3a2425dc
@@ -14,7 +14,8 @@
 /etc/gtk-3.0/settings.ini cc792a424d1e6b9fca27c353435f97ff
 /etc/pulse/daemon.conf b43aa9a8496da888059cb2fed9b97537
 /etc/default/grub e6bbb8092a7491d5a2f6f17881e6b946
-/etc/portage/package.mask f51b7267cd3979c292dac8602f9900ef
+/usr/local/etc/crystallize.conf c51ec1db19435cc853e1048176bc89df
+/etc/fuse.conf c9457cf5b2196da67d5ac816d1c86a4f
 /etc/grub.d/40_custom babe7de352fe18de5a238569cf4b8a11
 /etc/portage/package.accept_keywords/wreathe.accept_keywords c38cdc791253d8990b30777c48275e51
 /etc/skel/.bash_logout 7d8a8ef90c1818a0cd66808ac2740638
