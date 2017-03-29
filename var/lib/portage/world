@@ -59,6 +59,7 @@ net-misc/youtube-dl
 net-nntp/sabnzbd
 sys-devel/crossdev
 sys-fs/fuse
+sys-kernel/linux-firmware
 sys-libs/libomp
 sys-process/parallel
 virtual/liblash
