@@ -1,14 +1,85 @@
 # Freely redistributable texts
 app-doc/phrack phrack
-app-dicts/sword-chincvs
-app-dicts/sword-ab
-app-dicts/sword-ylt
-app-dicts/sword-czebkr
-app-dicts/sword-rwp
-app-dicts/sword-greekhebrew
-app-dicts/sword-byz
-app-dicts/sword-itadio
-
+app-dicts/sword-chincvs freedist
+app-dicts/sword-ab freedist
+app-dicts/sword-ylt freedist
+app-dicts/sword-czebkr freedist
+app-dicts/sword-czecep freedist
+app-dicts/sword-fremartin freedist
+app-dicts/sword-byz freedist
+app-dicts/sword-itadio freedist
+app-dicts/sword-mkjv freedist
+app-dicts/sword-hunuj freedist
+app-dicts/sword-czekms freedist
+app-dicts/sword-armwestern freedist
+app-dicts/sword-wlc freedist
+app-dicts/sword-scotsgaelic freedist
+app-dicts/sword-whnu freedist
+app-dicts/sword-litv freedist
+app-dicts/sword-sparv freedist
+app-dicts/sword-manxgaelic freedist
+app-dicts/sword-strongsgreek freedist
+app-dicts/sword-rusmakarij freedist
+app-dicts/sword-cro freedist
+app-dicts/sword-spavnt freedist
+app-dicts/sword-itarive freedist
+app-dicts/sword-afr1953 freedist
+app-dicts/sword-spasev freedist
+app-dicts/sword-dbd freedist
+app-dicts/sword-montgomery freedist
+app-dicts/sword-gerelb1905 freedist
+app-dicts/sword-family freedist
+app-dicts/sword-gersch freedist
+app-dicts/sword-alb freedist
+app-dicts/sword-chiun freedist
+app-dicts/sword-farsiopv freedist
+app-dicts/sword-icelandic freedist
+app-dicts/sword-geneva freedist
+app-dicts/sword-bulveren freedist
+app-dicts/sword-romcor freedist
+app-dicts/sword-vulgate_hebps freedist
+app-dicts/sword-murdock freedist
+app-dicts/sword-frelsg freedist
+app-dicts/sword-chiuns freedist
+app-dicts/sword-tr freedist
+app-dicts/sword-emtv freedist
+app-dicts/sword-chincvt freedist
+app-dicts/sword-umgreek freedist
+app-dicts/sword-hunkar freedist
+app-dicts/sword-esperanto freedist
+app-dicts/sword-rwebster freedist
+app-dicts/sword-wycliffe freedist
+app-dicts/sword-frebbb freedist
+app-dicts/sword-drc freedist
+app-dicts/sword-armeastern freedist
+app-dicts/sword-twenty freedist
+app-dicts/sword-gerelb1871 freedist
+app-dicts/sword-aleppo freedist
+app-dicts/sword-rnkjv freedist
+app-dicts/sword-korean freedist
+app-dicts/sword-rst freedist
+app-dicts/sword-chamorro freedist
+app-dicts/sword-burjudson freedist
+app-dicts/sword-latvian freedist
+app-dicts/sword-maori freedist
+app-dicts/sword-frecrampon freedist
+app-dicts/sword-wulfila freedist
+app-dicts/sword-czenkb freedist
+app-dicts/sword-ukjv freedist
+app-dicts/sword-bulcarigradnt freedist
+app-dicts/sword-geneva1599 freedist
+app-dicts/sword-fresegond freedist
+app-dicts/sword-dutsvv freedist
+app-dicts/sword-vulgate freedist
+app-dicts/sword-kjv freedist
+app-dicts/sword-tyndale freedist
+app-dicts/sword-bwe freedist
+app-dicts/sword-est freedist
+app-dicts/sword-finpr92 freedist
+app-dicts/sword-isv freedist
+app-dicts/sword-bashautin freedist
+app-dicts/sword-arasvd freedist
+app-dicts/sword-frecrl freedist
 
 # License is basically WTFPL, provided you don't misrepresent authorship.
 app-misc/sl freedist
