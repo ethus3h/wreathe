@@ -16,6 +16,7 @@ dev-haskell/parallel
 dev-java/icedtea:8
 dev-lang/snap
 dev-libs/STLport
+dev-libs/libdbusmenu
 dev-perl/ttylog
 dev-php/ZendFramework
 dev-python/internetarchive
@@ -43,6 +44,7 @@ media-libs/xine-lib
 media-plugins/alsa-plugins
 media-plugins/gst-plugins-libav
 media-sound/gmusicbrowser
+media-sound/jack_capture
 media-sound/supercollider
 media-video/ffmpeg
 media-video/vlc
