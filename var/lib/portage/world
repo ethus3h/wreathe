@@ -11,6 +11,7 @@ app-misc/wreathe-base
 app-misc/wreathe-overlays-redist
 app-text/aspell
 app-text/tree
+dev-dotnet/dotnetzip-semverd
 dev-dotnet/libgdiplus
 dev-haskell/parallel
 dev-java/icedtea:8
