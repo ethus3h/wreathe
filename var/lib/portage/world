@@ -1,10 +1,12 @@
 app-editors/emacs
+app-emulation/fuse-utils
 app-i18n/poedit
 app-misc/crystallize
 app-misc/futuramerlin-web-toolkit
 app-misc/gentoo-portage-tree
 app-misc/strigi
 app-misc/wreathe-base
+app-misc/wreathe-overlays-redist
 app-text/aspell
 app-text/tree
 dev-dotnet/libgdiplus
