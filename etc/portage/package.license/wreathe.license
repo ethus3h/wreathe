@@ -1,4 +1,4 @@
-# Freely redistributable texts
+# Freely redistributable but non-modifiable texts
 app-doc/phrack phrack
 app-dicts/sword-chincvs freedist
 app-dicts/sword-ab freedist
@@ -80,6 +80,9 @@ app-dicts/sword-isv freedist
 app-dicts/sword-bashautin freedist
 app-dicts/sword-arasvd freedist
 app-dicts/sword-frecrl freedist
+
+# Contains freely redistributable but non-modifiable text
+app-text/dictd ISOC-rfc
 
 # License is basically WTFPL, provided you don't misrepresent authorship.
 app-misc/sl freedist
