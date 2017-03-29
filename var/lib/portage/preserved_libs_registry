@@ -1,20 +1,44 @@
 {
-    "dev-libs/boost:0": [
-        "dev-libs/boost-1.62.0-r1", 
-        "10402", 
+    "app-crypt/gpgme:1": [
+        "app-crypt/gpgme-1.8.0-r2", 
+        "11930", 
         [
-            "/usr/lib64/libboost_atomic.so.1.56.0", 
-            "/usr/lib64/libboost_chrono.so.1.56.0", 
-            "/usr/lib64/libboost_date_time.so.1.56.0", 
-            "/usr/lib64/libboost_filesystem.so.1.56.0", 
-            "/usr/lib64/libboost_iostreams.so.1.56.0", 
-            "/usr/lib64/libboost_locale.so.1.56.0", 
-            "/usr/lib64/libboost_program_options.so.1.56.0", 
-            "/usr/lib64/libboost_python-2.7.so.1.56.0", 
-            "/usr/lib64/libboost_python-3.4.so.1.56.0", 
-            "/usr/lib64/libboost_regex.so.1.56.0", 
-            "/usr/lib64/libboost_system.so.1.56.0", 
-            "/usr/lib64/libboost_thread.so.1.56.0"
+            "/usr/lib64/libgpgme-pthread.so.11.13.4", 
+            "/usr/lib64/libgpgme-pthread.so.11"
+        ]
+    ], 
+    "media-libs/libbluray:0": [
+        "media-libs/libbluray-1.0.0", 
+        "11873", 
+        [
+            "/usr/lib64/libbluray.so.1.10.0", 
+            "/usr/lib64/libbluray.so.1"
+        ]
+    ], 
+    "media-video/ffmpeg:0": [
+        "media-video/ffmpeg-3.2.4", 
+        "11942", 
+        [
+            "/usr/lib64/libavcodec.so.56.60.100", 
+            "/usr/lib64/libavformat.so.56.40.101", 
+            "/usr/lib64/libavresample.so.2.1.0", 
+            "/usr/lib64/libavutil.so.54.31.100", 
+            "/usr/lib64/libswresample.so.1.2.101", 
+            "/usr/lib64/libswscale.so.3.1.101", 
+            "/usr/lib64/libavcodec.so.56", 
+            "/usr/lib64/libswscale.so.3", 
+            "/usr/lib64/libavutil.so.54", 
+            "/usr/lib64/libavformat.so.56", 
+            "/usr/lib64/libswresample.so.1", 
+            "/usr/lib64/libavresample.so.2"
+        ]
+    ], 
+    "net-libs/libtirpc:0": [
+        "net-libs/libtirpc-1.0.1", 
+        "11847", 
+        [
+            "/lib64/libtirpc.so.1.0.10", 
+            "/lib64/libtirpc.so.1"
         ]
     ]
 }
