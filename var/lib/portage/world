@@ -74,6 +74,7 @@ x11-libs/gtk+:2
 x11-misc/cairo-dock
 x11-misc/keynav
 x11-misc/obkey
+x11-misc/xcur2png
 x11-plugins/compiz-plugins-main
 x11-terms/x026
 x11-terms/x3270

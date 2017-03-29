@@ -48,16 +48,5 @@
             "/lib64/libtirpc.so.1.0.10", 
             "/lib64/libtirpc.so.1"
         ]
-    ], 
-    "net-print/cndrvcups-common-lb:0": [
-        "net-print/cndrvcups-common-lb-3.10", 
-        "3704", 
-        [
-            "/usr/lib32/libcaiowrap.so.1.0.0", 
-            "/usr/lib32/libcanon_slim.so.1.0.0", 
-            "/usr/lib32/libcaepcm.so.1.0", 
-            "/usr/lib32/libcaiowrap.so.1", 
-            "/usr/lib32/libcaepcm.so.1"
-        ]
     ]
 }

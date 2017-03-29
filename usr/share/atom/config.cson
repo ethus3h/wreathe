@@ -29,12 +29,14 @@
     userId: "02ceb146-50d9-4403-2188-ab26f78d1bab"
   linter:
     errorPanelHeight: 30
+    showErrorPanel: false
   minimap: {}
   "one-light-ui":
     fontSize: 20
   "open-file-in":
     applications: "gunzip"
-  "tree-view": {}
+  "tree-view":
+    squashDirectoryNames: true
   welcome:
     showOnStartup: false
   whitespace:
