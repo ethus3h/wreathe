@@ -1,4 +1,5 @@
 app-editors/emacs
+app-emulation/fuse
 app-emulation/fuse-utils
 app-emulation/libspectrum
 app-i18n/poedit
