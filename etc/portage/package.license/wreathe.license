@@ -1,3 +1,6 @@
+# Required for Intel wifi to work
+=sys-kernel/linux-firmware-20161205 freedist
+
 # Freely redistributable but non-modifiable texts
 app-doc/phrack phrack
 app-dicts/sword-chincvs freedist
