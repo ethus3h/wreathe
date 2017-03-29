@@ -42,6 +42,9 @@ app-office/calligra-l10n ~amd64
 # build failure with stable
 app-antivirus/clamav ~amd64
 
+# Allow patching
+=games-action/extreme-tuxracer-0.7.2-r1
+
 # To use Lilypond with texlive 2014
 =dev-tex/metapost-1.902 ~amd64
 
@@ -60,7 +63,6 @@ media-sound/gmusicbrowser ~amd64
 <media-tv/kodi-17 ~amd64
 
 # Use the latest versions of these apps
-app-misc/recoll ~amd64
 app-text/calibre ~amd64
 media-sound/gmusicbrowser ~amd64
 net-p2p/ktorrent ~amd64
