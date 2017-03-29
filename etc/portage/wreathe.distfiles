@@ -1,2 +1,2 @@
 #!/bin/bash
-GENTOO_MIRRORS="${GENTOO_MIRRORS} http://example.org/portage/distfiles"
+# GENTOO_MIRRORS="${GENTOO_MIRRORS} http://example.org/portage/distfiles"

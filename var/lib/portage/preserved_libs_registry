@@ -7,6 +7,16 @@
             "/usr/lib64/libgpgme-pthread.so.11"
         ]
     ], 
+    "media-libs/faac:0": [
+        "media-libs/faac-1.28-r4", 
+        "1993", 
+        [
+            "/usr/lib32/libfaac.so.0.0.0", 
+            "/usr/lib64/libfaac.so.0.0.0", 
+            "/usr/lib64/libfaac.so.0", 
+            "/usr/lib32/libfaac.so.0"
+        ]
+    ], 
     "media-libs/libbluray:0": [
         "media-libs/libbluray-1.0.0", 
         "11873", 

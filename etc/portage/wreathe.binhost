@@ -1,2 +1,2 @@
 #!/bin/bash
-PORTAGE_BINHOST="http://example.org/portage/packages"
+# PORTAGE_BINHOST="http://example.org/portage/packages"
