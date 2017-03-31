@@ -1,5 +1,8 @@
+# Kernel firmware
+sys-kernel/wreathe-kernel freedist
+
 # Required for Intel wifi to work
-=sys-kernel/linux-firmware-20161205 freedist
+sys-kernel/linux-firmware freedist
 
 # Freely redistributable but non-modifiable texts
 app-doc/phrack phrack
