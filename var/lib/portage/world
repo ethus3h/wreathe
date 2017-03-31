@@ -1,3 +1,4 @@
+app-arch/lha
 app-editors/emacs
 app-emulation/fuse
 app-emulation/fuse-utils
@@ -36,6 +37,7 @@ kde-frameworks/nepomuk-core
 kde-frameworks/nepomuk-widgets
 media-gfx/imagemagick
 media-gfx/utsushi
+media-libs/faac
 media-libs/gegl
 media-libs/gegl:0
 media-libs/giflib
