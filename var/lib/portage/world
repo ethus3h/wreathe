@@ -62,6 +62,7 @@ net-nntp/sabnzbd
 sys-devel/crossdev
 sys-fs/fuse
 sys-kernel/linux-firmware
+sys-kernel/wreathe-kernel
 sys-libs/libomp
 sys-process/parallel
 virtual/liblash
