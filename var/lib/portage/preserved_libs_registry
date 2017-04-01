@@ -7,6 +7,16 @@
             "/usr/lib64/libgpgme-pthread.so.11"
         ]
     ], 
+    "dev-libs/libevent:0": [
+        "dev-libs/libevent-2.1.8", 
+        "12442", 
+        [
+            "/usr/lib64/libevent-2.0.so.5.1.9", 
+            "/usr/lib64/libevent_pthreads-2.0.so.5.1.9", 
+            "/usr/lib64/libevent-2.0.so.5", 
+            "/usr/lib64/libevent_pthreads-2.0.so.5"
+        ]
+    ], 
     "media-libs/libbluray:0": [
         "media-libs/libbluray-1.0.0", 
         "11873", 
