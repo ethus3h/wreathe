@@ -12,14 +12,20 @@
         "12442", 
         [
             "/usr/lib64/libevent-2.0.so.5.1.9", 
-            "/usr/lib64/libevent_pthreads-2.0.so.5.1.9", 
-            "/usr/lib64/libevent-2.0.so.5", 
-            "/usr/lib64/libevent_pthreads-2.0.so.5"
+            "/usr/lib64/libevent-2.0.so.5"
+        ]
+    ], 
+    "dev-libs/libgit2:0": [
+        "dev-libs/libgit2-0.24.6", 
+        "12502", 
+        [
+            "/usr/lib64/libgit2.so.0.23.4", 
+            "/usr/lib64/libgit2.so.23"
         ]
     ], 
     "media-libs/libbluray:0": [
         "media-libs/libbluray-1.0.0", 
-        "11873", 
+        "12585", 
         [
             "/usr/lib64/libbluray.so.1.10.0", 
             "/usr/lib64/libbluray.so.1"
@@ -41,12 +47,11 @@
             "/usr/lib64/libavformat.so.56"
         ]
     ], 
-    "net-libs/libtirpc:0": [
-        "net-libs/libtirpc-1.0.1", 
-        "11847", 
+    "sys-libs/binutils-libs:0": [
+        "sys-libs/binutils-libs-2.27", 
+        "12468", 
         [
-            "/lib64/libtirpc.so.1.0.10", 
-            "/lib64/libtirpc.so.1"
+            "/usr/lib64/libbfd-2.25.1.so"
         ]
     ]
 }
