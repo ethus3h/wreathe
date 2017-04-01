@@ -258,6 +258,8 @@ dev-libs/libev abi_x86_32
 dev-libs/libffi abi_x86_32
 dev-libs/libgcrypt abi_x86_32
 dev-libs/libgpg-error abi_x86_32
+dev-libs/libgudev abi_x86_32
+dev-libs/libgusb abi_x86_32
 dev-libs/libltdl abi_x86_32
 dev-libs/libpcre abi_x86_32
 dev-libs/libpthread-stubs abi_x86_32
@@ -462,6 +464,7 @@ virtual/jpeg abi_x86_32
 virtual/krb5 abi_x86_32
 virtual/libelf abi_x86_32
 virtual/libffi abi_x86_32
+virtual/libgudev abi_x86_32
 virtual/libiconv abi_x86_32
 virtual/libintl abi_x86_32
 virtual/libmysqlclient abi_x86_32
@@ -505,6 +508,7 @@ x11-libs/libXvMC abi_x86_32
 x11-libs/libXxf86vm abi_x86_32
 x11-libs/pango abi_x86_32
 x11-libs/pixman abi_x86_32
+x11-misc/colord abi_x86_32
 x11-proto/compositeproto abi_x86_32
 x11-proto/damageproto abi_x86_32
 x11-proto/dri2proto abi_x86_32
