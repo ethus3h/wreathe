@@ -11,6 +11,7 @@ app-misc/strigi
 app-misc/wreathe-base
 app-misc/wreathe-overlays-redist
 app-text/aspell
+app-text/dvipng
 app-text/tree
 dev-dotnet/dotnetzip-semverd
 dev-dotnet/libgdiplus
@@ -18,12 +19,14 @@ dev-haskell/parallel
 dev-java/icedtea:8
 dev-lang/snap
 dev-libs/STLport
+dev-libs/kpathsea
 dev-libs/libdbusmenu
 dev-perl/ttylog
 dev-php/ZendFramework
 dev-python/internetarchive
 dev-python/sphinx
 dev-python/warcprox
+dev-tex/bibtexu
 dev-util/android-tools
 games-roguelike/behemmoth
 games-simulation/openttd
