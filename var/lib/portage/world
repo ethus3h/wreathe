@@ -60,6 +60,7 @@ media-video/ffmpeg
 media-video/vlc
 net-irc/irssi
 net-misc/freerdp
+net-misc/jdownloader
 net-misc/youtube-dl
 net-nntp/sabnzbd
 sys-devel/crossdev

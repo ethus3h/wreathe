@@ -37,6 +37,7 @@ dev-java/rxtx -doc
 dev-python/logilab-common -doc
 gnustep-base/gnustep-make -doc
 <dev-python/sphinx-1.3 -doc
+dev-java/hamcrest-core -doc
 
 # Causes dependency problem
 dev-python/botocore -doc
