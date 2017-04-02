@@ -39,9 +39,6 @@ gnustep-base/gnustep-make -doc
 <dev-python/sphinx-1.3 -doc
 dev-java/hamcrest-core -doc
 
-# Causes build failure: https://bugs.gentoo.org/show_bug.cgi?id=456646
-media-libs/fontconfig -doc
-
 # Causes dependency problem
 dev-python/botocore -doc
 
