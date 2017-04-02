@@ -4,13 +4,14 @@
 /etc/conf.d/keymaps c8fa9256b5a7b70c4dd473c6062b2739
 /etc/bash/bashrc.d/wreathe.sh 96cb0c86942de38f956589c02c412c3e
 /etc/portage/package.license/wreathe.license 76bca4a4f07b617528edfeb0bfa75658
-/etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-wreathe-7.3-2016aug04n4 76a189e3850a28393eb6bc06d1b9535c
+/etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug17 6b56f16e901cda3244d3081687f25073
 /etc/ssh/sshd_config a8b9f550b3e4d5013b27bd60ff1a8454
 /usr/share/X11/xkb/symbols/us 67518bb7123e52f7758a4724a7987f31
 /etc/portage/package.use/wreathe.use fec20afa19f193ca6a3fd3ba3a2425dc
 /etc/conf.d/xdm d4fb606e98a5fe795687bd3e0c8971e0
 /etc/conf.d/pydoc-3.4 ee3859fa958420fa1f435fd6205a6c23
-/etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug17 6b56f16e901cda3244d3081687f25073
+/etc/xdg/openbox/autostart cf7cd22e452ddfb7c5887e465d97d4f5
+/etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-wreathe-7.3-2016aug04n4 76a189e3850a28393eb6bc06d1b9535c
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016july10n3 e3447ff96606332af3d5b33083c0d829
 /etc/genkernel.conf c2e84e993b005ea9af6ff334e76c2173
 /etc/security/limits.conf 0bc96d8cec6f85bd2b60b27483843297
@@ -27,6 +28,7 @@
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1wreathe-7.3-2016aug04 34f3b56cb4c0798720e97071ad597987
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7.3-2016aug03n2 63c05a486d1a74bad123db9febef3849
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016july10n4 7aa7a29ef6b733eb3cda379c5de78eb5
+/etc/apache2/httpd.conf 63ddba2314f9dca3ac3d2cb0573723a7
 /etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25 ccb50c962547ab6f45845f4cad3520be
 /etc/kernels/kernel-config-x86_64-3.16.0-pf4-wreathe-7.3-2016aug03 7b16d67c49dc5b8e156a5f99b0f99faa
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016june17 b7a897c8588254326aa20a1c9513ef40
