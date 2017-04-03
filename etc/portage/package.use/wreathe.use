@@ -41,8 +41,9 @@ dev-python/logilab-common -doc
 dev-python/pillow -doc
 gnustep-base/gnustep-make -doc
 
-# Causes dependency problem
+# Cause dependency problems
 dev-python/botocore -doc
+x11-libs/qwt:5 -doc
 
 # https://bugs.gentoo.org/show_bug.cgi?id=526358
 # To build redland-bindings, either unset USE=php on it or
