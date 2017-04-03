@@ -61,6 +61,7 @@ media-video/ffmpeg -libilbc
 # Various extra capabilities
 app-doc/doxygen clang dot doxysearch
 app-office/libreoffice binfilter
+dev-java/miglayout swt
 dev-python/ipython nbconvert notebook
 net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb

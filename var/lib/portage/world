@@ -26,6 +26,9 @@ dev-libs/libdbusmenu
 dev-perl/ttylog
 dev-php/ZendFramework
 dev-python/internetarchive
+dev-python/matplotlib
+dev-python/numpy
+dev-python/pandas
 dev-python/sphinx
 dev-python/warcprox
 dev-tex/bibtexu
@@ -66,6 +69,8 @@ net-misc/freerdp
 net-misc/jdownloader
 net-misc/youtube-dl
 net-nntp/sabnzbd
+net-wireless/gnuradio
+sci-libs/scipy
 sys-devel/crossdev
 sys-fs/fuse
 sys-kernel/linux-firmware
