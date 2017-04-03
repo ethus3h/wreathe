@@ -39,6 +39,7 @@ dev-java/libreadline-java -doc
 dev-java/rxtx -doc
 dev-python/logilab-common -doc
 dev-python/pillow -doc
+dev-python/pymongo -doc
 gnustep-base/gnustep-make -doc
 
 # Cause dependency problems
