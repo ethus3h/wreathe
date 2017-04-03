@@ -1,5 +1,6 @@
 app-arch/lha
 app-editors/emacs
+app-editors/kile
 app-emulation/fuse
 app-emulation/fuse-utils
 app-emulation/libspectrum
@@ -26,6 +27,7 @@ dev-libs/libdbusmenu
 dev-perl/ttylog
 dev-php/ZendFramework
 dev-python/internetarchive
+dev-python/ipython
 dev-python/matplotlib
 dev-python/numpy
 dev-python/pandas
@@ -46,6 +48,7 @@ kde-frameworks/nepomuk-core
 kde-frameworks/nepomuk-widgets
 media-gfx/imagemagick
 media-gfx/utsushi
+media-gfx/xfig
 media-libs/faac
 media-libs/gegl
 media-libs/gegl:0
