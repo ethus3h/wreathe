@@ -70,6 +70,7 @@ sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
 x11-libs/gtk+ broadway
 x11-misc/colord extra-print-profiles
+dev-python/PyQt5 bluetooth dbus declarative designer gui help location multimedia network opengl positioning printsupport sensors serialport sql svg testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
 
 # Required for GNU Radio
 dev-python/PyQt4 compat
