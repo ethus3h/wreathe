@@ -66,6 +66,9 @@ sys-libs/libomp ompt
 x11-libs/gtk+ broadway
 x11-misc/colord extra-print-profiles
 
+# Required for GNU Radio
+dev-python/PyQt4 compat
+
 # FIXME: Figure out what of this bunch is needed, and if anything's breaking anything.
 app-admin/gkrellm hddtemp lm_sensors ntlm ssl
 app-crypt/gcr gtk

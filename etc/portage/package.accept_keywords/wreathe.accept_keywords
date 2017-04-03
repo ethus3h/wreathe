@@ -227,6 +227,7 @@ net-fs/s3ql ~amd64
 net-libs/libktorrent ~amd64
 net-libs/tox ~amd64
 net-nntp/sabnzbd ~amd64
+net-wireless/gnuradio ~amd64
 sci-geosciences/opencpn
 sci-geosciences/opencpn-plugin-br24radar
 sci-geosciences/opencpn-plugin-dr

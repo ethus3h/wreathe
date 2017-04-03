@@ -33,20 +33,6 @@
             "/usr/lib64/libbluray.so.1"
         ]
     ], 
-    "media-video/ffmpeg:0": [
-        "media-video/ffmpeg-3.2.4", 
-        "11942", 
-        [
-            "/usr/lib64/libavcodec.so.56.60.100", 
-            "/usr/lib64/libavutil.so.54.31.100", 
-            "/usr/lib64/libswresample.so.1.2.101", 
-            "/usr/lib64/libswscale.so.3.1.101", 
-            "/usr/lib64/libavcodec.so.56", 
-            "/usr/lib64/libavutil.so.54", 
-            "/usr/lib64/libswresample.so.1", 
-            "/usr/lib64/libswscale.so.3"
-        ]
-    ], 
     "sys-libs/binutils-libs:0": [
         "sys-libs/binutils-libs-2.27", 
         "12468", 
