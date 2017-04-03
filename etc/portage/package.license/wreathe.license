@@ -4,6 +4,15 @@ sys-kernel/wreathe-kernel freedist
 # Required for Intel wifi to work
 sys-kernel/linux-firmware freedist
 
+# License is basically WTFPL, provided you don't misrepresent authorship.
+app-misc/sl freedist
+
+# Free (copyleft) license, but not in @FREE because it is only used by the Wreathe overlay
+dev-java/svnkit tmate
+
+# Contains freely redistributable but non-modifiable text
+app-text/dictd ISOC-rfc
+
 # Freely redistributable but non-modifiable texts
 app-doc/phrack phrack
 app-dicts/sword-chincvs freedist
@@ -86,9 +95,3 @@ app-dicts/sword-isv freedist
 app-dicts/sword-bashautin freedist
 app-dicts/sword-arasvd freedist
 app-dicts/sword-frecrl freedist
-
-# Contains freely redistributable but non-modifiable text
-app-text/dictd ISOC-rfc
-
-# License is basically WTFPL, provided you don't misrepresent authorship.
-app-misc/sl freedist
