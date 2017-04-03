@@ -1,1 +1,3 @@
-xset -b
+xset b on
+xset b 100
+xvisbell &
