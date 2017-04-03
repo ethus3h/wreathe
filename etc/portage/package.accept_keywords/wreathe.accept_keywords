@@ -150,6 +150,9 @@ dev-db/sqlitestudio ~amd64
 dev-dotnet/dotnet-cli ~amd64
 dev-dotnet/log4net ~amd64
 dev-java/icedtea ~amd64
+dev-java/jackson ~amd64
+dev-java/jackson-annotations ~amd64
+dev-java/jackson-databind ~amd64
 dev-java/jna ~amd64
 dev-lang/gforth ~amd64
 dev-lang/moarvm ~amd64

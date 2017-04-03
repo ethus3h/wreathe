@@ -1,12 +1,4 @@
 {
-    "app-crypt/gpgme:1": [
-        "app-crypt/gpgme-1.8.0-r2", 
-        "11930", 
-        [
-            "/usr/lib64/libgpgme-pthread.so.11.13.4", 
-            "/usr/lib64/libgpgme-pthread.so.11"
-        ]
-    ], 
     "dev-libs/libevent:0": [
         "dev-libs/libevent-2.0.22", 
         "12992", 
@@ -15,22 +7,6 @@
             "/usr/lib64/libevent_pthreads-2.1.so.6.0.2", 
             "/usr/lib64/libevent_pthreads-2.1.so.6", 
             "/usr/lib64/libevent-2.1.so.6"
-        ]
-    ], 
-    "dev-libs/libgit2:0": [
-        "dev-libs/libgit2-0.24.6", 
-        "12502", 
-        [
-            "/usr/lib64/libgit2.so.0.23.4", 
-            "/usr/lib64/libgit2.so.23"
-        ]
-    ], 
-    "media-libs/libbluray:0": [
-        "media-libs/libbluray-1.0.0", 
-        "12585", 
-        [
-            "/usr/lib64/libbluray.so.1.10.0", 
-            "/usr/lib64/libbluray.so.1"
         ]
     ], 
     "sys-libs/binutils-libs:0": [
