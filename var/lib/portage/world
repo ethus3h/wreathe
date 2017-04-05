@@ -1,4 +1,10 @@
 app-arch/lha
+app-doc/cldr
+app-doc/emoji
+app-doc/emoji:4.0
+app-doc/ucd
+app-doc/unicode
+app-doc/unicode-docs
 app-editors/emacs
 app-editors/kile
 app-emulation/fuse
