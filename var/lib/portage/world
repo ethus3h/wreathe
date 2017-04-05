@@ -40,6 +40,7 @@ dev-python/pandas
 dev-python/sphinx
 dev-python/sympy
 dev-python/warcprox
+dev-qt/qtwebengine
 dev-tex/bibtexu
 dev-tex/xmltex
 dev-util/android-tools

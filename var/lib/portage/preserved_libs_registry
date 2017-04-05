@@ -1,10 +1,12 @@
 {
     "dev-libs/libevent:0": [
-        "dev-libs/libevent-2.1.8", 
-        "13101", 
+        "dev-libs/libevent-2.0.22", 
+        "13260", 
         [
-            "/usr/lib64/libevent-2.0.so.5.1.9", 
-            "/usr/lib64/libevent-2.0.so.5"
+            "/usr/lib64/libevent-2.1.so.6.0.2", 
+            "/usr/lib64/libevent_pthreads-2.1.so.6.0.2", 
+            "/usr/lib64/libevent_pthreads-2.1.so.6", 
+            "/usr/lib64/libevent-2.1.so.6"
         ]
     ], 
     "sys-libs/binutils-libs:0": [
