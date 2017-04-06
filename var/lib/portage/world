@@ -84,6 +84,7 @@ net-wireless/gnuradio
 sci-libs/scipy
 sys-devel/crossdev
 sys-fs/fuse
+sys-kernel/genkernel-next
 sys-kernel/linux-firmware
 sys-kernel/wreathe-kernel
 sys-libs/libomp
