@@ -8,7 +8,6 @@ egup-env-catch() {
         fi
     done
 }
-export -f egup-env-catch
 
 egup-env() {
     if [ -f .egup.useOverrides ]; then
@@ -93,7 +92,6 @@ egup-env() {
         # egup-env-catch "$(tty)" &
     fi
 }
-export -f egup-env
 
 egup-exit() {
     if [ -f "$egupDir/.egup.useOverrides" ]; then
@@ -158,17 +156,14 @@ egup-exit() {
         # stty eof ^D
     fi
 }
-export -f egup-exit
 
 elen() {
     originalDir="$(pwd)"
     cd "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/ember-library-2/ || exit 1
     egup-env
 }
-export -f elen
 
 elex() {
     egup-exit
     cd "$originalDir"
 }
-export -f elex
