@@ -144,6 +144,7 @@ app-eselect/eselect-electron ~amd64
 app-eselect/eselect-opencascade ~amd64
 app-forensics/afl ~amd64
 app-misc/ddate ~amd64
+app-misc/freeplane ~amd64
 app-pda/libplist ~amd64
 dev-cpp/ETL ~amd64
 dev-db/sqlitestudio ~amd64
