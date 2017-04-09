@@ -97,6 +97,7 @@ www-apps/mediawiki
 www-apps/owncloud
 www-apps/wordpress
 www-client/firefox-bin
+www-client/vivaldi
 www-plugins/gnash
 www-plugins/lightspark
 x11-libs/bamf
