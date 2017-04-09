@@ -156,6 +156,7 @@ egup-exit() {
         # stty eof ^D
     fi
 }
+export -f egup-exit
 
 elen() {
     originalDir="$(pwd)"
