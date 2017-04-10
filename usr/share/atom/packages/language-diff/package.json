@@ -2,40 +2,40 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+        "raw": "/tmp/d-11739-11523-4lrhm1.q90rrizfr/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
-        "spec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+        "rawSpec": "/tmp/d-11739-11523-4lrhm1.q90rrizfr/package.tgz",
+        "spec": "/tmp/d-11739-11523-4lrhm1.q90rrizfr/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-1161131-5540-1hoc4v1.gioggjsjor"
+      "/tmp/apm-install-dir-11739-11523-5sy8nh.uphf47vi"
     ]
   ],
-  "_from": "../d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
-  "_id": "language-diff@0.6.0",
+  "_from": "../d-11739-11523-4lrhm1.q90rrizfr/package.tgz",
+  "_id": "language-diff@0.7.0",
   "_inCache": true,
   "_installable": true,
   "_location": "/language-diff",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+    "raw": "/tmp/d-11739-11523-4lrhm1.q90rrizfr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
-    "spec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
+    "rawSpec": "/tmp/d-11739-11523-4lrhm1.q90rrizfr/package.tgz",
+    "spec": "/tmp/d-11739-11523-4lrhm1.q90rrizfr/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
-  "_shasum": "dd1db7dfc96bc0abada3fda3e6fbefdfa0201001",
+  "_resolved": "file:../d-11739-11523-4lrhm1.q90rrizfr/package.tgz",
+  "_shasum": "1e3d1af9a17cf1e9bc05b63a1a70cf801f961443",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-1161131-5540-keu4yn.yr0j1kmx6r/package.tgz",
-  "_where": "/tmp/apm-install-dir-1161131-5540-1hoc4v1.gioggjsjor",
+  "_spec": "/tmp/d-11739-11523-4lrhm1.q90rrizfr/package.tgz",
+  "_where": "/tmp/apm-install-dir-11739-11523-5sy8nh.uphf47vi",
   "bugs": {
     "url": "https://github.com/miketheman/language-diff/issues"
   },
@@ -45,7 +45,7 @@
     "temp": "^0.8.3"
   },
   "engines": {
-    "atom": ">=1.0.0 <2.0.0"
+    "atom": ">=1.13.0 <2.0.0"
   },
   "homepage": "https://github.com/miketheman/language-diff#readme",
   "license": "MIT",
@@ -58,5 +58,5 @@
     "type": "git",
     "url": "git+https://github.com/miketheman/language-diff.git"
   },
-  "version": "0.6.0"
+  "version": "0.7.0"
 }
