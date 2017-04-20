@@ -292,3 +292,4 @@ www-plugins/lightspark ~amd64
 x11-libs/libdrm ~amd64
 x11-misc/cairo-dock ~amd64
 x11-misc/keynav ~amd64
+x11-themes/arc-theme ~amd64

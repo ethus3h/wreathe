@@ -33,6 +33,7 @@ dev-libs/kpathsea
 dev-libs/libdbusmenu
 dev-perl/ttylog
 dev-php/ZendFramework
+dev-python/eyeD3
 dev-python/internetarchive
 dev-python/ipython
 dev-python/matplotlib
