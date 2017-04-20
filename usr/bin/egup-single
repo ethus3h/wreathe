@@ -22,7 +22,7 @@ if [[ -f .egup.hooks ]]; then
 fi
 set +e
 echo "(Updating Git tags file.)"
-mv -f .egup.tags .egup.tags.old
+[[ -f .egup.tags ]] && mv -f .egup.tags .egup.tags.old
 git show-ref -d --tags > .egup.tags || mv -fv .egup.tags.old .egup.tags
 rm -f .egup.tags.old
 set -e
