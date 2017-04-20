@@ -1,5 +1,7 @@
 #!/bin/bash
 #Ember Git UPdater
+source ember_bash_setup &> /dev/null
+
 set -e
 rubberfs save || error-notify "ERROR running rubberfs save!"
 set +e
@@ -30,7 +32,7 @@ EmberLibrary="$(crystallize-getconf EmberLibrary)"
     (
         (
             cd Futuramerlin\ Projects/Data/Crystal\ Index || error-notify "Could not open crystal index directory!"
-            egup-single .
+            egup-single . || error-notify "Could not egup-single $(pwd)!"
         )
         cd Ember || error-notify "Could not open Ember directory!"
         (
@@ -45,7 +47,7 @@ EmberLibrary="$(crystallize-getconf EmberLibrary)"
         cd Ember\ satellite\ projects || error-notify "Could not open Ember satellite projects directory!"
         findemberfolders || error-notify "ERROR running satellite projects update!"
     )
-    egup-single Ember
+    egup-single Ember || error-notify "Could not egup-single $(pwd)!"
     egup-single Ember\ satellite\ projects/wreathe-overlays-redist || warn "Note: failed updating redistributed overlays; this is normal if you only have a partial clone of the Ember tree"
     egup-single Ember\ satellite\ projects || warn "Note: failed updating satellite projects meta-repository; this is normal if you only have a partial clone of the Ember tree"
 )

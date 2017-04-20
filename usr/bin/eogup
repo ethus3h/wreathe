@@ -1,5 +1,7 @@
 #!/bin/bash
 #Ember Offline Git UPdater
+source ember_bash_setup &> /dev/null
+
 set -e
 rubberfs save || error-notify "ERROR running rubberfs save!"
 set +e
@@ -22,10 +24,10 @@ EmberLibrary="$(crystallize-getconf EmberLibrary)"
     )
     set +e
     findemberlibraryfolders() {
-        find . -maxdepth 1 -not -name '\.*' -name "ember-library-[0-9]" -type d -print0 | xargs -i{} -0 -P 3 sh -c 'eogup-single "$1"' -- '{}' \;
+        find . -maxdepth 1 -not -name '\.*' -name "ember-library-[0-9]" -type d -print0 | xargs -i{} -0 -P 3 sh -c 'eogup-single "$1" || error-notify "Could not eogup-single $(pwd)!"' -- '{}' \;
     }
     findemberfolders() {
-        find . -maxdepth 1 -not -name '\.*' -type d -print0 | xargs -i{} -0 -P 15 sh -c 'eogup-single "$1"' -- '{}' \;
+        find . -maxdepth 1 -not -name '\.*' -type d -print0 | xargs -i{} -0 -P 15 sh -c 'eogup-single "$1" || error-notify "Could not eogup-single $(pwd)!"' -- '{}' \;
     }
     set -e
     (
@@ -40,7 +42,7 @@ EmberLibrary="$(crystallize-getconf EmberLibrary)"
         cd Ember\ satellite\ projects || error-notify "Could not open Ember satellite projects directory!"
         findemberfolders || error-notify "ERROR running satellite projects update!"
     )
-    eogup-single Ember
+    eogup-single Ember || error-notify "Could not eogup-single $(pwd)!"
     eogup-single Ember\ satellite\ projects/wreathe-overlays-redist || warn "Note: failed updating redistributed overlays; this is normal if you only have a partial clone of the Ember tree"
     eogup-single Ember\ satellite\ projects || warn "Note: failed updating satellite projects meta-repository; this is normal if you only have a partial clone of the Ember tree"
 )

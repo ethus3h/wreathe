@@ -1,5 +1,7 @@
 #!/bin/bash
 #Ember Web site Git UPdater
+source ember_bash_setup &> /dev/null
+
 #Need to do egup-single for futuramerlin-web-toolkit before build to ensure updates to futuramerlin-web-toolkit are committed before running it
 (
     EmberLibrary="$(crystallize-getconf EmberLibrary)"

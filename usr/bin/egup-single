@@ -1,8 +1,8 @@
 #!/bin/bash
 #Ember Git UPdater for single repository
-cd "$1" || exit 1
+source ember_bash_setup &> /dev/null
 
-egup-env
+cd "$1" || exit 1
 
 branch="$(git branch | grep -E "^\* " | cut -c 3-)"
 git checkout "$branch"
@@ -23,7 +23,7 @@ fi
 set +e
 echo "(Updating Git tags file.)"
 [[ -f .egup.tags ]] && mv -f .egup.tags .egup.tags.old
-git show-ref -d --tags > .egup.tags || mv -fv .egup.tags.old .egup.tags
+git show-ref -d --tags > .egup.tags || mv -fv .egup.tags.old .egup.tags || die "Failed writing .egup.tags in $(pwd)"
 rm -f .egup.tags.old
 set -e
 echo "(Done updating Git tags file.)"
