@@ -22,6 +22,7 @@ app-misc/wreathe-overlays-redist
 app-text/aspell
 app-text/dvipng
 app-text/jadetex
+app-text/libgxps
 app-text/tree
 dev-dotnet/dotnetzip-semverd
 dev-dotnet/libgdiplus
