@@ -1,6 +1,7 @@
 #!/bin/bash
 #Ember Git UPdater
 source ember_bash_setup &> /dev/null
+#set -x
 
 set -e
 rubberfs save || error-notify "ERROR running rubberfs save!"
