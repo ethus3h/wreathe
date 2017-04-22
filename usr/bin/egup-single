@@ -24,7 +24,8 @@ fi
 set +e
 echo "(Updating Git tags file.)"
 [[ -f .egup.tags ]] && mv -f .egup.tags .egup.tags.old
-( git show-ref -d --tags > .egup.tags || mv -fv .egup.tags.old .egup.tags ) || die "Failed writing .egup.tags in $(pwd)"
+# It's ok if the git command fails — that probably just means the repo doesn't have any tags. The subshell makes this die only if both the git and mv commands return nonzero exit statuses.
+( git show-ref -d --tags > .egup.tags || mv -fv .egup.tags.old .egup.tags ) || die "Failed updating .egup.tags in $(pwd)"
 rm -f .egup.tags.old
 set -e
 echo "(Done updating Git tags file.)"
