@@ -2,6 +2,9 @@
 #Ember Offline Git UPdater
 source ember_bash_setup &> /dev/null
 
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+#set -x
+
 set -e
 rubberfs save || error-notify "ERROR running rubberfs save!"
 set +e

@@ -2,6 +2,9 @@
 #Ember Offline Git UPdater for single repository
 source ember_bash_setup &> /dev/null
 
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+#set -x
+
 cd "$1" || exit 1
 
 egup-env
@@ -21,13 +24,7 @@ if [[ -f .egup.hooks ]]; then
     git commit -a -m "Update Ember tree"
     set -e
 fi
-echo "(Updating Git tags file.)"
-set +e
-mv .egup.tags .egup.tags.old
-git show-ref -d --tags > .egup.tags || mv -fv .egup.tags.old .egup.tags
-rm -f .egup.tags.old
-set -e
-echo "(Done updating Git tags file.)"
+git show-ref -d --tags > .egup.tags || echo "(Note: Repository appears to have no tags.)"
 git add -A
 set +e
 git commit -a -m "Update Ember tree"
