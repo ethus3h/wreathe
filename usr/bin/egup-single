@@ -31,8 +31,8 @@ set -e
 git pull --all || error-notify "ERROR pulling."
 git submodule update --remote || warn "ERROR updating submodules. Maybe a remote server is down?"
 if ! [[ -f .egup.nopush ]]; then
-    git push --verbose --tags -u origin master || error-notify "ERROR pushing changes."
-    git push --verbose --all -u origin || error-notify "ERROR pushing changes."
+    git push --verbose --tags -u origin master || die "ERROR pushing changes."
+    git push --verbose --all -u origin || die "ERROR pushing changes."
 fi
 
 egup-exit
