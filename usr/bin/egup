@@ -5,33 +5,29 @@ source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 #set -x
 
-set -e
-rubberfs save || error-notify "ERROR running rubberfs save!"
-set +e
+if [[ "$1" == "--offline" ]]; then
+    offline="true"
+    shift
+fi
+
+rubberfs save || die "Error running rubberfs save!"
 EmberLibrary="$(crystallize-getconf EmberLibrary)"
 (
     cd "$EmberLibrary" || error-notify "Could not open Ember Library directory!"
-    set -e
     (
         cd Ember\ satellite\ projects/wreathe-bootstrap/usr/local/portage || error-notify "Could not open wreathe-bootstrap directory!"
-        set +e
-        repoman manifest
-        set -e
+        repoman manifest || warn "Repoman manifest failed!"
     )
     (
         cd Ember\ satellite\ projects/wreathe-overlay || error-notify "Could not open wreathe-overlay directory!"
-        set +e
-        repoman manifest
-        set -e
+        repoman manifest || warn "Repoman manifest failed!"
     )
-    set +e
     findemberlibraryfolders() {
         find . -maxdepth 1 -not -name '\.*' -name "ember-library-[0-9]" -type d -print0 | xargs -i{} -0 -P 3 sh -c 'egup-single "$1"' -- '{}' \;
     }
     findemberfolders() {
         find . -maxdepth 1 -not -name '\.*' -type d -print0 | xargs -i{} -0 -P 15 sh -c 'egup-single "$1"' -- '{}' \;
     }
-    set -e
     (
         (
             cd Futuramerlin\ Projects/Data/Crystal\ Index || error-notify "Could not open crystal index directory!"
@@ -40,15 +36,13 @@ EmberLibrary="$(crystallize-getconf EmberLibrary)"
         cd Ember || error-notify "Could not open Ember directory!"
         (
             cd ember-library || error-notify "Could not open Ember library directory!"
-            # FIXME: When running egup, gives error when applying README.md override: cp: cannot create regular file 'README.md': Permission denied
-            # (running cd Ember\ Library/Ember/ember-library/; egup-single ember-library-2 works fine)
-            findemberlibraryfolders || error-notify "ERROR running Ember library folders update!"
+            findemberlibraryfolders || error-notify "Error running Ember library folders update!"
         )
-        findemberfolders || error-notify "ERROR running Ember folders update!"
+        findemberfolders || error-notify "Error running Ember folders update!"
     )
     (
         cd Ember\ satellite\ projects || error-notify "Could not open Ember satellite projects directory!"
-        findemberfolders || error-notify "ERROR running satellite projects update!"
+        findemberfolders || error-notify "Error running satellite projects update!"
     )
     egup-single Ember || error-notify "Could not egup-single $(pwd)!"
     egup-single Ember\ satellite\ projects/wreathe-overlays-redist || warn "Note: failed updating redistributed overlays; this is normal if you only have a partial clone of the Ember tree"
