@@ -7,35 +7,35 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 if [[ "$1" == "--offline" ]]; then
     offline="true"
+    shift
 fi
 
 cd "$1" || exit 1
 
 branch="$(git branch | grep -E "^\* " | cut -c 3-)"
 git checkout "$branch"
-git add -A || die "ERROR adding changes."
-git add -A . || die "ERROR adding changes."
-trap - ERR
-git commit -a -m "Update Ember tree"
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+git add -A || die "Error adding changes."
+git add -A . || die "Error adding changes."
+git commit -a -m "Update Ember tree" || echo "(Note: Repository appears to have no changes to commit.)"
 if [[ -f .egup.hooks ]]; then
     echo "Beginning running hooks..."
     ./.egup.hooks || warn "WARNING! pre-build-hooks failed; continuing anyway."
     echo "Done running hooks."
-    trap - ERR
-    git commit -a -m "Update Ember tree"
-    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+    git commit -a -m "Update Ember tree" || true #It's ok if this fails — it probably means there is nothing to commit, and the user was already notified by saying "no changes to commit" earlier.
 fi
 git show-ref -d --tags > .egup.tags || echo "(Note: Repository appears to have no tags.)"
-git add -A || error-notify "ERROR adding tag changes."
+git add -A || die "Error adding tag changes."
 trap - ERR
-git commit -a -m "Update Ember tree"
+git commit -a -m "Update Ember tree" || true
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
-git pull --all || error-notify "ERROR pulling."
-git submodule update --remote || warn "ERROR updating submodules. Maybe a remote server is down?"
-if ! [[ -f .egup.nopush ]]; then
-    git push --verbose --tags -u origin master || die "ERROR pushing changes."
-    git push --verbose --all -u origin || die "ERROR pushing changes."
+
+if [[ "$offline" != "true" ]]; then
+    git pull --all || die "Error pulling."
+    git submodule update --remote || warn "Error updating submodules. Maybe a remote server is down?"
+    if ! [[ -f .egup.nopush ]]; then
+        git push --verbose --tags -u origin master || die "Error pushing changes."
+        git push --verbose --all -u origin || die "Error pushing changes."
+    fi
 fi
 
 egup-exit
