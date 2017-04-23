@@ -1,5 +1,6 @@
 #!/bin/bash
 #Ember Git UPdater for single repository
+# shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
@@ -23,7 +24,7 @@ if [[ -f .egup.hooks ]]; then
     echo "Done running hooks."
     git commit -a -m "Update Ember tree" || true #It's ok if this fails — it probably means there is nothing to commit, and the user was already notified by saying "no changes to commit" earlier.
 fi
-git show-ref -d --tags > .egup.tags || echo "(Note: Repository appears to have no tags.)"
+( git show-ref -d --tags > .egup.tags ) || echo "(Note: Repository appears to have no tags.)"
 git add -A || die "Error adding tag changes."
 trap - ERR
 git commit -a -m "Update Ember tree" || true
