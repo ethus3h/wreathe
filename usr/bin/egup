@@ -31,10 +31,6 @@ EmberLibrary="$(crystallize-getconf EmberLibrary)"
         find . -maxdepth 1 -not -name '\.*' -type d -print0 | xargs -i{} -0 -P 15 sh -c "$egupCmd"'-single "$1"' -- '{}' \;
     }
     (
-        (
-            cd Futuramerlin\ Projects/Data/Crystal\ Index || error-notify "Could not open crystal index directory!"
-            "$egupCmd"-single . || error-notify "Could not $egupCmd-single $(pwd)!"
-        )
         cd Ember || error-notify "Could not open Ember directory!"
         (
             cd ember-library || error-notify "Could not open Ember library directory!"
