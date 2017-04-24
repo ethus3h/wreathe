@@ -1,3 +1,6 @@
+# Required by Portage. I'm not sure why.
+dev-python/warcprox -python_targets_python3_4
+
 # Build from source
 dev-lang/ghc -binary
 
