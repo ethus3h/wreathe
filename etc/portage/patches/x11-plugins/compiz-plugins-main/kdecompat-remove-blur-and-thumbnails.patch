@@ -1,562 +1,580 @@
-diff --git a/metadata/kdecompat.xml.in b/metadata/kdecompat.xml.in
-index 0cf5a42..9cb5667 100644
---- a/metadata/kdecompat.xml.in
-+++ b/metadata/kdecompat.xml.in
-@@ -8,25 +8,14 @@
- 			<relation type="after">
- 				<plugin>animation</plugin>
- 				<plugin>scale</plugin>
--				<plugin>blur</plugin>
- 			</relation>
- 		</deps>
- 		<screen>
--			<option name="plasma_thumbnails" type="bool">
--				<_short>Support Plasma Thumbnails</_short>
--				<_long>Support window thumbnails in Plasma window tooltips</_long>
--				<default>true</default>
--			</option>
- 			<option name="present_windows" type="bool">
- 				<_short>Support Present Windows</_short>
- 				<_long>Support the "present windows" effect for Plasma task groups</_long>
- 				<default>true</default>
- 			</option>
--			<option name="window_blur" type="bool">
--				<_short>Support Blur Effect</_short>
--				<_long>Support the "blur behind windows effect (requires the blur plugin to be loaded)</_long>
--				<default>true</default>
--			</option>
- 			<group>
- 				<_short>Popup Slide Effect</_short>
- 				<option name="sliding_popups" type="bool">
-@@ -52,4 +41,3 @@
- 		</screen>
- 	</plugin>
- </compiz>
--
-diff --git a/src/kdecompat/CMakeLists.txt b/src/kdecompat/CMakeLists.txt
-deleted file mode 100644
-index 2ad898e..0000000
---- a/src/kdecompat/CMakeLists.txt
-+++ /dev/null
-@@ -1,3 +0,0 @@
--include (CompizFusion)
--
--compiz_fusion_plugin (kdecompat)
+diff --git a/kdecompat-remove-blur-and-thumbnails.patch b/kdecompat-remove-blur-and-thumbnails.patch
+index 2c71d6e..e69de29 100644
+--- a/kdecompat-remove-blur-and-thumbnails.patch
++++ b/kdecompat-remove-blur-and-thumbnails.patch
+@@ -1,562 +0,0 @@
+-diff --git a/metadata/kdecompat.xml.in b/metadata/kdecompat.xml.in
+-index 0cf5a42..9cb5667 100644
+---- a/metadata/kdecompat.xml.in
+-+++ b/metadata/kdecompat.xml.in
+-@@ -8,25 +8,14 @@
+- 			<relation type="after">
+- 				<plugin>animation</plugin>
+- 				<plugin>scale</plugin>
+--				<plugin>blur</plugin>
+- 			</relation>
+- 		</deps>
+- 		<screen>
+--			<option name="plasma_thumbnails" type="bool">
+--				<_short>Support Plasma Thumbnails</_short>
+--				<_long>Support window thumbnails in Plasma window tooltips</_long>
+--				<default>true</default>
+--			</option>
+- 			<option name="present_windows" type="bool">
+- 				<_short>Support Present Windows</_short>
+- 				<_long>Support the "present windows" effect for Plasma task groups</_long>
+- 				<default>true</default>
+- 			</option>
+--			<option name="window_blur" type="bool">
+--				<_short>Support Blur Effect</_short>
+--				<_long>Support the "blur behind windows effect (requires the blur plugin to be loaded)</_long>
+--				<default>true</default>
+--			</option>
+- 			<group>
+- 				<_short>Popup Slide Effect</_short>
+- 				<option name="sliding_popups" type="bool">
+-@@ -52,4 +41,3 @@
+- 		</screen>
+- 	</plugin>
+- </compiz>
+--
+-diff --git a/src/kdecompat/CMakeLists.txt b/src/kdecompat/CMakeLists.txt
+-deleted file mode 100644
+-index 2ad898e..0000000
+---- a/src/kdecompat/CMakeLists.txt
+-+++ /dev/null
+-@@ -1,3 +0,0 @@
+--include (CompizFusion)
+--
+--compiz_fusion_plugin (kdecompat)
+-diff --git a/src/kdecompat/kdecompat.c b/src/kdecompat/kdecompat.c
+-index a49327f..3679760 100644
+---- a/src/kdecompat/kdecompat.c
+-+++ b/src/kdecompat/kdecompat.c
+-@@ -48,17 +48,12 @@ typedef struct _KdeCompatDisplay {
+-     HandleEventProc       handleEvent;
+-     HandleCompizEventProc handleCompizEvent;
+- 
+--    Bool blurLoaded;
+--
+-     CompPlugin        *scaleHandle;
+-     Bool              scaleActive;
+-     CompTimeoutHandle scaleTimeout;
+- 
+--    Atom kdePreviewAtom;
+-     Atom kdeSlideAtom;
+-     Atom kdePresentGroupAtom;
+--    Atom kdeBlurBehindRegionAtom;
+--    Atom compizWindowBlurAtom;
+-     Atom desktopLayoutAtom;
+- } KdeCompatDisplay;
+- 
+-@@ -106,12 +101,6 @@ typedef struct {
+- } SlideData;
+- 
+- typedef struct _KdeCompatWindow {
+--    Thumb        *previews;
+--    unsigned int nPreviews;
+--    Bool         isPreview;
+--
+--    Bool blurPropertySet;
+--
+-     SlideData *slideData;
+- 
+-     int destroyCnt;
+-@@ -401,215 +390,16 @@ kdecompatPaintWindow (CompWindow		 *w,
+-     }
+- 
+-     if (!status                           ||
+--	!kdecompatGetPlasmaThumbnails (s) ||
+--	!kw->nPreviews                    ||
+- 	!w->mapNum                        ||
+- 	(mask & PAINT_WINDOW_OCCLUSION_DETECTION_MASK))
+-     {
+- 	return status;
+-     }
+- 
+--    for (i = 0; i < kw->nPreviews; i++)
+--    {
+--	CompWindow   *tw = findWindowAtScreen (s, kw->previews[i].id);
+--	XRectangle   *rect = &kw->previews[i].thumb;
+--	unsigned int paintMask = mask | PAINT_WINDOW_TRANSFORMED_MASK;
+--	float        xScale = 1.0f, yScale = 1.0f, xTranslate, yTranslate;
+--	CompIcon     *icon = NULL;
+--
+--	if (!tw)
+--	    continue;
+--
+--	xTranslate = rect->x + w->attrib.x - tw->attrib.x;
+--	yTranslate = rect->y + w->attrib.y - tw->attrib.y;
+--
+--	if (tw->texture->pixmap)
+--	{
+--	    unsigned int width, height;
+--
+--	    width  = tw->attrib.width + tw->input.left + tw->input.right;
+--	    height = tw->attrib.height + tw->input.top + tw->input.bottom;
+--
+--	    xScale = (float) rect->width / width;
+--	    yScale = (float) rect->height / height;
+--
+--	    xTranslate += tw->input.left * xScale;
+--	    yTranslate += tw->input.top * yScale;
+--	}
+--	else
+--	{
+--	    icon = getWindowIcon (tw, 256, 256);
+--	    if (!icon)
+--		icon = s->defaultIcon;
+--
+--	    if (icon)
+--		if (!icon->texture.name && !iconToTexture (s, icon))
+--		    icon = NULL;
+--
+--	    if (icon)
+--	    {
+--		REGION     iconReg;
+--		CompMatrix matrix;
+--
+--		paintMask |= PAINT_WINDOW_BLEND_MASK;
+--
+--		if (icon->width >= rect->width || icon->height >= rect->height)
+--		{
+--		    xScale = (float) rect->width / icon->width;
+--		    yScale = (float) rect->height / icon->height;
+--
+--		    if (xScale < yScale)
+--			yScale = xScale;
+--		    else
+--			xScale = yScale;
+--		}
+--
+--		xTranslate += rect->width / 2 - (icon->width * xScale / 2);
+--		yTranslate += rect->height / 2 - (icon->height * yScale / 2);
+--
+--		iconReg.rects    = &iconReg.extents;
+--		iconReg.numRects = 1;
+--
+--		iconReg.extents.x1 = tw->attrib.x;
+--		iconReg.extents.y1 = tw->attrib.y;
+--		iconReg.extents.x2 = tw->attrib.x + icon->width;
+--		iconReg.extents.y2 = tw->attrib.y + icon->height;
+--
+--		matrix = icon->texture.matrix;
+--		matrix.x0 -= (tw->attrib.x * icon->texture.matrix.xx);
+--		matrix.y0 -= (tw->attrib.y * icon->texture.matrix.yy);
+--
+--		tw->vCount = tw->indexCount = 0;
+--		(*s->addWindowGeometry) (tw, &matrix, 1,
+--					 &iconReg, &infiniteRegion);
+--
+--		if (!tw->vCount)
+--		    icon = NULL;
+--	    }
+--	}
+--
+--	if (tw->texture->pixmap || icon)
+--	{
+--	    FragmentAttrib fragment;
+--	    CompTransform  wTransform = *transform;
+--
+--	    initFragmentAttrib (&fragment, attrib);
+--
+--	    if (tw->alpha || fragment.opacity != OPAQUE)
+--		paintMask |= PAINT_WINDOW_TRANSLUCENT_MASK;
+--
+--	    matrixTranslate (&wTransform, tw->attrib.x, tw->attrib.y, 0.0f);
+--	    matrixScale (&wTransform, xScale, yScale, 1.0f);
+--	    matrixTranslate (&wTransform,
+--			     xTranslate / xScale - tw->attrib.x,
+--			     yTranslate / yScale - tw->attrib.y,
+--			     0.0f);
+--
+--	    glPushMatrix ();
+--	    glLoadMatrixf (wTransform.m);
+--
+--	    if (tw->texture->pixmap)
+--		(*s->drawWindow) (tw, &wTransform, &fragment,
+--				  &infiniteRegion, paintMask);
+--	    else if (icon)
+--		(*s->drawWindowTexture) (tw, &icon->texture,
+--					 &fragment, paintMask);
+--
+--	    glPopMatrix ();
+--	}
+--    }
+--
+-     return status;
+- }
+- 
+- static void
+--kdecompatUpdatePreviews (CompWindow *w)
+--{
+--    CompWindow    *cw;
+--    CompScreen    *s = w->screen;
+--    CompDisplay   *d = s->display;
+--    Atom          actual;
+--    int           result, format;
+--    unsigned long n, left;
+--    unsigned char *propData;
+--    unsigned int  oldPreviews;
+--
+--    KDECOMPAT_DISPLAY (d);
+--    KDECOMPAT_SCREEN (s);
+--    KDECOMPAT_WINDOW (w);
+--    
+--    oldPreviews = kw->nPreviews;
+--
+--    kw->nPreviews = 0;
+--
+--    result = XGetWindowProperty (d->display, w->id, kd->kdePreviewAtom, 0,
+--				 32768, FALSE, AnyPropertyType, &actual,
+--				 &format, &n, &left, &propData);
+--
+--    if (result == Success && propData)
+--    {
+--	if (format == 32 && actual == kd->kdePreviewAtom)
+--	{
+--	    long *data    = (long *) propData;
+--	    int  nPreview = *data++;
+--
+--	    if (n == (6 * nPreview + 1))
+--	    {
+--		kw->previews = realloc (kw->previews,
+--					nPreview * sizeof (Thumb));
+--		if (kw->previews)
+--		{
+--		    while (kw->nPreviews < nPreview)
+--		    {
+--			if (*data++ != 5)
+--			    break;
+--
+--			kw->previews[kw->nPreviews].id = *data++;
+--
+--			kw->previews[kw->nPreviews].thumb.x      = *data++;
+--			kw->previews[kw->nPreviews].thumb.y      = *data++;
+--			kw->previews[kw->nPreviews].thumb.width  = *data++;
+--			kw->previews[kw->nPreviews].thumb.height = *data++;
+--
+--			kw->nPreviews++;
+--		    }
+--		}
+--	    }
+--	}
+--
+--	XFree (propData);
+--    }
+--    
+--    if (oldPreviews != kw->nPreviews)
+--	damageWindowOutputExtents (w);
+--
+--    for (cw = s->windows; cw; cw = cw->next)
+--    {
+--	CompWindow      *rw;
+--	KdeCompatWindow *kcw = GET_KDECOMPAT_WINDOW (cw, ks);
+--
+--	kcw->isPreview = FALSE;
+--	for (rw = s->windows; rw; rw = rw->next)
+--	{
+--	    KdeCompatWindow *krw = GET_KDECOMPAT_WINDOW (rw, ks);
+--	    unsigned int    i;
+--
+--	    for (i = 0; i < krw->nPreviews; i++)
+--	    {
+--		if (krw->previews[i].id == cw->id)
+--		{
+--		    kcw->isPreview = TRUE;
+--		    break;
+--		}
+--	    }
+--
+--	    if (kcw->isPreview)
+--		break;
+--	}
+--    }
+--}
+--
+--static void
+- kdecompatUpdateSlidePosition (CompWindow *w)
+- {
+-     CompDisplay   *d = w->screen->display;
+-@@ -981,89 +771,6 @@ kdecompatSetOptionForPlugin (CompObject      *object,
+- }
+- 
+- static void
+--kdecompatUpdateBlurProperty (CompWindow *w)
+--{
+--    CompScreen  *s = w->screen;
+--    CompDisplay *d = s->display;
+--    Atom          actual;
+--    int           result, format;
+--    unsigned long n, left;
+--    unsigned char *propData;
+--    Bool          validProperty = FALSE;
+--
+--    KDECOMPAT_DISPLAY (d);
+--    KDECOMPAT_WINDOW (w);
+--
+--    if (!kd->blurLoaded || !kdecompatGetWindowBlur (s))
+--	return;
+--
+--    if (!kw->blurPropertySet)
+--    {
+--	result = XGetWindowProperty (d->display, w->id,
+--				     kd->compizWindowBlurAtom, 0, 32768,
+--				     FALSE, AnyPropertyType, &actual,
+--				     &format, &n, &left, &propData);
+--
+--	if (result == Success && propData)
+--	{
+--	    /* somebody else besides us already set a
+--	     * property, don't touch it */
+--	    XFree (propData);
+--	    return;
+--	}
+--    }
+--
+--    result = XGetWindowProperty (d->display, w->id,
+--				 kd->kdeBlurBehindRegionAtom, 0, 32768,
+--				 FALSE, AnyPropertyType, &actual,
+--				 &format, &n, &left, &propData);
+--    if (result == Success && propData)
+--    {
+--	if (format == 32 && actual == XA_CARDINAL &&
+--	    n > 0 && (n % 4 == 0))
+--	{
+--	    long         *data = (long *) propData;
+--	    unsigned int nBox = n / 4;
+--	    long         compizProp[nBox * 6 + 2];
+--	    unsigned int i = 2;
+--
+--	    compizProp[0] = 10; /* threshold */
+--	    compizProp[1] = 0; /* filter */
+--	    while (nBox--)
+--	    {
+--		int x, y, w, h;
+--		x = *data++;
+--		y = *data++;
+--		w = *data++;
+--		h = *data++;
+--
+--		compizProp[i++] = GRAVITY_NORTH | GRAVITY_WEST; /* P1 gravity */
+--		compizProp[i++] = x;                            /* P1 X */
+--		compizProp[i++] = y;                            /* P1 Y */
+--		compizProp[i++] = GRAVITY_NORTH | GRAVITY_WEST; /* P2 gravity */
+--		compizProp[i++] = x + w;                        /* P2 X */
+--		compizProp[i++] = y + h;                        /* P2 Y */
+--	    }
+--
+--	    XChangeProperty (d->display, w->id, kd->compizWindowBlurAtom,
+--			     XA_INTEGER, 32, PropModeReplace,
+--			     (unsigned char *) compizProp, i);
+--
+--	    kw->blurPropertySet = TRUE;
+--	    validProperty       = TRUE;
+--	}
+--
+--	XFree (propData);
+--    }
+--
+--    if (kw->blurPropertySet && !validProperty)
+--    {
+--	kw->blurPropertySet = FALSE;
+--	XDeleteProperty (d->display, w->id, kd->compizWindowBlurAtom);
+--    }
+--}
+--
+--static void
+- kdecompatHandleEvent (CompDisplay *d,
+- 		      XEvent      *event)
+- {
+-@@ -1095,13 +802,7 @@ kdecompatHandleEvent (CompDisplay *d,
+- 
+-     switch (event->type) {
+-     case PropertyNotify:
+--	if (event->xproperty.atom == kd->kdePreviewAtom)
+--	{
+--	    w = findWindowAtDisplay (d, event->xproperty.window);
+--	    if (w)
+--		kdecompatUpdatePreviews (w);
+--	}
+--	else if (event->xproperty.atom == kd->kdeSlideAtom)
+-+	if (event->xproperty.atom == kd->kdeSlideAtom)
+- 	{
+- 	    w = findWindowAtDisplay (d, event->xproperty.window);
+- 	    if (w)
+-@@ -1113,12 +814,6 @@ kdecompatHandleEvent (CompDisplay *d,
+- 	    if (w)
+- 		kdecompatPresentWindowGroup (w);
+- 	}
+--	else if (event->xproperty.atom == kd->kdeBlurBehindRegionAtom)
+--	{
+--	    w = findWindowAtDisplay (d, event->xproperty.window);
+--	    if (w)
+--		kdecompatUpdateBlurProperty (w);
+--	}
+- 	break;
+-     }
+- }
+-@@ -1134,34 +829,6 @@ kdecompatDamageWindowRect (CompWindow *w,
+-     KDECOMPAT_SCREEN (s);
+-     KDECOMPAT_WINDOW (w);
+- 
+--    if (kw->isPreview && kdecompatGetPlasmaThumbnails (s))
+--    {
+--	CompWindow *cw;
+--	REGION     reg;
+--
+--	reg.rects = &reg.extents;
+--	reg.numRects = 1;
+--
+--	for (cw = s->windows; cw; cw = cw->next)
+--	{
+--	    KdeCompatWindow *kcw = GET_KDECOMPAT_WINDOW (cw, ks);
+--	    unsigned int    i;
+--
+--	    for (i = 0; i < kcw->nPreviews; i++)
+--	    {
+--		if (kcw->previews[i].id != w->id)
+--		    continue;
+--
+--		reg.extents.x1 = kcw->previews[i].thumb.x + cw->attrib.x;
+--		reg.extents.x2 = reg.extents.x1 + kcw->previews[i].thumb.width;
+--		reg.extents.y1 = kcw->previews[i].thumb.y + cw->attrib.y;
+--		reg.extents.y2 = reg.extents.y1 + kcw->previews[i].thumb.height;
+--
+--		damageScreenRegion (s, &reg);
+--	    }
+--	}
+--    }
+--
+-     if (initial && kdecompatGetSlidingPopups (s))
+- 	kdecompatStartSlideAnimation (w, TRUE);
+- 
+-@@ -1197,16 +864,11 @@ kdecompatScreenOptionChanged (CompScreen             *s,
+- {
+-     KDECOMPAT_DISPLAY (s->display);
+- 
+--    if (num == KdecompatScreenOptionPlasmaThumbnails)
+--	kdecompatAdvertiseSupport (s, kd->kdePreviewAtom, opt->value.b);
+-     else if (num == KdecompatScreenOptionSlidingPopups)
+- 	kdecompatAdvertiseSupport (s, kd->kdeSlideAtom, opt->value.b);
+-     else if (num == KdecompatScreenOptionPresentWindows)
+- 	kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
+- 				   opt->value.b && kd->scaleHandle);
+--    else if (num == KdecompatScreenOptionWindowBlur)
+--	kdecompatAdvertiseSupport (s, kd->kdeBlurBehindRegionAtom,
+--				   opt->value.b && kd->blurLoaded);
+- }
+- 
+- static Bool
+-@@ -1266,20 +928,12 @@ kdecompatInitDisplay (CompPlugin  *p,
+- 	return FALSE;
+-     }
+- 
+--    kd->kdePreviewAtom = XInternAtom (d->display, "_KDE_WINDOW_PREVIEW", 0);
+-     kd->kdeSlideAtom = XInternAtom (d->display, "_KDE_SLIDE", 0);
+-     kd->kdePresentGroupAtom = XInternAtom (d->display,
+- 					   "_KDE_PRESENT_WINDOWS_GROUP", 0);
+--    kd->kdeBlurBehindRegionAtom = XInternAtom (d->display,
+--					       "_KDE_NET_WM_BLUR_BEHIND_REGION",
+--					       0);
+--    kd->compizWindowBlurAtom = XInternAtom (d->display,
+--					    "_COMPIZ_WM_WINDOW_BLUR", 0);
+-     kd->desktopLayoutAtom = XInternAtom (d->display,
+- 					 "_NET_DESKTOP_LAYOUT", 0);
+- 
+--    kd->blurLoaded = findActivePlugin ("blur") != NULL;
+--
+-     kd->scaleHandle  = findActivePlugin ("scale");
+-     kd->scaleActive  = FALSE;
+-     kd->scaleTimeout = 0;
+-@@ -1330,19 +984,14 @@ kdecompatInitScreen (CompPlugin *p,
+-     ks->hasSlidingPopups = FALSE;
+-     ks->presentWindow    = NULL;
+- 
+--    kdecompatAdvertiseSupport (s, kd->kdePreviewAtom,
+--			       kdecompatGetPlasmaThumbnails (s));
+-     kdecompatAdvertiseSupport (s, kd->kdeSlideAtom,
+- 			       kdecompatGetSlidingPopups (s));
+-     kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
+- 			       kdecompatGetPresentWindows (s) &&
+- 			       kd->scaleHandle);
+--    kdecompatAdvertiseSupport (s, kd->kdeBlurBehindRegionAtom,
+--			       kdecompatGetWindowBlur (s) && kd->blurLoaded);
+- 
+-     kdecompatUpdateDesktopLayoutFromViewports (s);
+- 
+--    kdecompatSetPlasmaThumbnailsNotify (s, kdecompatScreenOptionChanged);
+-     kdecompatSetSlidingPopupsNotify (s, kdecompatScreenOptionChanged);
+- 
+-     WRAP (ks, s, preparePaintScreen, kdecompatPreparePaintScreen);
+-@@ -1365,7 +1014,6 @@ kdecompatFiniScreen (CompPlugin *p,
+- 
+-     freeWindowPrivateIndex (s, ks->windowPrivateIndex);
+- 
+--    kdecompatAdvertiseSupport (s, kd->kdePreviewAtom, FALSE);
+-     kdecompatAdvertiseSupport (s, kd->kdeSlideAtom, FALSE);
+-     kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom, FALSE);
+- 
+-@@ -1390,21 +1038,13 @@ kdecompatInitWindow (CompPlugin *p,
+-     if (!kw)
+- 	return FALSE;
+- 
+--    kw->previews  = NULL;
+--    kw->nPreviews = 0;
+--    kw->isPreview = FALSE;
+--
+-     kw->slideData = NULL;
+- 
+--    kw->blurPropertySet = FALSE;
+--
+-     kw->unmapCnt   = 0;
+-     kw->destroyCnt = 0;
+- 
+-     w->base.privates[ks->windowPrivateIndex].ptr = kw;
+- 
+--    kdecompatUpdateBlurProperty (w);
+--
+-     return TRUE;
+- }
+- 
+-@@ -1420,20 +1060,6 @@ kdecompatFiniWindow (CompPlugin *p,
+- 
+-     kdecompatStopCloseAnimation (w);
+- 
+--    if (kw->previews)
+--	free (kw->previews);
+--
+--    if (kw->slideData)
+--	free (kw->slideData);
+--
+--    if (kw->blurPropertySet)
+--    {
+--	CompDisplay *d = w->screen->display;
+--	KDECOMPAT_DISPLAY (d);
+--
+--	XDeleteProperty (d->display, w->id, kd->compizWindowBlurAtom);
+--    }
+--
+-     free (kw);
+- }
+- 
+-@@ -1497,4 +1123,3 @@ getCompPluginInfo (void)
+- {
+-     return &kdecompatVTable;
+- }
+--
 diff --git a/src/kdecompat/kdecompat.c b/src/kdecompat/kdecompat.c
-index a49327f..3679760 100644
+index 3679760..b41a44e 100644
 --- a/src/kdecompat/kdecompat.c
 +++ b/src/kdecompat/kdecompat.c
-@@ -48,17 +48,12 @@ typedef struct _KdeCompatDisplay {
-     HandleEventProc       handleEvent;
-     HandleCompizEventProc handleCompizEvent;
- 
--    Bool blurLoaded;
--
-     CompPlugin        *scaleHandle;
-     Bool              scaleActive;
-     CompTimeoutHandle scaleTimeout;
- 
--    Atom kdePreviewAtom;
-     Atom kdeSlideAtom;
-     Atom kdePresentGroupAtom;
--    Atom kdeBlurBehindRegionAtom;
--    Atom compizWindowBlurAtom;
-     Atom desktopLayoutAtom;
- } KdeCompatDisplay;
- 
-@@ -106,12 +101,6 @@ typedef struct {
- } SlideData;
- 
- typedef struct _KdeCompatWindow {
--    Thumb        *previews;
--    unsigned int nPreviews;
--    Bool         isPreview;
--
--    Bool blurPropertySet;
--
-     SlideData *slideData;
- 
-     int destroyCnt;
-@@ -401,215 +390,16 @@ kdecompatPaintWindow (CompWindow		 *w,
-     }
- 
-     if (!status                           ||
--	!kdecompatGetPlasmaThumbnails (s) ||
--	!kw->nPreviews                    ||
- 	!w->mapNum                        ||
- 	(mask & PAINT_WINDOW_OCCLUSION_DETECTION_MASK))
-     {
- 	return status;
-     }
- 
--    for (i = 0; i < kw->nPreviews; i++)
--    {
--	CompWindow   *tw = findWindowAtScreen (s, kw->previews[i].id);
--	XRectangle   *rect = &kw->previews[i].thumb;
--	unsigned int paintMask = mask | PAINT_WINDOW_TRANSFORMED_MASK;
--	float        xScale = 1.0f, yScale = 1.0f, xTranslate, yTranslate;
--	CompIcon     *icon = NULL;
--
--	if (!tw)
--	    continue;
--
--	xTranslate = rect->x + w->attrib.x - tw->attrib.x;
--	yTranslate = rect->y + w->attrib.y - tw->attrib.y;
--
--	if (tw->texture->pixmap)
--	{
--	    unsigned int width, height;
--
--	    width  = tw->attrib.width + tw->input.left + tw->input.right;
--	    height = tw->attrib.height + tw->input.top + tw->input.bottom;
--
--	    xScale = (float) rect->width / width;
--	    yScale = (float) rect->height / height;
--
--	    xTranslate += tw->input.left * xScale;
--	    yTranslate += tw->input.top * yScale;
--	}
--	else
--	{
--	    icon = getWindowIcon (tw, 256, 256);
--	    if (!icon)
--		icon = s->defaultIcon;
--
--	    if (icon)
--		if (!icon->texture.name && !iconToTexture (s, icon))
--		    icon = NULL;
--
--	    if (icon)
--	    {
--		REGION     iconReg;
--		CompMatrix matrix;
--
--		paintMask |= PAINT_WINDOW_BLEND_MASK;
--
--		if (icon->width >= rect->width || icon->height >= rect->height)
--		{
--		    xScale = (float) rect->width / icon->width;
--		    yScale = (float) rect->height / icon->height;
--
--		    if (xScale < yScale)
--			yScale = xScale;
--		    else
--			xScale = yScale;
--		}
--
--		xTranslate += rect->width / 2 - (icon->width * xScale / 2);
--		yTranslate += rect->height / 2 - (icon->height * yScale / 2);
--
--		iconReg.rects    = &iconReg.extents;
--		iconReg.numRects = 1;
--
--		iconReg.extents.x1 = tw->attrib.x;
--		iconReg.extents.y1 = tw->attrib.y;
--		iconReg.extents.x2 = tw->attrib.x + icon->width;
--		iconReg.extents.y2 = tw->attrib.y + icon->height;
--
--		matrix = icon->texture.matrix;
--		matrix.x0 -= (tw->attrib.x * icon->texture.matrix.xx);
--		matrix.y0 -= (tw->attrib.y * icon->texture.matrix.yy);
--
--		tw->vCount = tw->indexCount = 0;
--		(*s->addWindowGeometry) (tw, &matrix, 1,
--					 &iconReg, &infiniteRegion);
--
--		if (!tw->vCount)
--		    icon = NULL;
--	    }
--	}
--
--	if (tw->texture->pixmap || icon)
--	{
--	    FragmentAttrib fragment;
--	    CompTransform  wTransform = *transform;
--
--	    initFragmentAttrib (&fragment, attrib);
--
--	    if (tw->alpha || fragment.opacity != OPAQUE)
--		paintMask |= PAINT_WINDOW_TRANSLUCENT_MASK;
--
--	    matrixTranslate (&wTransform, tw->attrib.x, tw->attrib.y, 0.0f);
--	    matrixScale (&wTransform, xScale, yScale, 1.0f);
--	    matrixTranslate (&wTransform,
--			     xTranslate / xScale - tw->attrib.x,
--			     yTranslate / yScale - tw->attrib.y,
--			     0.0f);
--
--	    glPushMatrix ();
--	    glLoadMatrixf (wTransform.m);
--
--	    if (tw->texture->pixmap)
--		(*s->drawWindow) (tw, &wTransform, &fragment,
--				  &infiniteRegion, paintMask);
--	    else if (icon)
--		(*s->drawWindowTexture) (tw, &icon->texture,
--					 &fragment, paintMask);
--
--	    glPopMatrix ();
--	}
--    }
--
-     return status;
- }
- 
- static void
--kdecompatUpdatePreviews (CompWindow *w)
--{
--    CompWindow    *cw;
--    CompScreen    *s = w->screen;
--    CompDisplay   *d = s->display;
--    Atom          actual;
--    int           result, format;
--    unsigned long n, left;
--    unsigned char *propData;
--    unsigned int  oldPreviews;
--
--    KDECOMPAT_DISPLAY (d);
--    KDECOMPAT_SCREEN (s);
--    KDECOMPAT_WINDOW (w);
--    
--    oldPreviews = kw->nPreviews;
--
--    kw->nPreviews = 0;
--
--    result = XGetWindowProperty (d->display, w->id, kd->kdePreviewAtom, 0,
--				 32768, FALSE, AnyPropertyType, &actual,
--				 &format, &n, &left, &propData);
--
--    if (result == Success && propData)
--    {
--	if (format == 32 && actual == kd->kdePreviewAtom)
--	{
--	    long *data    = (long *) propData;
--	    int  nPreview = *data++;
--
--	    if (n == (6 * nPreview + 1))
--	    {
--		kw->previews = realloc (kw->previews,
--					nPreview * sizeof (Thumb));
--		if (kw->previews)
--		{
--		    while (kw->nPreviews < nPreview)
--		    {
--			if (*data++ != 5)
--			    break;
--
--			kw->previews[kw->nPreviews].id = *data++;
--
--			kw->previews[kw->nPreviews].thumb.x      = *data++;
--			kw->previews[kw->nPreviews].thumb.y      = *data++;
--			kw->previews[kw->nPreviews].thumb.width  = *data++;
--			kw->previews[kw->nPreviews].thumb.height = *data++;
--
--			kw->nPreviews++;
--		    }
--		}
--	    }
--	}
--
--	XFree (propData);
--    }
--    
--    if (oldPreviews != kw->nPreviews)
--	damageWindowOutputExtents (w);
--
--    for (cw = s->windows; cw; cw = cw->next)
--    {
--	CompWindow      *rw;
--	KdeCompatWindow *kcw = GET_KDECOMPAT_WINDOW (cw, ks);
--
--	kcw->isPreview = FALSE;
--	for (rw = s->windows; rw; rw = rw->next)
--	{
--	    KdeCompatWindow *krw = GET_KDECOMPAT_WINDOW (rw, ks);
--	    unsigned int    i;
--
--	    for (i = 0; i < krw->nPreviews; i++)
--	    {
--		if (krw->previews[i].id == cw->id)
--		{
--		    kcw->isPreview = TRUE;
--		    break;
--		}
--	    }
--
--	    if (kcw->isPreview)
--		break;
--	}
--    }
--}
--
--static void
- kdecompatUpdateSlidePosition (CompWindow *w)
- {
-     CompDisplay   *d = w->screen->display;
-@@ -981,89 +771,6 @@ kdecompatSetOptionForPlugin (CompObject      *object,
- }
- 
- static void
--kdecompatUpdateBlurProperty (CompWindow *w)
--{
--    CompScreen  *s = w->screen;
--    CompDisplay *d = s->display;
--    Atom          actual;
--    int           result, format;
--    unsigned long n, left;
--    unsigned char *propData;
--    Bool          validProperty = FALSE;
--
--    KDECOMPAT_DISPLAY (d);
--    KDECOMPAT_WINDOW (w);
--
--    if (!kd->blurLoaded || !kdecompatGetWindowBlur (s))
--	return;
--
--    if (!kw->blurPropertySet)
--    {
--	result = XGetWindowProperty (d->display, w->id,
--				     kd->compizWindowBlurAtom, 0, 32768,
--				     FALSE, AnyPropertyType, &actual,
--				     &format, &n, &left, &propData);
--
--	if (result == Success && propData)
--	{
--	    /* somebody else besides us already set a
--	     * property, don't touch it */
--	    XFree (propData);
--	    return;
--	}
--    }
--
--    result = XGetWindowProperty (d->display, w->id,
--				 kd->kdeBlurBehindRegionAtom, 0, 32768,
--				 FALSE, AnyPropertyType, &actual,
--				 &format, &n, &left, &propData);
--    if (result == Success && propData)
--    {
--	if (format == 32 && actual == XA_CARDINAL &&
--	    n > 0 && (n % 4 == 0))
--	{
--	    long         *data = (long *) propData;
--	    unsigned int nBox = n / 4;
--	    long         compizProp[nBox * 6 + 2];
--	    unsigned int i = 2;
--
--	    compizProp[0] = 10; /* threshold */
--	    compizProp[1] = 0; /* filter */
--	    while (nBox--)
--	    {
--		int x, y, w, h;
--		x = *data++;
--		y = *data++;
--		w = *data++;
--		h = *data++;
--
--		compizProp[i++] = GRAVITY_NORTH | GRAVITY_WEST; /* P1 gravity */
--		compizProp[i++] = x;                            /* P1 X */
--		compizProp[i++] = y;                            /* P1 Y */
--		compizProp[i++] = GRAVITY_NORTH | GRAVITY_WEST; /* P2 gravity */
--		compizProp[i++] = x + w;                        /* P2 X */
--		compizProp[i++] = y + h;                        /* P2 Y */
--	    }
--
--	    XChangeProperty (d->display, w->id, kd->compizWindowBlurAtom,
--			     XA_INTEGER, 32, PropModeReplace,
--			     (unsigned char *) compizProp, i);
--
--	    kw->blurPropertySet = TRUE;
--	    validProperty       = TRUE;
--	}
--
--	XFree (propData);
--    }
--
--    if (kw->blurPropertySet && !validProperty)
--    {
--	kw->blurPropertySet = FALSE;
--	XDeleteProperty (d->display, w->id, kd->compizWindowBlurAtom);
--    }
--}
--
--static void
- kdecompatHandleEvent (CompDisplay *d,
- 		      XEvent      *event)
- {
-@@ -1095,13 +802,7 @@ kdecompatHandleEvent (CompDisplay *d,
- 
-     switch (event->type) {
-     case PropertyNotify:
--	if (event->xproperty.atom == kd->kdePreviewAtom)
--	{
--	    w = findWindowAtDisplay (d, event->xproperty.window);
--	    if (w)
--		kdecompatUpdatePreviews (w);
--	}
--	else if (event->xproperty.atom == kd->kdeSlideAtom)
-+	if (event->xproperty.atom == kd->kdeSlideAtom)
- 	{
- 	    w = findWindowAtDisplay (d, event->xproperty.window);
- 	    if (w)
-@@ -1113,12 +814,6 @@ kdecompatHandleEvent (CompDisplay *d,
- 	    if (w)
- 		kdecompatPresentWindowGroup (w);
- 	}
--	else if (event->xproperty.atom == kd->kdeBlurBehindRegionAtom)
--	{
--	    w = findWindowAtDisplay (d, event->xproperty.window);
--	    if (w)
--		kdecompatUpdateBlurProperty (w);
--	}
- 	break;
-     }
- }
-@@ -1134,34 +829,6 @@ kdecompatDamageWindowRect (CompWindow *w,
-     KDECOMPAT_SCREEN (s);
-     KDECOMPAT_WINDOW (w);
- 
--    if (kw->isPreview && kdecompatGetPlasmaThumbnails (s))
--    {
--	CompWindow *cw;
--	REGION     reg;
--
--	reg.rects = &reg.extents;
--	reg.numRects = 1;
--
--	for (cw = s->windows; cw; cw = cw->next)
--	{
--	    KdeCompatWindow *kcw = GET_KDECOMPAT_WINDOW (cw, ks);
--	    unsigned int    i;
--
--	    for (i = 0; i < kcw->nPreviews; i++)
--	    {
--		if (kcw->previews[i].id != w->id)
--		    continue;
--
--		reg.extents.x1 = kcw->previews[i].thumb.x + cw->attrib.x;
--		reg.extents.x2 = reg.extents.x1 + kcw->previews[i].thumb.width;
--		reg.extents.y1 = kcw->previews[i].thumb.y + cw->attrib.y;
--		reg.extents.y2 = reg.extents.y1 + kcw->previews[i].thumb.height;
--
--		damageScreenRegion (s, &reg);
--	    }
--	}
--    }
--
-     if (initial && kdecompatGetSlidingPopups (s))
- 	kdecompatStartSlideAnimation (w, TRUE);
- 
-@@ -1197,16 +864,11 @@ kdecompatScreenOptionChanged (CompScreen             *s,
+@@ -864,7 +864,7 @@ kdecompatScreenOptionChanged (CompScreen             *s,
  {
      KDECOMPAT_DISPLAY (s->display);
  
--    if (num == KdecompatScreenOptionPlasmaThumbnails)
--	kdecompatAdvertiseSupport (s, kd->kdePreviewAtom, opt->value.b);
-     else if (num == KdecompatScreenOptionSlidingPopups)
+-    else if (num == KdecompatScreenOptionSlidingPopups)
++    if (num == KdecompatScreenOptionSlidingPopups)
  	kdecompatAdvertiseSupport (s, kd->kdeSlideAtom, opt->value.b);
      else if (num == KdecompatScreenOptionPresentWindows)
  	kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
- 				   opt->value.b && kd->scaleHandle);
--    else if (num == KdecompatScreenOptionWindowBlur)
--	kdecompatAdvertiseSupport (s, kd->kdeBlurBehindRegionAtom,
--				   opt->value.b && kd->blurLoaded);
- }
- 
- static Bool
-@@ -1266,20 +928,12 @@ kdecompatInitDisplay (CompPlugin  *p,
- 	return FALSE;
-     }
- 
--    kd->kdePreviewAtom = XInternAtom (d->display, "_KDE_WINDOW_PREVIEW", 0);
-     kd->kdeSlideAtom = XInternAtom (d->display, "_KDE_SLIDE", 0);
-     kd->kdePresentGroupAtom = XInternAtom (d->display,
- 					   "_KDE_PRESENT_WINDOWS_GROUP", 0);
--    kd->kdeBlurBehindRegionAtom = XInternAtom (d->display,
--					       "_KDE_NET_WM_BLUR_BEHIND_REGION",
--					       0);
--    kd->compizWindowBlurAtom = XInternAtom (d->display,
--					    "_COMPIZ_WM_WINDOW_BLUR", 0);
-     kd->desktopLayoutAtom = XInternAtom (d->display,
- 					 "_NET_DESKTOP_LAYOUT", 0);
- 
--    kd->blurLoaded = findActivePlugin ("blur") != NULL;
--
-     kd->scaleHandle  = findActivePlugin ("scale");
-     kd->scaleActive  = FALSE;
-     kd->scaleTimeout = 0;
-@@ -1330,19 +984,14 @@ kdecompatInitScreen (CompPlugin *p,
-     ks->hasSlidingPopups = FALSE;
-     ks->presentWindow    = NULL;
- 
--    kdecompatAdvertiseSupport (s, kd->kdePreviewAtom,
--			       kdecompatGetPlasmaThumbnails (s));
-     kdecompatAdvertiseSupport (s, kd->kdeSlideAtom,
- 			       kdecompatGetSlidingPopups (s));
-     kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
- 			       kdecompatGetPresentWindows (s) &&
- 			       kd->scaleHandle);
--    kdecompatAdvertiseSupport (s, kd->kdeBlurBehindRegionAtom,
--			       kdecompatGetWindowBlur (s) && kd->blurLoaded);
- 
-     kdecompatUpdateDesktopLayoutFromViewports (s);
- 
--    kdecompatSetPlasmaThumbnailsNotify (s, kdecompatScreenOptionChanged);
-     kdecompatSetSlidingPopupsNotify (s, kdecompatScreenOptionChanged);
- 
-     WRAP (ks, s, preparePaintScreen, kdecompatPreparePaintScreen);
-@@ -1365,7 +1014,6 @@ kdecompatFiniScreen (CompPlugin *p,
- 
-     freeWindowPrivateIndex (s, ks->windowPrivateIndex);
- 
--    kdecompatAdvertiseSupport (s, kd->kdePreviewAtom, FALSE);
-     kdecompatAdvertiseSupport (s, kd->kdeSlideAtom, FALSE);
-     kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom, FALSE);
- 
-@@ -1390,21 +1038,13 @@ kdecompatInitWindow (CompPlugin *p,
-     if (!kw)
- 	return FALSE;
- 
--    kw->previews  = NULL;
--    kw->nPreviews = 0;
--    kw->isPreview = FALSE;
--
-     kw->slideData = NULL;
- 
--    kw->blurPropertySet = FALSE;
--
-     kw->unmapCnt   = 0;
-     kw->destroyCnt = 0;
- 
-     w->base.privates[ks->windowPrivateIndex].ptr = kw;
- 
--    kdecompatUpdateBlurProperty (w);
--
-     return TRUE;
- }
- 
-@@ -1420,20 +1060,6 @@ kdecompatFiniWindow (CompPlugin *p,
- 
-     kdecompatStopCloseAnimation (w);
- 
--    if (kw->previews)
--	free (kw->previews);
--
--    if (kw->slideData)
--	free (kw->slideData);
--
--    if (kw->blurPropertySet)
--    {
--	CompDisplay *d = w->screen->display;
--	KDECOMPAT_DISPLAY (d);
--
--	XDeleteProperty (d->display, w->id, kd->compizWindowBlurAtom);
--    }
--
-     free (kw);
- }
- 
-@@ -1497,4 +1123,3 @@ getCompPluginInfo (void)
- {
-     return &kdecompatVTable;
- }
--
