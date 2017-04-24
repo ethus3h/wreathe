@@ -2,12 +2,13 @@
 /etc/conf.d/hwclock 4d2ca100708dddac4c3ce821a61a4489
 /usr/local/etc/crystallize.conf c51ec1db19435cc853e1048176bc89df
 /etc/conf.d/keymaps c8fa9256b5a7b70c4dd473c6062b2739
+/etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-wreathe-7.3-2016aug04n4 76a189e3850a28393eb6bc06d1b9535c
 /etc/bash/bashrc.d/wreathe.sh 96cb0c86942de38f956589c02c412c3e
 /etc/portage/package.license/wreathe.license 2beb5a81fd71d18695da0599f4b4079f
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug17 6b56f16e901cda3244d3081687f25073
 /etc/ssh/sshd_config a8b9f550b3e4d5013b27bd60ff1a8454
 /usr/share/X11/xkb/symbols/us 67518bb7123e52f7758a4724a7987f31
-/etc/portage/package.use/wreathe.use df6b9d1db00c57c347675492322b8b7e
+/etc/portage/package.use/wreathe.use 8fd6b2f7cbf82aa0e71fde5441d4363d
 /etc/conf.d/xdm d4fb606e98a5fe795687bd3e0c8971e0
 /etc/conf.d/pydoc-3.4 ee3859fa958420fa1f435fd6205a6c23
 /etc/xdg/openbox/autostart cf7cd22e452ddfb7c5887e465d97d4f5
@@ -17,7 +18,7 @@
 /etc/portage/make.conf 03e7d779ca2baf4ffe6f13c9f48155ec
 /etc/portage/package.use 8543086c63a9abe868db1b72f98e156a
 /etc/fonts/conf.d/11-lcdfilter-default.conf 43ac0064a17beabe50ca02af4cc11ca6
-/etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Aug28 14f37c401feca7c945866a3c1ee80592
+/etc/portage/patches/x11-plugins/compiz-plugins-main/0-negative-upstream.patch 50ab045f04dd52c641bf1f6462ebb76b
 /etc/kernels/wreathe-kernel.config 0c2fb0146d4acfc1c62aaf4047301b3b
 /etc/git/hooks/pre-commit 1015f745e9bb00ace2ec03db24cf8f84
 /etc/portage/package.mask f51b7267cd3979c292dac8602f9900ef
@@ -41,9 +42,11 @@
 /etc/grub.d/40_custom babe7de352fe18de5a238569cf4b8a11
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug17n2 30c942feb83f90f7260ba247cc492f11
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug06 3338ec2897be87b6b2389eebd8636a5b
+/etc/portage/patches/x11-plugins/compiz-plugins-main/revert-kde-integration-removal-2017apr24n3.patch e1c24b7556b0563a10cf6cb62f31010a
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016june14n4 094a8caa3c4b87b59d4b5a2c31d168b5
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016june10a11n2 63b0603fd53245d9bf4001f3080ef3fb
-/etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-wreathe-7.3-2016aug04n4 76a189e3850a28393eb6bc06d1b9535c
+/etc/portage/patches/x11-plugins/compiz-plugins-main/negative-default-negative.patch ae89aaee84e7afef6a2411d2031f1de6
+/etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Aug28 14f37c401feca7c945866a3c1ee80592
 /etc/portage/package.accept_keywords/wreathe.accept_keywords 64520efd2fab3e03ac9462e02ce1f45b
 /etc/skel/.bash_logout 7d8a8ef90c1818a0cd66808ac2740638
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016june14n3 e6c06b715b32f59e9039ec19f948f8df
