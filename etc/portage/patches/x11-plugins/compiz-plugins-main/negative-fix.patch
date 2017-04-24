@@ -26,7 +26,7 @@ index eaed8e4..fa7e9ed 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 6b53b1a..21e0e23 100644
+index 6b53b1a..9a89a00 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -55,6 +55,7 @@ typedef struct _NEGSCreen
@@ -95,26 +95,25 @@ index 6b53b1a..21e0e23 100644
  }
  
  static void
-@@ -562,24 +564,43 @@ NEGScreenOptionChanged (CompScreen       *s,
+@@ -562,24 +564,42 @@ NEGScreenOptionChanged (CompScreen       *s,
  {
      switch (num)
      {
 +    case NegScreenOptionToggleByDefault:
 +    {
 +		CompWindow *w;
-+		Bool enabled = opt[NegScreenOptionToggleByDefault].value.b;
 +
 +		NEG_SCREEN (s);
 +
++		ns->isNeg = opt[NegScreenOptionToggleByDefault].value.b;
++
 +		for (w = s->windows; w; w = w->next)
 +		{
-+			if (enabled)
++			if (ns->isNeg)
 +				NEGUpdateState (w);
 +			else
 +				NEGUpdateState (w);
 +		}
-+
-+		ns->isNeg = enabled;
 +	}
 +    break;
      case NegScreenOptionNegMatch:
@@ -150,7 +149,7 @@ index 6b53b1a..21e0e23 100644
  	    }
  	}
  	break;
-@@ -711,8 +732,8 @@ NEGInitScreen (CompPlugin *p,
+@@ -711,8 +731,8 @@ NEGInitScreen (CompPlugin *p,
      ns->negFunction      = 0;
      ns->negAlphaFunction = 0;
  
@@ -160,7 +159,7 @@ index 6b53b1a..21e0e23 100644
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -753,6 +774,7 @@ NEGInitWindow (CompPlugin *p,
+@@ -753,6 +773,7 @@ NEGInitWindow (CompPlugin *p,
  	return FALSE;
  
      nw->isNeg       = FALSE;
