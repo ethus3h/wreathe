@@ -26,7 +26,7 @@ index eaed8e4..61c9809 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 6b53b1a..129dfa7 100644
+index 6b53b1a..94df6d7 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -55,6 +55,7 @@ typedef struct _NEGSCreen
@@ -102,11 +102,11 @@ index 6b53b1a..129dfa7 100644
 +    case NegScreenOptionDefaultEnabled:
 +    {
 +		NEG_SCREEN (s);
-+		if (!ns->isNeg && opt[NegScreenOptionDefaultEnabled].value.b)
++		if ( !ns->isNeg && negGetDefaultEnabled (s) )
 +		{
-+			NEGToggleScreen(s);
++			NEGToggleScreen (s);
 +		}
-+	}
++    }
 +    break;
      case NegScreenOptionNegMatch:
 -    case NegScreenOptionExcludeMatch:
