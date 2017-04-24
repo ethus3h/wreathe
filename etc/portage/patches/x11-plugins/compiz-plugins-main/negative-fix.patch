@@ -26,7 +26,7 @@ index eaed8e4..61c9809 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 6b53b1a..0ba4ae7 100644
+index 6b53b1a..a37e1b6 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -40,13 +40,14 @@ typedef struct _NEGDisplay
@@ -121,12 +121,12 @@ index 6b53b1a..0ba4ae7 100644
 +		if ( !ns->isNeg && negGetDefaultEnabled (s) )
 +		{
 +			NEGToggleScreen (s);
-+			ns->isAutoNeg = true;
++			ns->isAutoNeg = TRUE;
 +		}
 +		if ( ns->isNeg && !negGetDefaultEnabled (s) && ns->isAutoNeg )
 +		{
 +			NEGToggleScreen (s);
-+			ns->isAutoNeg = false;
++			ns->isAutoNeg = FALSE;
 +		}
 +    }
 +    break;
