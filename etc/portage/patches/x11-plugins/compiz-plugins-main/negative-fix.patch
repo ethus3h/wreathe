@@ -26,14 +26,29 @@ index eaed8e4..61c9809 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 6b53b1a..10ac051 100644
+index 6b53b1a..0ba4ae7 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
-@@ -55,6 +55,8 @@ typedef struct _NEGSCreen
+@@ -40,13 +40,14 @@ typedef struct _NEGDisplay
+ } NEGDisplay;
+ 
+ 
+-typedef struct _NEGSCreen
++typedef struct _NEGScreen
+ {
+     int windowPrivateIndex;
+ 
+     DrawWindowTextureProc drawWindowTexture;
+ 
+     Bool isNeg; /* negative screen flag */
++    Bool isAutoNeg; /* To distinguish between manually toggled screen negative and default-enabled */
+ 
+     int negFunction;
+     int negAlphaFunction;
+@@ -55,6 +56,7 @@ typedef struct _NEGSCreen
  typedef struct _NEGWindow
  {
      Bool isNeg; /* negative window flag */
-+    Bool isAutoNeg; /* To distinguish between manually toggled screen negative and default-enabled */
 +    Bool matched;
  } NEGWindow;
  
