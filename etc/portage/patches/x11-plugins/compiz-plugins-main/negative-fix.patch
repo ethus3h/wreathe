@@ -26,18 +26,19 @@ index eaed8e4..61c9809 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 6b53b1a..94df6d7 100644
+index 6b53b1a..10ac051 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
-@@ -55,6 +55,7 @@ typedef struct _NEGSCreen
+@@ -55,6 +55,8 @@ typedef struct _NEGSCreen
  typedef struct _NEGWindow
  {
      Bool isNeg; /* negative window flag */
++    Bool isAutoNeg; /* To distinguish between manually toggled screen negative and default-enabled */
 +    Bool matched;
  } NEGWindow;
  
  #define GET_NEG_CORE(c) \
-@@ -78,16 +79,15 @@ typedef struct _NEGWindow
+@@ -78,16 +80,15 @@ typedef struct _NEGWindow
  
  
  static void
@@ -60,7 +61,7 @@ index 6b53b1a..94df6d7 100644
  
      /* cause repainting */
      addWindowDamage (w);
-@@ -106,7 +106,7 @@ NEGToggleScreen (CompScreen *s)
+@@ -106,7 +107,7 @@ NEGToggleScreen (CompScreen *s)
      /* toggle every window */
      for (w = s->windows; w; w = w->next)
  	if (w)
@@ -69,7 +70,7 @@ index 6b53b1a..94df6d7 100644
  }
  
  static Bool
-@@ -123,7 +123,7 @@ negToggle (CompDisplay     *d,
+@@ -123,7 +124,7 @@ negToggle (CompDisplay     *d,
      w = findWindowAtDisplay (d, xid);
  
      if (w)
@@ -78,7 +79,7 @@ index 6b53b1a..94df6d7 100644
  
      return TRUE;
  }
-@@ -549,10 +549,12 @@ static void
+@@ -549,10 +550,12 @@ static void
  NEGWindowAdd (CompScreen *s,
  	      CompWindow *w)
  {
@@ -95,7 +96,7 @@ index 6b53b1a..94df6d7 100644
  }
  
  static void
-@@ -562,24 +564,34 @@ NEGScreenOptionChanged (CompScreen       *s,
+@@ -562,24 +565,40 @@ NEGScreenOptionChanged (CompScreen       *s,
  {
      switch (num)
      {
@@ -105,6 +106,12 @@ index 6b53b1a..94df6d7 100644
 +		if ( !ns->isNeg && negGetDefaultEnabled (s) )
 +		{
 +			NEGToggleScreen (s);
++			ns->isAutoNeg = true;
++		}
++		if ( ns->isNeg && !negGetDefaultEnabled (s) && ns->isAutoNeg )
++		{
++			NEGToggleScreen (s);
++			ns->isAutoNeg = false;
 +		}
 +    }
 +    break;
@@ -141,7 +148,7 @@ index 6b53b1a..94df6d7 100644
  	    }
  	}
  	break;
-@@ -711,8 +723,8 @@ NEGInitScreen (CompPlugin *p,
+@@ -711,8 +730,8 @@ NEGInitScreen (CompPlugin *p,
      ns->negFunction      = 0;
      ns->negAlphaFunction = 0;
  
@@ -151,7 +158,7 @@ index 6b53b1a..94df6d7 100644
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -753,6 +765,7 @@ NEGInitWindow (CompPlugin *p,
+@@ -753,6 +772,7 @@ NEGInitWindow (CompPlugin *p,
  	return FALSE;
  
      nw->isNeg       = FALSE;
@@ -159,7 +166,7 @@ index 6b53b1a..94df6d7 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -828,4 +841,3 @@ getCompPluginInfo(void)
+@@ -828,4 +848,3 @@ getCompPluginInfo(void)
  {
      return &NEGVTable;
  }
