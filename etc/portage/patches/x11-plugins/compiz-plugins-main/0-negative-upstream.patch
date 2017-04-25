@@ -1,14 +1,14 @@
 diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
-index eaed8e4..c82ff6d 100644
+index eaed8e4..fa7e9ed 100644
 --- a/metadata/neg.xml.in
 +++ b/metadata/neg.xml.in
 @@ -22,15 +22,15 @@
  			</option>
  		</display>
  		<screen>
-+			<option name="default_negative" type="bool">
-+				<_short>Negative by default</_short>
-+				<_long>Default screen state is negative</_long>
++			<option name="toggle_by_default" type="bool">
++				<_short>Auto-Toggle Matched Windows</_short>
++				<_long>Automatically toggle windows in the match list by default</_long>
 +				<default>false</default>
 +			</option>
  			<option name="neg_match" type="match">
@@ -26,18 +26,9 @@ index eaed8e4..c82ff6d 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 6b53b1a..6a68ca8 100644
+index 6b53b1a..45b1721 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
-@@ -40,7 +40,7 @@ typedef struct _NEGDisplay
- } NEGDisplay;
- 
- 
--typedef struct _NEGSCreen
-+typedef struct _NEGScreen
- {
-     int windowPrivateIndex;
- 
 @@ -55,6 +55,7 @@ typedef struct _NEGSCreen
  typedef struct _NEGWindow
  {
@@ -104,14 +95,33 @@ index 6b53b1a..6a68ca8 100644
  }
  
  static void
-@@ -562,24 +564,30 @@ NEGScreenOptionChanged (CompScreen       *s,
+@@ -562,24 +564,49 @@ NEGScreenOptionChanged (CompScreen       *s,
  {
      switch (num)
      {
-+    case NegScreenOptionDefaultNegative:
++    case NegScreenOptionToggleByDefault:
 +    {
-+		NEGToggleScreen (s);
-+    }
++		CompWindow *w;
++
++		NEG_SCREEN (s);
++
++		ns->isNeg = opt[NegScreenOptionToggleByDefault].value.b;
++
++		for (w = s->windows; w; w = w->next)
++		{
++			NEG_WINDOW (w);
++			if (ns->isNeg)
++			{
++				if (!nw->isNeg)
++					NEGUpdateState (w);
++			}
++			else
++			{
++				if (nw->isNeg)
++					NEGUpdateState (w);
++			}
++		}
++	}
 +    break;
      case NegScreenOptionNegMatch:
 -    case NegScreenOptionExcludeMatch:
@@ -138,7 +148,7 @@ index 6b53b1a..6a68ca8 100644
 +
 +			if (matchChanged)
 +			{
-+				if (ns->isNeg)
++				if ((ns->isNeg || negGetToggleByDefault (s)) && !nw->isNeg)
 +					NEGUpdateState (w);
 +				else if (!matchEval (negGetNegMatch (w->screen), w) && nw->isNeg)
 +					NEGUpdateState (w);
@@ -146,17 +156,17 @@ index 6b53b1a..6a68ca8 100644
  	    }
  	}
  	break;
-@@ -711,8 +719,8 @@ NEGInitScreen (CompPlugin *p,
+@@ -711,8 +738,8 @@ NEGInitScreen (CompPlugin *p,
      ns->negFunction      = 0;
      ns->negAlphaFunction = 0;
  
-+    negSetDefaultNegativeNotify (s, NEGScreenOptionChanged);
++    negSetToggleByDefaultNotify (s, NEGScreenOptionChanged);
      negSetNegMatchNotify (s, NEGScreenOptionChanged);
 -    negSetExcludeMatchNotify (s, NEGScreenOptionChanged);
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -753,6 +761,7 @@ NEGInitWindow (CompPlugin *p,
+@@ -753,6 +780,7 @@ NEGInitWindow (CompPlugin *p,
  	return FALSE;
  
      nw->isNeg       = FALSE;
@@ -164,9 +174,3 @@ index 6b53b1a..6a68ca8 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -828,4 +837,3 @@ getCompPluginInfo(void)
- {
-     return &NEGVTable;
- }
--
-
