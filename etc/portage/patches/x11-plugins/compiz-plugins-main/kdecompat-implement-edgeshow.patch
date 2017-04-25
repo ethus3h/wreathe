@@ -15,7 +15,7 @@ index 9cb5667..b99389d 100644
  				<_short>Popup Slide Effect</_short>
  				<option name="sliding_popups" type="bool">
 diff --git a/src/kdecompat/kdecompat.c b/src/kdecompat/kdecompat.c
-index b41a44e..42f2c92 100644
+index b41a44e..92ca3e2 100644
 --- a/src/kdecompat/kdecompat.c
 +++ b/src/kdecompat/kdecompat.c
 @@ -54,6 +54,7 @@ typedef struct _KdeCompatDisplay {
@@ -46,7 +46,15 @@ index b41a44e..42f2c92 100644
  typedef struct {
      SlidePosition position;
      int           start;
-@@ -691,6 +705,77 @@ kdecompatPresentWindowGroup (CompWindow *w)
+@@ -309,7 +323,6 @@ kdecompatPaintWindow (CompWindow		 *w,
+ {
+     CompScreen   *s = w->screen;
+     Bool         status;
+-    unsigned int i;
+ 
+     KDECOMPAT_SCREEN (s);
+     KDECOMPAT_WINDOW (w);
+@@ -691,6 +704,75 @@ kdecompatPresentWindowGroup (CompWindow *w)
  }
  
  static void
@@ -72,13 +80,12 @@ index b41a44e..42f2c92 100644
 +    {
 +	if (format == 32 && actual == kd->kdeScreenEdgeShowAtom)
 +	{
-+	    long *property = (long *) propData;
 +	    //value comes in two parts, edge in the lower byte
 +	    //then the type in the upper byte
 +	    // 0 = autohide
 +	    // 1 = raise in front on activate
 +
-+	    const uint32_t value = propData;
++	    const uint32_t value = (uint32_t) propData;
 +	    ElectricBorder border = ElectricNone;
 +	    switch (value & 0xFF)
 +	    {
@@ -99,12 +106,11 @@ index b41a44e..42f2c92 100644
 +	    {
 +		if (((value >> 8) & 0xFF) == 1)
 +		{
-+		    setKeepBelow(true);
 +		    unsigned int newState = w->state;
 +		    newState |= CompWindowStateBelowMask;
 +		    if (newState != w->state)
 +		    {
-+			changeWindowState (w, newState)
++			changeWindowState (w, newState);
 +			updateWindowAttributes (w, CompStackingUpdateModeNormal);
 +		    }
 +		}
@@ -113,7 +119,7 @@ index b41a44e..42f2c92 100644
 +		    unmapWindow(w);
 +		}
 +	    }
-+      XDeleteProperty(d->display, w->id, kdeScreenEdgeShowAtom);
++      XDeleteProperty(d->display, w->id, kd->kdeScreenEdgeShowAtom);
 +	}
 +
 +	XFree (propData);
@@ -124,7 +130,7 @@ index b41a44e..42f2c92 100644
  kdecompatHandleCompizEvent (CompDisplay *d,
  			    const char  *pluginName,
  			    const char  *eventName,
-@@ -814,6 +899,12 @@ kdecompatHandleEvent (CompDisplay *d,
+@@ -814,6 +896,12 @@ kdecompatHandleEvent (CompDisplay *d,
  	    if (w)
  		kdecompatPresentWindowGroup (w);
  	}
@@ -137,7 +143,15 @@ index b41a44e..42f2c92 100644
  	break;
      }
  }
-@@ -869,6 +960,9 @@ kdecompatScreenOptionChanged (CompScreen             *s,
+@@ -827,7 +915,6 @@ kdecompatDamageWindowRect (CompWindow *w,
+     CompScreen *s = w->screen;
+ 
+     KDECOMPAT_SCREEN (s);
+-    KDECOMPAT_WINDOW (w);
+ 
+     if (initial && kdecompatGetSlidingPopups (s))
+ 	kdecompatStartSlideAnimation (w, TRUE);
+@@ -869,6 +956,9 @@ kdecompatScreenOptionChanged (CompScreen             *s,
      else if (num == KdecompatScreenOptionPresentWindows)
  	kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
  				   opt->value.b && kd->scaleHandle);
@@ -147,7 +161,7 @@ index b41a44e..42f2c92 100644
  }
  
  static Bool
-@@ -931,6 +1025,7 @@ kdecompatInitDisplay (CompPlugin  *p,
+@@ -931,6 +1021,7 @@ kdecompatInitDisplay (CompPlugin  *p,
      kd->kdeSlideAtom = XInternAtom (d->display, "_KDE_SLIDE", 0);
      kd->kdePresentGroupAtom = XInternAtom (d->display,
  					   "_KDE_PRESENT_WINDOWS_GROUP", 0);
@@ -155,7 +169,7 @@ index b41a44e..42f2c92 100644
      kd->desktopLayoutAtom = XInternAtom (d->display,
  					 "_NET_DESKTOP_LAYOUT", 0);
  
-@@ -989,10 +1084,14 @@ kdecompatInitScreen (CompPlugin *p,
+@@ -989,10 +1080,14 @@ kdecompatInitScreen (CompPlugin *p,
      kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
  			       kdecompatGetPresentWindows (s) &&
  			       kd->scaleHandle);
@@ -170,7 +184,7 @@ index b41a44e..42f2c92 100644
  
      WRAP (ks, s, preparePaintScreen, kdecompatPreparePaintScreen);
      WRAP (ks, s, paintOutput, kdecompatPaintOutput);
-@@ -1016,6 +1115,7 @@ kdecompatFiniScreen (CompPlugin *p,
+@@ -1016,6 +1111,7 @@ kdecompatFiniScreen (CompPlugin *p,
  
      kdecompatAdvertiseSupport (s, kd->kdeSlideAtom, FALSE);
      kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom, FALSE);
