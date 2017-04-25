@@ -1,0 +1,180 @@
+diff --git a/metadata/kdecompat.xml.in b/metadata/kdecompat.xml.in
+index 9cb5667..b99389d 100644
+--- a/metadata/kdecompat.xml.in
++++ b/metadata/kdecompat.xml.in
+@@ -16,6 +16,11 @@
+ 				<_long>Support the "present windows" effect for Plasma task groups</_long>
+ 				<default>true</default>
+ 			</option>
++			<option name="screen_edge_show" type="bool">
++				<_short>Support Edge-Show</_short>
++				<_long>Support hiding and showing windows that are hidden at screen edge (autohidden Plasma panels, etc.)</_long>
++				<default>true</default>
++			</option>
+ 			<group>
+ 				<_short>Popup Slide Effect</_short>
+ 				<option name="sliding_popups" type="bool">
+diff --git a/src/kdecompat/kdecompat.c b/src/kdecompat/kdecompat.c
+index b41a44e..42f2c92 100644
+--- a/src/kdecompat/kdecompat.c
++++ b/src/kdecompat/kdecompat.c
+@@ -54,6 +54,7 @@ typedef struct _KdeCompatDisplay {
+ 
+     Atom kdeSlideAtom;
+     Atom kdePresentGroupAtom;
++    Atom kdeScreenEdgeShowAtom;
+     Atom desktopLayoutAtom;
+ } KdeCompatDisplay;
+ 
+@@ -90,6 +91,19 @@ typedef enum {
+     South = 3
+ } SlidePosition;
+ 
++typedef enum {
++    ElectricTop,
++    ElectricTopRight,
++    ElectricRight,
++    ElectricBottomRight,
++    ElectricBottom,
++    ElectricBottomLeft,
++    ElectricLeft,
++    ElectricTopLeft,
++    ELECTRIC_COUNT,
++    ElectricNone
++} ElectricBorder;
++
+ typedef struct {
+     SlidePosition position;
+     int           start;
+@@ -691,6 +705,77 @@ kdecompatPresentWindowGroup (CompWindow *w)
+ }
+ 
+ static void
++kdecompatReadShowOnScreenEdge (CompWindow *w)
++{
++    CompScreen    *s = w->screen;
++    CompDisplay   *d = s->display;
++    Atom          actual;
++    int           result, format;
++    unsigned long n, left;
++    unsigned char *propData;
++
++    KDECOMPAT_DISPLAY (d);
++
++    if (!kdecompatGetPresentWindows (s))
++	return;
++
++    result = XGetWindowProperty (d->display, w->id, kd->kdeScreenEdgeShowAtom, 0,
++				 32768, FALSE, AnyPropertyType, &actual,
++				 &format, &n, &left, &propData);
++
++    if (result == Success && propData)
++    {
++	if (format == 32 && actual == kd->kdeScreenEdgeShowAtom)
++	{
++	    long *property = (long *) propData;
++	    //value comes in two parts, edge in the lower byte
++	    //then the type in the upper byte
++	    // 0 = autohide
++	    // 1 = raise in front on activate
++
++	    const uint32_t value = propData;
++	    ElectricBorder border = ElectricNone;
++	    switch (value & 0xFF)
++	    {
++	    case 0:
++		border = ElectricTop;
++		break;
++	    case 1:
++		border = ElectricRight;
++		break;
++	    case 2:
++		border = ElectricBottom;
++		break;
++	    case 3:
++		border = ElectricLeft;
++		break;
++	    }
++	    if (border != ElectricNone)
++	    {
++		if (((value >> 8) & 0xFF) == 1)
++		{
++		    setKeepBelow(true);
++		    unsigned int newState = w->state;
++		    newState |= CompWindowStateBelowMask;
++		    if (newState != w->state)
++		    {
++			changeWindowState (w, newState)
++			updateWindowAttributes (w, CompStackingUpdateModeNormal);
++		    }
++		}
++		else
++		{
++		    unmapWindow(w);
++		}
++	    }
++      XDeleteProperty(d->display, w->id, kdeScreenEdgeShowAtom);
++	}
++
++	XFree (propData);
++    }
++}
++
++static void
+ kdecompatHandleCompizEvent (CompDisplay *d,
+ 			    const char  *pluginName,
+ 			    const char  *eventName,
+@@ -814,6 +899,12 @@ kdecompatHandleEvent (CompDisplay *d,
+ 	    if (w)
+ 		kdecompatPresentWindowGroup (w);
+ 	}
++	else if (event->xproperty.atom == kd->kdeScreenEdgeShowAtom)
++	{
++	    w = findWindowAtDisplay (d, event->xproperty.window);
++	    if (w)
++		kdecompatReadShowOnScreenEdge (w);
++	}
+ 	break;
+     }
+ }
+@@ -869,6 +960,9 @@ kdecompatScreenOptionChanged (CompScreen             *s,
+     else if (num == KdecompatScreenOptionPresentWindows)
+ 	kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
+ 				   opt->value.b && kd->scaleHandle);
++    else if (num == KdecompatScreenOptionScreenEdgeShow)
++	kdecompatAdvertiseSupport (s, kd->kdeScreenEdgeShowAtom,
++				   opt->value.b);
+ }
+ 
+ static Bool
+@@ -931,6 +1025,7 @@ kdecompatInitDisplay (CompPlugin  *p,
+     kd->kdeSlideAtom = XInternAtom (d->display, "_KDE_SLIDE", 0);
+     kd->kdePresentGroupAtom = XInternAtom (d->display,
+ 					   "_KDE_PRESENT_WINDOWS_GROUP", 0);
++    kd->kdeScreenEdgeShowAtom = XInternAtom (d->display, "_KDE_NET_WM_SCREEN_EDGE_SHOW", 0);
+     kd->desktopLayoutAtom = XInternAtom (d->display,
+ 					 "_NET_DESKTOP_LAYOUT", 0);
+ 
+@@ -989,10 +1084,14 @@ kdecompatInitScreen (CompPlugin *p,
+     kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
+ 			       kdecompatGetPresentWindows (s) &&
+ 			       kd->scaleHandle);
++    kdecompatAdvertiseSupport (s, kd->kdeScreenEdgeShowAtom,
++			       kdecompatGetScreenEdgeShow (s));
+ 
+     kdecompatUpdateDesktopLayoutFromViewports (s);
+ 
+     kdecompatSetSlidingPopupsNotify (s, kdecompatScreenOptionChanged);
++    kdecompatSetPresentWindowsNotify (s, kdecompatScreenOptionChanged);
++    kdecompatSetScreenEdgeShowNotify (s, kdecompatScreenOptionChanged);
+ 
+     WRAP (ks, s, preparePaintScreen, kdecompatPreparePaintScreen);
+     WRAP (ks, s, paintOutput, kdecompatPaintOutput);
+@@ -1016,6 +1115,7 @@ kdecompatFiniScreen (CompPlugin *p,
+ 
+     kdecompatAdvertiseSupport (s, kd->kdeSlideAtom, FALSE);
+     kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom, FALSE);
++    kdecompatAdvertiseSupport (s, kd->kdeScreenEdgeShowAtom, FALSE);
+ 
+     UNWRAP (ks, s, preparePaintScreen);
+     UNWRAP (ks, s, paintOutput);
