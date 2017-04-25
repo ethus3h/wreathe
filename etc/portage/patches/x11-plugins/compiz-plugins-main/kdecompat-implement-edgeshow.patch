@@ -15,7 +15,7 @@ index 9cb5667..b99389d 100644
  				<_short>Popup Slide Effect</_short>
  				<option name="sliding_popups" type="bool">
 diff --git a/src/kdecompat/kdecompat.c b/src/kdecompat/kdecompat.c
-index b41a44e..c1dd1f7 100644
+index b41a44e..5afa776 100644
 --- a/src/kdecompat/kdecompat.c
 +++ b/src/kdecompat/kdecompat.c
 @@ -54,6 +54,7 @@ typedef struct _KdeCompatDisplay {
@@ -78,9 +78,9 @@ index b41a44e..c1dd1f7 100644
 +
 +    compLogMessage ("kdecompat", CompLogLevelWarn,
 +    			"readShowOnScreenEdge called");
-+    compLogMessage ("kdecompat", CompLogLevelWarn, format);
++    //format=32
++    //result=0
 +    compLogMessage ("kdecompat", CompLogLevelWarn, propData);
-+    compLogMessage ("kdecompat", CompLogLevelWarn, result);
 +
 +    if (result == Success && propData)
 +    {
