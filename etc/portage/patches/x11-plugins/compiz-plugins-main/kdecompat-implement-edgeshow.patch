@@ -15,7 +15,7 @@ index 9cb5667..b99389d 100644
  				<_short>Popup Slide Effect</_short>
  				<option name="sliding_popups" type="bool">
 diff --git a/src/kdecompat/kdecompat.c b/src/kdecompat/kdecompat.c
-index b41a44e..a674d31 100644
+index b41a44e..3625bc0 100644
 --- a/src/kdecompat/kdecompat.c
 +++ b/src/kdecompat/kdecompat.c
 @@ -54,6 +54,7 @@ typedef struct _KdeCompatDisplay {
@@ -54,7 +54,7 @@ index b41a44e..a674d31 100644
  
      KDECOMPAT_SCREEN (s);
      KDECOMPAT_WINDOW (w);
-@@ -691,6 +704,81 @@ kdecompatPresentWindowGroup (CompWindow *w)
+@@ -691,6 +704,82 @@ kdecompatPresentWindowGroup (CompWindow *w)
  }
  
  static void
@@ -69,10 +69,7 @@ index b41a44e..a674d31 100644
 +
 +    KDECOMPAT_DISPLAY (d);
 +
-+    compLogMessage ("kdecompat", CompLogLevelWarn,
-+  			"readShowOnScreenEdge called");
-+
-+    if (!kdecompatGetPresentWindows (s))
++    if (!kdecompatGetScreenEdgeShow (s))
 +	return;
 +
 +    result = XGetWindowProperty (d->display, w->id, kd->kdeScreenEdgeShowAtom, 0,
@@ -88,10 +85,14 @@ index b41a44e..a674d31 100644
 +	    // 0 = autohide
 +	    // 1 = raise in front on activate
 +
++      compLogMessage ("kdecompat", CompLogLevelWarn,
++    			"readShowOnScreenEdge called");
++
 +	    const uint32_t value = (uint32_t)propData[0] << 24 |
 +	                           (uint32_t)propData[1] << 16 |
 +	                           (uint32_t)propData[2] << 8  |
 +	                           (uint32_t)propData[3];
++      compLogMessage ("kdecompat", CompLogLevelWarn, value);
 +	    ElectricBorder border = ElectricNone;
 +	    switch (value & 0xFF)
 +	    {
@@ -136,7 +137,7 @@ index b41a44e..a674d31 100644
  kdecompatHandleCompizEvent (CompDisplay *d,
  			    const char  *pluginName,
  			    const char  *eventName,
-@@ -814,6 +902,12 @@ kdecompatHandleEvent (CompDisplay *d,
+@@ -814,6 +903,12 @@ kdecompatHandleEvent (CompDisplay *d,
  	    if (w)
  		kdecompatPresentWindowGroup (w);
  	}
@@ -149,7 +150,7 @@ index b41a44e..a674d31 100644
  	break;
      }
  }
-@@ -827,7 +921,6 @@ kdecompatDamageWindowRect (CompWindow *w,
+@@ -827,7 +922,6 @@ kdecompatDamageWindowRect (CompWindow *w,
      CompScreen *s = w->screen;
  
      KDECOMPAT_SCREEN (s);
@@ -157,7 +158,7 @@ index b41a44e..a674d31 100644
  
      if (initial && kdecompatGetSlidingPopups (s))
  	kdecompatStartSlideAnimation (w, TRUE);
-@@ -869,6 +962,9 @@ kdecompatScreenOptionChanged (CompScreen             *s,
+@@ -869,6 +963,9 @@ kdecompatScreenOptionChanged (CompScreen             *s,
      else if (num == KdecompatScreenOptionPresentWindows)
  	kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
  				   opt->value.b && kd->scaleHandle);
@@ -167,7 +168,7 @@ index b41a44e..a674d31 100644
  }
  
  static Bool
-@@ -931,6 +1027,7 @@ kdecompatInitDisplay (CompPlugin  *p,
+@@ -931,6 +1028,7 @@ kdecompatInitDisplay (CompPlugin  *p,
      kd->kdeSlideAtom = XInternAtom (d->display, "_KDE_SLIDE", 0);
      kd->kdePresentGroupAtom = XInternAtom (d->display,
  					   "_KDE_PRESENT_WINDOWS_GROUP", 0);
@@ -175,7 +176,7 @@ index b41a44e..a674d31 100644
      kd->desktopLayoutAtom = XInternAtom (d->display,
  					 "_NET_DESKTOP_LAYOUT", 0);
  
-@@ -989,10 +1086,14 @@ kdecompatInitScreen (CompPlugin *p,
+@@ -989,10 +1087,14 @@ kdecompatInitScreen (CompPlugin *p,
      kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom,
  			       kdecompatGetPresentWindows (s) &&
  			       kd->scaleHandle);
@@ -190,7 +191,7 @@ index b41a44e..a674d31 100644
  
      WRAP (ks, s, preparePaintScreen, kdecompatPreparePaintScreen);
      WRAP (ks, s, paintOutput, kdecompatPaintOutput);
-@@ -1016,6 +1117,7 @@ kdecompatFiniScreen (CompPlugin *p,
+@@ -1016,6 +1118,7 @@ kdecompatFiniScreen (CompPlugin *p,
  
      kdecompatAdvertiseSupport (s, kd->kdeSlideAtom, FALSE);
      kdecompatAdvertiseSupport (s, kd->kdePresentGroupAtom, FALSE);
