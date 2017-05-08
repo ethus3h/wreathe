@@ -1,0 +1,235 @@
+/*
+ * This file is part of Tab Tree,
+ * Copyright (C) 2015-2016 Sergey Zelentsov <crayfishexterminator@gmail.com>
+ */
+
+/********************************* chrome://browser/skin/places/places.css adaptation *********************************/
+#tt,
+#tt-feedback {
+	margin: 0;
+}
+
+.tt-treechildren::-moz-tree-cell-text(hover) {
+	text-decoration: underline;
+}
+
+/* Style Places sidebars as Vista media collection */
+@media not all and (-moz-os-version: windows-xp) {
+	@media (-moz-windows-default-theme) {
+		.tt-treechildren::-moz-tree-cell-text(hover) {
+			text-decoration: none;
+		}
+	}
+}
+
+@media (-moz-windows-default-theme) {
+	.tt-treechildren {
+		background-color: #eef3fa;
+	}
+}
+
+.tt-treechildren::-moz-tree-image {
+	list-style-image: url(chrome://mozapps/skin/places/defaultFavicon.png);
+	padding-right: 2px;
+	margin: 0 2px;
+	width: 16px;
+	height: 16px;
+}
+/**********************************************************************************************************************/
+
+/* Highlighting unloaded tabs */
+
+.tt-treechildren::-moz-tree-image(pending-grayout) {
+	opacity: .6;
+}
+
+.tt-treechildren::-moz-tree-cell-text(pending-grayout) {
+	opacity: .76;
+}
+
+.tt-treechildren::-moz-tree-cell-text(pending-highlight) {
+	color: Highlight;
+}
+
+/* Highlighting unread tabs */
+
+.tt-treechildren::-moz-tree-cell-text(unread) {
+	color: #bb0000;
+}
+
+/************************************** chrome://global/skin/tree.css adaptation **************************************/
+.tt-treechildren::-moz-tree-row(dropOn) {
+	background-color: Highlight; /* makes Linux look like Windows, It's -moz-tree-cell-text instead of -moz-tree-row on Linux */
+}
+
+.tt-treechildren::-moz-tree-cell-text(primary, dropOn)  {
+	color: HighlightText;  /* to override (pending-highlight) color */
+}
+
+.tt-treechildren::-moz-tree-row(selected) {
+	background-color: Highlight;
+}
+
+.tt-treechildren::-moz-tree-cell-text(selected) {
+	color: HighlightText;
+}
+
+.tt-treechildren::-moz-tree-twisty {
+	padding: 0;
+	width: 0; /* The image's width is 9 pixels */
+	-moz-appearance: none; /* Linux fix */
+}
+
+.tt-treechildren::-moz-tree-twisty(open) {
+	width: 0; /* The image's width is 9 pixels */
+	-moz-appearance: none; /* Linux fix */
+}
+
+.tt-treechildren::-moz-tree-row(current) {
+	border: 1px dotted Highlight;
+}
+
+.tt-treechildren::-moz-tree-line(selected) {
+	border: 1px dotted HighlightText;
+}
+/**********************************************************************************************************************/
+
+.tt-treechildren::-moz-tree-row(dropOn) {
+	border: 1px dashed HighlightText;
+}
+
+.tt-treechildren::-moz-tree-row(dropBefore),
+.tt-treechildren::-moz-tree-row(dropAfter) {
+	border: 1px dashed Highlight;
+}
+
+.tt-treechildren::-moz-tree-row(quickSearch) {
+	border: 1px solid #EF0FFF; /* default Firefox color for "Highlight all" option in <findbar> */
+}
+
+/* :::::: Space for scrollbar ::::: */
+#tt #tt-scrollbar {
+	width: 17px;    /* assuming this width of scrollbar */
+	list-style-image: none;
+	visibility: visible;
+}
+
+#tt[hidevscroll] #tt-scrollbar {
+	width: 0;
+	visibility: collapse;
+}
+
+
+/* :::::: Close button icons ::::: */
+
+#tt #tt-close {
+	width: 18px;
+}
+
+#tt-treechildren:-moz-tree-cell(tt-close),
+#tt-treechildren:-moz-tree-image(tt-close),
+#tt-treechildren-feedback:-moz-tree-cell(tt-close),
+#tt-treechildren-feedback:-moz-tree-image(tt-close) {
+	margin: 0;
+	padding: 0;
+}
+
+.tt-treechildren::-moz-tree-image(tt-close) {
+	list-style-image: url(chrome://tabtree/skin/close.png);
+	-moz-image-region: rect(0, 16px, 16px, 0);
+}
+
+.tt-treechildren::-moz-tree-image(tt-close, selected) {
+	list-style-image: url(chrome://tabtree/skin/close.png);
+	-moz-image-region: rect(0, 48px, 16px, 32px);
+}
+
+.tt-treechildren::-moz-tree-image(tt-close, hover) {
+	list-style-image: url(chrome://tabtree/skin/close.png);
+	-moz-image-region: rect(0, 32px, 16px, 16px);
+}
+
+/* :::::: Icons to simulate tab-overlay icons ::::: */
+
+#tt #tt-overlay {
+	width: 18px;
+}
+
+#tt-treechildren:-moz-tree-cell(tt-overlay),
+#tt-treechildren:-moz-tree-image(tt-overlay),
+#tt-treechildren-feedback:-moz-tree-cell(tt-overlay),
+#tt-treechildren-feedback:-moz-tree-image(tt-overlay) {
+	margin: 0;
+	padding: 0;
+}
+
+/* This rule has to come before the following ones, or else it
+ * overrides them */
+#tt-treechildren::-moz-tree-image(tt-overlay),
+#tt-treechildren-feedback::-moz-tree-image(tt-overlay) {
+	list-style-image: none;
+}
+
+.tt-treechildren::-moz-tree-image(tt-soundplaying) {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio.svg#tab-audio);
+}
+
+.tt-treechildren::-moz-tree-image(tt-soundplaying, hover) {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio.svg#tab-audio-hover);
+}
+
+.tt-treechildren::-moz-tree-image(tt-muted) {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio.svg#tab-audio-muted);
+}
+
+.tt-treechildren::-moz-tree-image(tt-muted, hover) {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio.svg#tab-audio-muted-hover);
+}
+
+/* Nesting lines for mimic, dark and OS X themes */
+
+.tt-tree[treelines="true"] > .tt-treechildren::-moz-tree-line {
+	visibility: visible;
+}
+
+/* Tab search box */
+
+#tt-quicksearchbox {
+	transition-property: visibility, margin-bottom;
+	transition-duration: 0s, .2s;
+	transition-timing-function: linear, ease-in-out;
+	margin: 0; /* W8 fix */
+}
+
+#tt-quicksearchbox[collapsed="true"] {
+	margin-bottom: -22px; /* approximately */
+	transition-delay: .2s, 0s;
+}
+
+#tt-quicksearchbox .textbox-input {
+	text-overflow: ellipsis;
+	transition-delay: .2s;
+	transition-property: visibility;
+}
+
+#tt-quicksearchbox[collapsed="true"] .textbox-input {
+	visibility: collapse;
+	transition-delay: 0s;
+}
+
+/* New tab button */
+
+#tt-new-tab-button-container {
+	background-color: -moz-Dialog;
+}
+
+.tt-new-tab-button {
+	list-style-image: url(chrome://tabtree/skin/newtab.png);
+	/*list-style-image: url(chrome://browser/skin/tabbrowser/newtab-inverted.png);*/
+	-moz-image-region: auto;
+	padding: 0;
+}
+
+.tt-new-tab-button > .toolbarbutton-text {
+	display: none;
+}

@@ -1,0 +1,31 @@
+/*
+ * This file is part of Tab Tree,
+ * Copyright (C) 2015-2016 Sergey Zelentsov <crayfishexterminator@gmail.com>
+ */
+
+/* Private browsing */
+
+/* 6490 */
+/* Bug 1008183: We're intentionally using the titlebar asset here for fullscreen
+ * mode, since the tabstrip "mimics" the titlebar in that case with its own
+ * min/max/close window buttons.
+ */
+#private-browsing-indicator-titlebar > .private-browsing-indicator,
+#main-window[inFullscreen] #TabsToolbar > .private-browsing-indicator {
+	height: 18px; /* 20px default height causes a little disturbance in W8 */
+	background-size: 100% 100%;
+}
+
+/* 6515 */
+@media (-moz-os-version: windows-xp) {
+	@media not all and (-moz-windows-classic) {
+		#titlebar-content #private-browsing-indicator-titlebar > .private-browsing-indicator {
+			height: 23px; /* prevent titlebar stretching */ /* 25px is enough */
+			background-size: 100% 100%; /* looks a little better probably */
+		}
+	}
+}
+
+#nav-bar #private-browsing-indicator-titlebar { /* by default it's on #titlebar (not on #nav-bar) */
+	position: static; /* absolute by default - overlaps with Minimize, Restore, Close buttons */
+}

@@ -1,0 +1,88 @@
+<!ENTITY theme.title "Theme:">
+<!ENTITY theme.desc "When using the Developer Edition theme it's recommended to select &#171;mimic&#187; (mimic by default)">
+<!ENTITY theme.default "Default">
+<!ENTITY theme.mimic "Try to mimic the Firefox theme">
+<!ENTITY theme.dark "Dark">
+<!ENTITY treelines.title "Pokazuj linie łączące karty wzdłuż drzewa:">
+<!ENTITY treelines.desc "Linie łączące karty podrzędne z kartą nadrzędną (domyślnie zaznaczone)">
+<!ENTITY tab-height.title "Tab height:">
+<!ENTITY tab-height.desc "Set to &#171;-1&#187; or &#171;0&#187; to use the default theme value (&#171;-1&#187; by default)">
+<!ENTITY highlight-unloaded-tabs.title "Podświetl niezaładowane karty:">
+<!ENTITY highlight-unloaded-tabs.desc "Gdy używasz opcji Firefox &quot;Nie wczytuj kart, dopóki nie zostały wybrane&quot; (domyślnie &quot;Nie&quot;)">
+<!ENTITY highlight-unloaded-tabs.no "Nie">
+<!ENTITY highlight-unloaded-tabs.grayout "Zabarw na szaro">
+<!ENTITY highlight-unloaded-tabs.highlight "Podświetl">
+<!ENTITY highlight-unread-tabs.title "Podświetl nieprzeczytane karty:">
+<!ENTITY highlight-unread-tabs.desc "(domyślnie odznaczone)">
+<!ENTITY tab-numbers.title "Show tab numbers in tab titles:">
+<!ENTITY tab-numbers.desc "Useful for Vim-style add-ons (unchecked by default)">
+<!ENTITY dblclick.title "Dwuklik">
+<!ENTITY dblclick.desc "Polecane jedynie gdy nie masz myszy z kółkiem (domyślnie odznaczone)">
+<!ENTITY dblclick.none "No action">
+<!ENTITY dblclick.close "Close tab">
+<!ENTITY dblclick.pin "Pin/unpin tab">
+<!ENTITY middle-click-tabbar.title "Middle-click on the tabbar:">
+<!ENTITY middle-click-tabbar.desc "(&#171;Firefox default&#187; by default)">
+<!ENTITY middle-click-tabbar.0 "Firefox default (open a new tab)">
+<!-- middle-click-tabbar.1 === undoCloseTab.label -->
+<!ENTITY delay.title "Odstęp dwukliku (w milisekundach)">
+<!ENTITY delay.desc "W rzeczywistości jest to odstęp, zanim wybrana karta zostanie pokazana. Wpisz 160, jeśli nie chcesz widzieć mignięcia kart przy zamykaniu (domyślnie 0)">
+<!ENTITY position.left "Lewo">
+<!ENTITY position.right "Prawo">
+<!ENTITY position.sidebar_top "Above the default (e.g. Bookmarks) sidebar (hidden by default)">
+<!ENTITY position.sidebar_bottom "Below the default (e.g. History) sidebar (hidden by default)">
+<!ENTITY position.title "Pozycja:">
+<!ENTITY position.desc "(domyślnie &quot;lewo&quot;)">
+<!ENTITY search-position.title "Pozycja wyszukiwarki kart:">
+<!ENTITY search-position.desc "(domyślnie &quot;Góra&quot;)">
+<!ENTITY search-position.top "Góra">
+<!ENTITY search-position.bottom-before "Dół (przed przyciskiem &quot;Nowa karta&quot;)">
+<!ENTITY search-position.bottom-after "Dół (po przycisku &quot;Nowa karta&quot;)">
+<!ENTITY search-autohide.title "Samoukrywanie się wyszukiwarki kart:">
+<!ENTITY search-autohide.desc "Ctrl+Shift+Alt+F sprawia, że się pojawia (domyślnie odznaczone)">
+<!ENTITY drawInTitlebar.title "Ukryj natywny dla systemu pasek tytułu gdy Firefox jest zmaksymalizowany:">
+<!ENTITY drawInTitlebar.desc "To &quot;browser.tabs.drawInTitlebar&quot; w about:config (domyślnie zaznaczony)">
+<!ENTITY after-close.title "When closing current tab, focus:">
+<!ENTITY after-close.desc "(&#171;Last selected tab&#187; by default)">
+<!ENTITY after-close.0 "Default (opener/right tab)">
+<!ENTITY after-close.1 "Last selected tab">
+<!ENTITY after-close.2 "Closest tab (first child -> sibling below -> sibling above -> parent)">
+<!ENTITY after-close.3 "Tab right above">
+<!ENTITY new-tab-button.title "Pokaż przycisk &quot;Otwórz nową kartę (Ctrl+T)&quot;:">
+<!ENTITY new-tab-button.desc "Możesz również użyć dwukliku na pustej przestrzeni poniżej kart, żeby otworzyć nową kartę (domyślnie zaznaczony)">
+<!ENTITY close-tab-buttons.title "Pokaż przycisk &quot;Zamknij kartę&quot;:">
+<!ENTITY close-tab-buttons.desc "Możesz również użyć środkowego przycisku myszy albo wciśnąć kółko myszy (albo użyć dwukliku, jeśli zaznaczyłeś to w opcjach) (domyślnie zaznaczone)">
+<!ENTITY max-indent.title "Maksymalny poziom zagnieżdżenia:">
+<!ENTITY max-indent.desc "Przy otwieraniu karty. &quot;-1&quot; znaczy, że nie ma limitu zagnieżdżenia (&quot;-1&quot; domyślnie)">
+<!ENTITY wheel.title "Przy przewijaniu drzewa kart:">
+<!ENTITY wheel.desc "(domyślnie pierwszy wybór)">
+<!ENTITY wheel.0 "bez Shifta - normalne przewijanie, z Shiftem - zmienia aktywną kartę">
+<!ENTITY wheel.1 "bez Shifta - zmienia aktywną kartę, z Shiftem - normalne przewijanie">
+<!ENTITY wheel.2 "zawsze normalne przewijanie">
+<!ENTITY wheel.3 "zawsze zmienia aktywną kartę">
+<!ENTITY search-jump.title "Wyszukiwarka kart przechodzi do pierwszego dopasowania:">
+<!ENTITY search-jump.desc "(domyślnie odznaczone)">
+<!ENTITY search-jump-min-chars.title "Minimalna liczba znaków do wykonania przejścia:">
+<!ENTITY search-jump-min-chars.desc "(domyślnie 4)">
+<!ENTITY auto-hide-key.title "Key to toggle auto-hide">
+<!ENTITY auto-hide-key.desc "(default is F8)">
+<!ENTITY auto-hide-when-fullscreen.title "Auto-hide the tab tree in full screen:">
+<!ENTITY auto-hide-when-fullscreen.desc "Key defined above toggles this option if an active window is in full screen (checked by default)">
+<!ENTITY auto-hide-when-maximized.title "Auto-hide the tab tree when a window is maximized:">
+<!ENTITY auto-hide-when-maximized.desc "Key defined above toggles this option if an active window is maximized (unchecked by default)">
+<!ENTITY auto-hide-when-normal.title "Auto-hide the tab tree when a window is normal:">
+<!ENTITY auto-hide-when-normal.desc "Key defined above toggles this option if an active window is normal (unchecked by default)">
+<!ENTITY auto-hide-when-only-one-tab.title "Auto-hide the tab tree when there's only one tab">
+<!ENTITY auto-hide-when-only-one-tab.desc "Key defined above toggles this option if an active window has only one tab (press Ctrl+T to open a new tab, checked by default)">
+<!ENTITY insertRelatedAfterCurrent.title "Insert a new related tab at the:">
+<!ENTITY insertRelatedAfterCurrent.desc "(&quot;Bottom&quot; by default)">
+<!ENTITY insertRelatedAfterCurrent.top "Top">
+<!ENTITY insertRelatedAfterCurrent.bottom "Bottom">
+<!ENTITY prefix-context-menu-items.title "Prefix context menu items with &#171;Tab Tree:&#187;:">
+<!ENTITY prefix-context-menu-items.desc "If you want &#171;Tab Tree: Close Children&#187; instead of just &#171;Close Children&#187; (unchecked by default)">
+<!ENTITY tab-flip.title "Tab flip:">
+<!ENTITY tab-flip.desc "Selects the previously active tab when clicking the currently active tab (checked by default)">
+<!ENTITY flatten.title "Flatten the tree:">
+<!ENTITY flatten.desc "Reset all the tabs to level 0">
+<!ENTITY flatten.label "Your tree structure will be lost">
+<!ENTITY flatten.confirm "You can\'t undo this operation. Continue anyway?">

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of Tab Tree,
+   - Copyright (C) 2015-2016 Sergey Zelentsov <crayfishexterminator@gmail.com> -->
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>TabsTree@traxium</em:id>
+    <em:version>1.4.9</em:version>
+    <em:name>Tab Tree</em:name>
+    <em:description>Tabs how they must be.</em:description>
+    <em:creator>Sergey Zelentsov</em:creator>
+    <em:homepageURL>https://github.com/traxium/tabtree</em:homepageURL>
+    <em:type>2</em:type>
+    <em:bootstrap>true</em:bootstrap>
+    <em:multiprocessCompatible>true</em:multiprocessCompatible>
+    <em:targetApplication>
+      <Description>
+        <!-- Firefox -->
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>26.0</em:minVersion>
+        <em:maxVersion>51.0</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    <!-- start localizing -->
+    <em:localized>
+      <Description>
+        <em:locale>en-US</em:locale>
+        <em:name>Tab Tree</em:name>
+        <em:description>Tabs how they must be.</em:description>
+        <em:creator>Sergey Zelentsov</em:creator>
+        <em:homepageURL>https://github.com/traxium/tabtree</em:homepageURL>
+        <em:translator>Sergey Zelentsov</em:translator>
+      </Description>
+    </em:localized>
+    <em:localized>
+      <Description>
+        <em:locale>pl</em:locale>
+        <em:name>Tab Tree</em:name>
+        <em:description>Sprawia, że karty są takie jakie powinny być.</em:description>
+        <em:creator>Sergey Zelentsov</em:creator>
+        <em:homepageURL>https://github.com/traxium/tabtree</em:homepageURL>
+        <em:translator>Karkoon</em:translator>
+      </Description>
+    </em:localized>
+    <em:localized>
+      <Description>
+        <em:locale>fr</em:locale>
+        <em:name>Tab Tree</em:name>
+        <em:description>Les onglets comme ils devraient être.</em:description>
+        <em:creator>Sergey Zelentsov</em:creator>
+        <em:homepageURL>https://github.com/traxium/tabtree</em:homepageURL>
+        <em:translator>ariasuni</em:translator>
+      </Description>
+    </em:localized>
+    <em:localized>
+      <Description>
+        <em:locale>ru</em:locale>
+        <em:name>Tab Tree</em:name>
+        <em:description>Делает вкладки такими, какими они и должны быть.</em:description>
+        <em:creator>Зеленцов Сергей</em:creator>
+        <em:homepageURL>https://github.com/traxium/tabtree</em:homepageURL>
+        <em:translator>Sergey Zelentsov</em:translator>
+      </Description>
+    </em:localized>
+  </Description>
+</RDF>

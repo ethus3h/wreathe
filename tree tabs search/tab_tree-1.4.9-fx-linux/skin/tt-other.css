@@ -1,0 +1,36 @@
+/*
+ * This file is part of Tab Tree,
+ * Copyright (C) 2015-2016 Sergey Zelentsov <crayfishexterminator@gmail.com>
+ */
+
+/* Other */
+
+#tt-drop-indicator {
+	pointer-events: none; /* preventing the arrow flickering when mouse pointer goes over that arrow and that arrow overlaps 'toolbar' */
+}
+
+#sidebar-box[hidden="true"] { /* css hack in order "tree.view = view;" to work when the sidebar is hidden */
+	display: -moz-box;
+	visibility: collapse;
+}
+
+/* Full screen mode */
+
+#tt-toolbar[moz-collapsed="true"] { /* do not collapse in fullscreen mode*/
+	visibility: visible;
+}
+
+/* Pinned tabs on multiple rows */
+
+#tt-toolbar {
+	display: block;
+	border: none;
+}
+
+#tt-toolbar:empty {
+	visibility: collapse;
+}
+
+#tt-toolbar > * {
+	display: inline-block;
+}

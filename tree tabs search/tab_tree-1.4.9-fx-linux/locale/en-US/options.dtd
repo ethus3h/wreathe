@@ -1,0 +1,88 @@
+<!ENTITY theme.title "Theme:">
+<!ENTITY theme.desc "When using the Developer Edition theme it's recommended to select &#171;mimic&#187; (mimic by default)">
+<!ENTITY theme.default "Default">
+<!ENTITY theme.mimic "Try to mimic the Firefox theme">
+<!ENTITY theme.dark "Dark">
+<!ENTITY treelines.title "Draw the nesting lines along the side of the tree:">
+<!ENTITY treelines.desc "The lines connecting child rows to parent rows (checked by default)">
+<!ENTITY tab-height.title "Tab height:">
+<!ENTITY tab-height.desc "Set to &#171;-1&#187; or &#171;0&#187; to use the default theme value (&#171;-1&#187; by default)">
+<!ENTITY highlight-unloaded-tabs.title "Highlight unloaded tabs:">
+<!ENTITY highlight-unloaded-tabs.desc "If you use &quot;Don't load tabs until selected&quot; Firefox option (&quot;no&quot; by default)">
+<!ENTITY highlight-unloaded-tabs.no "no">
+<!ENTITY highlight-unloaded-tabs.grayout "gray out">
+<!ENTITY highlight-unloaded-tabs.highlight "highlight">
+<!ENTITY highlight-unread-tabs.title "Highlight unread tabs:">
+<!ENTITY highlight-unread-tabs.desc "(unchecked by default)">
+<!ENTITY tab-numbers.title "Show tab numbers in tab titles:">
+<!ENTITY tab-numbers.desc "Useful for Vim-style add-ons (unchecked by default)">
+<!ENTITY dblclick.title "Double click on a tab:">
+<!ENTITY dblclick.desc "Only recommended if you don't have a mouse with a wheel (unchecked by default)">
+<!ENTITY dblclick.none "No action">
+<!ENTITY dblclick.close "Close tab">
+<!ENTITY dblclick.pin "Pin/unpin tab">
+<!ENTITY middle-click-tabbar.title "Middle-click on the tabbar:">
+<!ENTITY middle-click-tabbar.desc "(&#171;Firefox default&#187; by default)">
+<!ENTITY middle-click-tabbar.0 "Firefox default (open a new tab)">
+<!-- middle-click-tabbar.1 === undoCloseTab.label -->
+<!ENTITY delay.title "Double click delay (milliseconds)">
+<!ENTITY delay.desc "Actually it is a delay until a selected tab is displayed. Set it to around 160 if you don't want to see a tab flipping while closing a tab (0 by default)">
+<!ENTITY position.left "Left">
+<!ENTITY position.right "Right">
+<!ENTITY position.sidebar_top "Above the default (e.g. Bookmarks) sidebar (hidden by default)">
+<!ENTITY position.sidebar_bottom "Below the default (e.g. History) sidebar (hidden by default)">
+<!ENTITY position.title "Position:">
+<!ENTITY position.desc "(&quot;Right&quot; by default)">
+<!ENTITY search-position.title "Tab search bar position:">
+<!ENTITY search-position.desc "(&quot;Top&quot; by default)">
+<!ENTITY search-position.top "Top">
+<!ENTITY search-position.bottom-before "Bottom (before the &quot;New tab&quot; button)">
+<!ENTITY search-position.bottom-after "Bottom (after the &quot;New tab&quot; button)">
+<!ENTITY search-autohide.title "Autohide tab search bar:">
+<!ENTITY search-autohide.desc "Ctrl+Shift+Alt+F brings it up (unchecked by default)">
+<!ENTITY drawInTitlebar.title "Hide the OS native titlebar when Firefox is maximized:">
+<!ENTITY drawInTitlebar.desc "It's &quot;browser.tabs.drawInTitlebar&quot; in about:config (checked by default)">
+<!ENTITY after-close.title "When closing current tab, focus:">
+<!ENTITY after-close.desc "(&#171;Last selected tab&#187; by default)">
+<!ENTITY after-close.0 "Default (opener/right tab)">
+<!ENTITY after-close.1 "Last selected tab">
+<!ENTITY after-close.2 "Closest tab (first child -> sibling below -> sibling above -> parent)">
+<!ENTITY after-close.3 "Tab right above">
+<!ENTITY new-tab-button.title "Show the &quot;Open a new tab (Ctrl+T)&quot; button:">
+<!ENTITY new-tab-button.desc "You can also double-click the empty area below the tabs to open a new tab (checked by default)">
+<!ENTITY close-tab-buttons.title "Show the &quot;Close tab&quot; buttons:">
+<!ENTITY close-tab-buttons.desc "You can also close a tab with the middle or wheel mouse button (or a double-click optionally) (checked by default)">
+<!ENTITY max-indent.title "Max tab indent level:">
+<!ENTITY max-indent.desc "When opening a tab. &quot;-1&quot; means there is no max level (&quot;-1&quot; by default)">
+<!ENTITY wheel.title "When scrolling over the tab tree:">
+<!ENTITY wheel.desc "(the first choice by default)">
+<!ENTITY wheel.0 "without Shift - ordinary scrolling, with Shift - changing selected tab">
+<!ENTITY wheel.1 "without Shift - changing selected tab, with Shift - ordinary scrolling">
+<!ENTITY wheel.2 "always ordinary scrolling">
+<!ENTITY wheel.3 "always change selected tab">
+<!ENTITY search-jump.title "Tab search jumps to the first match:">
+<!ENTITY search-jump.desc "(unchecked by default)">
+<!ENTITY search-jump-min-chars.title "Min number of characters to jump:">
+<!ENTITY search-jump-min-chars.desc "(4 by default)">
+<!ENTITY auto-hide-key.title "Key to toggle auto-hide">
+<!ENTITY auto-hide-key.desc "(default is F8)">
+<!ENTITY auto-hide-when-fullscreen.title "Auto-hide the tab tree in full screen:">
+<!ENTITY auto-hide-when-fullscreen.desc "Key defined above toggles this option if an active window is in full screen (checked by default)">
+<!ENTITY auto-hide-when-maximized.title "Auto-hide the tab tree when a window is maximized:">
+<!ENTITY auto-hide-when-maximized.desc "Key defined above toggles this option if an active window is maximized (unchecked by default)">
+<!ENTITY auto-hide-when-normal.title "Auto-hide the tab tree when a window is normal:">
+<!ENTITY auto-hide-when-normal.desc "Key defined above toggles this option if an active window is normal (unchecked by default)">
+<!ENTITY auto-hide-when-only-one-tab.title "Auto-hide the tab tree when there's only one tab">
+<!ENTITY auto-hide-when-only-one-tab.desc "Key defined above toggles this option if an active window has only one tab (press Ctrl+T to open a new tab, checked by default)">
+<!ENTITY insertRelatedAfterCurrent.title "Insert a new related tab at the:">
+<!ENTITY insertRelatedAfterCurrent.desc "(&quot;Bottom&quot; by default)">
+<!ENTITY insertRelatedAfterCurrent.top "Top">
+<!ENTITY insertRelatedAfterCurrent.bottom "Bottom">
+<!ENTITY prefix-context-menu-items.title "Prefix context menu items with &#171;Tab Tree:&#187;:">
+<!ENTITY prefix-context-menu-items.desc "If you want &#171;Tab Tree: Close Children&#187; instead of just &#171;Close Children&#187; (unchecked by default)">
+<!ENTITY tab-flip.title "Tab flip:">
+<!ENTITY tab-flip.desc "Selects the previously active tab when clicking the currently active tab (checked by default)">
+<!ENTITY flatten.title "Flatten the tree:">
+<!ENTITY flatten.desc "Reset all the tabs to level 0">
+<!ENTITY flatten.label "Your tree structure will be lost">
+<!ENTITY flatten.confirm "You can\'t undo this operation. Continue anyway?">

@@ -1,0 +1,88 @@
+<!ENTITY theme.title "Тема:">
+<!ENTITY theme.desc "При использовании темы Developer Edition рекомендуется выбирать второй вариант (второй вариант по умолчанию)">
+<!ENTITY theme.default "Стандартная">
+<!ENTITY theme.mimic "Использовать текущую тему Firefox">
+<!ENTITY theme.dark "Тёмная">
+<!ENTITY treelines.title "Рисовать сбоку пунктирные линии:">
+<!ENTITY treelines.desc "Линии, соединяющие родительские и дочерние вкладки (отмечено по умолчанию)">
+<!ENTITY tab-height.title "Высота вкладки:">
+<!ENTITY tab-height.desc "При значении &#171;-1&#187;/&#171;0&#187; высота вкладок задаётся темой (&#171;-1&#187; по умолчанию)">
+<!ENTITY highlight-unloaded-tabs.title "Выделять незагруженные вкладки:">
+<!ENTITY highlight-unloaded-tabs.desc "Если вы пользуетесь опцией браузера &quot;Не загружать вкладки без запроса&quot; (&quot;нет&quot; по умолчанию)">
+<!ENTITY highlight-unloaded-tabs.no "нет">
+<!ENTITY highlight-unloaded-tabs.grayout "отображать тусклыми">
+<!ENTITY highlight-unloaded-tabs.highlight "подсветить другим цветом">
+<!ENTITY highlight-unread-tabs.title "Подсвечивать непрочитанные вкладки:">
+<!ENTITY highlight-unread-tabs.desc "(не отмечено по умолчанию)">
+<!ENTITY tab-numbers.title "Показывать номер вкладки:">
+<!ENTITY tab-numbers.desc "Предназначено для использования с расширениями эмулирующими Vim (не отмечено по умочанию)">
+<!ENTITY dblclick.title "Двойной клик по вкладке:">
+<!ENTITY dblclick.desc "Рекомендуется включать эту настройку, только если у вас нет мышки (не отмечено по умочанию)">
+<!ENTITY dblclick.none "—">
+<!ENTITY dblclick.close "Закрыть вкладку">
+<!ENTITY dblclick.pin "Закрепить/открепить вкладку">
+<!ENTITY middle-click-tabbar.title "Щелчёк средней кнопкой мыши по панели вкладок:">
+<!ENTITY middle-click-tabbar.desc "(&#171;стандартное действие Firefox&#187; по умолчанию)">
+<!ENTITY middle-click-tabbar.0 "Стандартное действие Firefox (Открыть новую вкладку)">
+<!-- middle-click-tabbar.1 === undoCloseTab.label -->
+<!ENTITY delay.title "Задержка для двойного клика (миллисекунды)">
+<!ENTITY delay.desc "Задержка перед тем как выделенная вкладка активируется. Если вы не хотите видеть вкладку перед её закрытием, то установите это значение в 160 или больше (0 by default)">
+<!ENTITY position.left "Слева">
+<!ENTITY position.right "Справа">
+<!ENTITY position.sidebar_top "Над стандартной боковой панелью (скрыта по умолчанию)">
+<!ENTITY position.sidebar_bottom "Под стандартной боковой панелью (скрыта по умолчанию)">
+<!ENTITY position.title "Расположение:">
+<!ENTITY position.desc "(&quot;Слева&quot; по умолчанию)">
+<!ENTITY search-position.title "Расположение строки поиска вкладки:">
+<!ENTITY search-position.desc "(&quot;Сверху&quot; по умолчанию)">
+<!ENTITY search-position.top "Сверху">
+<!ENTITY search-position.bottom-before "Снизу (перед кнопкой открытия новой вкладки)">
+<!ENTITY search-position.bottom-after "Снизу (после кнопки открытия новой вкладки)">
+<!ENTITY search-autohide.title "Скрывать строку поиска вкладки:">
+<!ENTITY search-autohide.desc "Ctrl+Shift+Alt+F показывает её (не отмечено по умолчанию)">
+<!ENTITY drawInTitlebar.title "Скрывать строку заголовка окна при развёрнутом Firefox:">
+<!ENTITY drawInTitlebar.desc "Эта опция всего лишь переключает &quot;browser.tabs.drawInTitlebar&quot; в about:config (отмечено по умолчанию)">
+<!ENTITY after-close.title "При закрытии текущей вкладки, перейти на:">
+<!ENTITY after-close.desc "*Порядок определения ближайшей вкладки: 1. Первая дочерняя 2. Вклдака снизу/сверху на том же уровне 3. Родительская вкладка (&#171;Последнюю выделенную вкладку&#187; по умолчанию)">
+<!ENTITY after-close.0 "По умолчанию (родительскую вкладку/вкладку справа)">
+<!ENTITY after-close.1 "Последнюю выделенную вкладку">
+<!ENTITY after-close.2 "Ближайшую вкладку*">
+<!ENTITY after-close.3 "Вкладку сверху">
+<!ENTITY new-tab-button.title "Показывать кнопку для открытия новой вкладки:">
+<!ENTITY new-tab-button.desc "Новую вкладку также можно открыть двойным щелчком пустой области под вкладками (отмечено по умолчанию)">
+<!ENTITY close-tab-buttons.title "Показывать кнопки для закрытия вкладок:">
+<!ENTITY close-tab-buttons.desc "Вкладку также можно закрыть колёсиком мыши или, опционально, двойным щелчком (отмечено по умолчанию)">
+<!ENTITY max-indent.title "Максимальный уровень вложенности вкладок:">
+<!ENTITY max-indent.desc "При открытии новой вкладки. При значении &quot;-1&quot; максимальный уровень вложенности не ограничен (&quot;-1&quot; по умолчанию)">
+<!ENTITY wheel.title "При прокрутке над деревом вкладок:">
+<!ENTITY wheel.desc "(первый вариант по умолчанию)">
+<!ENTITY wheel.0 "без Shift - обычная прокрутка, удерживая Shift - переключение вкладок">
+<!ENTITY wheel.1 "без Shift - переключение вкладок, удреживая Shift - обычная прокрутка">
+<!ENTITY wheel.2 "всегда обычная прокрутка">
+<!ENTITY wheel.3 "всегда переключать вкладки">
+<!ENTITY search-jump.title "Поиск вкладок автоматически переключает на первую найденную вкладку:">
+<!ENTITY search-jump.desc "(не отмечено по умолчанию)">
+<!ENTITY search-jump-min-chars.title "Минимальной количество символов для переключения вкладки:">
+<!ENTITY search-jump-min-chars.desc "(4 по умолчанию)">
+<!ENTITY auto-hide-key.title "Key to toggle auto-hide">
+<!ENTITY auto-hide-key.desc "(default is F8)">
+<!ENTITY auto-hide-when-fullscreen.title "Автоматически скрывать панель вкладок в полноэкранном режиме:">
+<!ENTITY auto-hide-when-fullscreen.desc "F8: включает/выключает опцию при нахождении в полноэкранном режиме (омечено по умолчанию)">
+<!ENTITY auto-hide-when-maximized.title "Автоматически скрывать панель вкладок в развёрнутых на весь экран окнах:">
+<!ENTITY auto-hide-when-maximized.desc "F8: включает/выключает опцию когда текущее окно развёрнуто (не отмечено по умолчанию)">
+<!ENTITY auto-hide-when-normal.title "Автоматически скрывать панель вкладок в обычных окнах Firefox:">
+<!ENTITY auto-hide-when-normal.desc "F8: включает/выключает опцию когда текущее окно не развёрнуто (не отмечено по умолчанию)">
+<!ENTITY auto-hide-when-only-one-tab.title "Автоматически скрывать дерево вкладок с одной вкладкой">
+<!ENTITY auto-hide-when-only-one-tab.desc "F8: включает/выключает опцию когда в активном окне одна вкладка (Ctrl+T открывает новую вкладку, отмечено по умолчанию)">
+<!ENTITY insertRelatedAfterCurrent.title "Размещать вкладку, открытую из другой вкладки:">
+<!ENTITY insertRelatedAfterCurrent.desc "(&quot;Снизу&quot; по умолчанию)">
+<!ENTITY insertRelatedAfterCurrent.top "Сверху">
+<!ENTITY insertRelatedAfterCurrent.bottom "Снизу">
+<!ENTITY prefix-context-menu-items.title "Добавлять префикс &#171;Tab Tree:&#187; к опциям в контестном меню:">
+<!ENTITY prefix-context-menu-items.desc "&#171;Tab Tree: Закрыть дочерние вкладки&#187; вместо &#171;Закрыть дочерние вкладки&#187; (не отмечено по умолчанию)">
+<!ENTITY tab-flip.title "Tab flip:">
+<!ENTITY tab-flip.desc "Перейти на предыдущую выделенную вкладку при щелчке по текущей вкладке (отмечено по умолчанию)">
+<!ENTITY flatten.title "Сбросить дерево вкладок:">
+<!ENTITY flatten.desc "Установить нулевой отступ для всех вкладок">
+<!ENTITY flatten.label "Структура дерева вкладок будет утрачена">
+<!ENTITY flatten.confirm "Эту операцию нельзя отменить. Всё равно продолжить?">

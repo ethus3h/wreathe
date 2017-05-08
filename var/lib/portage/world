@@ -65,6 +65,7 @@ kde-frameworks/khtml
 kde-frameworks/nepomuk
 kde-frameworks/nepomuk-core
 kde-frameworks/nepomuk-widgets
+mail-client/thunderbird
 media-gfx/imagemagick
 media-gfx/utsushi
 media-gfx/xfig

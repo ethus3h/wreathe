@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+
+<!-- This file is part of Tab Tree,
+- Copyright (C) 2015-2016 Sergey Zelentsov <crayfishexterminator@gmail.com> -->
+        
+<!DOCTYPE options [
+    <!ENTITY % optionsDTD SYSTEM "chrome://tabtree/locale/options.dtd" >
+        %optionsDTD;
+    <!ENTITY % navbarheightDTD SYSTEM "chrome://tabtree/locale/navbarheight.dtd" >
+        %navbarheightDTD;
+    <!ENTITY % browserDTD SYSTEM "chrome://browser/locale/browser.dtd" >
+        %browserDTD;
+]>
+
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <setting type="menulist" pref="extensions.tabtree.theme" title="&theme.title;" desc="&theme.desc;">
+        <menulist>
+            <menupopup>
+                <menuitem value="0" label="&theme.default;"/>
+                <menuitem value="1" label="&theme.mimic;"/>
+                <menuitem value="2" label="&theme.dark;"/>
+            </menupopup>
+        </menulist>
+    </setting>
+    <setting type="bool" pref="extensions.tabtree.treelines" title="&treelines.title;" desc="&treelines.desc;" />
+    <setting type="integer" min="-1" pref="extensions.tabtree.tab-height" title="&tab-height.title;" desc="&tab-height.desc;" />
+    <setting type="radio" pref="extensions.tabtree.highlight-unloaded-tabs" title="&highlight-unloaded-tabs.title;" desc="&highlight-unloaded-tabs.desc;">
+        <radiogroup>
+            <radio value="0" label="&highlight-unloaded-tabs.no;"/>
+            <radio value="1" label="&highlight-unloaded-tabs.grayout;"/>
+            <radio value="2" label="&highlight-unloaded-tabs.highlight;"/>
+        </radiogroup>
+    </setting>
+    <setting type="bool" pref="extensions.tabtree.highlight-unread-tabs" title="&highlight-unread-tabs.title;" desc="&highlight-unread-tabs.desc;" />
+    <setting type="bool" pref="extensions.tabtree.tab-numbers" title="&tab-numbers.title;" desc="&tab-numbers.desc;" />
+    <setting type="radio" pref="extensions.tabtree.dblclick" title="&dblclick.title;" desc="&dblclick.desc;" >
+        <radiogroup>
+            <radio value="0" label="&dblclick.none;"/>
+            <radio value="1" label="&dblclick.close;"/>
+            <radio value="2" label="&dblclick.pin;"/>
+        </radiogroup>
+    </setting>
+    <setting type="integer" pref="extensions.tabtree.delay" title="&delay.title;" desc="&delay.desc;" />
+    <setting type="menulist" pref="extensions.tabtree.middle-click-tabbar" title="&middle-click-tabbar.title;" desc="&middle-click-tabbar.desc;">
+        <menulist>
+            <menupopup>
+                <menuitem value="0" label="&middle-click-tabbar.0;"/>
+                <menuitem value="1" label="&undoCloseTab.label;"/>
+            </menupopup>
+        </menulist>
+    </setting>
+    <setting type="menulist" pref="extensions.tabtree.position" title="&position.title;" desc="&position.desc;">
+        <menulist>
+            <menupopup>
+                <menuitem value="0" label="&position.left;"/>
+                <menuitem value="1" label="&position.right;"/>
+                <menuitem value="2" label="&position.sidebar_top;"/>
+                <menuitem value="3" label="&position.sidebar_bottom;"/>
+            </menupopup>
+        </menulist>
+    </setting>
+    <setting type="menulist" pref="extensions.tabtree.search-position" title="&search-position.title;" desc="&search-position.desc;">
+        <menulist>
+            <menupopup>
+                <menuitem value="0" label="&search-position.top;"/>
+                <menuitem value="1" label="&search-position.bottom-before;"/>
+                <menuitem value="2" label="&search-position.bottom-after;"/>
+            </menupopup>
+        </menulist>
+    </setting>
+    <setting type="bool" pref="extensions.tabtree.search-autohide" title="&search-autohide.title;" desc="&search-autohide.desc;" />
+    <setting type="bool" pref="extensions.tabtree.search-jump" title="&search-jump.title;" desc="&search-jump.desc;" onpreferencechanged="this.setAttribute('value', this.value.toString());" />
+    <setting type="integer" pref="extensions.tabtree.search-jump-min-chars" title="&search-jump-min-chars.title;" desc="&search-jump-min-chars.desc;" />
+    <setting type="menulist" pref="extensions.navbarheight.height" title="&height.title;" desc="&height.desc;">
+        <menulist>
+            <menupopup>
+                <menuitem value="24" label="&height.24;"/>
+                <menuitem value="26" label="&height.26;"/>
+                <menuitem value="28" label="&height.28;"/>
+                <menuitem value="30" label="&height.30;"/>
+                <menuitem value="32" label="&height.32;"/>
+                <menuitem value="34" label="&height.34;"/>
+                <menuitem value="36" label="&height.36;"/>
+                <menuitem value="38" label="&height.38;"/>
+                <menuseparator />
+                <menuitem value="-1" label="&height.-1;"/>
+            </menupopup>
+        </menulist>
+    </setting>
+    <setting type="bool" pref="browser.tabs.drawInTitlebar" title="&drawInTitlebar.title;" desc="&drawInTitlebar.desc;" />
+    <setting type="menulist" pref="extensions.tabtree.after-close" title="&after-close.title;" desc="&after-close.desc;">
+        <menulist>
+            <menupopup>
+                <menuitem value="0" label="&after-close.0;"/>
+                <menuitem value="1" label="&after-close.1;"/>
+                <menuitem value="2" label="&after-close.2;"/>
+                <menuitem value="3" label="&after-close.3;"/>
+            </menupopup>
+        </menulist>
+    </setting>
+    <setting type="bool" pref="extensions.tabtree.new-tab-button" title="&new-tab-button.title;" desc="&new-tab-button.desc;" />
+    <setting type="bool" pref="extensions.tabtree.close-tab-buttons" title="&close-tab-buttons.title;" desc="&close-tab-buttons.desc;" />
+    <setting type="integer" min="-1" pref="extensions.tabtree.max-indent" title="&max-indent.title;" desc="&max-indent.desc;" />
+    <setting type="menulist" pref="extensions.tabtree.wheel" title="&wheel.title;" desc="&wheel.desc;">
+        <menulist>
+            <menupopup>
+                <menuitem value="0" label="&wheel.0;"/>
+                <menuitem value="1" label="&wheel.1;"/>
+                <menuitem value="2" label="&wheel.2;"/>
+                <menuitem value="3" label="&wheel.3;"/>
+            </menupopup>
+        </menulist>
+    </setting>
+    <setting type="string" pref="extensions.tabtree.auto-hide-key" title="&auto-hide-key.title;" desc="&auto-hide-key.desc;" />
+    <setting type="bool" pref="extensions.tabtree.auto-hide-when-fullscreen" title="&auto-hide-when-fullscreen.title;" desc="&auto-hide-when-fullscreen.desc;" />
+    <setting type="bool" pref="extensions.tabtree.auto-hide-when-maximized" title="&auto-hide-when-maximized.title;" desc="&auto-hide-when-maximized.desc;" />
+    <setting type="bool" pref="extensions.tabtree.auto-hide-when-normal" title="&auto-hide-when-normal.title;" desc="&auto-hide-when-normal.desc;" />
+    <setting type="bool" pref="extensions.tabtree.auto-hide-when-only-one-tab" title="&auto-hide-when-only-one-tab.title;" desc="&auto-hide-when-only-one-tab.desc;" />
+    <setting type="radio" pref="extensions.tabtree.insertRelatedAfterCurrent" title="&insertRelatedAfterCurrent.title;" desc="&insertRelatedAfterCurrent.desc;">
+        <radiogroup>
+            <radio value="true" label="&insertRelatedAfterCurrent.top;"/>
+            <radio value="false" label="&insertRelatedAfterCurrent.bottom;"/>
+        </radiogroup>
+    </setting>
+    <setting type="bool" pref="extensions.tabtree.prefix-context-menu-items" title="&prefix-context-menu-items.title;" desc="&prefix-context-menu-items.desc;" />
+    <setting type="bool" pref="extensions.tabtree.tab-flip" title="&tab-flip.title;" desc="&tab-flip.desc;" />
+    <setting type="control" title="&flatten.title;" desc="&flatten.desc;" >
+        <button label="&flatten.label;" oncommand="if(!confirm('&flatten.confirm;')) return; let ss = Cc['@mozilla.org/browser/sessionstore;1'].getService(Ci.nsISessionStore); let DOMWindows = Services.wm.getEnumerator('navigator:browser'); while (DOMWindows.hasMoreElements()) {let w = DOMWindows.getNext(); for (let tab of w.gBrowser.tabs) ss.setTabValue(tab, 'ttLevel', '0'); w.document.querySelector('#tt').treeBoxObject.invalidate();}"/>
+    </setting>
+</vbox>

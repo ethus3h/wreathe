@@ -1,0 +1,351 @@
+/*
+ * This file is part of Tab Tree,
+ * Copyright (C) 2015-2016 Sergey Zelentsov <crayfishexterminator@gmail.com>
+ */
+
+/* ************ chrome://global/skin/tree.css *********************************************************************** */
+
+:root {
+	/* Chrome */
+	--tt-chrome-secondary-background-color: #39424D;
+	--tt-chrome-nav-bar-controls-border-color: #1D2328;
+
+	/* Tabs */
+	--tt-tabs-toolbar-color: #F5F7FA;
+	--tt-tab-background-color: #1C2126;
+	--tt-tab-hover-background-color: #07090a;
+	--tt-tab-selection-color: #f5f7fa;
+	--tt-tab-selection-background-color: #1a4666;
+	--tt-tab-selection-box-shadow: 0 2px 0 #D7F1FF inset,
+	                               0 -2px 0 rgba(0,0,0,.05) inset,
+	                               0 -1px 0 rgba(0,0,0,.3) inset;
+
+	/* Url and search bars */
+	--tt-url-and-searchbar-background-color: #171B1F;
+	--tt-url-and-searchbar-color: #fff;
+}
+
+.tt-treechildren {
+	--treechildren-outline: none;
+	background-color: var(--tt-tab-background-color);
+}
+
+/* ::::: tree ::::: */
+
+@media all and (-moz-os-version: windows-xp) {
+	.tt-tree {
+		font-size: 12px;
+	}
+}
+
+/* ::::: tree rows ::::: */
+
+.tt-treechildren::-moz-tree-row {
+	border: 1px solid transparent;
+	border-radius: 0;
+	min-height: 18px;
+	height: 1.3em;
+	background: var(--tt-tab-background-color) none;
+	outline: var(--treechildren-outline);
+}
+
+.tt-treechildren::-moz-tree-row(selected),
+.tt-treechildren::-moz-tree-row(selected, focus) {
+	background: var(--tt-tab-selection-background-color) none;
+	outline: var(--treechildren-outline);
+}
+
+.tt-treechildren::-moz-tree-row(current),
+.tt-treechildren::-moz-tree-row(current, focus) {
+	border: 1px dotted var(--tt-tab-selection-color);
+	background-image: none;
+	outline: var(--treechildren-outline);
+}
+
+.tt-treechildren::-moz-tree-row(selected, current),
+.tt-treechildren::-moz-tree-row(selected, current, focus) {
+	border: 1px solid transparent;
+	background-image: none;
+	outline: var(--treechildren-outline);
+}
+
+.tt-treechildren:not(.autocomplete-treebody)::-moz-tree-row(hover) {
+	background: var(--tt-tab-hover-background-color) none;
+	outline: var(--treechildren-outline);
+}
+
+.tt-treechildren:not(.autocomplete-treebody)::-moz-tree-row(hover, selected, current) {
+	border: 1px solid var(--tt-tab-selection-background-color);
+	background-image: none;
+	outline: var(--treechildren-outline);
+}
+
+/* ::::: tree cells ::::: */
+
+.tt-treechildren::-moz-tree-cell {
+	padding: 0 2px;
+}
+
+.tt-treechildren::-moz-tree-cell-text {
+	color: var(--tt-tabs-toolbar-color);
+}
+
+.tt-treechildren::-moz-tree-cell-text(selected),
+.tt-treechildren::-moz-tree-cell-text(selected, focus) {
+	color: var(--tt-tab-selection-color);
+}
+
+.tt-treechildren::-moz-tree-cell-text(selected, hover),
+.tt-treechildren::-moz-tree-cell-text(selected, focus, hover) {
+	color: var(--tt-tabs-toolbar-color);
+}
+
+.tt-treechildren::-moz-tree-cell-text(hover) {
+	text-decoration: none;
+}
+
+/* ::::: lines connecting cells ::::: */
+
+.tt-treechildren::-moz-tree-line {
+	/* We have to use explicit hex color here because OS X has different ThreeDShadow color */
+	border: 1px dotted #aca899; /* ThreeDShadow === aca899*/
+}
+
+.tt-treechildren::-moz-tree-line(selected),
+.tt-treechildren::-moz-tree-line(selected, focus) {
+	border: 1px dotted var(--tt-tab-selection-color);
+}
+
+/* ::::: drop feedback ::::: */
+
+.tt-treechildren::-moz-tree-row(dropOn) {
+	background-color: var(--tab-selection-background-color);
+}
+
+.tt-treechildren::-moz-tree-row(dropOn),
+.tt-treechildren::-moz-tree-row(dropBefore),
+.tt-treechildren::-moz-tree-row(dropAfter) {
+	border: 1px dashed var(--tt-tabs-toolbar-color);
+}
+
+.tt-treechildren::-moz-tree-cell-text(primary, dropOn) {
+	color: var(--tt-tab-selection-color);
+}
+
+.tt-treechildren::-moz-tree-drop-feedback {
+	background-color: var(--tt-tabs-toolbar-color);
+	width: 100px;
+	height: 2px;
+	-moz-margin-start: 5px;
+}
+
+/* ::::: twisty :::::  */
+
+.tt-treechildren::-moz-tree-indentation {
+	width: 18px;
+}
+
+/* ****************************************************************************************************************** */
+
+/* ************ Ordinary Tabs *************************************************************************************** */
+
+/* Highlighting unloaded tabs */
+
+.tt-treechildren::-moz-tree-image(pending-grayout) {
+	opacity: .6;
+}
+
+.tt-treechildren::-moz-tree-cell-text(pending-grayout) {
+	opacity: .76;
+}
+
+.tt-treechildren::-moz-tree-cell-text(pending-highlight) {
+	color: #7F9DB9;
+}
+
+/* Highlighting unread tabs */
+
+.tt-treechildren::-moz-tree-cell-text(unread) {
+	color: #ff4444;
+}
+
+/* Highlighting matched tabs */
+
+.tt-treechildren::-moz-tree-row(quickSearch) {
+	border: 1px solid #EF0FFF; /* default Firefox color for "Highlight all" option in <findbar> */
+}
+
+/* White icons */
+
+.tt-treechildren::-moz-tree-image(tt-close) {
+	list-style-image: url(chrome://tabtree/skin/close-inverted.png);
+	-moz-image-region: rect(0, 16px, 16px, 0);
+}
+
+.tt-treechildren::-moz-tree-image(tt-close, selected) {
+	list-style-image: url(chrome://tabtree/skin/close-inverted.png);
+	-moz-image-region: rect(0, 48px, 16px, 32px);
+}
+
+.tt-treechildren::-moz-tree-image(tt-close, hover) {
+	list-style-image: url(chrome://tabtree/skin/close-inverted.png);
+	-moz-image-region: rect(0, 32px, 16px, 16px);
+}
+
+#tt-treechildren::-moz-tree-image(tt-soundplaying),
+#tt-treechildren-feedback::-moz-tree-image(tt-soundplaying) {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio.svg#tab-audio-white);
+}
+
+#tt-treechildren::-moz-tree-image(tt-soundplaying, hover),
+#tt-treechildren-feedback::-moz-tree-image(tt-soundplaying, hover) {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio.svg#tab-audio-white-hover);
+}
+
+#tt-treechildren::-moz-tree-image(tt-muted),
+#tt-treechildren-feedback::-moz-tree-image(tt-muted) {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio.svg#tab-audio-muted-white);
+}
+
+#tt-treechildren::-moz-tree-image(tt-muted, hover),
+#tt-treechildren-feedback::-moz-tree-image(tt-muted, hover) {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio.svg#tab-audio-muted-white-hover);
+}
+
+/* I don't know why but .tt-treechildren doesn't work with audio indicator icons. IDs are required here. */
+
+/* ****************************************************************************************************************** */
+
+/* ************ Pinned Tabs ***************************************************************************************** */
+
+#tt-toolbox,
+#tt-toolbar,
+#tt-toolbar toolbarbutton {
+	-moz-appearance: none;
+	min-height: 0;
+	line-height: 0; /* to prevent a gap between a toolbar button and #tt-toolbar that disrupts drag'n'drop */
+	padding: 0; /* to prevent a gap between a toolbar button and #tt-toolbar that disrupts drag'n'drop on Linux */
+}
+
+#tt-toolbox {
+	border: none;
+	border-top: 2px solid var(--tt-chrome-secondary-background-color);
+}
+
+#tt-toolbar {
+	background-color: var(--tt-tab-background-color);
+}
+
+#tt-toolbar toolbarbutton {
+	padding: 3px 2px 1px 2px; /* Preventing changing padding on hover */
+	border: 1px solid transparent; /* To maintain 22px toolbar height on Linux (it's 20px otherwise) */
+	margin: 0; /* OS X fix */
+}
+
+#tt-toolbar toolbarbutton[checked="true"] {
+	background: var(--tt-tab-selection-background-color);
+	border-color: var(--tt-tab-selection-background-color);
+	box-shadow: var(--tt-tab-selection-box-shadow);
+}
+
+#tt-toolbar toolbarbutton:hover {
+	background: var(--tt-tab-hover-background-color);
+	border-color: var(--tt-tab-hover-background-color);
+	box-shadow: var(--tt-tab-selection-box-shadow);
+}
+
+.tt-tab-overlay[soundplaying] {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio-small.svg#tab-audio-white);
+}
+
+.tt-tab-overlay[muted] {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio-small.svg#tab-audio-white-muted);
+}
+.tt-tab-overlay[soundplaying]:hover {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio-small.svg#tab-audio);
+}
+
+.tt-tab-overlay[muted]:hover {
+	list-style-image: url(chrome://browser/skin/tabbrowser/tab-audio-small.svg#tab-audio-muted);
+}
+
+/* ****************************************************************************************************************** */
+
+/* ************ New Tab Button ************************************************************************************** */
+
+#tt-new-tab-button-container {
+	background-color: var(--tt-chrome-secondary-background-color);
+}
+
+.tt-new-tab-button {
+	-moz-appearance: none;
+}
+
+.tt-new-tab-button:hover {
+	background-color: var(--tt-tab-hover-background-color);
+	border-color: var(--toolbarbutton-active-bordercolor);
+	box-shadow: var(--toolbarbutton-active-boxshadow);
+	transition-duration: 40ms;
+}
+
+.tt-new-tab-button {
+	list-style-image: url(chrome://tabtree/skin/newtab-inverted.png);
+}
+
+/* ****************************************************************************************************************** */
+
+/* ************ Tab Search Box ************************************************************************************** */
+
+#tt-quicksearchbox {
+	-moz-appearance: none;
+	margin: 0;
+	background-color: var(--tt-url-and-searchbar-background-color);
+	color: var(--tt-url-and-searchbar-color);
+	border: 1px solid var(--tt-chrome-nav-bar-controls-border-color);
+	position: relative;
+	padding-left: 22px;
+}
+
+#tt-quicksearchbox::before {
+	content: url(chrome://tabtree/skin/search-indicator.png);
+	position: absolute;
+	left: 4px;
+}
+
+/* ****************************************************************************************************************** */
+
+/* ************ Splitter ******************************************************************************************** */
+
+#tt-splitter { /* copied from browser.css:6988 */
+	border: 0;
+	-moz-border-end: 1px solid var(--tt-chrome-secondary-background-color);  /* #A9B7C9; */
+	min-width: 0;
+	width: 4px;
+	background-color: transparent;
+	-moz-margin-start: -3px;
+	position: relative;
+}
+
+#tt-splitter[orient=vertical] { /* orient=vertical means a splitter is horizontal */
+	border: 0;
+	border-bottom: 1px solid #14171B;
+	min-height: 0;
+	height: 3px;
+	background-color: transparent;
+	margin: -3px 0 0 0;
+}
+
+/* ****************************************************************************************************************** */
+
+/* ************ Drop Indicator ************************************************************************************** */
+
+#tt-drop-indicator {
+	position: relative;
+	z-index: 999999;
+	margin-bottom: -18px;
+	margin-top: -6px; /* 18 + 6 = 24 */
+	list-style-image: url(chrome://tabtree/skin/tt-drop-indicator-white.png); /* 24*11px */
+	margin-left: -5px;
+}
+
+/* ****************************************************************************************************************** */
