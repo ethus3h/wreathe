@@ -1,0 +1,9 @@
+diff -uraN enigmail-clean/ui/locale/en-US/enigmail.dtd enigmail/ui/locale/en-US/enigmail.dtd
+--- enigmail-clean/ui/locale/en-US/enigmail.dtd	2016-11-16 07:04:27.000000000 -0500
++++ enigmail/ui/locale/en-US/enigmail.dtd	2017-05-09 09:46:33.000000000 -0400
+@@ -1,4 +1,4 @@
+-<!ENTITY enigmail.label                   "Enigmail">
++<!ENTITY enigmail.label                   "PGP">
+ 
+ <!ENTITY enigmail.keyUserId.label         "Account / User ID">
+ <!ENTITY enigmail.keygenTitle.label       "Generate OpenPGP Key">
