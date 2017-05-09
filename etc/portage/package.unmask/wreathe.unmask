@@ -4,7 +4,6 @@
 =kde-apps/thumbnailers-9999::wreathe-overlay
 =app-misc/wreathe-meta-9999::wreathe-overlay
 dev-util/monodevelop::wreathe-overlay
-games-action/trackballs::mv
 
 # Compiz-Reloaded
 =x11-misc/ccsm-9999
