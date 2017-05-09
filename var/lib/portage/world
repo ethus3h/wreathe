@@ -36,6 +36,7 @@ dev-libs/libdbusmenu
 dev-perl/ttylog
 dev-php/ZendFramework
 dev-python/PyQt4
+dev-python/PyQt5
 dev-python/certauth
 dev-python/doublethink
 dev-python/eyeD3
