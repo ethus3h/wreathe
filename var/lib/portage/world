@@ -35,6 +35,7 @@ dev-libs/kpathsea
 dev-libs/libdbusmenu
 dev-perl/ttylog
 dev-php/ZendFramework
+dev-python/PyQt4
 dev-python/certauth
 dev-python/doublethink
 dev-python/eyeD3
@@ -100,6 +101,7 @@ sys-fs/fuse
 sys-kernel/genkernel-next
 sys-kernel/linux-firmware
 sys-kernel/wreathe-kernel
+sys-libs/glibc
 sys-libs/libomp
 sys-process/parallel
 virtual/liblash
