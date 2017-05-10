@@ -16,7 +16,7 @@ var imageElement = document.querySelector('.viewer img');
 var imageUrl = imageElement.getAttribute('src');
 // Image URL looks like:
 // https://s3.amazonaws.com/static.musescore.com/3871256/4ccbadbc7b/score_0.png?no-cache=1494248226
-var patt = new RegExp(".+\/([a-f0-9]{10})\/.+");
+var patt = new RegExp(".+\/([a-f0-9]{10}).+");
 var key = imageUrl.replace(patt, '$1');
 
 // Get a list of download buttons to fix
@@ -37,7 +37,9 @@ for (var i = 0; i < dlButtons.length; i++)
     }
     else
     {
-       var patt = new RegExp('.+\/(\w+)$');
+       var patt = new RegExp(".+\/(\w+)$");
+       //var ext = buttonUrl.replace(patt, '$1');
+       //var patt = new RegExp(".+\/([0-9]{4}).+");
        var ext = buttonUrl.replace(patt, '$1');
     }
     alert(ext);
