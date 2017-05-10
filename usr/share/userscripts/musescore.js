@@ -16,8 +16,7 @@ var imageElement = document.querySelector('.viewer img');
 var imageUrl = imageElement.getAttribute('src');
 // Image URL looks like:
 // https://s3.amazonaws.com/static.musescore.com/3871256/4ccbadbc7b/score_0.png?no-cache=1494248226
-var patt = new RegExp(".+\/([a-f0-9]{10}).+");
-var key = imageUrl.replace(patt, '$1');
+var key = imageUrl.replace(/.+\/([a-f0-9]{10}).+/, '$1');
 
 // Get a list of download buttons to fix
 var dlButtons = document.querySelectorAll('#download-modal h5 > a');
@@ -31,23 +30,19 @@ for (var i = 0; i < dlButtons.length; i++)
     buttonUrl = button.getAttribute('href');
 
     // Get the file extension
-    if (buttonUrl.match(new RegExp("download$")))
+    if (buttonUrl.match(/download$/))
     {
         var ext = "mscz";
     }
     else
     {
-       var patt = new RegExp(".+\\/(\\w+)$");
-       //var ext = buttonUrl.replace(patt, '$1');
-       //var patt = new RegExp(".+\/([0-9]{4}).+");
-       var ext = buttonUrl.replace(patt, '$1');
+       var ext = buttonUrl.replace(/.+\/(\w+)$/, '$1');
     }
-    alert(ext);
 
     // Get the score ID
-    var patt = new RegExp("\d+");
-    var id = patt.exec(buttonUrl);
-    
+    var id = /\d+/.exec(buttonUrl);
+    alert(id);
+
     // Put together the fixed URL and set it as the button's target
     button.setAttribute('href', '/score/'.concat(id, '/download/', ext));
 }
