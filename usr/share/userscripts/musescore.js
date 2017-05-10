@@ -42,5 +42,5 @@ for (var i = 0; i < dlButtons.length; i++)
     var id = /\d+/.exec(buttonUrl);
 
     // Put together the fixed URL and set it as the button's target
-    button.setAttribute('href', '/score/'.concat(id, '/download/', ext));
+    button.setAttribute('href', 'http://static.musescore.com/'.concat(id, '/', key, '/score.', ext));
 }
