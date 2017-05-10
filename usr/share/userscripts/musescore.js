@@ -9,7 +9,7 @@
 
 // URLs look like: 
 // http://static.musescore.com/(score-ID)/(download-key)/score.ext
-
+alert("blah");
 // Get the download key
 var imageElement = Document.querySelector('.viewer > img');
 var imageUrl = imageElement.getAttribute('src');
