@@ -37,7 +37,7 @@ for (var i = 0; i < dlButtons.length; i++)
     }
     else
     {
-       var patt = new RegExp(".+\/(\w+)$");
+       var patt = new RegExp(".+\\/(\\w+)$");
        //var ext = buttonUrl.replace(patt, '$1');
        //var patt = new RegExp(".+\/([0-9]{4}).+");
        var ext = buttonUrl.replace(patt, '$1');
