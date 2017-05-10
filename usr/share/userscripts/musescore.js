@@ -4,35 +4,48 @@
 // @description    Fixes the download links on MuseScore.com so they don't try to slurp up private information.
 // @include        *musescore.com/user/*
 // @version        0.0.1
-// @downloadURL    http://st.abcvg.info/swd/steamwd.user.js
+// @downloadURL    https://github.com/ethus3h/wreathe/raw/master/usr/share/userscripts/musescore.js
 // ==/UserScript==
 
-var patt=new RegExp("[0-9]{2,15}");
-var id = patt.exec(document.URL);
+// URLs look like: 
+// http://static.musescore.com/(score-ID)/(download-key)/score.ext
 
-var realButton = document.getElementById("SubscribeItemBtn");
+// Get the download key
+var imageElement = Document.querySelector('.viewer > img');
+var imageUrl = imageElement.getAttribute('src');
+// Image URL looks like:
+// https://s3.amazonaws.com/static.musescore.com/3871256/4ccbadbc7b/score_0.png?no-cache=1494248226
+var patt = ".+\/([a-f0-9]{10})\/.+";
+var key = imageUrl.replace(patt, '$1');
 
-// shorten the text in the box because it will be in the way
-realButton.parentNode.getElementsByTagName("h1")[0].innerHTML = "Download/Subscribe to the right";
-
-var myButtonPosition = realButton.offsetWidth + 20;
-
-var button = document.createElement('a');
-button.setAttribute('class', 'btn_green_white_innerfade btn_border_2px btn_medium');
-button.setAttribute('href', 'http://steamworkshop.download/download/view/' + id);
-button.setAttribute('style', 'right: ' + myButtonPosition + 'px;');
-
-button.innerHTML = '<div class="subscribeIcon"></div>' +
-    '<span class="subscribeText">' +
-    '<div class="subscribeOption subscribe selected" id="SubscribeItemOptionAdd">Download</div>' +
-    '</span>';
-
-// append the element after the real subscribe button
-if (realButton.nextSibling)
+// Get a list of download buttons to fix
+var dlButtons = [];
+var foundLastElement = false;
+var elementCounter = 0;
+while (!foundLastElement)
 {
-    realButton.parentNode.insertBefore(button, realButton.nextSibling);
+    var foundElement = Document.querySelector('#downloadModal > h5:nth-of-type('.concat(elementCounter, ')'));
+    if (foundElement != null)
+    {
+        dlButtons.push(foundElement);
+    }
+    else
+    {
+        foundLastElement = true;
+    }
 }
-else
+
+for (var i = 0; i < elementCounter; i++)
 {
-    realButton.parentNode.appendChild(button);
+    button = dlButtons[i];
+    // Button URL looks like:
+    // /score/3871256/download/pdf
+    buttonUrl = button.getAttribute('href');
+    // Get the file extension
+    var patt = new RegExp("\w+$");
+    var ext = patt.exec(buttonUrl);
+    // Get the score ID
+    var patt = new RegExp("\d+");
+    var id = patt.exec(buttonUrl);
+    button.setAttribute('href', '/score/'.concat(id, '/download/', ext));
 }
