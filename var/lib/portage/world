@@ -11,6 +11,7 @@ app-editors/kile
 app-emulation/fuse
 app-emulation/fuse-utils
 app-emulation/libspectrum
+app-eselect/eselect-infinality
 app-i18n/poedit
 app-misc/crystallize
 app-misc/futuramerlin-web-toolkit
@@ -19,6 +20,7 @@ app-misc/sl
 app-misc/strigi
 app-misc/wreathe-base
 app-misc/wreathe-overlays-redist
+app-portage/pfl
 app-text/aspell
 app-text/dvipng
 app-text/jadetex
@@ -68,10 +70,13 @@ kde-frameworks/nepomuk
 kde-frameworks/nepomuk-core
 kde-frameworks/nepomuk-widgets
 mail-client/thunderbird
+media-fonts/infinality-ultimate-meta
 media-gfx/imagemagick
 media-gfx/utsushi
 media-gfx/xfig
 media-libs/faac
+media-libs/fontconfig
+media-libs/fontconfig-infinality
 media-libs/gegl
 media-libs/gegl:0
 media-libs/giflib
