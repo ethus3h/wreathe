@@ -50,6 +50,12 @@
 dev-libs/msgpack ~amd64
 net-libs/pjsip ~amd64
 
+# For Arduino
+cross-avr/binutils ~amd64
+cross-avr/gcc ~amd64
+cross-avr/avr-libc ~amd64
+cross-avr/gdb ~amd64
+
 # Trying to get moonlight to build
 dev-lang/mono ~amd64
 
