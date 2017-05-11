@@ -38,6 +38,7 @@ dev-lang/snap
 dev-libs/STLport
 dev-libs/kpathsea
 dev-libs/libdbusmenu
+dev-libs/wayland-protocols
 dev-perl/ttylog
 dev-php/ZendFramework
 dev-python/PyQt4
@@ -87,13 +88,16 @@ media-libs/libdmtx
 media-libs/libwebp
 media-libs/ming
 media-libs/opencv
+media-libs/phonon-vlc
 media-libs/xine-lib
 media-plugins/alsa-plugins
 media-plugins/gst-plugins-libav
+media-plugins/npapi-vlc
 media-sound/carla
 media-sound/gmusicbrowser
 media-sound/jack-audio-connection-kit
 media-sound/jack_capture
+media-sound/mp3diags
 media-sound/supercollider
 media-video/ffmpeg
 media-video/vlc
@@ -133,6 +137,7 @@ x11-misc/obkey
 x11-misc/xcur2png
 x11-misc/xvisbell
 x11-plugins/compiz-plugins-experimental
+x11-plugins/compiz-plugins-extra
 x11-plugins/compiz-plugins-main
 x11-terms/x026
 x11-terms/x3270
