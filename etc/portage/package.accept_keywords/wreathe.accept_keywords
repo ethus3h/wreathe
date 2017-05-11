@@ -224,6 +224,7 @@ media-sound/ladish ~amd64
 media-sound/supercollider ~amd64
 media-video/ffmpeg ~amd64
 media-video/simplescreenrecorder ~amd64
+media-video/sswf ~amd64
 net-fs/s3backer ~amd64
 net-fs/s3ql ~amd64
 net-libs/libktorrent ~amd64
@@ -286,6 +287,7 @@ virtual/perl6 ~amd64
 www-apps/owncloud ~amd64
 www-apps/wordpress ~amd64
 www-plugins/lightspark ~amd64
+www-plugins/mozplugger ~amd64
 x11-libs/libdrm ~amd64
 x11-misc/cairo-dock ~amd64
 x11-misc/keynav ~amd64
