@@ -100,6 +100,7 @@ media-sound/jack_capture
 media-sound/mp3diags
 media-sound/supercollider
 media-video/ffmpeg
+media-video/sswf
 media-video/vlc
 net-irc/irssi
 net-misc/freerdp
@@ -126,6 +127,7 @@ www-apps/owncloud
 www-apps/wordpress
 www-client/firefox-bin
 www-client/vivaldi
+www-plugins/adobe-flash
 www-plugins/gnash
 www-plugins/lightspark
 www-plugins/mozplugger
