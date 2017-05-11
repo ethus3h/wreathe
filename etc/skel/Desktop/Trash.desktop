@@ -1,0 +1,6 @@
+[Desktop Entry]
+Icon=trash
+Name[en_GB]=Trash
+Name=Trash
+Type=Link
+URL[$e]=trash:/
