@@ -32,6 +32,8 @@ dev-dotnet/dotnetzip-semverd
 dev-dotnet/libgdiplus
 dev-haskell/parallel
 dev-java/icedtea:8
+dev-lang/python
+dev-lang/python:2.7
 dev-lang/snap
 dev-libs/STLport
 dev-libs/kpathsea
