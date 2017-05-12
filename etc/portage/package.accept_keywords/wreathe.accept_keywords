@@ -114,6 +114,9 @@ dev-python/aiohttp ~amd64
 # Use youtube-dl from git to avoid breakage
 net-misc/youtube-dl **
 
+# Not yet stabilised, needed for run-scaled
+=x11-wm/xpra-2.0.1 ~amd64
+
 # Not yet stabilised, needed for touchegg
 =dev-libs/frame-2.5.0 ~amd64
 =x11-misc/touchegg-1.1.1 ~amd64
@@ -297,4 +300,5 @@ www-plugins/mozplugger ~amd64
 x11-libs/libdrm ~amd64
 x11-misc/cairo-dock ~amd64
 x11-misc/keynav ~amd64
+x11-misc/xvfb-run ~amd64
 x11-themes/arc-theme ~amd64
