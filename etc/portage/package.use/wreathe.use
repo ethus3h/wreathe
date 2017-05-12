@@ -68,12 +68,12 @@ app-doc/doxygen clang dot doxysearch
 app-office/libreoffice binfilter
 dev-java/miglayout swt
 dev-python/ipython nbconvert notebook
+dev-python/PyQt5 bluetooth dbus declarative designer gui help location multimedia network opengl positioning printsupport sensors serialport sql svg testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
 net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
 x11-libs/gtk+ broadway
 x11-misc/colord extra-print-profiles
-dev-python/PyQt5 bluetooth dbus declarative designer gui help location multimedia network opengl positioning printsupport sensors serialport sql svg testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
 x11-wm/xpra client clipboard csc dec_avcodec2 enc_ffmpeg enc_264 enc_x265 lz4 opengl pillow server vpx webcam
 
 # Required for GNU Radio
