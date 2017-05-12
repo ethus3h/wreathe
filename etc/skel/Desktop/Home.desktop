@@ -1,6 +1,6 @@
 [Desktop Entry]
-Icon=home
+Icon=user-home-symbolic
 Name[en_GB]=Home
 Name=Home
-Type=Link
-URL[$e]=~
+Type=Application
+Exec=open ~
