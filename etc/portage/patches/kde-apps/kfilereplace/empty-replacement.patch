@@ -1,3 +1,15 @@
+diff --git a/kfilereplacepart.cpp b/kfilereplacepart.cpp
+index e82f6b7..93f8a06 100644
+--- a/kfilereplacepart.cpp
++++ b/kfilereplacepart.cpp
+@@ -686,6 +686,7 @@ void KFileReplacePart::initGUI()
+     actionCollection()->addAction("report_bug", action );
+   connect(action, SIGNAL(triggered(bool) ), SLOT(reportBug()));
+ 
++  m_option->m_simulation = false;
+ }
+ 
+ void KFileReplacePart::initView()
 diff --git a/kfilereplaceview.cpp b/kfilereplaceview.cpp
 index 303ec4a..5ace4ad 100644
 --- a/kfilereplaceview.cpp
