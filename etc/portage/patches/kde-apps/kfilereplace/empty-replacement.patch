@@ -1,3 +1,15 @@
+diff --git a/kfilereplaceview.cpp b/kfilereplaceview.cpp
+index 303ec4a..5ace4ad 100644
+--- a/kfilereplaceview.cpp
++++ b/kfilereplaceview.cpp
+@@ -349,7 +349,6 @@ void KFileReplaceView::slotQuickStringsAdd(const QString& quickSearch, const QSt
+     if(quickReplace.isEmpty())
+     {
+       map[quickSearch] = QString::null;	//krazy:exclude=nullstrassign for old broken gcc
+-      m_option->m_searchingOnlyMode = true;
+     }
+     else
+     {
 diff --git a/knewprojectdlg.cpp b/knewprojectdlg.cpp
 index 5f1a92d..4ac22bf 100644
 --- a/knewprojectdlg.cpp
