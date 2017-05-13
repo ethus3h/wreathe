@@ -68,6 +68,7 @@ games-roguelike/behemmoth
 games-simulation/openttd
 kde-apps/dolphin
 kde-apps/dolphin:4
+kde-apps/kfilereplace
 kde-frameworks/kdelibs
 kde-frameworks/kfilemetadata
 kde-frameworks/khtml
