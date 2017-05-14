@@ -211,7 +211,6 @@ media-fonts/paratype ~amd64
 media-gfx/displaycal ~amd64
 media-gfx/freecad ~amd64
 media-gfx/inkscape ~amd64
-media-gfx/krita ~amd64
 media-gfx/synfig ~amd64
 media-libs/fidlib ~amd64
 media-libs/libbluray ~amd64
