@@ -8,6 +8,8 @@ app-doc/unicode
 app-doc/unicode-docs
 app-editors/emacs
 app-editors/kile
+app-emulation/docker
+app-emulation/docker-proxy
 app-emulation/fuse
 app-emulation/fuse-utils
 app-emulation/libspectrum
