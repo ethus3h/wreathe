@@ -32,6 +32,7 @@ app-text/stardict
 app-text/tree
 dev-dotnet/dotnetzip-semverd
 dev-dotnet/libgdiplus
+dev-haskell/pandoc-types
 dev-haskell/parallel
 dev-java/icedtea:8
 dev-lang/python
