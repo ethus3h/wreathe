@@ -66,6 +66,7 @@ media-video/ffmpeg -libilbc
 # Various extra capabilities
 app-doc/doxygen clang dot doxysearch
 app-office/libreoffice binfilter
+app-text/pandoc https network-uri trypandoc
 dev-java/miglayout swt
 dev-python/ipython nbconvert notebook
 dev-python/PyQt5 bluetooth dbus declarative designer gui help location multimedia network opengl positioning printsupport sensors serialport sql svg testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
