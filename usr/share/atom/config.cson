@@ -30,6 +30,8 @@
   linter:
     errorPanelHeight: 30
     showErrorPanel: false
+  "linter-ui-default":
+    panelHeight: 1172
   minimap: {}
   "one-light-ui":
     fontSize: 20

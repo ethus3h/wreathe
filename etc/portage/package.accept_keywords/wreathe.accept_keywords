@@ -162,6 +162,7 @@ dev-python/awscli ~amd64
 dev-python/botocore ~amd64
 dev-python/certauth ~amd64
 dev-python/doublethink ~amd64
+dev-python/fusepy ~amd64
 dev-python/gntp ~amd64
 dev-python/guzzle_sphinx_theme ~amd64
 dev-python/internetarchive ~amd64
