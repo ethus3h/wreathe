@@ -1,3 +1,8 @@
+app-text/pandoc
+dev-haskell/pandoc-citeproc
+dev-haskell/pandoc-types
+dev-haskell/c2hs
+dev-haskell/cpphs
 app-arch/lha
 app-doc/cldr
 app-doc/ember-web-site
@@ -32,8 +37,11 @@ app-text/stardict
 app-text/tree
 dev-dotnet/dotnetzip-semverd
 dev-dotnet/libgdiplus
+dev-haskell/c2hs
+dev-haskell/cpphs
 dev-haskell/pandoc-types
 dev-haskell/parallel
+dev-haskell/texmath
 dev-java/icedtea:8
 dev-lang/python
 dev-lang/python:2.7
