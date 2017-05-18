@@ -1,8 +1,4 @@
-app-text/pandoc
-dev-haskell/pandoc-citeproc
-dev-haskell/pandoc-types
-dev-haskell/c2hs
-dev-haskell/cpphs
+app-arch/cfv
 app-arch/lha
 app-doc/cldr
 app-doc/ember-web-site
@@ -33,12 +29,14 @@ app-text/aspell
 app-text/dvipng
 app-text/jadetex
 app-text/libgxps
+app-text/pandoc
 app-text/stardict
 app-text/tree
 dev-dotnet/dotnetzip-semverd
 dev-dotnet/libgdiplus
 dev-haskell/c2hs
 dev-haskell/cpphs
+dev-haskell/pandoc-citeproc
 dev-haskell/pandoc-types
 dev-haskell/parallel
 dev-haskell/texmath
@@ -75,6 +73,7 @@ dev-qt/qtwebengine
 dev-tex/bibtexu
 dev-tex/xmltex
 dev-util/android-tools
+dev-util/xxdiff
 games-roguelike/behemmoth
 games-simulation/openttd
 kde-apps/dolphin
