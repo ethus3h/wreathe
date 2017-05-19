@@ -33,6 +33,7 @@ app-text/pandoc
 app-text/stardict
 app-text/tree
 dev-dotnet/dotnetzip-semverd
+dev-dotnet/googlemaps-locationservices
 dev-dotnet/libgdiplus
 dev-haskell/c2hs
 dev-haskell/cpphs
