@@ -175,7 +175,7 @@ media-plugins/grilo-plugins tracker
 media-sound/jack2 dbus pam
 media-sound/lash gtk
 media-sound/mpd expat mpg123 adplug -fluidsynth wildmidi
-media-sound/pulseaudio dbus gnome gtk ipv6 qt4 realtime
+media-sound/pulseaudio dbus gnome gtk ipv6 qt4 realtime native-headset ofono-headset
 media-video/ffmpeg opus vpx
 media-video/mplayer -cdio cdparanoia network pnm
 media-video/simplescreenrecorder -qt4
