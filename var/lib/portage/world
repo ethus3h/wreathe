@@ -153,6 +153,7 @@ x11-misc/cairo-dock
 x11-misc/ccsm
 x11-misc/keynav
 x11-misc/obkey
+x11-misc/read-edid
 x11-misc/run-scaled
 x11-misc/xcur2png
 x11-misc/xvfb-run
