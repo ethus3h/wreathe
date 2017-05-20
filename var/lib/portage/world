@@ -112,6 +112,7 @@ media-sound/gmusicbrowser
 media-sound/jack-audio-connection-kit
 media-sound/jack_capture
 media-sound/mp3diags
+media-sound/pulseaudio
 media-sound/supercollider
 media-video/ffmpeg
 media-video/sswf
