@@ -147,6 +147,7 @@ www-plugins/freshplayerplugin
 www-plugins/gnash
 www-plugins/lightspark
 www-plugins/mozplugger
+x11-apps/xkill
 x11-libs/bamf
 x11-libs/gtk+:2
 x11-misc/cairo-dock
