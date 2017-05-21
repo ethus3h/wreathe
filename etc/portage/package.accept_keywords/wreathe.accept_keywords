@@ -151,6 +151,7 @@ dev-lang/nqp ~amd64
 dev-lang/open-cobol ~amd64
 dev-lang/rakudo ~amd64
 dev-libs/appstream
+dev-libs/capstone
 dev-libs/crossguid ~amd64
 dev-libs/dbus-c++ ~amd64
 dev-libs/libevent ~amd64

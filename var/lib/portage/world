@@ -16,6 +16,7 @@ app-emulation/fuse-utils
 app-emulation/libspectrum
 app-eselect/eselect-infinality
 app-i18n/poedit
+app-misc/binwalk
 app-misc/crystallize
 app-misc/ember-shared
 app-misc/futuramerlin-web-toolkit
