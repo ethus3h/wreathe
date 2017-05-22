@@ -1,0 +1,136 @@
+diff --git a/metadata/animation.xml.in b/metadata/animation.xml.in
+index 5722c6e..cac237b 100644
+--- a/metadata/animation.xml.in
++++ b/metadata/animation.xml.in
+@@ -37,9 +37,13 @@
+ 	    <extensible/>
+ 	    <sort start="2"/>
+ 	    <default>
+-	      <value>animation:Zoom</value>
+-	      <value>animation:Fade</value>
++	      <value>animation:None</value>
+ 	      <value>animation:Fade</value>
++	      <value>animation:Glide 1</value>
++	      <value>animation:Glide 2</value>
++	      <value>animation:Glide 2</value>
++	      <value>animationaddon:Beam Up</value>
++	      <value>animationsim:Fly In</value>
+ 	    </default>
+ 	  </option>
+ 	  <option name="open_durations" type="list">
+@@ -49,9 +53,13 @@
+ 	    <min>50</min>
+ 	    <max>4000</max>
+ 	    <default>
+-	      <value>200</value>
++	      <value>50</value>
+ 	      <value>150</value>
++	      <value>400</value>
++	      <value>307</value>
++	      <value>307</value>
+ 	      <value>150</value>
++	      <value>350</value>
+ 	    </default>
+ 	  </option>
+ 	  <option name="open_matches" type="list">
+@@ -59,9 +67,13 @@
+ 	    <_long>The windows that will be animated.</_long>
+ 	    <type>match</type>
+ 	    <default>
+-	      <value>(type=Normal | Dialog | ModalDialog | Unknown) &amp; !(name=mate-screensaver)</value>
+-	      <value>(type=Menu | PopupMenu | DropdownMenu)</value>
+-	      <value>(type=Tooltip | Notification | Utility) &amp; !(name=compiz) &amp; !(title=notify-osd)</value>
++	      <value>class=sddm</value>
++	      <value>name=xvisbell</value>
++	      <value>(class=plasmashell) & (state=fullscreen)</value>
++	      <value>(type=Normal | Dialog | ModalDialog | Unknown) & !(name=gnome-screensaver) & !(class=plasmashell)</value>
++	      <value>(type=Menu | PopupMenu | DropdownMenu) & !(class=plasmashell)</value>
++	      <value>(type=Tooltip | Notification | Utility) & !(name=compiz) & !(title=notify-osd) & !(class=plasmashell)</value>
++	      <value>class=plasmashell</value>
+ 	    </default>
+ 	  </option>
+ 	  <option name="open_options" type="list">
+@@ -72,6 +84,10 @@
+ 	      <value></value>
+ 	      <value></value>
+ 	      <value></value>
++	      <value></value>
++	      <value></value>
++	      <value></value>
++	      <value></value>
+ 	    </default>
+ 	  </option>
+ 	</subgroup>
+@@ -103,9 +119,12 @@
+ 	    <extensible/>
+ 	    <sort start="2"/>
+ 	    <default>
+-	      <value>animation:Zoom</value>
+-	      <value>animation:Fade</value>
+ 	      <value>animation:Fade</value>
++	      <value>animation:Glide 1</value>
++	      <value>animation:Glide 2</value>
++	      <value>animationaddon:Beam Up</value>
++	      <value>animation:Glide 2</value>
++	      <value>animationsim:Fly In</value>
+ 	    </default>
+ 	  </option>
+ 	  <option name="close_durations" type="list">
+@@ -115,9 +134,12 @@
+ 	    <min>50</min>
+ 	    <max>4000</max>
+ 	    <default>
+-	      <value>200</value>
++	      <value>50</value>
++	      <value>400</value>
+ 	      <value>150</value>
+ 	      <value>150</value>
++	      <value>200</value>
++	      <value>250</value>
+ 	    </default>
+ 	  </option>
+ 	  <option name="close_matches" type="list">
+@@ -125,9 +147,12 @@
+ 	    <_long>The windows that will be animated.</_long>
+ 	    <type>match</type>
+ 	    <default>
+-	      <value>(type=Normal | Dialog | ModalDialog | Unknown) &amp; !(name=mate-screensaver)</value>
+-	      <value>(type=Menu | PopupMenu | DropdownMenu)</value>
+-	      <value>(type=Tooltip | Notification | Utility) &amp; !(name=compiz) &amp; !(title=notify-osd)</value>
++	      <value>name=xvisbell</value>
++	      <value>(class=plasmashell) & (state=fullscreen)</value>
++	      <value>(type=Menu | PopupMenu | DropdownMenu) & !(class=plasmashell)</value>
++	      <value>(type=Tooltip | Notification | Utility) & !(name=compiz) & !(title=notify-osd) & !(class=plasmashell)</value>
++	      <value>(type=Normal | Dialog | ModalDialog | Unknown) & !(name=gnome-screensaver) & !(class=plasmashell)</value>
++	      <value>class=plasmashell</value>
+ 	    </default>
+ 	  </option>
+ 	  <option name="close_options" type="list">
+@@ -138,6 +163,9 @@
+ 	      <value></value>
+ 	      <value></value>
+ 	      <value></value>
++	      <value></value>
++	      <value></value>
++	      <value>flyin_direction=2</value>
+ 	    </default>
+ 	  </option>
+ 	</subgroup>
+@@ -169,7 +197,7 @@
+ 	    <extensible/>
+ 	    <sort start="2"/>
+ 	    <default>
+-	      <value>animation:Magic Lamp</value>
++	      <value>animation:Zoom</value>
+ 	    </default>
+ 	  </option>
+ 	  <option name="minimize_durations" type="list">
+@@ -179,7 +207,7 @@
+ 	    <min>50</min>
+ 	    <max>4000</max>
+ 	    <default>
+-	      <value>300</value>
++	      <value>500</value>
+ 	    </default>
+ 	  </option>
+ 	  <option name="minimize_matches" type="list">
