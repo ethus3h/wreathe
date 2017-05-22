@@ -135,27 +135,27 @@ index 8f18ebf2..6ad7740a 100644
  		<option name="run_command3_key" type="key">
  		    <_short>Run command 3</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command3</_long>
-+		    <default>&lt;Control&gt;Print</default>
++		    <default>&lt;Primary&gt;Print</default>
  		</option>
  		<option name="run_command4_key" type="key">
  		    <_short>Run command 4</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command4</_long>
-+		    <default>&lt;Control&gt;2</default>
++		    <default>&lt;Primary&gt;2</default>
  		</option>
  		<option name="run_command5_key" type="key">
  		    <_short>Run command 5</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command5</_long>
-+		    <default>&lt;Shift&gt;&lt;Control&gt;q</default>
++		    <default>&lt;Shift&gt;&lt;Primary&gt;q</default>
  		</option>
  		<option name="run_command6_key" type="key">
  		    <_short>Run command 6</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command6</_long>
-+		    <default>&lt;Control&gt;F17</default>
++		    <default>&lt;Primary&gt;F17</default>
  		</option>
  		<option name="run_command7_key" type="key">
  		    <_short>Run command 7</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command7</_long>
-+		    <default>&lt;Shift&gt;&lt;Control&gt;F17</default>
++		    <default>&lt;Shift&gt;&lt;Primary&gt;F17</default>
  		</option>
  		<option name="run_command8_key" type="key">
  		    <_short>Run command 8</_short>
@@ -165,7 +165,7 @@ index 8f18ebf2..6ad7740a 100644
  		<option name="run_command9_key" type="key">
  		    <_short>Run command 9</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command9</_long>
-+		    <default>&lt;Shift&gt;&lt;Control&gt;Space</default>
++		    <default>&lt;Shift&gt;&lt;Primary&gt;Space</default>
  		</option>
  		<option name="run_command10_key" type="key">
  		    <_short>Run command 10</_short>
@@ -175,12 +175,12 @@ index 8f18ebf2..6ad7740a 100644
  		<option name="run_command11_key" type="key">
  		    <_short>Run command 11</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command11</_long>
-+		    <default>&lt;Control&gt;q</default>
++		    <default>&lt;Primary&gt;q</default>
  		</option>
  		<option name="run_command12_key" type="key">
  		    <_short>Run command 12</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command12</_long>
-+		    <default>&lt;Shift&gt;&lt;Control&gt;F14</default>
++		    <default>&lt;Shift&gt;&lt;Primary&gt;F14</default>
  		</option>
  		<option name="run_command13_key" type="key">
  		    <_short>Run command 13</_short>
@@ -190,17 +190,17 @@ index 8f18ebf2..6ad7740a 100644
  		<option name="run_command14_key" type="key">
  		    <_short>Run command 14</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command14</_long>
-+		    <default>&lt;Shift&gt;&lt;Control&gt;F18</default>
++		    <default>&lt;Shift&gt;&lt;Primary&gt;F18</default>
  		</option>
  		<option name="run_command15_key" type="key">
  		    <_short>Run command 15</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command15</_long>
-+		    <default>&lt;Shift&gt;&lt;Control&gt;XF86AudioPrev</default>
++		    <default>&lt;Shift&gt;&lt;Primary&gt;XF86AudioPrev</default>
  		</option>
  		<option name="run_command16_key" type="key">
  		    <_short>Run command 16</_short>
  		    <_long>A keybinding that when invoked, will run the shell command identified by command16</_long>
-+		    <default>&lt;Shift&gt;&lt;Control&gt;XF86AudioPause</default>
++		    <default>&lt;Shift&gt;&lt;Primary&gt;XF86AudioPause</default>
  		</option>
  		<option name="run_command17_key" type="key">
  		    <_short>Run command 17</_short>

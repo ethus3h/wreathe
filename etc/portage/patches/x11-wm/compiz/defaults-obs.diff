@@ -7,7 +7,7 @@ index 518e7b84..7a1cdf7b 100644
  		    <_short>Increase Opacity</_short>
  		    <_long>Opacity Increase</_long>
 -		    <default>&lt;Alt&gt;Button4</default>
-+		    <default>&lt;Control&gt;&lt;Alt&gt;Button3</default>
++		    <default>&lt;Primary&gt;&lt;Alt&gt;Button3</default>
  		</option>
  		<option name="opacity_decrease_key" type="key">
  		    <_short>Decrease Opacity</_short>
@@ -16,7 +16,7 @@ index 518e7b84..7a1cdf7b 100644
  		    <_short>Decrease Opacity</_short>
  		    <_long>Opacity Decrease</_long>
 -		    <default>&lt;Alt&gt;Button5</default>
-+		    <default>&lt;Control&gt;&lt;Alt&gt;Button1</default>
++		    <default>&lt;Primary&gt;&lt;Alt&gt;Button1</default>
  		</option>
  	    </group>
  	    <group>
