@@ -8,6 +8,7 @@ app-doc/ucd
 app-doc/unicode
 app-doc/unicode-docs
 app-editors/emacs
+app-editors/ghex
 app-editors/kile
 app-emulation/docker
 app-emulation/docker-proxy
@@ -47,6 +48,7 @@ dev-lang/python
 dev-lang/python:2.7
 dev-lang/snap
 dev-libs/STLport
+dev-libs/capstone
 dev-libs/kpathsea
 dev-libs/libdbusmenu
 dev-libs/wayland-protocols
@@ -62,6 +64,8 @@ dev-python/ipython
 dev-python/matplotlib
 dev-python/numpy
 dev-python/pandas
+dev-python/pycrypto
+dev-python/python-lzo
 dev-python/requests-file
 dev-python/rethinkstuff
 dev-python/sphinx
