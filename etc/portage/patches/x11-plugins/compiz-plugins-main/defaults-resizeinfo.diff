@@ -1,0 +1,13 @@
+diff --git a/metadata/resizeinfo.xml.in b/metadata/resizeinfo.xml.in
+index 62f9242..b3b4771 100644
+--- a/metadata/resizeinfo.xml.in
++++ b/metadata/resizeinfo.xml.in
+@@ -28,7 +28,7 @@
+ 	  <_short>Font family</_short>
+ 	  <_long>Name of the font to display resize info.</_long>
+ 	  <hints>family;</hints>
+-	  <default>Sans</default>
++	  <default>WreatheSystem</default>
+ 	</option>
+ 	<option name="text_color" type="color">
+ 	  <_short> Text color. </_short>

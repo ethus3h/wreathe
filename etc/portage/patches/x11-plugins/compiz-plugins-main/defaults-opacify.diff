@@ -1,0 +1,40 @@
+diff --git a/metadata/opacify.xml.in b/metadata/opacify.xml.in
+index f9fa342..f13b132 100644
+--- a/metadata/opacify.xml.in
++++ b/metadata/opacify.xml.in
+@@ -28,7 +28,7 @@
+         <option name="timeout" type="int">
+           <_short>Delay until Opacification</_short>
+           <_long>The delay (in ms) before Opacify changes opacity after the active window has changed.</_long>
+-          <default>700</default>
++          <default>150</default>
+           <min>0</min>
+           <max>10000</max>
+         </option>
+@@ -46,7 +46,7 @@
+         <option name="only_if_block" type="bool">
+           <_short>Only increase opacity if a window is blocking</_short>
+           <_long>Only increase the opacity on the targeted window if it has one or more windows blocking it from view.</_long>
+-          <default>false</default>
++          <default>true</default>
+         </option>
+         <option name="focus_instant" type="bool">
+           <_short>Bypass delay when the new active window is the focused window.</_short>
+@@ -61,7 +61,7 @@
+         <option name="window_match" type="match">
+           <_short>Window Match</_short>
+           <_long>Windows that should be opacified.</_long>
+-          <default>Normal | Dialog | ModalDialog | Utility | Toolbar | Fullscreen</default>
++          <default>(Normal | Dialog | ModalDialog | Utility | Toolbar | Fullscreen) & !(class=Onboard)</default>
+         </option>
+         <subgroup>
+           <_short>Opacity Levels</_short>
+@@ -75,7 +75,7 @@
+           <option name="passive_opacity" type="int">
+             <_short>Passive Opacity</_short>
+             <_long>The maximum opacity percentage a window blocking the current targeted window can have. A blocking window will have either this opacity or the preset opacity, whichever is lower.</_long>
+-            <default>10</default>
++            <default>50</default>
+             <min>1</min>
+             <max>100</max>
+           </option>
