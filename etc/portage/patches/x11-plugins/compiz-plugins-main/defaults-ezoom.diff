@@ -1,0 +1,21 @@
+diff --git a/metadata/ezoom.xml.in b/metadata/ezoom.xml.in
+index 2c94e37..d8da860 100644
+--- a/metadata/ezoom.xml.in
++++ b/metadata/ezoom.xml.in
+@@ -36,6 +36,7 @@
+ 		<option type="key" name="zoom_out_key">
+ 		    <_short>Zoom Out</_short>
+ 		    <_long>Zoom Out</_long>
++		    <default>&lt;Primary&gt;&lt;Alt&gt;u</default>
+ 		</option>
+ 		<option type="button" name="zoom_box_button">
+ 		    <_short>Zoom Box</_short>
+@@ -134,7 +135,7 @@
+ 		    <option type="key" name="fit_to_window_key">
+ 			<_short>Fit zoomed area to window</_short>
+ 			<_long>Zooms in/out so the focused window is zoomed to the maximum while still being fully visible.</_long>
+-			<default>&lt;Super&gt;r</default>
++			<default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;z</default>
+ 		    </option>
+ 		</subgroup>
+ 	    </group>

@@ -1,0 +1,22 @@
+diff --git a/metadata/mag.xml.in b/metadata/mag.xml.in
+index 239a50e..4e34f1e 100644
+--- a/metadata/mag.xml.in
++++ b/metadata/mag.xml.in
+@@ -18,7 +18,7 @@
+ 				<option name="initiate" type="key">
+ 					<_short>Initiate</_short>
+ 					<_long>Zoom In</_long>
+-					<default>&lt;Super&gt;m</default>
++					<default>&lt;Shift&gt;&lt;Primary&gt;equal</default>
+ 				</option>
+ 				<option name="zoom_in_button" type="button">
+ 					<_short>Zoom In</_short>
+@@ -88,7 +88,7 @@
+ 					<option name="box_width" type="int">
+ 						<_short>Width</_short>
+ 						<_long>Box width.</_long>
+-						<default>300</default>
++						<default>267</default>
+ 						<min>20</min>
+ 						<max>1000</max>
+ 					</option>

@@ -1,0 +1,19 @@
+diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
+index fa52dc2..97adb24 100644
+--- a/metadata/neg.xml.in
++++ b/metadata/neg.xml.in
+@@ -13,12 +13,12 @@
+ 			<option name="window_toggle_key" type="key">
+ 				<_short>Toggle Window Negative</_short>
+ 				<_long>Toggle active window negative</_long>
+-				<default>&lt;Super&gt;n</default>
++				<default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;f</default>
+ 			</option>
+ 			<option name="screen_toggle_key" type="key">
+ 				<_short>Toggle Screen Negative</_short>
+ 				<_long>Toggle screen negative</_long>
+-				<default>&lt;Super&gt;m</default>
++				<default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;o</default>
+ 			</option>
+ 		</display>
+ 		<screen>
