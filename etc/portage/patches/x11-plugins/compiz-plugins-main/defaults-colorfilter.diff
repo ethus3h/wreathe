@@ -1,0 +1,45 @@
+diff --git a/metadata/colorfilter.xml.in b/metadata/colorfilter.xml.in
+index db4c666..87f5870 100644
+--- a/metadata/colorfilter.xml.in
++++ b/metadata/colorfilter.xml.in
+@@ -18,7 +18,7 @@
+       <option name="toggle_screen_key" type="key">
+         <_short>Toggle screen filtering</_short>
+         <_long>Toggle filtering for every window on the screen.</_long>
+-        <default>&lt;Super&gt;d</default>
++        <default>&lt;Shift&gt;&lt;Alt&gt;f</default>
+       </option>
+       <option name="switch_filter_key" type="key">
+         <_short>Switch filter</_short>
+@@ -32,20 +32,14 @@
+         <_long>List of plain text filter files that should be applied when filtering windows or screen.</_long>
+         <type>string</type>
+         <default>
+-	    <value>negative</value>
+-	    <value>negative-green</value>
+-	    <value>blueish-filter</value>
+-	    <value>sepia</value>
+-	    <value>grayscale</value>
+-	    <value>deuteranopia</value>
+-	    <value>protonopia</value>
++	    <value>nightmode</value>
+ 	</default>
+         <hints>file;</hints>
+       </option>
+       <option name="filter_decorations" type="bool">
+         <_short>Filter window decorations</_short>
+         <_long>Window decorations (borders and titlebar) will be filtered as well as window contents if enabled.</_long>
+-        <default>false</default>
++        <default>true</default>
+       </option>
+       <option name="filter_match" type="match">
+         <_short>Filtered windows</_short>
+@@ -57,7 +51,7 @@
+       <option name="exclude_match" type="match">
+         <_short>Exclude windows</_short>
+         <_long>Windows to exclude from filtering.</_long>
+-        <default>type=Desktop</default>
++        <default></default>
+       </option>
+     </screen>
+   </plugin>

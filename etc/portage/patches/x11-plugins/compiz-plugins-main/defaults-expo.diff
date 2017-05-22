@@ -1,0 +1,110 @@
+diff --git a/metadata/expo.xml.in b/metadata/expo.xml.in
+index a84ac59..bc17446 100644
+--- a/metadata/expo.xml.in
++++ b/metadata/expo.xml.in
+@@ -20,7 +20,7 @@
+ 				<option name="expo_key" type="key">
+ 					<_short>Expo key</_short>
+ 					<_long>Engage wall expo mode key binding</_long>
+-					<default>&lt;Super&gt;e</default>
++					<default>&lt;Primary&gt;F13</default>
+ 				</option>
+ 				<option name="expo_button" type="button">
+ 					<_short>Expo button</_short>
+@@ -31,7 +31,7 @@
+ 					<_short>Expo edge</_short>
+ 					<_long>Engage wall expo mode edge binding</_long>
+ 					<default>
+-						<edge name="TopLeft"/>
++						<edge name="BottomLeft"/>
+ 					</default>
+ 				</option>
+ 				<option name="double_click_time" type="int">
+@@ -44,14 +44,14 @@
+ 				<option name="dnd_button" type="button">
+ 					<_short>Drag&amp;drop</_short>
+ 					<_long>Button binding for drag &amp; drop of windows</_long>
+-					<default>Button1</default>
++					<default>Button3</default>
+ 					<passive_grab>false</passive_grab>
+ 					<internal/>
+ 				</option>
+ 				<option name="exit_button" type="button">
+ 					<_short>Exit expo</_short>
+ 					<_long>Button binding to exit expo</_long>
+-					<default>Button3</default>
++					<default>Button1</default>
+ 					<passive_grab>false</passive_grab>
+ 					<internal/>
+ 				</option>
+@@ -137,7 +137,7 @@
+ 				<option name="vp_distance" type="float">
+ 					<_short>Viewport distance</_short>
+ 					<_long>Distance between viewports</_long>
+-					<default>0.10</default>
++					<default>0.33</default>
+ 					<min>0.0</min>
+ 					<max>1.0</max>
+ 					<precision>0.01</precision>
+@@ -161,7 +161,7 @@
+ 				<option name="hide_docks" type="bool">
+ 					<_short>Hide panels/docks in expo</_short>
+ 					<_long>Hide panels/docks in expo.</_long>
+-					<default>false</default>
++					<default>true</default>
+ 				</option>
+ 				<option name="mipmaps" type="bool">
+ 					<_short>Mipmaps</_short>
+@@ -188,7 +188,7 @@
+ 					<option name="vp_brightness" type="float">
+ 						<_short>Brightness</_short>
+ 						<_long>Inactive viewport brightness.</_long>
+-						<default>75.0</default>
++						<default>95.0</default>
+ 						<min>0.0</min>
+ 						<max>100.0</max>
+ 						<precision>0.1</precision>
+@@ -196,7 +196,7 @@
+ 					<option name="vp_saturation" type="float">
+ 						<_short>Saturation</_short>
+ 						<_long>Inactive viewport saturation.</_long>
+-						<default>100.0</default>
++						<default>85.0</default>
+ 						<min>0.0</min>
+ 						<max>100.0</max>
+ 						<precision>0.1</precision>
+@@ -213,26 +213,26 @@
+ 						<_short>Ground color(near)</_short>
+ 						<_long>Color of the ground (near).</_long>
+ 						<default>
+-							<red>0xb333</red>
+-							<green>0xb333</green>
+-							<blue>0xb333</blue>
+-							<alpha>0xcccc</alpha>
++							<red>0xa6a6</red>
++							<green>0x1616</green>
++							<blue>0xe0e0</blue>
++							<alpha>0xffff</alpha>
+ 						</default>
+ 					</option>
+ 					<option name="ground_color2" type="color">
+ 						<_short>Ground color(far)</_short>
+ 						<_long>Color of the ground (far).</_long>
+ 						<default>
+-							<red>0xb333</red>
+-							<green>0xb333</green>
+-							<blue>0xb333</blue>
++							<red>0xfbfb</red>
++							<green>0xe5e5</green>
++							<blue>0xffff</blue>
+ 							<alpha>0x0000</alpha>
+ 						</default>
+ 					</option>
+ 					<option name="ground_size" type="float">
+ 						<_short>Reflection ground size</_short>
+ 						<_long>Reflection ground size.</_long>
+-						<default>0.5</default>
++						<default>0.7</default>
+ 						<min>0.0</min>
+ 						<max>1.0</max>
+ 						<precision>0.01</precision>
