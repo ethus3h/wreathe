@@ -1,0 +1,273 @@
+diff --git a/metadata/wizard.xml.in b/metadata/wizard.xml.in
+index 2b11c9d..7cbdda8 100644
+--- a/metadata/wizard.xml.in
++++ b/metadata/wizard.xml.in
+@@ -18,7 +18,7 @@
+ 				<option name="initiate" type="key">
+ 					<_short>Initiate</_short>
+ 				    <_long>Toggle all particle effects.</_long>
+-					<default>&lt;Super&gt;w</default>
++					<default>&lt;Alt&gt;XF86AudioLowerVolume</default>
+ 				</option>
+                 <option name="default_enabled" type="bool">
+                     <_short>Enable by default</_short>
+@@ -43,7 +43,7 @@
+ 					<option name="gy" type="float">
+ 						<_short>Gravity Y</_short>
+ 						<_long>Global vertical gravity</_long>
+-						<default>0.0005</default>
++						<default>0.0001</default>
+ 						<min>-0.01</min>
+ 						<max>0.01</max>
+ 						<precision>0.00001</precision>
+@@ -57,9 +57,6 @@
+ 						<type>int</type>
+ 						<min>-1000</min>
+ 						<max>1000</max>
+-						<default>
+-							<value>200</value>
+-						</default>
+ 					</option>
+ 					<option name="g_posx" type="list">
+ 						<_short>Position X</_short>
+@@ -67,9 +64,6 @@
+ 						<type>int</type>
+ 						<min>0</min>
+ 						<max>3000</max>
+-						<default>
+-							<value>0</value>
+-						</default>
+ 					</option>
+ 					<option name="g_posy" type="list">
+ 						<_short>Position Y</_short>
+@@ -77,9 +71,6 @@
+ 						<type>int</type>
+ 						<min>0</min>
+ 						<max>2000</max>
+-						<default>
+-							<value>0</value>
+-						</default>
+ 					</option>
+ 					<option name="g_speed" type="list">
+ 						<_short>Speed</_short>
+@@ -87,9 +78,6 @@
+ 						<type>int</type>
+ 						<min>0</min>
+ 						<max>1000</max>
+-						<default>
+-							<value>100</value>
+-						</default>
+ 					</option>
+ 					<option name="g_angle" type="list">
+ 						<_short>Angle</_short>
+@@ -97,9 +85,6 @@
+ 						<type>int</type>
+ 						<min>0</min>
+ 						<max>360</max>
+-						<default>
+-							<value>20</value>
+-						</default>
+ 					</option>
+ 					<option name="g_movement" type="list">
+ 						<_short>Movement Type</_short>
+@@ -107,9 +92,6 @@
+ 						<type>int</type>
+ 						<min>0</min>
+ 						<max>4</max>
+-						<default>
+-							<value>2</value>
+-						</default>
+ 						<desc>
+ 							<value>0</value>
+ 							<_name>Mouse Position</_name>
+@@ -139,13 +121,13 @@
+ 						<value>false</value>
+ 						<value>false</value>
+ 						<value>true</value>
+-						<value>true</value>
+ 						<value>false</value>
+-						<value>true</value>
+-						<value>true</value>
+-						<value>true</value>
+-						<value>true</value>
+-						<value>true</value>
++						<value>false</value>
++						<value>false</value>
++						<value>false</value>
++						<value>false</value>
++						<value>false</value>
++						<value>false</value>
+ 					</default>
+ 				</option>
+ 				<option name="e_name" type="list">
+@@ -320,7 +302,7 @@
+ 					<default>
+ 						<value>50</value>
+ 						<value>20</value>
+-						<value>40</value>
++						<value>20</value>
+ 						<value>20</value>
+ 						<value>20</value>
+ 						<value>200</value>
+@@ -339,7 +321,7 @@
+ 					<default>
+ 						<value>67</value>
+ 						<value>100</value>
+-						<value>0</value>
++						<value>700</value>
+ 						<value>0</value>
+ 						<value>0</value>
+ 						<value>0</value>
+@@ -358,7 +340,7 @@
+ 					<default>
+ 						<value>100</value>
+ 						<value>150</value>
+-						<value>500</value>
++						<value>50</value>
+ 						<value>500</value>
+ 						<value>500</value>
+ 						<value>133</value>
+@@ -377,7 +359,7 @@
+ 					<default>
+ 						<value>450</value>
+ 						<value>600</value>
+-						<value>650</value>
++						<value>700</value>
+ 						<value>650</value>
+ 						<value>650</value>
+ 						<value>650</value>
+@@ -396,7 +378,7 @@
+ 					<default>
+ 						<value>250</value>
+ 						<value>100</value>
+-						<value>150</value>
++						<value>0</value>
+ 						<value>150</value>
+ 						<value>150</value>
+ 						<value>150</value>
+@@ -434,7 +416,7 @@
+ 					<default>
+ 						<value>200</value>
+ 						<value>200</value>
+-						<value>200</value>
++						<value>100</value>
+ 						<value>200</value>
+ 						<value>200</value>
+ 						<value>200</value>
+@@ -491,7 +473,7 @@
+ 					<default>
+ 						<value>30</value>
+ 						<value>5</value>
+-						<value>20</value>
++						<value>0</value>
+ 						<value>0</value>
+ 						<value>0</value>
+ 						<value>5</value>
+@@ -510,7 +492,7 @@
+ 					<default>
+ 						<value>0</value>
+ 						<value>0</value>
+-						<value>0</value>
++						<value>3</value>
+ 						<value>0</value>
+ 						<value>0</value>
+ 						<value>0</value>
+@@ -529,7 +511,7 @@
+ 					<default>
+ 						<value>0</value>
+ 						<value>-200</value>
+-						<value>0</value>
++						<value>10</value>
+ 						<value>0</value>
+ 						<value>0</value>
+ 						<value>0</value>
+@@ -624,7 +606,7 @@
+ 					<default>
+ 						<value>50</value>
+ 						<value>0</value>
+-						<value>100</value>
++						<value>17</value>
+ 						<value>50</value>
+ 						<value>50</value>
+ 						<value>500</value>
+@@ -643,7 +625,7 @@
+ 					<default>
+ 						<value>30</value>
+ 						<value>10</value>
+-						<value>4</value>
++						<value>50</value>
+ 						<value>3</value>
+ 						<value>3</value>
+ 						<value>5</value>
+@@ -662,7 +644,7 @@
+ 					<default>
+ 						<value>50</value>
+ 						<value>50</value>
+-						<value>50</value>
++						<value>3</value>
+ 						<value>50</value>
+ 						<value>50</value>
+ 						<value>50</value>
+@@ -681,7 +663,7 @@
+ 					<default>
+ 						<value>50</value>
+ 						<value>20</value>
+-						<value>50</value>
++						<value>3</value>
+ 						<value>50</value>
+ 						<value>50</value>
+ 						<value>50</value>
+@@ -700,7 +682,7 @@
+ 					<default>
+ 						<value>25</value>
+ 						<value>10</value>
+-						<value>25</value>
++						<value>2</value>
+ 						<value>25</value>
+ 						<value>25</value>
+ 						<value>25</value>
+@@ -719,7 +701,7 @@
+ 					<default>
+ 						<value>300</value>
+ 						<value>50</value>
+-						<value>100</value>
++						<value>3</value>
+ 						<value>125</value>
+ 						<value>125</value>
+ 						<value>50</value>
+@@ -738,7 +720,7 @@
+ 					<default>
+ 						<value>150</value>
+ 						<value>30</value>
+-						<value>25</value>
++						<value>2</value>
+ 						<value>50</value>
+ 						<value>50</value>
+ 						<value>25</value>
+@@ -757,7 +739,7 @@
+ 					<default>
+ 						<value>0</value>
+ 						<value>0</value>
+-						<value>0</value>
++						<value>1</value>
+ 						<value>0</value>
+ 						<value>0</value>
+ 						<value>0</value>
+@@ -776,7 +758,7 @@
+ 					<default>
+ 						<value>0</value>
+ 						<value>0</value>
+-						<value>0</value>
++						<value>1</value>
+ 						<value>0</value>
+ 						<value>200</value>
+ 						<value>0</value>
+@@ -795,7 +777,7 @@
+ 					<default>
+ 						<value>0</value>
+ 						<value>0</value>
+-						<value>0</value>
++						<value>2</value>
+ 						<value>0</value>
+ 						<value>10</value>
+ 						<value>0</value>
