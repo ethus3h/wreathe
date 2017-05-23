@@ -1,0 +1,142 @@
+diff --git a/metadata/staticswitcher.xml.in b/metadata/staticswitcher.xml.in
+index 2d143a4..e33cfb7 100644
+--- a/metadata/staticswitcher.xml.in
++++ b/metadata/staticswitcher.xml.in
+@@ -22,7 +22,6 @@
+ 		<option name="next_key" type="key">
+ 		    <_short>Next window</_short>
+ 		    <_long>Popup switcher if not visible and select next window</_long>
+-		    <default>&lt;Alt&gt;Tab</default>
+ 		</option>
+ 		<option name="prev_button" type="button">
+ 		    <_short>Prev window</_short>
+@@ -31,7 +30,6 @@
+ 		<option name="prev_key" type="key">
+ 		    <_short>Prev window</_short>
+ 		    <_long>Popup switcher if not visible and select previous window</_long>
+-		    <default>&lt;Shift&gt;&lt;Alt&gt;Tab</default>
+ 		</option>
+ 		<option name="next_all_button" type="button">
+ 		    <_short>Next window (All windows)</_short>
+@@ -40,7 +38,7 @@
+ 		<option name="next_all_key" type="key">
+ 		    <_short>Next window (All windows)</_short>
+ 		    <_long>Popup switcher if not visible and select next window out of all windows</_long>
+-		    <default>&lt;Primary&gt;&lt;Alt&gt;Tab</default>
++		    <default>&lt;Primary&gt;Tab</default>
+ 		</option>
+ 		<option name="prev_all_button" type="button">
+ 		    <_short>Prev window (All windows)</_short>
+@@ -49,7 +47,7 @@
+ 		<option name="prev_all_key" type="key">
+ 		    <_short>Prev window (All windows)</_short>
+ 		    <_long>Popup switcher if not visible and select previous window out of all windows</_long>
+-		    <default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;Tab</default>
++		    <default>&lt;Shift&gt;&lt;Primary&gt;Tab</default>
+ 		</option>
+ 		<option name="next_group_button" type="button">
+ 		    <_short>Next window (Group)</_short>
+@@ -102,6 +100,7 @@
+ 		<option name="close_highlighted_key" type="key">
+ 		    <_short>Close highlighted</_short>
+ 		    <_long>Closes the currently highlighted window. If the switcher is not in use, closes the currently active window instead.</_long>
++		    <default>&lt;Primary&gt;q</default>
+ 		</option>
+ 	    </group>
+ 	</display>
+@@ -127,7 +126,7 @@
+ 		<option name="window_match" type="match">
+ 		    <_short>Switcher windows</_short>
+ 		    <_long>Windows that should be shown in switcher</_long>
+-		    <default>Normal | Dialog | Toolbar | Utility | Unknown</default>
++		    <default>Normal | Dialog | Toolbar | Utility | Unknown | class=Kfind</default>
+ 		</option>
+ 		<option name="minimized" type="bool">
+ 		    <_short>Include Minimized</_short>
+@@ -142,7 +141,7 @@
+ 		<option name="popup_delay" type="float">
+ 		    <_short>Popup Window Delay</_short>
+ 		    <_long>Time (in s) the popup window should be delayed before appearing</_long>
+-		    <default>0.0</default>
++		    <default>0.105</default>
+ 		    <min>0.0</min>
+ 		    <max>2.0</max>
+ 		    <precision>0.05</precision>
+@@ -163,17 +162,17 @@
+ 		<option name="highlight_delay_inherit" type="bool">
+ 		    <_short>Inherit Highlight Delay</_short>
+ 		    <_long>When enabled, use the popup delay for the window highlight</_long>
+-		    <default>true</default>
++		    <default>false</default>
+ 		</option>
+ 		<option name="mouse_select" type="bool">
+ 		    <_short>Allow Mouse Selection</_short>
+ 		    <_long>Allow selection of windows from the switcher window with the mouse</_long>
+-		    <default>false</default>
++		    <default>true</default>
+ 		</option>
+ 		<option name="mouse_close" type="bool">
+ 		    <_short>Allow Mouse Close</_short>
+ 		    <_long>Close window on clicking its preview in the popup with the middle button</_long>
+-		    <default>false</default>
++		    <default>true</default>
+ 		</option>
+ 	    </group>
+ 	    <group>
+@@ -181,14 +180,14 @@
+ 		<option name="saturation" type="int">
+ 		    <_short>Saturation</_short>
+ 		    <_long>Amount of saturation in percent</_long>
+-		    <default>50</default>
++		    <default>100</default>
+ 		    <min>0</min>
+ 		    <max>100</max>
+ 		</option>
+ 		<option name="brightness" type="int">
+ 		    <_short>Brightness</_short>
+ 		    <_long>Amount of brightness in percent</_long>
+-		    <default>50</default>
++		    <default>100</default>
+ 		    <min>0</min>
+ 		    <max>100</max>
+ 		</option>
+@@ -231,13 +230,13 @@
+ 		<option name="popup_preview_size" type="int">
+ 		    <_short>Popup Preview Size</_short>
+ 		    <_long>Size of the previews in the popup</_long>
+-		    <default>150</default>
++		    <default>200</default>
+ 		    <min>0</min>
+ 		</option>
+ 		<option name="popup_border_size" type="int">
+ 		    <_short>Popup Border Size</_short>
+ 		    <_long>Size of the border of the popup</_long>
+-		    <default>10</default>
++		    <default>21</default>
+ 		    <min>0</min>
+ 		</option>
+ 		<option name="popup_icon_size" type="int">
+@@ -272,7 +271,7 @@
+ 			<_long>Where to draw highlight rectangle for minimized windows</_long>
+ 			<min>0</min>
+ 			<max>2</max>
+-			<default>1</default>
++			<default>2</default>
+ 			<desc>
+ 			    <value>0</value>
+ 			    <_name>None</_name>
+@@ -310,10 +309,10 @@
+ 			<_short>Highlight Border Inlay Color</_short>
+ 			<_long>Color of inlay in highlight rectangle border</_long>
+ 			<default>
+-			    <red>0xc8c8</red>
+-			    <green>0xc8c8</green>
+-			    <blue>0xc8c8</blue>
+-			    <alpha>0xc8c8</alpha>
++			    <red>0xffff</red>
++			    <green>0x0000</green>
++			    <blue>0x0000</blue>
++			    <alpha>0xbebe</alpha>
+ 			</default>
+ 		    </option>
+ 		</subgroup>
