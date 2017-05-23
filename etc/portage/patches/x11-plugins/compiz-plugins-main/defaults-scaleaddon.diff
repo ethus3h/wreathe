@@ -1,0 +1,73 @@
+diff --git a/metadata/scaleaddon.xml.in b/metadata/scaleaddon.xml.in
+index bf88adf..df25a35 100644
+--- a/metadata/scaleaddon.xml.in
++++ b/metadata/scaleaddon.xml.in
+@@ -84,7 +84,7 @@
+ 				<_short>Font family</_short>
+ 				<_long>Name of the font to display title.</_long>
+ 				<hints>family;</hints>
+-				<default>Sans</default>
++				<default>WreatheSystem</default>
+ 			</option>
+ 
+ 		    <option name="title_bold" type="bool">
+@@ -97,22 +97,22 @@
+ 			<_long>Font size for window title display</_long>
+ 			<min>6</min>
+ 			<max>48</max>
+-			<default>10</default>
++			<default>16</default>
+ 		    </option>
+ 		    <option name="border_size" type="int">
+ 			<_short>Title Border Size</_short>
+ 			<_long>Size of the border around the window title</_long>
+ 			<min>1</min>
+ 			<max>20</max>
+-			<default>3</default>
++			<default>5</default>
+ 		    </option>
+ 		    <option name="font_color" type="color">
+ 			<_short>Font Color</_short>
+ 			<_long>Font color of the window title</_long>
+ 			<default>
+-			    <red>0xffff</red>
+-			    <green>0xffff</green>
+-			    <blue>0xffff</blue>
++			    <red>0xd3d3</red>
++			    <green>0xb5b5</green>
++			    <blue>0xeaea</blue>
+ 			    <alpha>0xffff</alpha>
+ 			</default>
+ 		    </option>
+@@ -120,10 +120,10 @@
+ 			<_short>Background Color</_short>
+ 			<_long>Background color of the window title</_long>
+ 			<default>
+-			    <red>0x0000</red>
++			    <red>0x0404</red>
+ 			    <green>0x0000</green>
+-			    <blue>0x0000</blue>
+-			    <alpha>0x9999</alpha>
++			    <blue>0x5b5b</blue>
++			    <alpha>0xe1e1</alpha>
+ 			</default>
+ 		    </option>
+ 		</subgroup>
+@@ -132,7 +132,7 @@
+ 		    <option name="window_highlight" type="bool">
+ 			<_short>Draw Window Highlight</_short>
+ 			<_long>Highlights the hovered window with the given color</_long>
+-			<default>false</default>
++			<default>true</default>
+ 		    </option>
+ 		    <option name="highlight_color" type="color">
+ 			<_short>Highlight Color</_short>
+@@ -141,7 +141,7 @@
+ 			    <red>0xffff</red>
+ 			    <green>0xffff</green>
+ 			    <blue>0xffff</blue>
+-			    <alpha>0x9696</alpha>
++			    <alpha>0x2525</alpha>
+ 			</default>
+ 		    </option>
+ 		</subgroup>
