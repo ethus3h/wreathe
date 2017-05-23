@@ -1,14 +1,8 @@
 diff --git a/metadata/grid.xml.in b/metadata/grid.xml.in
-index c8a1fcc..a9cbb57 100644
+index c8a1fcc..6e7ca2e 100644
 --- a/metadata/grid.xml.in
 +++ b/metadata/grid.xml.in
-@@ -10,47 +10,47 @@
- 		<option name="put_center_key" type="key">
- 		    <_short>Put Center</_short>
- 		    <_long>Move window to the center</_long>
--		    <default>&lt;Primary&gt;&lt;Alt&gt;KP_5</default>
-+		    <default>&lt;Shift&gt;&lt;Alt&gt;w</default>
- 		</option>
+@@ -15,47 +15,47 @@
  		<option name="put_left_key" type="key">
  		    <_short>Put Left</_short>
  		    <_long>Move window to the left edge</_long>
@@ -59,6 +53,12 @@ index c8a1fcc..a9cbb57 100644
  		</option>
  		<option name="put_maximize_key" type="key">
  		    <_short>Maximize</_short>
+ 		    <_long>Maximize window</_long>
+-		    <default>&lt;Primary&gt;&lt;Alt&gt;KP_0</default>
++		    <default>&lt;Shift&gt;&lt;Alt&gt;w</default>
+ 		</option>
+ 		<option name="cycle_sizes" type="key">
+ 		    <_short>Cycle Through Multiple Sizes</_short>
 @@ -69,7 +69,7 @@
  		    <_short>Resize Actions</_short>
  		    <_long>Window resize action</_long>
