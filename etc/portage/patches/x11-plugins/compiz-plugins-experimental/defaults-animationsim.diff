@@ -1,0 +1,13 @@
+diff --git a/metadata/animationsim.xml.in b/metadata/animationsim.xml.in
+index 971451e..4d730b7 100644
+--- a/metadata/animationsim.xml.in
++++ b/metadata/animationsim.xml.in
+@@ -70,7 +70,7 @@
+ 	  <option name="flyin_distance" type="float">
+ 	    <_short>Distance</_short>
+ 	    <_long>Distance to fly in</_long>
+-	    <default>20</default>
++	    <default>10</default>
+ 	    <min>5</min>
+ 	    <max>1000</max>
+ 		<precision>0.01</precision>
