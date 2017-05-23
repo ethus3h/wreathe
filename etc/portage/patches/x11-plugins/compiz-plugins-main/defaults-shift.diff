@@ -1,0 +1,98 @@
+diff --git a/metadata/shift.xml.in b/metadata/shift.xml.in
+index 8ca61c0..90ed4f3 100644
+--- a/metadata/shift.xml.in
++++ b/metadata/shift.xml.in
+@@ -27,6 +27,7 @@
+ 				<option name="initiate_button" type="button">
+ 					<_short>Initiate</_short>
+ 					<_long>Initiate switcher.</_long>
++					<default>&lt;TopEdge&gt;Button1</default>
+ 				</option>
+ 				<option name="initiate_edge" type="edge">
+ 					<_short>Initiate</_short>
+@@ -47,7 +48,6 @@
+ 				<option name="terminate_button" type="button">
+ 					<_short>Terminate</_short>
+ 					<_long>Terminate switcher.</_long>
+-					<default>Button3</default>
+ 				</option>
+ 				<option name="next_key" type="key">
+ 					<_short>Next Window</_short>
+@@ -186,7 +186,7 @@
+ 				<option name="background_intensity" type="float">
+ 					<_short>Background intensity</_short>
+ 					<_long>Background intensity.</_long>
+-					<default>0.5</default>
++					<default>1.0</default>
+ 					<min>0.0</min>
+ 					<max>1.0</max>
+ 					<precision>0.01</precision>
+@@ -207,9 +207,9 @@
+ 						<_short>Ground color(near)</_short>
+ 						<_long>Color of the ground (near).</_long>
+ 						<default>
+-							<red>0xb333</red>
+-							<green>0xb333</green>
+-							<blue>0xb333</blue>
++							<red>0xb9b9</red>
++							<green>0x8b8b</green>
++							<blue>0xffff</blue>
+ 							<alpha>0xcccc</alpha>
+ 						</default>
+ 					</option>
+@@ -217,9 +217,9 @@
+ 						<_short>Ground color(far)</_short>
+ 						<_long>Color of the ground (far).</_long>
+ 						<default>
+-							<red>0xb333</red>
+-							<green>0xb333</green>
+-							<blue>0xb333</blue>
++							<red>0xffff</red>
++							<green>0xffff</green>
++							<blue>0xffff</blue>
+ 							<alpha>0x0000</alpha>
+ 						</default>
+ 					</option>
+@@ -310,7 +310,7 @@
+ 					<_short>Font family</_short>
+ 					<_long>Name of the font to display title.</_long>
+ 					<hints>family;</hints>
+-					<default>Sans</default>
++					<default>WreatheSystem</default>
+ 				</option>
+ 				<option name="title_font_bold" type="bool">
+ 					<_short>Bold Font</_short>
+@@ -320,7 +320,7 @@
+ 				<option name="title_font_size" type="int">
+ 					<_short>Font Size</_short>
+ 					<_long>Font size for the window title</_long>
+-					<default>16</default>
++					<default>17</default>
+ 					<min>6</min>
+ 					<max>288</max>
+ 				</option>
+@@ -328,9 +328,9 @@
+ 					<_short>Background Color</_short>
+ 					<_long>Background color for the window title</_long>
+ 					<default>
+-						<red>0x0000</red>
++						<red>0x0303</red>
+ 						<green>0x0000</green>
+-						<blue>0x0000</blue>
++						<blue>0x5b5b</blue>
+ 						<alpha>0x9999</alpha>
+ 					</default>
+ 				</option>
+@@ -338,9 +338,9 @@
+ 					<_short>Font Color</_short>
+ 					<_long>Font color for the window title</_long>
+ 					<default>
+-						<red>0xffff</red>
+-						<green>0xffff</green>
+-						<blue>0xffff</blue>
++						<red>0xd3d3</red>
++						<green>0xb5b5</green>
++						<blue>0xeaea</blue>
+ 						<alpha>0xffff</alpha>
+ 					</default>
+ 				</option>
