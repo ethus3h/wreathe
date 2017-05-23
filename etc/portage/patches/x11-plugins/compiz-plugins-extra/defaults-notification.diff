@@ -1,0 +1,13 @@
+diff --git a/metadata/notification.xml.in b/metadata/notification.xml.in
+index 6bb29c6..627b355 100644
+--- a/metadata/notification.xml.in
++++ b/metadata/notification.xml.in
+@@ -15,7 +15,7 @@
+ 	    <option type="int" name="max_log_level">
+ 		<_short>Maximum Log Level</_short>
+ 		<_long>The maximum log level to display</_long>
+-		<default>1</default>
++		<default>2</default>
+ 		<desc>
+ 		    <value>0</value>
+ 		    <_name>Fatal</_name>
