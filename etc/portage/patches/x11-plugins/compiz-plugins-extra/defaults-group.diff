@@ -1,0 +1,85 @@
+diff --git a/metadata/group.xml.in b/metadata/group.xml.in
+index 7feba88..4de733f 100644
+--- a/metadata/group.xml.in
++++ b/metadata/group.xml.in
+@@ -19,11 +19,12 @@
+           <option name="select_button" type="button">
+             <_short>Select</_short>
+             <_long>The key for starting selecting windows.</_long>
++	    <default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;Button1</default>
+           </option>
+           <option name="select_single_key" type="key">
+             <_short>Select Single Window</_short>
+             <_long>The key for selecting the current window.</_long>
+-            <default>&lt;Super&gt;s</default>
++            <default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;s</default>
+           </option>
+         </subgroup>
+       </group>
+@@ -34,12 +35,12 @@
+           <option name="group_key" type="key">
+             <_short>Group Windows</_short>
+             <_long>The key for grouping windows.</_long>
+-            <default>&lt;Super&gt;g</default>
++            <default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;g</default>
+           </option>
+           <option name="ungroup_key" type="key">
+             <_short>Ungroup Windows</_short>
+             <_long>The key for ungrouping the current group.</_long>
+-            <default>&lt;Super&gt;u</default>
++            <default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;u</default>
+           </option>
+           <option name="remove_key" type="key">
+             <_short>Remove Group Window</_short>
+@@ -65,17 +66,17 @@
+           <option name="tabmode_key" type="key">
+             <_short>Tab Group</_short>
+             <_long>The key for toggling the tab mode for the current group.</_long>
+-            <default>&lt;Super&gt;t</default>
++            <default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;t</default>
+           </option>
+           <option name="change_tab_left_key" type="key">
+             <_short>Change Tab Left</_short>
+             <_long>The key for switching to the tab left of the current one.</_long>
+-            <default>&lt;Super&gt;Left</default>
++            <default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;Left</default>
+           </option>
+           <option name="change_tab_right_key" type="key">
+             <_short>Change Tab Right</_short>
+             <_long>The key for switching to the tab right of the current one.</_long>
+-            <default>&lt;Super&gt;Right</default>
++            <default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;Right</default>
+           </option>
+         </subgroup>
+       </group>
+@@ -178,9 +179,9 @@
+             <_short>Selection Color</_short>
+             <_long>Fill color of the selection rectangle</_long>
+             <default>
+-              <red>0x0000</red>
+-              <green>0x0000</green>
+-              <blue>0x0000</blue>
++              <red>0xd9d9</red>
++              <green>0x4848</green>
++              <blue>0x9c9c</blue>
+               <alpha>0x5555</alpha>
+             </default>
+           </option>
+@@ -301,7 +302,7 @@
+           <option name="thumb_size" type="int">
+             <_short>Thumb Size</_short>
+             <_long>The size of the window thumbs in the task bar</_long>
+-            <default>96</default>
++            <default>85</default>
+             <min>16</min>
+             <max>256</max>
+           </option>
+@@ -390,7 +391,7 @@
+ 				<_short>Font family</_short>
+ 				<_long>Name of the font to display title in the tab bar</_long>
+ 				<hints>family;</hints>
+-				<default>Sans</default>
++				<default>Linux Biolinum O</default>
+ 			</option>
+           <option name="tabbar_font_size" type="int">
+             <_short>Font Size</_short>
