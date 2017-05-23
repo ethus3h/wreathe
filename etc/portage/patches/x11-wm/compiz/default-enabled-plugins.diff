@@ -2,7 +2,7 @@ diff --git a/src/main.c b/src/main.c
 index 7661c9b6..bce99643 100644
 --- a/src/main.c
 +++ b/src/main.c
-@@ -425,11 +425,51 @@ main (int argc, char **argv)
+@@ -425,11 +425,52 @@ main (int argc, char **argv)
      /* add in default plugins if none are given */
      if (nPlugin == 0)
      {
@@ -20,6 +20,7 @@ index 7661c9b6..bce99643 100644
 +        plugin[nPlugin++] = "dbus";
 +        plugin[nPlugin++] = "mag";
 +        plugin[nPlugin++] = "wizard";
++        plugin[nPlugin++] = "showdesktop";
 +        plugin[nPlugin++] = "extrawm";
 +        plugin[nPlugin++] = "dialog";
 +        plugin[nPlugin++] = "blur";
