@@ -25,7 +25,7 @@ index f9fa342..f13b132 100644
            <_short>Window Match</_short>
            <_long>Windows that should be opacified.</_long>
 -          <default>Normal | Dialog | ModalDialog | Utility | Toolbar | Fullscreen</default>
-+          <default>(Normal | Dialog | ModalDialog | Utility | Toolbar | Fullscreen) & !(class=Onboard)</default>
++          <default>(Normal | Dialog | ModalDialog | Utility | Toolbar | Fullscreen) &amp; !(class=Onboard)</default>
          </option>
          <subgroup>
            <_short>Opacity Levels</_short>

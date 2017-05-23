@@ -43,9 +43,9 @@ index 5722c6e..cac237b 100644
 +	      <value>class=sddm</value>
 +	      <value>name=xvisbell</value>
 +	      <value>(class=plasmashell) & (state=fullscreen)</value>
-+	      <value>(type=Normal | Dialog | ModalDialog | Unknown) & !(name=gnome-screensaver) & !(class=plasmashell)</value>
-+	      <value>(type=Menu | PopupMenu | DropdownMenu) & !(class=plasmashell)</value>
-+	      <value>(type=Tooltip | Notification | Utility) & !(name=compiz) & !(title=notify-osd) & !(class=plasmashell)</value>
++	      <value>(type=Normal | Dialog | ModalDialog | Unknown) &amp; !(name=gnome-screensaver) &amp; !(class=plasmashell)</value>
++	      <value>(type=Menu | PopupMenu | DropdownMenu) &amp; !(class=plasmashell)</value>
++	      <value>(type=Tooltip | Notification | Utility) &amp; !(name=compiz) &amp; !(title=notify-osd) &amp; !(class=plasmashell)</value>
 +	      <value>class=plasmashell</value>
  	    </default>
  	  </option>
@@ -98,10 +98,10 @@ index 5722c6e..cac237b 100644
 -	      <value>(type=Menu | PopupMenu | DropdownMenu)</value>
 -	      <value>(type=Tooltip | Notification | Utility) &amp; !(name=compiz) &amp; !(title=notify-osd)</value>
 +	      <value>name=xvisbell</value>
-+	      <value>(class=plasmashell) & (state=fullscreen)</value>
-+	      <value>(type=Menu | PopupMenu | DropdownMenu) & !(class=plasmashell)</value>
-+	      <value>(type=Tooltip | Notification | Utility) & !(name=compiz) & !(title=notify-osd) & !(class=plasmashell)</value>
-+	      <value>(type=Normal | Dialog | ModalDialog | Unknown) & !(name=gnome-screensaver) & !(class=plasmashell)</value>
++	      <value>(class=plasmashell) &amp; (state=fullscreen)</value>
++	      <value>(type=Menu | PopupMenu | DropdownMenu) &amp; !(class=plasmashell)</value>
++	      <value>(type=Tooltip | Notification | Utility) &amp; !(name=compiz) &amp; !(title=notify-osd) &amp; !(class=plasmashell)</value>
++	      <value>(type=Normal | Dialog | ModalDialog | Unknown) &amp; !(name=gnome-screensaver) &amp; !(class=plasmashell)</value>
 +	      <value>class=plasmashell</value>
  	    </default>
  	  </option>
