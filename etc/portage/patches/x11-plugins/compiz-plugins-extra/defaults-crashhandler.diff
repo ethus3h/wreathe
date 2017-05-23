@@ -1,0 +1,20 @@
+diff --git a/metadata/crashhandler.xml.in b/metadata/crashhandler.xml.in
+index 808170d..bf000dc 100644
+--- a/metadata/crashhandler.xml.in
++++ b/metadata/crashhandler.xml.in
+@@ -21,13 +21,13 @@
+ 				<option name="start_wm" type="bool">
+ 					<_short>Start Other Window Manager</_short>
+ 					<_long>Start other window manager on Crash.</_long>
+-					<default>false</default>
++					<default>true</default>
+ 				</option>
+ 				<option name="wm_cmd" type="string">
+ 					<_short>Window Manager Command Line</_short>
+ 					<_long>Window manager command line. DO NOT ENTER COMPIZ HERE!!!</_long>
+ 					<hints>command;</hints>
+-					<default/>
++					<default>openbox --replace</default>
+ 				</option>
+ 			</group>
+ 		</display>
