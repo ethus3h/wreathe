@@ -159,8 +159,12 @@ egup-exit() {
 export -f egup-exit
 
 elen() {
+    libraryDir="ember-library-2"
+    if [[ -n "$1" ]]; then
+        libraryDir="$1"
+    fi
     originalDir="$(pwd)"
-    cd "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/ember-library-2/ || exit 1
+    cd "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/ || exit 1
     egup-env
 }
 
