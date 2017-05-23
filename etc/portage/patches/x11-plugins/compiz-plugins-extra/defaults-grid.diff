@@ -1,5 +1,5 @@
 diff --git a/metadata/grid.xml.in b/metadata/grid.xml.in
-index c8a1fcc..a9cbb57 100644
+index b24ec5a..a9cbb57 100644
 --- a/metadata/grid.xml.in
 +++ b/metadata/grid.xml.in
 @@ -10,47 +10,47 @@
@@ -59,37 +59,7 @@ index c8a1fcc..a9cbb57 100644
  		</option>
  		<option name="put_maximize_key" type="key">
  		    <_short>Maximize</_short>
-@@ -69,7 +69,7 @@
- 		    <_short>Resize Actions</_short>
- 		    <_long>Window resize action</_long>
- 		    <option name="top_left_corner_action" type="int">
--			<_short>Upper Left Corner</_short>
-+			<_short>Top Left Corner</_short>
- 			<_long>Action to be performed when window is dropped on the top left corner</_long>
- 			<default>7</default>
- 			<min>0</min>
-@@ -171,7 +171,7 @@
- 			</desc>
- 		    </option>
- 		    <option name="top_right_corner_action" type="int">
--			<_short>Upper Right Corner</_short>
-+			<_short>Top Right Corner</_short>
- 			<_long>Action to be performed when window is dropped on the top right corner</_long>
- 			<default>9</default>
- 			<min>0</min>
-@@ -522,13 +522,21 @@
- 		    <default>350</default>
- 		    <min>0</min>
- 		</option>
-+                <option name="outline_thickness" type="float">
-+                    <_short>Outline Thickness</_short>
-+                    <_long>Outline Thickness</_long>
-+                    <default>2.0</default>
-+                    <min>1.0</min>
-+                    <max>8.0</max>
-+                    <precision>1.0</precision>
-+                </option>
- 		<option name="outline_color" type="color">
+@@ -534,9 +534,9 @@
  		    <_short>Outline Color</_short>
  		    <_long>Color of the resize indicator outline</_long>
  		    <default>
@@ -102,7 +72,7 @@ index c8a1fcc..a9cbb57 100644
  			<alpha>0x9f9f</alpha>
  		    </default>
  		</option>
-@@ -536,10 +544,10 @@
+@@ -544,10 +544,10 @@
  		    <_short>Fill Color</_short>
  		    <_long>Fill color of the resize indicator</_long>
  		    <default>
