@@ -1,0 +1,13 @@
+diff --git a/metadata/toggledeco.xml.in b/metadata/toggledeco.xml.in
+index b53d62c..c401a6c 100644
+--- a/metadata/toggledeco.xml.in
++++ b/metadata/toggledeco.xml.in
+@@ -10,7 +10,7 @@
+         <option name="trigger_key" type="key">
+           <_short>Toggle decoration</_short>
+           <_long>Toggles decoration on/off.</_long>
+-          <default>&lt;Super&gt;&lt;Primary&gt;d</default>
++          <default>&lt;Shift&gt;&lt;Alt&gt;d</default>
+         </option>
+         <option name="trigger_all_key" type="key">
+           <_short>Toggle decoration on desktop</_short>
