@@ -1,8 +1,8 @@
 diff --git a/metadata/scaleaddon.xml.in b/metadata/scaleaddon.xml.in
-index bf88adf..df25a35 100644
+index 20f47df..3baa93b 100644
 --- a/metadata/scaleaddon.xml.in
 +++ b/metadata/scaleaddon.xml.in
-@@ -84,7 +84,7 @@
+@@ -85,7 +85,7 @@
  				<_short>Font family</_short>
  				<_long>Name of the font to display title.</_long>
  				<hints>family;</hints>
@@ -11,10 +11,10 @@ index bf88adf..df25a35 100644
  			</option>
  
  		    <option name="title_bold" type="bool">
-@@ -97,22 +97,22 @@
+@@ -98,22 +98,22 @@
  			<_long>Font size for window title display</_long>
  			<min>6</min>
- 			<max>48</max>
+ 			<max>144</max>
 -			<default>10</default>
 +			<default>16</default>
  		    </option>
@@ -39,7 +39,7 @@ index bf88adf..df25a35 100644
  			    <alpha>0xffff</alpha>
  			</default>
  		    </option>
-@@ -120,10 +120,10 @@
+@@ -121,10 +121,10 @@
  			<_short>Background Color</_short>
  			<_long>Background color of the window title</_long>
  			<default>
@@ -53,7 +53,7 @@ index bf88adf..df25a35 100644
  			</default>
  		    </option>
  		</subgroup>
-@@ -132,7 +132,7 @@
+@@ -133,7 +133,7 @@
  		    <option name="window_highlight" type="bool">
  			<_short>Draw Window Highlight</_short>
  			<_long>Highlights the hovered window with the given color</_long>
@@ -62,7 +62,7 @@ index bf88adf..df25a35 100644
  		    </option>
  		    <option name="highlight_color" type="color">
  			<_short>Highlight Color</_short>
-@@ -141,7 +141,7 @@
+@@ -142,7 +142,7 @@
  			    <red>0xffff</red>
  			    <green>0xffff</green>
  			    <blue>0xffff</blue>
