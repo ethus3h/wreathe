@@ -69,7 +69,8 @@ app-office/libreoffice binfilter
 app-text/pandoc https network-uri trypandoc
 dev-java/miglayout swt
 dev-python/ipython nbconvert notebook
-dev-python/PyQt5 bluetooth dbus declarative designer gui help location multimedia network opengl positioning printsupport sensors serialport sql svg testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
+dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
+media-libs/mesa d3d9 gles2 openmax xa
 net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
@@ -167,7 +168,6 @@ media-libs/libchamplain gtk
 media-libs/libgpod gtk
 media-libs/libmediaart -gtk -qt4
 media-libs/libvpx svc
-media-libs/mesa d3d9 gles2
 media-libs/mlt melt qt5 rtaudio
 media-libs/opus custom-modes
 media-libs/oyranos fltk qt5
