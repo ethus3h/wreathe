@@ -70,7 +70,7 @@ app-text/pandoc https network-uri trypandoc
 dev-java/miglayout swt
 dev-python/ipython nbconvert notebook
 dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
-media-libs/mesa d3d9 gles2 openmax xa
+media-libs/mesa d3d9 gles1 gles2 openmax xa
 net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
