@@ -17,7 +17,7 @@ index 6abaf49..2e200a6 100644
  				</option>
  				<option name="above_match" type="match">
  				<_short>Above</_short>
- 					<_long>Above others windows</_long>
+ 					<_long>Above other windows</_long>
 -					<default/>
 +					<default>class=Onboard</default>
  				</option>
@@ -43,32 +43,32 @@ index 6abaf49..2e200a6 100644
  					<_short>No ARGB visuals</_short>
 @@ -51,12 +51,12 @@
  				<option name="no_move_match" type="match">
- 					<_short>Non movable windows</_short>
- 					<_long>Set window as non movable</_long>
+ 					<_short>Non-movable windows</_short>
+ 					<_long>Set window as non-movable</_long>
 -					<default/>
 +					<default>class=Onboard</default>
  				</option>
  				<option name="no_resize_match" type="match">
- 					<_short>Non resizable windows</_short>
- 					<_long>Set window as non resizable</_long>
+ 					<_short>Non-resizable windows</_short>
+ 					<_long>Set window as non-resizable</_long>
 -					<default/>
 +					<default>class=Onboard</default>
  				</option>
  				<option name="no_minimize_match" type="match">
- 					<_short>Non minimizable windows</_short>
+ 					<_short>Non-minimizable windows</_short>
 @@ -66,7 +66,7 @@
  				<option name="no_maximize_match" type="match">
- 					<_short>Non maximizable windows</_short>
- 					<_long>Set window as non maximizable</_long>
+ 					<_short>Non-maximizable windows</_short>
+ 					<_long>Set window as non-maximizable</_long>
 -					<default/>
 +					<default>class=Onboard</default>
  				</option>
  				<option name="no_close_match" type="match">
- 					<_short>Non closable windows</_short>
+ 					<_short>Non-closable windows</_short>
 @@ -76,7 +76,7 @@
  				<option name="no_focus_match" type="match">
  					<_short>No focus</_short>
- 					<_long>Windows will not have focus</_long>
+ 					<_long>Windows that should not have focus</_long>
 -					<default/>
 +					<default>class=Onboard</default>
  				</option>
