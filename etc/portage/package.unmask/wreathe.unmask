@@ -1,6 +1,5 @@
 # Overlays
 =kde-apps/dolphin-9999::wreathe-overlay
->=kde-apps/dolphin-7.3
 =kde-apps/dolphin-plugins-9999::wreathe-overlay
 =kde-apps/thumbnailers-9999::wreathe-overlay
 =app-misc/wreathe-meta-9999::wreathe-overlay
