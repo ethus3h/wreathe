@@ -9,6 +9,7 @@
 =media-sound/cadence-9999::wreathe-overlay **
 =media-sound/jackmix-9999::wreathe-overlay **
 =x11-misc/compiz-debug-utils-9999::wreathe-overlay **
+=x11-plugins/compiz-plugins-community-9999::wreathe-overlay **
 
 # Overlays
 */*::trinity **
