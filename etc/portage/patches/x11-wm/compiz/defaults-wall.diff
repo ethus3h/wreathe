@@ -1,5 +1,5 @@
 diff --git a/metadata/wall.xml.in b/metadata/wall.xml.in
-index 0fa06c80..dd0ba84e 100644
+index 0fa06c80..3c579f38 100644
 --- a/metadata/wall.xml.in
 +++ b/metadata/wall.xml.in
 @@ -25,12 +25,12 @@
@@ -170,6 +170,21 @@ index 0fa06c80..dd0ba84e 100644
  					<min>0.0</min>
  					<max>5.0</max>
  					<precision>0.05</precision>
+@@ -256,12 +256,12 @@
+ 					<option name="left_window_key" type="key">
+ 						<_short>Move Left With Window</_short>
+ 						<_long>Move with window along the wall to the left</_long>
+-						<default>&lt;Primary&gt;&lt;Alt&gt;&lt;Shift&gt;Left</default>
++						<default></default>
+ 					</option>
+ 					<option name="right_window_key" type="key">
+ 						<_short>Move Right With Window</_short>
+ 						<_long>Move with window along the wall to the right</_long>
+-						<default>&lt;Primary&gt;&lt;Alt&gt;&lt;Shift&gt;Right</default>
++						<default></default>
+ 					</option>
+ 					<option name="up_window_key" type="key">
+ 						<_short>Move Up With Window</_short>
 @@ -348,7 +348,7 @@
  				<option name="edgeflip_move" type="bool">
  					<_short>Edge Flip Move</_short>
