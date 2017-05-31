@@ -3,7 +3,6 @@
 =kde-apps/dolphin-plugins-9999::wreathe-overlay
 =kde-apps/thumbnailers-9999::wreathe-overlay
 =app-misc/wreathe-meta-9999::wreathe-overlay
-dev-util/monodevelop::wreathe-overlay
 
 # Compiz-Reloaded
 =x11-misc/ccsm-9999
@@ -28,22 +27,15 @@ dev-util/monodevelop::wreathe-overlay
 app-accessibility/onboard
 app-laptop/configure-trackpoint
 dev-cpp/ETL
-dev-db/sqlheavy
 dev-libs/libp8-platform
 dev-libs/msgpack
 media-gfx/synfig
 media-libs/kodiplatform
-media-sound/noise
 media-video/simplescreenrecorder
 net-libs/libringclient
 net-libs/opendht
 net-libs/pjsip
 net-voip/gnome-ring
 net-voip/ring-daemon
-pantheon-base/pantheon-files
-pantheon-base/plank
-x11-libs/bamf
-x11-libs/granite
 x11-misc/cairo-dock
 x11-misc/obkey
-x11-themes/plank-theme-pantheon

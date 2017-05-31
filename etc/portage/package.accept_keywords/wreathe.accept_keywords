@@ -2,16 +2,8 @@
 */*::wreathe-overlay ~amd64
 =app-doc/ember-web-site-9999::wreathe-overlay **
 =app-misc/crystallize-9999::wreathe-overlay **
-=app-misc/futuramerlin-web-toolkit-9999::wreathe-overlay **
 =app-misc/ember-information-technology-environment-9999::wreathe-overlay **
-=app-misc/wreathe-backgrounds-9999::wreathe-overlay **
-=app-misc/wreathe-base-9999::wreathe-overlay **
-=app-misc/wreathe-media-resources-9999 **
-=app-misc/wreathe-meta-9999::wreathe-overlay **
-=app-misc/wreathe-office-resources-9999::wreathe-overlay **
 =app-misc/wreathe-overlays-redist-9999::wreathe-overlay **
-=app-misc/wreathe-typeface-family-9999::wreathe-overlay **
-=app-misc/wreathe-typefaces-redist-9999::wreathe-overlay **
 =kde-apps/thumbnailers-9999::wreathe-overlay **
 =kde-apps/wreathe-charselect-9999::wreathe-overlay **
 =media-sound/cadence-9999::wreathe-overlay **
@@ -36,7 +28,7 @@
 # Use GRUB from git for now, since it's needed for nvme
 =sys-boot/grub-9999 **
 
-#Use live zfs ebuilds and newer ati-drivers to allow newer kernel version
+#Use live zfs ebuilds to allow newer kernel version
 =sys-fs/zfs-9999 **
 =sys-kernel/spl-9999 **
 =sys-fs/zfs-kmod-9999 **
