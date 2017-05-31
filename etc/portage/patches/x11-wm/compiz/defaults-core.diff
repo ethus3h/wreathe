@@ -65,8 +65,8 @@ index 90032787..b8356646 100644
  			<_name>Off</_name>
 @@ -313,7 +314,7 @@
  		<option name="focus_prevention_match" type="match">
- 		    <_short>Focus Prevention Windows</_short>
- 		    <_long>Focus prevention windows</_long>
+ 		    <_short>Focus-Stealing Prevention Windows</_short>
+ 		    <_long>Windows to prevent grabbing keyboard focus</_long>
 -		    <default>any</default>
 +		    <default>!(class=dolphin)</default>
  		</option>
