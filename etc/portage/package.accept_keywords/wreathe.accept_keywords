@@ -23,7 +23,6 @@
 */*::compiz-reloaded **
 
 # Epson scanner driver (depends on gnulib)
-=dev-libs/gnulib-9999-r1 **
 =media-gfx/utsushi-9999 **
 
 # Use git oyranos
