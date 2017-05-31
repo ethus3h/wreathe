@@ -165,6 +165,7 @@ x11-misc/run-scaled
 x11-misc/xcur2png
 x11-misc/xvfb-run
 x11-misc/xvisbell
+x11-plugins/compiz-plugins-community
 x11-plugins/compiz-plugins-experimental
 x11-plugins/compiz-plugins-extra
 x11-plugins/compiz-plugins-main
