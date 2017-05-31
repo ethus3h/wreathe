@@ -1,9 +1,5 @@
 # Overlays
-=kde-apps/dolphin-9999::wreathe-overlay
-=kde-apps/dolphin-plugins-9999::wreathe-overlay
-=kde-apps/thumbnailers-9999::wreathe-overlay
 =app-misc/wreathe-meta-9999::wreathe-overlay
-=x11-plugins/compiz-plugins-community-9999::wreathe-overlay
 
 # Compiz-Reloaded
 =x11-misc/ccsm-9999
