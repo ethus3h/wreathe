@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #Ember Git UPdater
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null

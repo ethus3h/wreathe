@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Cairo-Dock restart script
 # Version 2, 18 August 2012 (after midnight of 17 August 2012) (for Wreathe)

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #2016jul02
 # TMP="$HOME/Downloads/"
 # /Wreathe/.Resources/Apps/firefox/firefox

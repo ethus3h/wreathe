@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #WFAM startup action
 #Version 1, 18 November 2012

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #Wreathe: Write a global registry token
 #Version 1, 6 November 2012
 

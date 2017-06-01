@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #2016jun12
 is_command() {
   if cmd_loc="$(type -p "$1")" || [ -z "cmd_loc" ]; then

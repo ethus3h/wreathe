@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # FIXME: The next line shouldn't be necessary
 source "$(which bash_setup)"

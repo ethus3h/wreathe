@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #2016jun12
 if is_function $1.w7axn; then
   $1.w7axn &

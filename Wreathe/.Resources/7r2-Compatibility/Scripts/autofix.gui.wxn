@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # System repair script (GUI)
 # Version 10, 19 October 2013 (for Wreathe) (WXN template copied from autofix.cli.wxn v1) (Note: I think version 7 was mislabeled as version 6, 20 August 2013, as a consequence of not properly updating the header upon editing it, and that the correct version is version 7, and the correct date (based on file modification time) is 7 September 2013.

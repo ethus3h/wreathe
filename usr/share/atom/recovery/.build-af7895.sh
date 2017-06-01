@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 mv README.md .README.md
 rm -r *
 mv .README.md README.md

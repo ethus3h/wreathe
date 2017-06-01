@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #from http://unix.stackexchange.com/questions/6463/find-searching-in-parent-directories-instead-of-subdirectories
 set -e
 path="$1"

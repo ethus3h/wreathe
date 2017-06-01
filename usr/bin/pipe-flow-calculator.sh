@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #based on http://unix.stackexchange.com/questions/11946/how-big-is-the-pipe-buffer
 #to use: % /bin/bash -c 'for p in {0..18}; do pipe-flow-calculator.sh $((2 ** $p)) 0.5; done'
 test $# -ge 1 || { echo "usage: $0 write-size [wait-time]"; exit 1; }

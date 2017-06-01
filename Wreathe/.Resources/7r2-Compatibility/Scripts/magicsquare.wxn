@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Magic Square encoder wrapper
 # Version 1, 2 September 2012 (for Wreathe) (WXN template copied from autofix.cli.wxn v1)

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #Start color filtering
 #Version 1, 2 August 2013
 

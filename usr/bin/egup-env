@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 egup-env-catch() {
     set +e
     while true; do

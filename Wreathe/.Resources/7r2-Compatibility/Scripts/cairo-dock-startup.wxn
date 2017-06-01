@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Cairo-Dock startup script
 # Version 3, 3 December 2012 (for Wreathe)

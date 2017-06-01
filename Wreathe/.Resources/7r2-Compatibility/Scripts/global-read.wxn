@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #Wreathe: Read a global registered token
 #Version 1, 6 November 2012
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Compiz restart script
 #Revision Set 1, Version 2, 18 August 2012. Some code copied from autofix.gui.wxn version 2.

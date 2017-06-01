@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Gnome Panel restart script
 # Version 1, 18 August 2012 (for Wreathe) (WXN template copied from cairo-dock-restart.wxn version 2)
