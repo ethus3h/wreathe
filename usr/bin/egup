@@ -17,6 +17,10 @@ EmberLibrary="$(crystallize-getconf EmberLibrary)"
 (
     cd "$EmberLibrary" || error-notify "Could not open Ember Library directory!"
     (
+        cd Ember\ satellite\ projects/compiz-reloaded-overlay || error-notify "Could not open compiz-reloaded-overlay directory!"
+        repoman manifest || warn "Repoman manifest failed!"
+    )
+    (
         cd Ember\ satellite\ projects/wreathe-bootstrap/usr/local/portage || error-notify "Could not open wreathe-bootstrap directory!"
         repoman manifest || warn "Repoman manifest failed!"
     )

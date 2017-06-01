@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [[ $(basename "$PWD") == "ember-library-2" ]]; then
     git-size-commit-hook
 fi
