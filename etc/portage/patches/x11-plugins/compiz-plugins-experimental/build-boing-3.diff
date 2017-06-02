@@ -1,0 +1,12 @@
+diff --git a/po/POTFILES.in b/po/POTFILES.in
+index 2a2a77a..26f1780 100644
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -4,6 +4,7 @@ metadata/anaglyph.xml.in
+ metadata/animationplus.xml.in
+ metadata/animationsim.xml.in
+ metadata/atlantis.xml.in
++metadata/boing.xml.in
+ metadata/cubemodel.xml.in
+ metadata/dialog.xml.in
+ metadata/earth.xml.in
