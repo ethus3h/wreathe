@@ -49,6 +49,7 @@ dev-lang/python:2.7
 dev-lang/snap
 dev-libs/STLport
 dev-libs/capstone
+dev-libs/gnulib
 dev-libs/kpathsea
 dev-libs/libdbusmenu
 dev-libs/wayland-protocols
