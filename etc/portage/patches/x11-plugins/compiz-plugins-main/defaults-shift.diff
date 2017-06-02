@@ -1,5 +1,5 @@
 diff --git a/metadata/shift.xml.in b/metadata/shift.xml.in
-index 8ca61c0..90ed4f3 100644
+index 86f2b36..4f955eb 100644
 --- a/metadata/shift.xml.in
 +++ b/metadata/shift.xml.in
 @@ -27,6 +27,7 @@
@@ -27,6 +27,15 @@ index 8ca61c0..90ed4f3 100644
  					<min>0.0</min>
  					<max>1.0</max>
  					<precision>0.01</precision>
+@@ -194,7 +194,7 @@
+ 				<option name="hide_all" type="bool">
+ 					<_short>Hide non Desktop windows</_short>
+ 					<_long>Hide all non Desktop windows during switching</_long>
+-					<default>false</default>
++					<default>true</default>
+ 				</option>
+ 				<subgroup>
+ 					<short>Reflection</short>
 @@ -207,9 +207,9 @@
  						<_short>Ground color(near)</_short>
  						<_long>Color of the ground (near).</_long>
