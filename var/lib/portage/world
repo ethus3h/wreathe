@@ -76,6 +76,7 @@ dev-python/tldextract
 dev-python/warcprox
 dev-python/warctools
 dev-python/xvfbwrapper
+dev-qt/assistant
 dev-qt/qtwebengine
 dev-tex/bibtexu
 dev-tex/xmltex
