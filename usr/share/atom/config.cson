@@ -9,6 +9,7 @@
     disabledPackages: [
       "column-select"
     ]
+    excludeVcsIgnoredPaths: false
     followSymlinks: false
     telemetryConsent: "limited"
     themes: [
@@ -18,7 +19,7 @@
   editor:
     backUpBeforeSaving: true
     fontFamily: "Courier New"
-    fontSize: 13
+    fontSize: 12
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true
