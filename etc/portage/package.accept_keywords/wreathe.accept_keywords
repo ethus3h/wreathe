@@ -122,6 +122,7 @@ app-admin/systemdgenie ~amd64
 app-doc/devmanual ~amd64
 app-editors/atom ~amd64
 app-emulation/bochs ~amd64
+app-emulation/vagrant ~amd64
 app-eselect/eselect-electron ~amd64
 app-eselect/eselect-opencascade ~amd64
 app-forensics/afl ~amd64
@@ -175,6 +176,16 @@ dev-python/tldextract ~amd64
 dev-python/warcprox ~amd64
 dev-python/warctools ~amd64
 dev-python/yenc ~amd64
+dev-ruby/childprocess ~amd64
+dev-ruby/hashicorp-checkpoint ~amd64
+dev-ruby/i18n ~amd64
+dev-ruby/listen ~amd64
+dev-ruby/net-scp ~amd64
+dev-ruby/net-ssh ~amd64
+dev-ruby/nokogiri ~amd64
+dev-ruby/rake ~amd64
+dev-ruby/rb-inotify ~amd64
+dev-ruby/ruby_dep ~amd64
 dev-tex/metapost ~amd64
 dev-util/electron ~amd64
 dev-util/lttng-ust ~amd64
