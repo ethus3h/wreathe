@@ -78,6 +78,7 @@ dev-python/warctools
 dev-python/xvfbwrapper
 dev-qt/assistant
 dev-qt/qtwebengine
+dev-ruby/json
 dev-tex/bibtexu
 dev-tex/xmltex
 dev-util/android-tools
