@@ -27,6 +27,7 @@ app-misc/sl
 app-misc/strigi
 app-misc/wreathe-base
 app-misc/wreathe-overlays-redist
+app-officeext/ooofbtools
 app-portage/pfl
 app-text/aspell
 app-text/dvipng
@@ -70,6 +71,7 @@ dev-python/pycrypto
 dev-python/python-lzo
 dev-python/requests-file
 dev-python/rethinkstuff
+dev-python/sabyenc
 dev-python/sphinx
 dev-python/surt
 dev-python/sympy
