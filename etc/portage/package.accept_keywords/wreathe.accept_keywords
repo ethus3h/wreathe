@@ -171,6 +171,7 @@ dev-python/pythonutils ~amd64
 dev-python/requests-file ~amd64
 dev-python/rethinkstuff ~amd64
 dev-python/s3transfer ~amd64
+dev-python/sabyenc ~amd64
 dev-python/surt ~amd64
 dev-python/tldextract ~amd64
 dev-python/warcprox ~amd64
