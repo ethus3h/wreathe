@@ -1,4 +1,4 @@
-# How to update the KDE integration patches in this folder
+# About the KDE integration patches in this folder
 
 firefox-kde-opensuse-force-qt-dialog.patch is from https://github.com/bobwya/bobwya/raw/master/www-client/firefox-kde-opensuse/files/firefox-kde-opensuse-force-qt-dialog.patch
 
