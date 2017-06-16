@@ -1,0 +1,5915 @@
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/ReadingList.jsm
+@@ -0,0 +1,1120 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
++ * You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++"use strict";
++
++this.EXPORTED_SYMBOLS = [
++  "ReadingList",
++];
++
++const { classes: Cc, interfaces: Ci, utils: Cu } = Components;
++
++Cu.import("resource://gre/modules/Services.jsm");
++Cu.import("resource://gre/modules/Task.jsm");
++Cu.import("resource://gre/modules/XPCOMUtils.jsm");
++Cu.import("resource://gre/modules/Preferences.jsm");
++Cu.import("resource://gre/modules/Log.jsm");
++
++XPCOMUtils.defineLazyModuleGetter(this, "SQLiteStore",
++  "resource:///modules/readinglist/SQLiteStore.jsm");
++
++// We use Sync's "Utils" module for the device name, which is unfortunate,
++// but let's give it a better name here.
++XPCOMUtils.defineLazyGetter(this, "SyncUtils", function() {
++  const {Utils} = Cu.import("resource://services-sync/util.js", {});
++  return Utils;
++});
++
++let log = Log.repository.getLogger("readinglist.api");
++
++
++// Each ReadingListItem has a _record property, an object containing the raw
++// data from the server and local store.  These are the names of the properties
++// in that object.
++//
++// Not important, but FYI: The order that these are listed in follows the order
++// that the server doc lists the fields in the article data model, more or less:
++// http://readinglist.readthedocs.org/en/latest/model.html
++const ITEM_RECORD_PROPERTIES = `
++  guid
++  serverLastModified
++  url
++  preview
++  title
++  resolvedURL
++  resolvedTitle
++  excerpt
++  archived
++  deleted
++  favorite
++  isArticle
++  wordCount
++  unread
++  addedBy
++  addedOn
++  storedOn
++  markedReadBy
++  markedReadOn
++  readPosition
++  syncStatus
++`.trim().split(/\s+/);
++
++// Each local item has a syncStatus indicating the state of the item in relation
++// to the sync server.  See also Sync.jsm.
++const SYNC_STATUS_SYNCED = 0;
++const SYNC_STATUS_NEW = 1;
++const SYNC_STATUS_CHANGED_STATUS = 2;
++const SYNC_STATUS_CHANGED_MATERIAL = 3;
++const SYNC_STATUS_DELETED = 4;
++
++// These options are passed as the "control" options to store methods and filter
++// out all records in the store with syncStatus SYNC_STATUS_DELETED.
++const STORE_OPTIONS_IGNORE_DELETED = {
++  syncStatus: [
++    SYNC_STATUS_SYNCED,
++    SYNC_STATUS_NEW,
++    SYNC_STATUS_CHANGED_STATUS,
++    SYNC_STATUS_CHANGED_MATERIAL,
++  ],
++};
++
++// Changes to the following item properties are considered "status," or
++// "status-only," changes, in relation to the sync server.  Changes to other
++// properties are considered "material" changes.  See also Sync.jsm.
++const SYNC_STATUS_PROPERTIES_STATUS = `
++  favorite
++  markedReadBy
++  markedReadOn
++  readPosition
++  unread
++`.trim().split(/\s+/);
++
++function ReadingListError(message) {
++  this.message = message;
++  this.name = this.constructor.name;
++  this.stack = (new Error()).stack;
++
++  // Consumers can set this to an Error that this ReadingListError wraps.
++  this.originalError = null;
++}
++ReadingListError.prototype = new Error();
++ReadingListError.prototype.constructor = ReadingListError;
++
++function ReadingListExistsError(message) {
++  message = message || "The item already exists";
++  ReadingListError.call(this, message);
++}
++ReadingListExistsError.prototype = new ReadingListError();
++ReadingListExistsError.prototype.constructor = ReadingListExistsError;
++
++function ReadingListDeletedError(message) {
++  message = message || "The item has been deleted";
++  ReadingListError.call(this, message);
++}
++ReadingListDeletedError.prototype = new ReadingListError();
++ReadingListDeletedError.prototype.constructor = ReadingListDeletedError;
++
++/**
++ * A reading list contains ReadingListItems.
++ *
++ * A list maintains only one copy of an item per URL.  So if for example you use
++ * an iterator to get two references to items with the same URL, your references
++ * actually refer to the same JS object.
++ *
++ * Options Objects
++ * ---------------
++ *
++ * Some methods on ReadingList take an "optsList", a variable number of
++ * arguments, each of which is an "options object".  Options objects let you
++ * control the items that the method acts on.
++ *
++ * Each options object is a simple object with properties whose names are drawn
++ * from ITEM_RECORD_PROPERTIES.  For an item to match an options object, the
++ * properties of the item must match all the properties in the object.  For
++ * example, an object { guid: "123" } matches any item whose GUID is 123.  An
++ * object { guid: "123", title: "foo" } matches any item whose GUID is 123 *and*
++ * whose title is foo.
++ *
++ * You can pass multiple options objects as separate arguments.  For an item to
++ * match multiple objects, its properties must match all the properties in at
++ * least one of the objects.  For example, a list of objects { guid: "123" } and
++ * { title: "foo" } matches any item whose GUID is 123 *or* whose title is
++ * foo.
++ *
++ * The properties in an options object can be arrays, not only scalars.  When a
++ * property is an array, then for an item to match, its corresponding property
++ * must have a value that matches any value in the array.  For example, an
++ * options object { guid: ["123", "456"] } matches any item whose GUID is either
++ * 123 *or* 456.
++ *
++ * In addition to properties with names from ITEM_RECORD_PROPERTIES, options
++ * objects can also have the following special properties:
++ *
++ *   * sort: The name of a property to sort on.
++ *   * descending: A boolean, true to sort descending, false to sort ascending.
++ *     If `sort` is given but `descending` isn't, the sort is ascending (since
++ *     `descending` is falsey).
++ *   * limit: Limits the number of matching items to this number.
++ *   * offset: Starts matching items at this index in the results.
++ *
++ * Since you can pass multiple options objects in a list, you can include these
++ * special properties in any number of the objects in the list, but it doesn't
++ * really make sense to do so.  The last property in the list is the one that's
++ * used.
++ *
++ * @param store Backing storage for the list.  See SQLiteStore.jsm for what this
++ *        object's interface should look like.
++ */
++function ReadingListImpl(store) {
++  this._store = store;
++  this._itemsByNormalizedURL = new Map();
++  this._iterators = new Set();
++  this._listeners = new Set();
++}
++
++ReadingListImpl.prototype = {
++
++  Error: {
++    Error: ReadingListError,
++    Exists: ReadingListExistsError,
++    Deleted: ReadingListDeletedError,
++  },
++
++  ItemRecordProperties: ITEM_RECORD_PROPERTIES,
++
++  SyncStatus: {
++    SYNCED: SYNC_STATUS_SYNCED,
++    NEW: SYNC_STATUS_NEW,
++    CHANGED_STATUS: SYNC_STATUS_CHANGED_STATUS,
++    CHANGED_MATERIAL: SYNC_STATUS_CHANGED_MATERIAL,
++    DELETED: SYNC_STATUS_DELETED,
++  },
++
++  SyncStatusProperties: {
++    STATUS: SYNC_STATUS_PROPERTIES_STATUS,
++  },
++
++  /**
++   * Yields the number of items in the list.
++   *
++   * @param optsList A variable number of options objects that control the
++   *        items that are matched.  See Options Objects.
++   * @return Promise<number> The number of matching items in the list.  Rejected
++   *         with an Error on error.
++   */
++  count: Task.async(function* (...optsList) {
++    return (yield this._store.count(optsList, STORE_OPTIONS_IGNORE_DELETED));
++  }),
++
++  /**
++   * Checks whether a given URL is in the ReadingList already.
++   *
++   * @param {String/nsIURI} url - URL to check.
++   * @returns {Promise} Promise that is fulfilled with a boolean indicating
++   *                    whether the URL is in the list or not.
++   */
++  hasItemForURL: Task.async(function* (url) {
++    url = normalizeURI(url);
++
++    // This is used on every tab switch and page load of the current tab, so we
++    // want it to be quick and avoid a DB query whenever possible.
++
++    // First check if any cached items have a direct match.
++    if (this._itemsByNormalizedURL.has(url)) {
++      return true;
++    }
++
++    // Then check if any cached items may have a different resolved URL
++    // that matches.
++    for (let itemWeakRef of this._itemsByNormalizedURL.values()) {
++      let item = itemWeakRef.get();
++      if (item && item.resolvedURL == url) {
++        return true;
++      }
++    }
++
++    // Finally, fall back to the DB.
++    let count = yield this.count({url: url}, {resolvedURL: url});
++    return (count > 0);
++  }),
++
++  /**
++   * Enumerates the items in the list that match the given options.
++   *
++   * @param callback Called for each item in the enumeration.  It's passed a
++   *        single object, a ReadingListItem.  It may return a promise; if so,
++   *        the callback will not be called for the next item until the promise
++   *        is resolved.
++   * @param optsList A variable number of options objects that control the
++   *        items that are matched.  See Options Objects.
++   * @return Promise<null> Resolved when the enumeration completes *and* the
++   *         last promise returned by the callback is resolved.  Rejected with
++   *         an Error on error.
++   */
++  forEachItem: Task.async(function* (callback, ...optsList) {
++    let thisCallback = record => callback(this._itemFromRecord(record));
++    yield this._forEachRecord(thisCallback, optsList, STORE_OPTIONS_IGNORE_DELETED);
++  }),
++
++  /**
++   * Enumerates the GUIDs for previously synced items that are marked as being
++   * locally deleted.
++   */
++  forEachSyncedDeletedGUID: Task.async(function* (callback, ...optsList) {
++    let thisCallback = record => callback(record.guid);
++    yield this._forEachRecord(thisCallback, optsList, {
++      syncStatus: SYNC_STATUS_DELETED,
++    });
++  }),
++
++  /**
++   * See forEachItem.
++   *
++   * @param storeOptions An options object passed to the store as the "control"
++   *        options.
++   */
++  _forEachRecord: Task.async(function* (callback, optsList, storeOptions) {
++    let promiseChain = Promise.resolve();
++    yield this._store.forEachItem(record => {
++      promiseChain = promiseChain.then(() => {
++        return new Promise((resolve, reject) => {
++          let promise = callback(record);
++          if (promise instanceof Promise) {
++            return promise.then(resolve, reject);
++          }
++          resolve();
++          return undefined;
++        });
++      });
++    }, optsList, storeOptions);
++    yield promiseChain;
++  }),
++
++  /**
++   * Returns a new ReadingListItemIterator that can be used to enumerate items
++   * in the list.
++   *
++   * @param optsList A variable number of options objects that control the
++   *        items that are matched.  See Options Objects.
++   * @return A new ReadingListItemIterator.
++   */
++  iterator(...optsList) {
++    let iter = new ReadingListItemIterator(this, ...optsList);
++    this._iterators.add(Cu.getWeakReference(iter));
++    return iter;
++  },
++
++  /**
++   * Adds an item to the list that isn't already present.
++   *
++   * The given object represents a new item, and the properties of the object
++   * are those in ITEM_RECORD_PROPERTIES.  It may have as few or as many
++   * properties that you want to set, but it must have a `url` property.
++   *
++   * It's an error to call this with an object whose `url` or `guid` properties
++   * are the same as those of items that are already present in the list.  The
++   * returned promise is rejected in that case.
++   *
++   * @param record A simple object representing an item.
++   * @return Promise<ReadingListItem> Resolved with the new item when the list
++   *         is updated.  Rejected with an Error on error.
++   */
++  addItem: Task.async(function* (record) {
++    record = normalizeRecord(record);
++    if (!record.url) {
++      throw new ReadingListError("The item to be added must have a url");
++    }
++    if (!("addedOn" in record)) {
++      record.addedOn = Date.now();
++    }
++    if (!("addedBy" in record)) {
++      try {
++        record.addedBy = Services.prefs.getCharPref("services.sync.client.name");
++      } catch (ex) {
++        record.addedBy = SyncUtils.getDefaultDeviceName();
++      }
++    }
++    if (!("syncStatus" in record)) {
++      record.syncStatus = SYNC_STATUS_NEW;
++    }
++
++    log.debug("Adding item with guid: ${guid}, url: ${url}", record);
++    yield this._store.addItem(record);
++    log.trace("Added item with guid: ${guid}, url: ${url}", record);
++    this._invalidateIterators();
++    let item = this._itemFromRecord(record);
++    this._callListeners("onItemAdded", item);
++    let mm = Cc["@mozilla.org/globalmessagemanager;1"].getService(Ci.nsIMessageListenerManager);
++    mm.broadcastAsyncMessage("Reader:Added", item.toJSON());
++    return item;
++  }),
++
++  /**
++   * Updates the properties of an item that belongs to the list.
++   *
++   * The passed-in item may have as few or as many properties that you want to
++   * set; only the properties that are present are updated.  The item must have
++   * a `url`, however.
++   *
++   * It's an error to call this for an item that doesn't belong to the list.
++   * The returned promise is rejected in that case.
++   *
++   * @param item The ReadingListItem to update.
++   * @return Promise<null> Resolved when the list is updated.  Rejected with an
++   *         Error on error.
++   */
++  updateItem: Task.async(function* (item) {
++    if (item._deleted) {
++      throw new ReadingListDeletedError("The item to be updated has been deleted");
++    }
++    if (!item._record.url) {
++      throw new ReadingListError("The item to be updated must have a url");
++    }
++    this._ensureItemBelongsToList(item);
++    log.debug("Updating item with guid: ${guid}, url: ${url}", item._record);
++    yield this._store.updateItem(item._record);
++    log.trace("Finished updating item with guid: ${guid}, url: ${url}", item._record);
++    this._invalidateIterators();
++    this._callListeners("onItemUpdated", item);
++  }),
++
++  /**
++   * Deletes an item from the list.  The item must have a `url`.
++   *
++   * It's an error to call this for an item that doesn't belong to the list.
++   * The returned promise is rejected in that case.
++   *
++   * @param item The ReadingListItem to delete.
++   * @return Promise<null> Resolved when the list is updated.  Rejected with an
++   *         Error on error.
++   */
++  deleteItem: Task.async(function* (item) {
++    if (item._deleted) {
++      throw new ReadingListDeletedError("The item has already been deleted");
++    }
++    this._ensureItemBelongsToList(item);
++
++    log.debug("Deleting item with guid: ${guid}, url: ${url}");
++
++    // If the item is new and therefore hasn't been synced yet, delete it from
++    // the store.  Otherwise mark it as deleted but don't actually delete it so
++    // that its status can be synced.
++    if (item._record.syncStatus == SYNC_STATUS_NEW) {
++      log.debug("Item is new, truly deleting it", item._record);
++      yield this._store.deleteItemByURL(item.url);
++    }
++    else {
++      log.debug("Item has been synced, only marking it as deleted",
++                item._record);
++      // To prevent data leakage, only keep the record fields needed to sync
++      // the deleted status: guid and syncStatus.
++      let newRecord = {};
++      for (let prop of ITEM_RECORD_PROPERTIES) {
++        newRecord[prop] = null;
++      }
++      newRecord.guid = item._record.guid;
++      newRecord.syncStatus = SYNC_STATUS_DELETED;
++      yield this._store.updateItemByGUID(newRecord);
++    }
++
++    log.trace("Finished deleting item with guid: ${guid}, url: ${url}", item._record);
++    item.list = null;
++    item._deleted = true;
++    // failing to remove the item from the map points at something bad!
++    if (!this._itemsByNormalizedURL.delete(item.url)) {
++      log.error("Failed to remove item from the map", item);
++    }
++    this._invalidateIterators();
++    let mm = Cc["@mozilla.org/globalmessagemanager;1"].getService(Ci.nsIMessageListenerManager);
++    mm.broadcastAsyncMessage("Reader:Removed", item.toJSON());
++    this._callListeners("onItemDeleted", item);
++  }),
++
++  /**
++   * Finds the first item that matches the given options.
++   *
++   * @param optsList See Options Objects.
++   * @return The first matching item, or null if there are no matching items.
++   */
++  item: Task.async(function* (...optsList) {
++    return (yield this.iterator(...optsList).items(1))[0] || null;
++  }),
++
++  /**
++   * Find any item that matches a given URL - either the item's URL, or its
++   * resolved URL.
++   *
++   * @param {String/nsIURI} uri - URI to match against. This will be normalized.
++   * @return The first matching item, or null if there are no matching items.
++   */
++  itemForURL: Task.async(function* (uri) {
++    let url = normalizeURI(uri);
++    return (yield this.item({ url: url }, { resolvedURL: url }));
++  }),
++
++  /**
++   * Add to the ReadingList the page that is loaded in a given browser.
++   *
++   * @param {<xul:browser>} browser - Browser element for the document,
++   * used to get metadata about the article.
++   * @param {nsIURI/string} url - url to add to the reading list.
++   * @return {Promise} Promise that is fullfilled with the added item.
++   */
++  addItemFromBrowser: Task.async(function* (browser, url) {
++    let metadata = yield this.getMetadataFromBrowser(browser);
++    let record = {
++      url: url,
++      title: metadata.title,
++      resolvedURL: metadata.url,
++      excerpt: metadata.description,
++    };
++
++    if (metadata.previews.length > 0) {
++      record.preview = metadata.previews[0];
++    }
++
++    return (yield this.addItem(record));
++  }),
++
++  /**
++   * Get page metadata from the content document in a given <xul:browser>.
++   * @see PageMetadata.jsm
++   *
++   * @param {<xul:browser>} browser - Browser element for the document.
++   * @returns {Promise} Promise that is fulfilled with an object describing the metadata.
++   */
++  getMetadataFromBrowser(browser) {
++    let mm = browser.messageManager;
++    return new Promise(resolve => {
++      function handleResult(msg) {
++        mm.removeMessageListener("PageMetadata:PageDataResult", handleResult);
++        resolve(msg.json);
++      }
++      mm.addMessageListener("PageMetadata:PageDataResult", handleResult);
++      mm.sendAsyncMessage("PageMetadata:GetPageData");
++    });
++  },
++
++  /**
++   * Adds a listener that will be notified when the list changes.  Listeners
++   * are objects with the following optional methods:
++   *
++   *   onItemAdded(item)
++   *   onItemUpdated(item)
++   *   onItemDeleted(item)
++   *
++   * @param listener A listener object.
++   */
++  addListener(listener) {
++    this._listeners.add(listener);
++  },
++
++  /**
++   * Removes a listener from the list.
++   *
++   * @param listener A listener object.
++   */
++  removeListener(listener) {
++    this._listeners.delete(listener);
++  },
++
++  /**
++   * Call this when you're done with the list.  Don't use it afterward.
++   */
++  destroy: Task.async(function* () {
++    yield this._store.destroy();
++    for (let itemWeakRef of this._itemsByNormalizedURL.values()) {
++      let item = itemWeakRef.get();
++      if (item) {
++        item.list = null;
++      }
++    }
++    this._itemsByNormalizedURL.clear();
++  }),
++
++  // The list's backing store.
++  _store: null,
++
++  // A Map mapping *normalized* URL strings to nsIWeakReferences that refer to
++  // ReadingListItems.
++  _itemsByNormalizedURL: null,
++
++  // A Set containing nsIWeakReferences that refer to valid iterators produced
++  // by the list.
++  _iterators: null,
++
++  // A Set containing listener objects.
++  _listeners: null,
++
++  /**
++   * Returns the ReadingListItem represented by the given record object.  If
++   * the item doesn't exist yet, it's created first.
++   *
++   * @param record A simple object with *normalized* item record properties.
++   * @return The ReadingListItem.
++   */
++  _itemFromRecord(record) {
++    if (!record.url) {
++      throw new Error("record must have a URL");
++    }
++    let itemWeakRef = this._itemsByNormalizedURL.get(record.url);
++    let item = itemWeakRef ? itemWeakRef.get() : null;
++    if (item) {
++      item._record = record;
++    }
++    else {
++      item = new ReadingListItem(record);
++      item.list = this;
++      this._itemsByNormalizedURL.set(record.url, Cu.getWeakReference(item));
++    }
++    return item;
++  },
++
++  /**
++   * Marks all the list's iterators as invalid, meaning it's not safe to use
++   * them anymore.
++   */
++  _invalidateIterators() {
++    for (let iterWeakRef of this._iterators) {
++      let iter = iterWeakRef.get();
++      if (iter) {
++        iter.invalidate();
++      }
++    }
++    this._iterators.clear();
++  },
++
++  /**
++   * Calls a method on all listeners.
++   *
++   * @param methodName The name of the method to call.
++   * @param item This item will be passed to the listeners.
++   */
++  _callListeners(methodName, item) {
++    for (let listener of this._listeners) {
++      if (methodName in listener) {
++        try {
++          listener[methodName](item);
++        }
++        catch (err) {
++          Cu.reportError(err);
++        }
++      }
++    }
++  },
++
++  _ensureItemBelongsToList(item) {
++    if (!item || !item._ensureBelongsToList) {
++      throw new ReadingListError("The item is not a ReadingListItem");
++    }
++    item._ensureBelongsToList();
++  },
++};
++
++
++let _unserializable = () => {}; // See comments in the ReadingListItem ctor.
++
++/**
++ * An item in a reading list.
++ *
++ * Each item belongs to a list, and it's an error to use an item with a
++ * ReadingList that the item doesn't belong to.
++ *
++ * @param record A simple object with the properties of the item, as few or many
++ *        as you want.  This will be normalized.
++ */
++function ReadingListItem(record={}) {
++  this._record = record;
++  this._deleted = false;
++
++  // |this._unserializable| works around a problem when sending one of these
++  // items via a message manager. If |this.list| is set, the item can't be
++  // transferred directly, so .toJSON is implicitly called and the object
++  // returned via that is sent. However, once the item is deleted and |this.list|
++  // is null, the item *can* be directly serialized - so the message handler
++  // sees the "raw" object - ie, it sees "_record" etc.
++  // We work around this problem by *always* having an unserializable property
++  // on the object - this way the implicit .toJSON call is always made, even
++  // when |this.list| is null.
++  this._unserializable = _unserializable;
++}
++
++ReadingListItem.prototype = {
++
++  // Be careful when caching properties.  If you cache a property that depends
++  // on a mutable _record property, then you need to recache your property after
++  // _record is set.
++
++  /**
++   * Item's unique ID.
++   * @type string
++   */
++  get id() {
++    if (!this._id) {
++      this._id = hash(this.url);
++    }
++    return this._id;
++  },
++
++  /**
++   * The item's server-side GUID. This is set by the remote server and therefore is not
++   * guaranteed to be set for local items.
++   * @type string
++   */
++  get guid() {
++    return this._record.guid || undefined;
++  },
++
++  /**
++   * The item's URL.
++   * @type string
++   */
++  get url() {
++    return this._record.url || undefined;
++  },
++
++  /**
++   * The item's URL as an nsIURI.
++   * @type nsIURI
++   */
++  get uri() {
++    if (!this._uri) {
++      this._uri = this._record.url ?
++                  Services.io.newURI(this._record.url, "", null) :
++                  undefined;
++    }
++    return this._uri;
++  },
++
++  /**
++   * The item's resolved URL.
++   * @type string
++   */
++  get resolvedURL() {
++    return this._record.resolvedURL || undefined;
++  },
++  set resolvedURL(val) {
++    this._updateRecord({ resolvedURL: val });
++  },
++
++  /**
++   * The item's resolved URL as an nsIURI.  The setter takes an nsIURI or a
++   * string spec.
++   * @type nsIURI
++   */
++  get resolvedURI() {
++    return this._record.resolvedURL ?
++           Services.io.newURI(this._record.resolvedURL, "", null) :
++           undefined;
++  },
++  set resolvedURI(val) {
++    this._updateRecord({ resolvedURL: val });
++  },
++
++  /**
++   * The item's title.
++   * @type string
++   */
++  get title() {
++    return this._record.title || undefined;
++  },
++  set title(val) {
++    this._updateRecord({ title: val });
++  },
++
++  /**
++   * The item's resolved title.
++   * @type string
++   */
++  get resolvedTitle() {
++    return this._record.resolvedTitle || undefined;
++  },
++  set resolvedTitle(val) {
++    this._updateRecord({ resolvedTitle: val });
++  },
++
++  /**
++   * The item's excerpt.
++   * @type string
++   */
++  get excerpt() {
++    return this._record.excerpt || undefined;
++  },
++  set excerpt(val) {
++    this._updateRecord({ excerpt: val });
++  },
++
++  /**
++   * The item's archived status.
++   * @type boolean
++   */
++  get archived() {
++    return !!this._record.archived;
++  },
++  set archived(val) {
++    this._updateRecord({ archived: !!val });
++  },
++
++  /**
++   * Whether the item is a favorite.
++   * @type boolean
++   */
++  get favorite() {
++    return !!this._record.favorite;
++  },
++  set favorite(val) {
++    this._updateRecord({ favorite: !!val });
++  },
++
++  /**
++   * Whether the item is an article.
++   * @type boolean
++   */
++  get isArticle() {
++    return !!this._record.isArticle;
++  },
++  set isArticle(val) {
++    this._updateRecord({ isArticle: !!val });
++  },
++
++  /**
++   * The item's word count.
++   * @type integer
++   */
++  get wordCount() {
++    return this._record.wordCount || undefined;
++  },
++  set wordCount(val) {
++    this._updateRecord({ wordCount: val });
++  },
++
++  /**
++   * Whether the item is unread.
++   * @type boolean
++   */
++  get unread() {
++    return !!this._record.unread;
++  },
++  set unread(val) {
++    this._updateRecord({ unread: !!val });
++  },
++
++  /**
++   * The date the item was added.
++   * @type Date
++   */
++  get addedOn() {
++    return this._record.addedOn ?
++           new Date(this._record.addedOn) :
++           undefined;
++  },
++  set addedOn(val) {
++    this._updateRecord({ addedOn: val.valueOf() });
++  },
++
++  /**
++   * The date the item was stored.
++   * @type Date
++   */
++  get storedOn() {
++    return this._record.storedOn ?
++           new Date(this._record.storedOn) :
++           undefined;
++  },
++  set storedOn(val) {
++    this._updateRecord({ storedOn: val.valueOf() });
++  },
++
++  /**
++   * The GUID of the device that marked the item read.
++   * @type string
++   */
++  get markedReadBy() {
++    return this._record.markedReadBy || undefined;
++  },
++  set markedReadBy(val) {
++    this._updateRecord({ markedReadBy: val });
++  },
++
++  /**
++   * The date the item marked read.
++   * @type Date
++   */
++  get markedReadOn() {
++    return this._record.markedReadOn ?
++           new Date(this._record.markedReadOn) :
++           undefined;
++  },
++  set markedReadOn(val) {
++    this._updateRecord({ markedReadOn: val.valueOf() });
++  },
++
++  /**
++   * The item's read position.
++   * @param integer
++   */
++  get readPosition() {
++    return this._record.readPosition || undefined;
++  },
++  set readPosition(val) {
++    this._updateRecord({ readPosition: val });
++  },
++
++  /**
++   * The URL to a preview image.
++   * @type string
++   */
++   get preview() {
++     return this._record.preview || undefined;
++   },
++
++  /**
++   * Deletes the item from its list.
++   *
++   * @return Promise<null> Resolved when the list has been updated.
++   */
++  delete: Task.async(function* () {
++    if (this._deleted) {
++      throw new ReadingListDeletedError("The item has already been deleted");
++    }
++    this._ensureBelongsToList();
++    yield this.list.deleteItem(this);
++  }),
++
++  toJSON() {
++    return this._record;
++  },
++
++  /**
++   * Do not use this at all unless you know what you're doing.  Use the public
++   * getters and setters, above, instead.
++   *
++   * A simple object that contains the item's normalized data in the same format
++   * that the local store and server use.  Records passed in by the consumer are
++   * not normalized, but everywhere else, records are always normalized unless
++   * otherwise stated.  The setter normalizes the passed-in value, so it will
++   * throw an error if the value is not a valid record.
++   *
++   * This object should reflect the item's representation in the local store, so
++   * when calling the setter, be careful that it doesn't drift away from the
++   * store's record.  If you set it, you should also call updateItem() around
++   * the same time.
++   */
++  get _record() {
++    return this.__record;
++  },
++  set _record(val) {
++    this.__record = normalizeRecord(val);
++  },
++
++  /**
++   * Updates the item's record.  This calls the _record setter, so it will throw
++   * an error if the partial record is not valid.
++   *
++   * @param partialRecord An object containing any of the record properties.
++   */
++  _updateRecord(partialRecord) {
++    let record = this._record;
++
++    // The syncStatus flag can change from SYNCED to either CHANGED_STATUS or
++    // CHANGED_MATERIAL, or from CHANGED_STATUS to CHANGED_MATERIAL.
++    if (record.syncStatus == SYNC_STATUS_SYNCED ||
++        record.syncStatus == SYNC_STATUS_CHANGED_STATUS) {
++      let allStatusChanges = Object.keys(partialRecord).every(prop => {
++        return SYNC_STATUS_PROPERTIES_STATUS.indexOf(prop) >= 0;
++      });
++      record.syncStatus = allStatusChanges ? SYNC_STATUS_CHANGED_STATUS :
++                          SYNC_STATUS_CHANGED_MATERIAL;
++    }
++
++    for (let prop in partialRecord) {
++      record[prop] = partialRecord[prop];
++    }
++    this._record = record;
++  },
++
++  _ensureBelongsToList() {
++    if (!this.list) {
++      throw new ReadingListError("The item must belong to a list");
++    }
++  },
++};
++
++/**
++ * An object that enumerates over items in a list.
++ *
++ * You can enumerate items a chunk at a time by passing counts to forEach() and
++ * items().  An iterator remembers where it left off, so for example calling
++ * forEach() with a count of 10 will enumerate the first 10 items, and then
++ * calling it again with 10 will enumerate the next 10 items.
++ *
++ * It's possible for an iterator's list to be modified between calls to
++ * forEach() and items().  If that happens, the iterator is no longer safe to
++ * use, so it's invalidated.  You can check whether an iterator is invalid by
++ * getting its `invalid` property.  Attempting to use an invalid iterator will
++ * throw an error.
++ *
++ * @param list The ReadingList to enumerate.
++ * @param optsList A variable number of options objects that control the items
++ *        that are matched.  See Options Objects.
++ */
++function ReadingListItemIterator(list, ...optsList) {
++  this.list = list;
++  this.index = 0;
++  this.optsList = optsList;
++}
++
++ReadingListItemIterator.prototype = {
++
++  /**
++   * True if it's not safe to use the iterator.  Attempting to use an invalid
++   * iterator will throw an error.
++   */
++  invalid: false,
++
++  /**
++   * Enumerates the items in the iterator starting at its current index.  The
++   * iterator is advanced by the number of items enumerated.
++   *
++   * @param callback Called for each item in the enumeration.  It's passed a
++   *        single object, a ReadingListItem.  It may return a promise; if so,
++   *        the callback will not be called for the next item until the promise
++   *        is resolved.
++   * @param count The maximum number of items to enumerate.  Pass -1 to
++   *        enumerate them all.
++   * @return Promise<null> Resolved when the enumeration completes *and* the
++   *         last promise returned by the callback is resolved.
++   */
++  forEach: Task.async(function* (callback, count=-1) {
++    this._ensureValid();
++    let optsList = clone(this.optsList);
++    optsList.push({
++      offset: this.index,
++      limit: count,
++    });
++    yield this.list.forEachItem(item => {
++      this.index++;
++      return callback(item);
++    }, ...optsList);
++  }),
++
++  /**
++   * Gets an array of items in the iterator starting at its current index.  The
++   * iterator is advanced by the number of items fetched.
++   *
++   * @param count The maximum number of items to get.
++   * @return Promise<array> The fetched items.
++   */
++  items: Task.async(function* (count) {
++    this._ensureValid();
++    let optsList = clone(this.optsList);
++    optsList.push({
++      offset: this.index,
++      limit: count,
++    });
++    let items = [];
++    yield this.list.forEachItem(item => items.push(item), ...optsList);
++    this.index += items.length;
++    return items;
++  }),
++
++  /**
++   * Invalidates the iterator.  You probably don't want to call this unless
++   * you're a ReadingList.
++   */
++  invalidate() {
++    this.invalid = true;
++  },
++
++  _ensureValid() {
++    if (this.invalid) {
++      throw new ReadingListError("The iterator has been invalidated");
++    }
++  },
++};
++
++
++/**
++ * Normalizes the properties of a record object, which represents a
++ * ReadingListItem.  Throws an error if the record contains properties that
++ * aren't in ITEM_RECORD_PROPERTIES.
++ *
++ * @param record A non-normalized record object.
++ * @return The new normalized record.
++ */
++function normalizeRecord(nonNormalizedRecord) {
++  let record = {};
++  for (let prop in nonNormalizedRecord) {
++    if (ITEM_RECORD_PROPERTIES.indexOf(prop) < 0) {
++      throw new ReadingListError("Unrecognized item property: " + prop);
++    }
++    switch (prop) {
++    case "url":
++    case "resolvedURL":
++      if (nonNormalizedRecord[prop]) {
++        record[prop] = normalizeURI(nonNormalizedRecord[prop]);
++      }
++      else {
++        record[prop] = nonNormalizedRecord[prop];
++      }
++      break;
++    default:
++      record[prop] = nonNormalizedRecord[prop];
++      break;
++    }
++  }
++  return record;
++}
++
++/**
++ * Normalize a URI, stripping away extraneous parts we don't want to store
++ * or compare against.
++ *
++ * @param {nsIURI/String} uri - URI to normalize.
++ * @returns {String} String spec of a cloned and normalized version of the
++ *          input URI.
++ */
++function normalizeURI(uri) {
++  if (typeof uri == "string") {
++    try {
++      uri = Services.io.newURI(uri, "", null);
++    } catch (ex) {
++      return uri;
++    }
++  }
++  uri = uri.cloneIgnoringRef();
++  try {
++    uri.userPass = "";
++  } catch (ex) {} // Not all nsURI impls (eg, nsSimpleURI) support .userPass
++  return uri.spec;
++};
++
++function hash(str) {
++  let hasher = Cc["@mozilla.org/security/hash;1"].
++               createInstance(Ci.nsICryptoHash);
++  hasher.init(Ci.nsICryptoHash.MD5);
++  let stream = Cc["@mozilla.org/io/string-input-stream;1"].
++               createInstance(Ci.nsIStringInputStream);
++  stream.data = str;
++  hasher.updateFromStream(stream, -1);
++  let binaryStr = hasher.finish(false);
++  let hexStr =
++    [("0" + binaryStr.charCodeAt(i).toString(16)).slice(-2) for (i in binaryStr)].
++    join("");
++  return hexStr;
++}
++
++function clone(obj) {
++  return Cu.cloneInto(obj, {}, { cloneFunctions: false });
++}
++
++Object.defineProperty(this, "ReadingList", {
++  get() {
++    if (!this._singleton) {
++      let store = new SQLiteStore("reading-list.sqlite");
++      this._singleton = new ReadingListImpl(store);
++    }
++    return this._singleton;
++  },
++});
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/SQLiteStore.jsm
+@@ -0,0 +1,466 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
++ * You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++"use strict";
++
++this.EXPORTED_SYMBOLS = [
++  "SQLiteStore",
++];
++
++const { classes: Cc, interfaces: Ci, utils: Cu } = Components;
++
++Cu.import("resource://gre/modules/Task.jsm");
++Cu.import("resource://gre/modules/XPCOMUtils.jsm");
++
++XPCOMUtils.defineLazyModuleGetter(this, "ReadingList",
++  "resource:///modules/readinglist/ReadingList.jsm");
++XPCOMUtils.defineLazyModuleGetter(this, "Sqlite",
++  "resource://gre/modules/Sqlite.jsm");
++
++/**
++ * A SQLite Reading List store backed by a database on disk.  The database is
++ * created if it doesn't exist.
++ *
++ * @param pathRelativeToProfileDir The path of the database file relative to
++ *        the profile directory.
++ */
++this.SQLiteStore = function SQLiteStore(pathRelativeToProfileDir) {
++  this.pathRelativeToProfileDir = pathRelativeToProfileDir;
++};
++
++this.SQLiteStore.prototype = {
++
++  /**
++   * Yields the number of items in the store that match the given options.
++   *
++   * @param userOptsList A variable number of options objects that control the
++   *        items that are matched.  See Options Objects in ReadingList.jsm.
++   * @param controlOpts A single options object.  Use this to filter out items
++   *        that don't match it -- in other words, to override the user options.
++   *        See Options Objects in ReadingList.jsm.
++   * @return Promise<number> The number of matching items in the store.
++   *         Rejected with an Error on error.
++   */
++  count: Task.async(function* (userOptsList=[], controlOpts={}) {
++    let [sql, args] = sqlWhereFromOptions(userOptsList, controlOpts);
++    let count = 0;
++    let conn = yield this._connectionPromise;
++    yield conn.executeCached(`
++      SELECT COUNT(*) AS count FROM items ${sql};
++    `, args, row => count = row.getResultByName("count"));
++    return count;
++  }),
++
++  /**
++   * Enumerates the items in the store that match the given options.
++   *
++   * @param callback Called for each item in the enumeration.  It's passed a
++   *        single object, an item.
++   * @param userOptsList A variable number of options objects that control the
++   *        items that are matched.  See Options Objects in ReadingList.jsm.
++   * @param controlOpts A single options object.  Use this to filter out items
++   *        that don't match it -- in other words, to override the user options.
++   *        See Options Objects in ReadingList.jsm.
++   * @return Promise<null> Resolved when the enumeration completes.  Rejected
++   *         with an Error on error.
++   */
++  forEachItem: Task.async(function* (callback, userOptsList=[], controlOpts={}) {
++    let [sql, args] = sqlWhereFromOptions(userOptsList, controlOpts);
++    let colNames = ReadingList.ItemRecordProperties;
++    let conn = yield this._connectionPromise;
++    yield conn.executeCached(`
++      SELECT ${colNames} FROM items ${sql};
++    `, args, row => callback(itemFromRow(row)));
++  }),
++
++  /**
++   * Adds an item to the store that isn't already present.  See
++   * ReadingList.prototype.addItem.
++   *
++   * @param items A simple object representing an item.
++   * @return Promise<null> Resolved when the store is updated.  Rejected with an
++   *         Error on error.
++   */
++  addItem: Task.async(function* (item) {
++    let colNames = [];
++    let paramNames = [];
++    for (let propName in item) {
++      colNames.push(propName);
++      paramNames.push(`:${propName}`);
++    }
++    let conn = yield this._connectionPromise;
++    try {
++      yield conn.executeCached(`
++        INSERT INTO items (${colNames}) VALUES (${paramNames});
++      `, item);
++    }
++    catch (err) {
++      throwExistsError(err);
++    }
++  }),
++
++  /**
++   * Updates the properties of an item that's already present in the store.  See
++   * ReadingList.prototype.updateItem.
++   *
++   * @param item The item to update.  It must have a `url`.
++   * @return Promise<null> Resolved when the store is updated.  Rejected with an
++   *         Error on error.
++   */
++  updateItem: Task.async(function* (item) {
++    yield this._updateItem(item, "url");
++  }),
++
++  /**
++   * Same as updateItem, but the item is keyed off of its `guid` instead of its
++   * `url`.
++   *
++   * @param item The item to update.  It must have a `guid`.
++   * @return Promise<null> Resolved when the store is updated.  Rejected with an
++   *         Error on error.
++   */
++  updateItemByGUID: Task.async(function* (item) {
++    yield this._updateItem(item, "guid");
++  }),
++
++  /**
++   * Deletes an item from the store by its URL.
++   *
++   * @param url The URL string of the item to delete.
++   * @return Promise<null> Resolved when the store is updated.  Rejected with an
++   *         Error on error.
++   */
++  deleteItemByURL: Task.async(function* (url) {
++    let conn = yield this._connectionPromise;
++    yield conn.executeCached(`
++      DELETE FROM items WHERE url = :url;
++    `, { url: url });
++  }),
++
++  /**
++   * Deletes an item from the store by its GUID.
++   *
++   * @param guid The GUID string of the item to delete.
++   * @return Promise<null> Resolved when the store is updated.  Rejected with an
++   *         Error on error.
++   */
++  deleteItemByGUID: Task.async(function* (guid) {
++    let conn = yield this._connectionPromise;
++    yield conn.executeCached(`
++      DELETE FROM items WHERE guid = :guid;
++    `, { guid: guid });
++  }),
++
++  /**
++   * Call this when you're done with the store.  Don't use it afterward.
++   */
++  destroy() {
++    if (!this._destroyPromise) {
++      this._destroyPromise = Task.spawn(function* () {
++        let conn = yield this._connectionPromise;
++        yield conn.close();
++        this.__connectionPromise = Promise.reject("Store destroyed");
++      }.bind(this));
++    }
++    return this._destroyPromise;
++  },
++
++  /**
++   * Promise<Sqlite.OpenedConnection>
++   */
++  get _connectionPromise() {
++    if (!this.__connectionPromise) {
++      this.__connectionPromise = this._createConnection();
++    }
++    return this.__connectionPromise;
++  },
++
++  /**
++   * Creates the database connection.
++   *
++   * @return Promise<Sqlite.OpenedConnection>
++   */
++  _createConnection: Task.async(function* () {
++    let conn = yield Sqlite.openConnection({
++      path: this.pathRelativeToProfileDir,
++      sharedMemoryCache: false,
++    });
++    Sqlite.shutdown.addBlocker("readinglist/SQLiteStore: Destroy",
++                               this.destroy.bind(this));
++    yield conn.execute(`
++      PRAGMA locking_mode = EXCLUSIVE;
++    `);
++    yield this._checkSchema(conn);
++    return conn;
++  }),
++
++  /**
++   * Updates the properties of an item that's already present in the store.  See
++   * ReadingList.prototype.updateItem.
++   *
++   * @param item The item to update.  It must have the property named by
++   *        keyProp.
++   * @param keyProp The item is keyed off of this property.
++   * @return Promise<null> Resolved when the store is updated.  Rejected with an
++   *         Error on error.
++   */
++  _updateItem: Task.async(function* (item, keyProp) {
++    let assignments = [];
++    for (let propName in item) {
++      assignments.push(`${propName} = :${propName}`);
++    }
++    let conn = yield this._connectionPromise;
++    if (!item[keyProp]) {
++      throw new ReadingList.Error.Error("Item must have " + keyProp);
++    }
++    try {
++      yield conn.executeCached(`
++        UPDATE items SET ${assignments} WHERE ${keyProp} = :${keyProp};
++      `, item);
++    }
++    catch (err) {
++      throwExistsError(err);
++    }
++  }),
++
++  // The current schema version.
++  _schemaVersion: 1,
++
++  _checkSchema: Task.async(function* (conn) {
++    let version = parseInt(yield conn.getSchemaVersion());
++    for (; version < this._schemaVersion; version++) {
++      let meth = `_migrateSchema${version}To${version + 1}`;
++      yield this[meth](conn);
++    }
++    yield conn.setSchemaVersion(this._schemaVersion);
++  }),
++
++  _migrateSchema0To1: Task.async(function* (conn) {
++    yield conn.execute(`
++      PRAGMA journal_mode = wal;
++    `);
++    // 524288 bytes = 512 KiB
++    yield conn.execute(`
++      PRAGMA journal_size_limit = 524288;
++    `);
++    // Not important, but FYI: The order that these columns are listed in
++    // follows the order that the server doc lists the fields in the article
++    // data model, more or less:
++    // http://readinglist.readthedocs.org/en/latest/model.html
++    yield conn.execute(`
++      CREATE TABLE items (
++        id INTEGER PRIMARY KEY AUTOINCREMENT,
++        guid TEXT UNIQUE,
++        serverLastModified INTEGER,
++        url TEXT UNIQUE,
++        preview TEXT,
++        title TEXT,
++        resolvedURL TEXT UNIQUE,
++        resolvedTitle TEXT,
++        excerpt TEXT,
++        archived BOOLEAN,
++        deleted BOOLEAN,
++        favorite BOOLEAN,
++        isArticle BOOLEAN,
++        wordCount INTEGER,
++        unread BOOLEAN,
++        addedBy TEXT,
++        addedOn INTEGER,
++        storedOn INTEGER,
++        markedReadBy TEXT,
++        markedReadOn INTEGER,
++        readPosition INTEGER,
++        syncStatus INTEGER
++      );
++    `);
++    yield conn.execute(`
++      CREATE INDEX items_addedOn ON items (addedOn);
++    `);
++    yield conn.execute(`
++      CREATE INDEX items_unread ON items (unread);
++    `);
++  }),
++};
++
++/**
++ * Returns a simple object whose properties are the
++ * ReadingList.ItemRecordProperties lifted from the given row.
++ *
++ * @param row A mozIStorageRow.
++ * @return The item.
++ */
++function itemFromRow(row) {
++  let item = {};
++  for (let name of ReadingList.ItemRecordProperties) {
++    item[name] = row.getResultByName(name);
++  }
++  return item;
++}
++
++/**
++ * If the given Error indicates that a unique constraint failed, then wraps that
++ * error in a ReadingList.Error.Exists and throws it.  Otherwise throws the
++ * given error.
++ *
++ * @param err An Error object.
++ */
++function throwExistsError(err) {
++  let match =
++    /UNIQUE constraint failed: items\.([a-zA-Z0-9_]+)/.exec(err.message);
++  if (match) {
++    let newErr = new ReadingList.Error.Exists(
++      "An item with the following property already exists: " + match[1]
++    );
++    newErr.originalError = err;
++    err = newErr;
++  }
++  throw err;
++}
++
++/**
++ * Returns the back part of a SELECT statement generated from the given list of
++ * options.
++ *
++ * @param userOptsList A variable number of options objects that control the
++ *        items that are matched.  See Options Objects in ReadingList.jsm.
++ * @param controlOpts A single options object.  Use this to filter out items
++ *        that don't match it -- in other words, to override the user options.
++ *        See Options Objects in ReadingList.jsm.
++ * @return An array [sql, args].  sql is a string of SQL.  args is an object
++ *         that contains arguments for all the parameters in sql.
++ */
++function sqlWhereFromOptions(userOptsList, controlOpts) {
++  // We modify the options objects in userOptsList, which were passed in by the
++  // store client, so clone them first.
++  userOptsList = Cu.cloneInto(userOptsList, {}, { cloneFunctions: false });
++
++  let sort;
++  let sortDir;
++  let limit;
++  let offset;
++  for (let opts of userOptsList) {
++    if ("sort" in opts) {
++      sort = opts.sort;
++      delete opts.sort;
++    }
++    if ("descending" in opts) {
++      if (opts.descending) {
++        sortDir = "DESC";
++      }
++      delete opts.descending;
++    }
++    if ("limit" in opts) {
++      limit = opts.limit;
++      delete opts.limit;
++    }
++    if ("offset" in opts) {
++      offset = opts.offset;
++      delete opts.offset;
++    }
++  }
++
++  let fragments = [];
++
++  if (sort) {
++    sortDir = sortDir || "ASC";
++    fragments.push(`ORDER BY ${sort} ${sortDir}`);
++  }
++  if (limit) {
++    fragments.push(`LIMIT ${limit}`);
++    if (offset) {
++      fragments.push(`OFFSET ${offset}`);
++    }
++  }
++
++  let args = {};
++  let mainExprs = [];
++
++  let controlSQLExpr = sqlExpressionFromOptions([controlOpts], args);
++  if (controlSQLExpr) {
++    mainExprs.push(`(${controlSQLExpr})`);
++  }
++
++  let userSQLExpr = sqlExpressionFromOptions(userOptsList, args);
++  if (userSQLExpr) {
++    mainExprs.push(`(${userSQLExpr})`);
++  }
++
++  if (mainExprs.length) {
++    let conjunction = mainExprs.join(" AND ");
++    fragments.unshift(`WHERE ${conjunction}`);
++  }
++
++  let sql = fragments.join(" ");
++  return [sql, args];
++}
++
++/**
++ * Returns a SQL expression generated from the given options list.  Each options
++ * object in the list generates a subexpression, and all the subexpressions are
++ * OR'ed together to produce the final top-level expression.  (e.g., an optsList
++ * with three options objects would generate an expression like "(guid = :guid
++ * OR (title = :title AND unread = :unread) OR resolvedURL = :resolvedURL)".)
++ *
++ * All the properties of the options objects are assumed to refer to columns in
++ * the database.  If they don't, your SQL query will fail.
++ *
++ * @param optsList See Options Objects in ReadingList.jsm.
++ * @param args An object that will hold the SQL parameters.  It will be
++ *        modified.
++ * @return A string of SQL.  Also, args will contain arguments for all the
++ *         parameters in the SQL.
++ */
++function sqlExpressionFromOptions(optsList, args) {
++  let disjunctions = [];
++  for (let opts of optsList) {
++    let conjunctions = [];
++    for (let key in opts) {
++      if (Array.isArray(opts[key])) {
++        // Convert arrays to IN expressions.  e.g., { guid: ['a', 'b', 'c'] }
++        // becomes "guid IN (:guid, :guid_1, :guid_2)".  The guid_i arguments
++        // are added to opts.
++        let array = opts[key];
++        let params = [];
++        for (let i = 0; i < array.length; i++) {
++          let paramName = uniqueParamName(args, key);
++          params.push(`:${paramName}`);
++          args[paramName] = array[i];
++        }
++        conjunctions.push(`${key} IN (${params})`);
++      }
++      else {
++        let paramName = uniqueParamName(args, key);
++        conjunctions.push(`${key} = :${paramName}`);
++        args[paramName] = opts[key];
++      }
++    }
++    let conjunction = conjunctions.join(" AND ");
++    if (conjunction) {
++      disjunctions.push(`(${conjunction})`);
++    }
++  }
++  let disjunction = disjunctions.join(" OR ");
++  return disjunction;
++}
++
++/**
++ * Returns a version of the given name such that it doesn't conflict with the
++ * name of any property in args.  e.g., if name is "foo" but args already has
++ * properties named "foo", "foo1", and "foo2", then "foo3" is returned.
++ *
++ * @param args An object.
++ * @param name The name you want to use.
++ * @return A unique version of the given name.
++ */
++function uniqueParamName(args, name) {
++  if (name in args) {
++    for (let i = 1; ; i++) {
++      let newName = `${name}_${i}`;
++      if (!(newName in args)) {
++        return newName;
++      }
++    }
++  }
++  return name;
++}
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/Scheduler.jsm
+@@ -0,0 +1,409 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++"use strict;"
++
++const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
++
++Cu.import("resource://gre/modules/XPCOMUtils.jsm");
++Cu.import("resource://gre/modules/Services.jsm");
++Cu.import('resource://gre/modules/Task.jsm');
++
++
++XPCOMUtils.defineLazyModuleGetter(this, 'LogManager',
++  'resource://services-common/logmanager.js');
++
++XPCOMUtils.defineLazyModuleGetter(this, 'Log',
++  'resource://gre/modules/Log.jsm');
++
++XPCOMUtils.defineLazyModuleGetter(this, 'Preferences',
++  'resource://gre/modules/Preferences.jsm');
++
++XPCOMUtils.defineLazyModuleGetter(this, 'setTimeout',
++  'resource://gre/modules/Timer.jsm');
++XPCOMUtils.defineLazyModuleGetter(this, 'clearTimeout',
++  'resource://gre/modules/Timer.jsm');
++
++// The main readinglist module.
++XPCOMUtils.defineLazyModuleGetter(this, 'ReadingList',
++  'resource:///modules/readinglist/ReadingList.jsm');
++
++// The "engine"
++XPCOMUtils.defineLazyModuleGetter(this, 'Sync',
++  'resource:///modules/readinglist/Sync.jsm');
++
++// FxAccountsCommon.js doesn't use a "namespace", so create one here.
++XPCOMUtils.defineLazyGetter(this, "fxAccountsCommon", function() {
++  let namespace = {};
++  Cu.import("resource://gre/modules/FxAccountsCommon.js", namespace);
++  return namespace;
++});
++
++this.EXPORTED_SYMBOLS = ["ReadingListScheduler"];
++
++// A list of "external" observer topics that may cause us to change when we
++// sync.
++const OBSERVERS = [
++  // We don't sync when offline and restart when online.
++  "network:offline-status-changed",
++  // FxA notifications also cause us to check if we should sync.
++  "fxaccounts:onverified",
++  // some notifications the engine might send if we have been requested to backoff.
++  "readinglist:backoff-requested",
++  // request to sync now
++  "readinglist:user-sync",
++
++];
++
++let prefs = new Preferences("readinglist.scheduler.");
++
++// A helper to manage our interval values.
++let intervals = {
++  // Getters for our intervals.
++  _fixupIntervalPref(prefName, def) {
++    // All pref values are seconds, but we return ms.
++    return prefs.get(prefName, def) * 1000;
++  },
++
++  // How long after startup do we do an initial sync?
++  get initial() this._fixupIntervalPref("initial", 10), // 10 seconds.
++  // Every interval after the first.
++  get schedule() this._fixupIntervalPref("schedule", 2 * 60 * 60), // 2 hours
++  // Initial retry after an error (exponentially backed-off to .schedule)
++  get retry() this._fixupIntervalPref("retry", 2 * 60), // 2 mins
++};
++
++// This is the implementation, but it's not exposed directly.
++function InternalScheduler(readingList = null) {
++  // oh, I don't know what logs yet - let's guess!
++  let logs = [
++    "browserwindow.syncui",
++    "FirefoxAccounts",
++    "readinglist.api",
++    "readinglist.scheduler",
++    "readinglist.serverclient",
++    "readinglist.sync",
++  ];
++
++  this._logManager = new LogManager("readinglist.", logs, "readinglist");
++  this.log = Log.repository.getLogger("readinglist.scheduler");
++  this.log.info("readinglist scheduler created.")
++  this.state = this.STATE_OK;
++  this.readingList = readingList || ReadingList; // hook point for tests.
++
++  // don't this.init() here, but instead at the module level - tests want to
++  // add hooks before it is called.
++}
++
++InternalScheduler.prototype = {
++  // When the next scheduled sync should happen.  If we can sync, there will
++  // be a timer set to fire then. If we can't sync there will not be a timer,
++  // but it will be set to fire then as soon as we can.
++  _nextScheduledSync: null,
++  // The time when the most-recent "backoff request" expires - we will never
++  // schedule a new timer before this.
++  _backoffUntil: 0,
++  // Our current timer.
++  _timer: null,
++  // Our timer fires a promise - _timerRunning is true until it resolves or
++  // rejects.
++  _timerRunning: false,
++  // Our sync engine - XXX - maybe just a callback?
++  _engine: Sync,
++  // Our current "error backoff" timeout. zero if no error backoff is in
++  // progress and incremented after successive errors until a max is reached.
++  _currentErrorBackoff: 0,
++
++  // Our state variable and constants.
++  state: null,
++  STATE_OK: "ok",
++  STATE_ERROR_AUTHENTICATION: "authentication error",
++  STATE_ERROR_OTHER: "other error",
++
++  init() {
++    this.log.info("scheduler initialzing");
++    this._setupRLListener();
++    this._observe = this.observe.bind(this);
++    for (let notification of OBSERVERS) {
++      Services.obs.addObserver(this._observe, notification, false);
++    }
++    this._nextScheduledSync = Date.now() + intervals.initial;
++    this._setupTimer();
++  },
++
++  _setupRLListener() {
++    let maybeSync = () => {
++      if (this._timerRunning) {
++        // If a sync is currently running it is possible it will miss the change
++        // just made, so tell the timer the next sync should be 1 ms after
++        // it completes (we don't use zero as that has special meaning re backoffs)
++        this._maybeReschedule(1);
++      } else {
++        // Do the sync now.
++        this._syncNow();
++      }
++    };
++    let listener = {
++      onItemAdded: maybeSync,
++      onItemUpdated: maybeSync,
++      onItemDeleted: maybeSync,
++    }
++    this.readingList.addListener(listener);
++  },
++
++  // Note: only called by tests.
++  finalize() {
++    this.log.info("scheduler finalizing");
++    this._clearTimer();
++    for (let notification of OBSERVERS) {
++      Services.obs.removeObserver(this._observe, notification);
++    }
++    this._observe = null;
++  },
++
++  observe(subject, topic, data) {
++    this.log.debug("observed ${}", topic);
++    switch (topic) {
++      case "readinglist:backoff-requested": {
++        // The subject comes in as a string, a number of seconds.
++        let interval = parseInt(data, 10);
++        if (isNaN(interval)) {
++          this.log.warn("Backoff request had non-numeric value", data);
++          return;
++        }
++        this.log.info("Received a request to backoff for ${} seconds", interval);
++        this._backoffUntil = Date.now() + interval * 1000;
++        this._maybeReschedule(0);
++        break;
++      }
++      case "readinglist:user-sync":
++        this._syncNow();
++        break;
++      case "fxaccounts:onverified":
++        // If we were in an authentication error state, reset that now.
++        if (this.state == this.STATE_ERROR_AUTHENTICATION) {
++          this.state = this.STATE_OK;
++        }
++        // and sync now.
++        this._syncNow();
++        break;
++
++      // The rest just indicate that now is probably a good time to check if
++      // we can sync as normal using whatever schedule was previously set.
++      default:
++        break;
++    }
++    // When observers fire we ignore the current sync error state as the
++    // notification may indicate it's been resolved.
++    this._setupTimer(true);
++  },
++
++  // Is the current error state such that we shouldn't schedule a new sync.
++  _isBlockedOnError() {
++    // this needs more thought...
++    return this.state == this.STATE_ERROR_AUTHENTICATION;
++  },
++
++  // canSync indicates if we can currently sync.
++  _canSync(ignoreBlockingErrors = false) {
++    if (!prefs.get("enabled")) {
++      this.log.info("canSync=false - syncing is disabled");
++      return false;
++    }
++    if (Services.io.offline) {
++      this.log.info("canSync=false - we are offline");
++      return false;
++    }
++    if (!ignoreBlockingErrors && this._isBlockedOnError()) {
++      this.log.info("canSync=false - we are in a blocked error state", this.state);
++      return false;
++    }
++    this.log.info("canSync=true");
++    return true;
++  },
++
++  // _setupTimer checks the current state and the environment to see when
++  // we should next sync and creates the timer with the appropriate delay.
++  _setupTimer(ignoreBlockingErrors = false) {
++    if (!this._canSync(ignoreBlockingErrors)) {
++      this._clearTimer();
++      return;
++    }
++    if (this._timer) {
++      let when = new Date(this._nextScheduledSync);
++      let delay = this._nextScheduledSync - Date.now();
++      this.log.info("checkStatus - already have a timer - will fire in ${delay}ms at ${when}",
++                    {delay, when});
++      return;
++    }
++    if (this._timerRunning) {
++      this.log.info("checkStatus - currently syncing");
++      return;
++    }
++    // no timer and we can sync, so start a new one.
++    let now = Date.now();
++    let delay = Math.max(0, this._nextScheduledSync - now);
++    let when = new Date(now + delay);
++    this.log.info("next scheduled sync is in ${delay}ms (at ${when})", {delay, when})
++    this._timer = this._setTimeout(delay);
++  },
++
++  // Something (possibly naively) thinks the next sync should happen in
++  // delay-ms. If there's a backoff in progress, ignore the requested delay
++  // and use the back-off. If there's already a timer scheduled for earlier
++  // than delay, let the earlier timer remain. Otherwise, use the requested
++  // delay.
++  _maybeReschedule(delay) {
++    // If there's no delay specified and there's nothing currently scheduled,
++    // it means a backoff request while the sync is actually running - there's
++    // no need to do anything here - the next reschedule after the sync
++    // completes will take the backoff into account.
++    if (!delay && !this._nextScheduledSync) {
++      this.log.debug("_maybeReschedule ignoring a backoff request while running");
++      return;
++    }
++    let now = Date.now();
++    if (!this._nextScheduledSync) {
++      this._nextScheduledSync = now + delay;
++    }
++    // If there is something currently scheduled before the requested delay,
++    // keep the existing value (eg, if we have a timer firing in 1 second, and
++    // get a notification that says we should sync in 2 seconds, we keep the 1
++    // second value)
++    this._nextScheduledSync = Math.min(this._nextScheduledSync, now + delay);
++    // But we still need to honor a backoff.
++    this._nextScheduledSync = Math.max(this._nextScheduledSync, this._backoffUntil);
++    // And always create a new timer next time _setupTimer is called.
++    this._clearTimer();
++  },
++
++  // callback for when the timer fires.
++  _doSync() {
++    this.log.debug("starting sync");
++    this._timer = null;
++    this._timerRunning = true;
++    // flag that there's no new schedule yet, so a request coming in while
++    // we are running does the right thing.
++    this._nextScheduledSync = 0;
++    Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++    this._engine.start().then(() => {
++      this.log.info("Sync completed successfully");
++      // Write a pref in the same format used to services/sync to indicate
++      // the last success.
++      prefs.set("lastSync", new Date().toString());
++      this.state = this.STATE_OK;
++      this._logManager.resetFileLog().then(result => {
++        if (result == this._logManager.ERROR_LOG_WRITTEN) {
++          Cu.reportError("Reading List sync encountered an error - see about:sync-log for the log file.");
++        }
++      });
++      Services.obs.notifyObservers(null, "readinglist:sync:finish", null);
++      this._currentErrorBackoff = 0; // error retry interval is reset on success.
++      return intervals.schedule;
++    }).catch(err => {
++      // This isn't ideal - we really should have _canSync() check this - but
++      // that requires a refactor to turn _canSync() into a promise-based
++      // function.
++      if (err.message == fxAccountsCommon.ERROR_NO_ACCOUNT ||
++          err.message == fxAccountsCommon.ERROR_UNVERIFIED_ACCOUNT) {
++        // make everything look like success.
++        this._currentErrorBackoff = 0; // error retry interval is reset on success.
++        this.log.info("Can't sync due to FxA account state " + err.message);
++        this.state = this.STATE_OK;
++        this._logManager.resetFileLog().then(result => {
++          if (result == this._logManager.ERROR_LOG_WRITTEN) {
++            Cu.reportError("Reading List sync encountered an error - see about:sync-log for the log file.");
++          }
++        });
++        Services.obs.notifyObservers(null, "readinglist:sync:finish", null);
++        // it's unfortunate that we are probably going to hit this every
++        // 2 hours, but it should be invisible to the user.
++        return intervals.schedule;
++      }
++      this.state = err.message == fxAccountsCommon.ERROR_AUTH_ERROR ?
++                   this.STATE_ERROR_AUTHENTICATION : this.STATE_ERROR_OTHER;
++      this.log.error("Sync failed, now in state '${state}': ${err}",
++                     {state: this.state, err});
++      this._logManager.resetFileLog();
++      Services.obs.notifyObservers(null, "readinglist:sync:error", null);
++      // We back-off on error retries until it hits our normally scheduled interval.
++      this._currentErrorBackoff = this._currentErrorBackoff == 0 ? intervals.retry :
++                                  Math.min(intervals.schedule, this._currentErrorBackoff * 2);
++      return this._currentErrorBackoff;
++    }).then(nextDelay => {
++      this._timerRunning = false;
++      // ensure a new timer is setup for the appropriate next time.
++      this._maybeReschedule(nextDelay);
++      this._setupTimer();
++      this._onAutoReschedule(); // just for tests...
++    }).catch(err => {
++      // We should never get here, but better safe than sorry...
++      this.log.error("Failed to reschedule after sync completed", err);
++    });
++  },
++
++  _clearTimer() {
++    if (this._timer) {
++      clearTimeout(this._timer);
++      this._timer = null;
++    }
++  },
++
++  // A function to "sync now", but not allowing it to start if one is
++  // already running, and rescheduling the timer.
++  // To call this, just send a "readinglist:user-sync" notification.
++  _syncNow() {
++    if (!prefs.get("enabled")) {
++      this.log.info("syncNow() but syncing is disabled - ignoring");
++      return;
++    }
++
++    if (this._timerRunning) {
++      this.log.info("syncNow() but a sync is already in progress - ignoring");
++      return;
++    }
++    this._clearTimer();
++    this._doSync();
++  },
++
++  // A couple of hook-points for testing.
++  // xpcshell tests hook this so (a) it can check the expected delay is set
++  // and (b) to ignore the delay and set a timeout of 0 so the test is fast.
++  _setTimeout(delay) {
++    return setTimeout(() => this._doSync(), delay);
++  },
++  // xpcshell tests hook this to make sure that the correct state etc exist
++  // after a sync has been completed and a new timer created (or not).
++  _onAutoReschedule() {},
++};
++
++let internalScheduler = new InternalScheduler();
++internalScheduler.init();
++
++// The public interface into this module is tiny, so a simple object that
++// delegates to the implementation.
++let ReadingListScheduler = {
++  get STATE_OK() internalScheduler.STATE_OK,
++  get STATE_ERROR_AUTHENTICATION() internalScheduler.STATE_ERROR_AUTHENTICATION,
++  get STATE_ERROR_OTHER() internalScheduler.STATE_ERROR_OTHER,
++
++  get state() internalScheduler.state,
++};
++
++// These functions are exposed purely for tests, which manage to grab them
++// via a BackstagePass.
++function createTestableScheduler(readingList) {
++  // kill the "real" scheduler as we don't want it listening to notifications etc.
++  if (internalScheduler) {
++    internalScheduler.finalize();
++    internalScheduler = null;
++  }
++  // No .init() call - that's up to the tests after hooking.
++  return new InternalScheduler(readingList);
++}
++
++// mochitests want the internal state of the real scheduler for various things.
++function getInternalScheduler() {
++  return internalScheduler;
++}
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/ServerClient.jsm
+@@ -0,0 +1,178 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
++ * You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++// The client used to access the ReadingList server.
++
++"use strict";
++
++const { classes: Cc, interfaces: Ci, utils: Cu } = Components;
++
++Cu.import("resource://gre/modules/XPCOMUtils.jsm");
++Cu.import("resource://gre/modules/Services.jsm");
++Cu.import("resource://gre/modules/Log.jsm");
++Cu.import("resource://gre/modules/Task.jsm");
++
++XPCOMUtils.defineLazyModuleGetter(this, "RESTRequest", "resource://services-common/rest.js");
++XPCOMUtils.defineLazyModuleGetter(this, "CommonUtils", "resource://services-common/utils.js");
++XPCOMUtils.defineLazyModuleGetter(this, "fxAccounts", "resource://gre/modules/FxAccounts.jsm");
++
++let log = Log.repository.getLogger("readinglist.serverclient");
++
++const OAUTH_SCOPE = "readinglist"; // The "scope" on the oauth token we request.
++
++this.EXPORTED_SYMBOLS = [
++  "ServerClient",
++];
++
++// utf-8 joy. rest.js, which we use for the underlying requests, does *not*
++// encode the request as utf-8 even though it wants to know the encoding.
++// It does, however, explicitly decode the response.  This seems insane, but is
++// what it is.
++// The end result being we need to utf-8 the request and let the response take
++// care of itself.
++function objectToUTF8Json(obj) {
++  // FTR, unescape(encodeURIComponent(JSON.stringify(obj))) also works ;)
++  return CommonUtils.encodeUTF8(JSON.stringify(obj));
++}
++
++function ServerClient(fxa = fxAccounts) {
++  this.fxa = fxa;
++}
++
++ServerClient.prototype = {
++
++  request(options) {
++    return this._request(options.path, options.method, options.body, options.headers);
++  },
++
++  get serverURL() {
++    return Services.prefs.getCharPref("readinglist.server");
++  },
++
++  _getURL(path) {
++    let result = this.serverURL;
++    // we expect the path to have a leading slash, so remove any trailing
++    // slashes on the pref.
++    if (result.endsWith("/")) {
++      result = result.slice(0, -1);
++    }
++    return result + path;
++  },
++
++  // Hook points for testing.
++  _getToken() {
++    // Assume token-caching is in place - if it's not we should avoid doing
++    // this each request.
++    return this.fxa.getOAuthToken({scope: OAUTH_SCOPE});
++  },
++
++  _removeToken(token) {
++    return this.fxa.removeCachedOAuthToken({token});
++  },
++
++  // Converts an error from the RESTRequest object to an error we export.
++  _convertRestError(error) {
++    return error; // XXX - errors?
++  },
++
++  // Converts an error from a try/catch handler to an error we export.
++  _convertJSError(error) {
++    return error; // XXX - errors?
++  },
++
++  /*
++   * Perform a request - handles authentication
++   */
++  _request: Task.async(function* (path, method, body, headers) {
++    let token = yield this._getToken();
++    let response = yield this._rawRequest(path, method, body, headers, token);
++    log.debug("initial request got status ${status}", response);
++    if (response.status == 401) {
++      // an auth error - assume our token has expired or similar.
++      this._removeToken(token);
++      token = yield this._getToken();
++      response = yield this._rawRequest(path, method, body, headers, token);
++      log.debug("retry of request got status ${status}", response);
++    }
++    return response;
++  }),
++
++  /*
++   * Perform a request *without* abstractions such as auth etc
++   *
++   * On success (which *includes* non-200 responses) returns an object like:
++   * {
++   *   status: 200, # http status code
++   *   headers: {}, # header values keyed by header name.
++   *   body: {},    # parsed json
++   }
++   */
++
++  _rawRequest(path, method, body, headers, oauthToken) {
++    return new Promise((resolve, reject) => {
++      let url = this._getURL(path);
++      log.debug("dispatching request to", url);
++      let request = new RESTRequest(url);
++      method = method.toUpperCase();
++
++      request.setHeader("Accept", "application/json");
++      request.setHeader("Content-Type", "application/json; charset=utf-8");
++      request.setHeader("Authorization", "Bearer " + oauthToken);
++      // and additional header specified for this request.
++      if (headers) {
++        for (let [headerName, headerValue] in Iterator(headers)) {
++          log.trace("Caller specified header: ${headerName}=${headerValue}", {headerName, headerValue});
++          request.setHeader(headerName, headerValue);
++        }
++      }
++
++      request.onComplete = error => {
++        // Although the server API docs say the "Backoff" header is on
++        // successful responses while "Retry-After" is on error responses, we
++        // just look for them both in both cases (as the scheduler makes no
++        // distinction)
++        let response = request.response;
++        if (response && response.headers) {
++          let backoff = response.headers["backoff"] || response.headers["retry-after"];
++          if (backoff) {
++            let numeric = backoff.toLowerCase() == "none" ? 0 :
++                          parseInt(backoff, 10);
++            if (isNaN(numeric)) {
++              log.info("Server requested unrecognized backoff", backoff);
++            } else if (numeric > 0) {
++              log.info("Server requested backoff", numeric);
++              Services.obs.notifyObservers(null, "readinglist:backoff-requested", String(numeric));
++            }
++          }
++        }
++        if (error) {
++          return reject(this._convertRestError(error));
++        }
++
++        log.debug("received response status: ${status} ${statusText}", response);
++        // Handle response status codes we know about
++        let result = {
++          status: response.status,
++          headers: response.headers
++        };
++        try {
++          if (response.body) {
++            result.body = JSON.parse(response.body);
++          }
++        } catch (e) {
++          log.debug("Response is not JSON. First 1024 chars: |${body}|",
++                    { body: response.body.substr(0, 1024) });
++          // We don't reject due to this (and don't even make a huge amount of
++          // log noise - eg, a 50X error from a load balancer etc may not write
++          // JSON.
++        }
++
++        resolve(result);
++      }
++      // We are assuming the body has already been decoded and thus contains
++      // unicode, but the server expects utf-8. encodeURIComponent does that.
++      request.dispatch(method, objectToUTF8Json(body));
++    });
++  },
++};
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/Sync.jsm
+@@ -0,0 +1,664 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
++ * You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++"use strict";
++
++this.EXPORTED_SYMBOLS = [
++  "Sync",
++];
++
++const { classes: Cc, interfaces: Ci, utils: Cu } = Components;
++
++Cu.import("resource://gre/modules/Log.jsm");
++Cu.import("resource://gre/modules/Task.jsm");
++Cu.import("resource://gre/modules/XPCOMUtils.jsm");
++
++XPCOMUtils.defineLazyModuleGetter(this, "Preferences",
++  "resource://gre/modules/Preferences.jsm");
++XPCOMUtils.defineLazyModuleGetter(this, "ReadingList",
++  "resource:///modules/readinglist/ReadingList.jsm");
++XPCOMUtils.defineLazyModuleGetter(this, "ServerClient",
++  "resource:///modules/readinglist/ServerClient.jsm");
++
++// The maximum number of sub-requests per POST /batch supported by the server.
++// See http://readinglist.readthedocs.org/en/latest/api/batch.html.
++const BATCH_REQUEST_LIMIT = 25;
++
++// The Last-Modified header of server responses is stored here.
++const SERVER_LAST_MODIFIED_HEADER_PREF = "readinglist.sync.serverLastModified";
++
++// Maps local record properties to server record properties.
++const SERVER_PROPERTIES_BY_LOCAL_PROPERTIES = {
++  guid: "id",
++  serverLastModified: "last_modified",
++  url: "url",
++  preview: "preview",
++  title: "title",
++  resolvedURL: "resolved_url",
++  resolvedTitle: "resolved_title",
++  excerpt: "excerpt",
++  archived: "archived",
++  deleted: "deleted",
++  favorite: "favorite",
++  isArticle: "is_article",
++  wordCount: "word_count",
++  unread: "unread",
++  addedBy: "added_by",
++  addedOn: "added_on",
++  storedOn: "stored_on",
++  markedReadBy: "marked_read_by",
++  markedReadOn: "marked_read_on",
++  readPosition: "read_position",
++};
++
++// Local record properties that can be uploaded in new items.
++const NEW_RECORD_PROPERTIES = `
++  url
++  title
++  resolvedURL
++  resolvedTitle
++  excerpt
++  favorite
++  isArticle
++  wordCount
++  unread
++  addedBy
++  addedOn
++  markedReadBy
++  markedReadOn
++  readPosition
++  preview
++`.trim().split(/\s+/);
++
++// Local record properties that can be uploaded in changed items.
++const MUTABLE_RECORD_PROPERTIES = `
++  title
++  resolvedURL
++  resolvedTitle
++  excerpt
++  favorite
++  isArticle
++  wordCount
++  unread
++  markedReadBy
++  markedReadOn
++  readPosition
++  preview
++`.trim().split(/\s+/);
++
++let log = Log.repository.getLogger("readinglist.sync");
++
++
++/**
++ * An object that syncs reading list state with a server.  To sync, make a new
++ * SyncImpl object and then call start() on it.
++ *
++ * @param readingList The ReadingList to sync.
++ */
++function SyncImpl(readingList) {
++  this.list = readingList;
++  this._client = new ServerClient();
++}
++
++/**
++ * This implementation uses the sync algorithm described here:
++ * https://github.com/mozilla-services/readinglist/wiki/Client-phases
++ * The "phases" mentioned in the methods below refer to the phases in that
++ * document.
++ */
++SyncImpl.prototype = {
++
++  /**
++   * Starts sync, if it's not already started.
++   *
++   * @return Promise<null> this.promise, i.e., a promise that will be resolved
++   *         when sync completes, rejected on error.
++   */
++  start() {
++    if (!this.promise) {
++      this.promise = Task.spawn(function* () {
++        try {
++          yield this._start();
++        } finally {
++          delete this.promise;
++        }
++      }.bind(this));
++    }
++    return this.promise;
++  },
++
++  /**
++   * A Promise<null> that will be non-null when sync is ongoing.  Resolved when
++   * sync completes, rejected on error.
++   */
++  promise: null,
++
++  /**
++   * See the document linked above that describes the sync algorithm.
++   */
++  _start: Task.async(function* () {
++    log.info("Starting sync");
++    yield this._logDiagnostics();
++    yield this._uploadStatusChanges();
++    yield this._uploadNewItems();
++    yield this._uploadDeletedItems();
++    yield this._downloadModifiedItems();
++
++    // TODO: "Repeat [this phase] until no conflicts occur," says the doc.
++    yield this._uploadMaterialChanges();
++
++    log.info("Sync done");
++  }),
++
++  /**
++   * Phase 0 - for debugging we log some stuff about the local store before
++   * we start syncing.
++   * We only do this when the log level is "Trace" or lower as the info (a)
++   * may be expensive to generate, (b) generate alot of output and (c) may
++   * contain private information.
++   */
++  _logDiagnostics: Task.async(function* () {
++    // Sadly our log is likely to have Log.Level.All, so loop over our
++    // appenders looking for the effective level.
++    let smallestLevel = log.appenders.reduce(
++      (prev, appender) => Math.min(prev, appender.level),
++      Log.Level.Error);
++
++    if (smallestLevel > Log.Level.Trace) {
++      return;
++    }
++
++    let localItems = [];
++    yield this.list.forEachItem(localItem => localItems.push(localItem));
++    log.trace("Have " + localItems.length + " local item(s)");
++    for (let localItem of localItems) {
++      // We need to use .record so we get access to a couple of the "internal" fields.
++      let record = localItem._record;
++      let redacted = {};
++      for (let attr of ["guid", "url", "resolvedURL", "serverLastModified", "syncStatus"]) {
++        redacted[attr] = record[attr];
++      }
++      log.trace(JSON.stringify(redacted));
++    }
++    // and the GUIDs of deleted items.
++    let deletedGuids = []
++    yield this.list.forEachSyncedDeletedGUID(guid => deletedGuids.push(guid));
++    // This might be a huge line, but that's OK.
++    log.trace("Have ${num} deleted item(s): ${deletedGuids}", {num: deletedGuids.length, deletedGuids});
++  }),
++
++  /**
++   * Phase 1 part 1
++   *
++   * Uploads not-new items with status-only changes.  By design, status-only
++   * changes will never conflict with what's on the server.
++   */
++  _uploadStatusChanges: Task.async(function* () {
++    log.debug("Phase 1 part 1: Uploading status changes");
++    yield this._uploadChanges(ReadingList.SyncStatus.CHANGED_STATUS,
++                              ReadingList.SyncStatusProperties.STATUS);
++  }),
++
++  /**
++   * There are two phases for uploading changed not-new items: one for items
++   * with status-only changes, one for items with material changes.  The two
++   * work similarly mechanically, and this method is a helper for both.
++   *
++   * @param syncStatus Local items matching this sync status will be uploaded.
++   * @param localProperties An array of local record property names.  The
++   *        uploaded item records will include only these properties.
++   */
++  _uploadChanges: Task.async(function* (syncStatus, localProperties) {
++    // Get local items that match the given syncStatus.
++    let requests = [];
++    yield this.list.forEachItem(localItem => {
++      requests.push({
++        path: "/articles/" + localItem.guid,
++        body: serverRecordFromLocalItem(localItem, localProperties),
++      });
++    }, { syncStatus: syncStatus });
++    if (!requests.length) {
++      log.debug("No local changes to upload");
++      return;
++    }
++
++    // Send the request.
++    let request = {
++      body: {
++        defaults: {
++          method: "PATCH",
++        },
++        requests: requests,
++      },
++    };
++    let batchResponse = yield this._postBatch(request);
++    if (batchResponse.status != 200) {
++      this._handleUnexpectedResponse(true, "uploading changes", batchResponse);
++      return;
++    }
++
++    // Update local items based on the response.
++    for (let response of batchResponse.body.responses) {
++      if (response.status == 404) {
++        // item deleted
++        yield this._deleteItemForGUID(response.body.id);
++        continue;
++      }
++      if (response.status == 409) {
++        // "Conflict": A change violated a uniqueness constraint.  Mark the item
++        // as having material changes, and reconcile and upload it in the
++        // material-changes phase.
++        // TODO
++        continue;
++      }
++      if (response.status != 200) {
++        this._handleUnexpectedResponse(false, "uploading a change", response);
++        continue;
++      }
++      // Don't assume the local record and the server record aren't materially
++      // different.  Reconcile the differences.
++      // TODO
++
++      let item = yield this._itemForGUID(response.body.id);
++      yield this._updateItemWithServerRecord(item, response.body);
++    }
++  }),
++
++  /**
++   * Phase 1 part 2
++   *
++   * Uploads new items.
++   */
++  _uploadNewItems: Task.async(function* () {
++    log.debug("Phase 1 part 2: Uploading new items");
++
++    // Get new local items.
++    let requests = [];
++    yield this.list.forEachItem(localItem => {
++      requests.push({
++        body: serverRecordFromLocalItem(localItem, NEW_RECORD_PROPERTIES),
++      });
++    }, { syncStatus: ReadingList.SyncStatus.NEW });
++    if (!requests.length) {
++      log.debug("No new local items to upload");
++      return;
++    }
++
++    // Send the request.
++    let request = {
++      body: {
++        defaults: {
++          method: "POST",
++          path: "/articles",
++        },
++        requests: requests,
++      },
++    };
++    let batchResponse = yield this._postBatch(request);
++    if (batchResponse.status != 200) {
++      this._handleUnexpectedResponse(true, "uploading new items", batchResponse);
++      return;
++    }
++
++    // Update local items based on the response.
++    for (let response of batchResponse.body.responses) {
++      if (response.status == 303) {
++        // "See Other": An item with the URL already exists.  Mark the item as
++        // having material changes, and reconcile and upload it in the
++        // material-changes phase.
++        // TODO
++        continue;
++      }
++      // Note that the server seems to return a 200 if an identical item already
++      // exists, but we shouldn't be uploading identical items in this phase in
++      // normal usage. But if something goes wrong locally (eg, we upload but
++      // get some error even though the upload worked) we will see this.
++      // So allow 200 but log a warning.
++      if (response.status == 200) {
++        log.debug("Attempting to upload a new item found the server already had it", response);
++        // but we still process it.
++      } else if (response.status != 201) {
++        this._handleUnexpectedResponse(false, "uploading a new item", response);
++        continue;
++      }
++      let item = yield this.list.itemForURL(response.body.url);
++      yield this._updateItemWithServerRecord(item, response.body);
++    }
++  }),
++
++  /**
++   * Phase 1 part 3
++   *
++   * Uploads deleted synced items.
++   */
++  _uploadDeletedItems: Task.async(function* () {
++    log.debug("Phase 1 part 3: Uploading deleted items");
++
++    // Get deleted synced local items.
++    let requests = [];
++    yield this.list.forEachSyncedDeletedGUID(guid => {
++      requests.push({
++        path: "/articles/" + guid,
++      });
++    });
++    if (!requests.length) {
++      log.debug("No local deleted synced items to upload");
++      return;
++    }
++
++    // Send the request.
++    let request = {
++      body: {
++        defaults: {
++          method: "DELETE",
++        },
++        requests: requests,
++      },
++    };
++    let batchResponse = yield this._postBatch(request);
++    if (batchResponse.status != 200) {
++      this._handleUnexpectedResponse(true, "uploading deleted items", batchResponse);
++      return;
++    }
++
++    // Delete local items based on the response.
++    for (let response of batchResponse.body.responses) {
++      // A 404 means the item was already deleted on the server, which is OK.
++      // We still need to make sure it's deleted locally, though.
++      if (response.status != 200 && response.status != 404) {
++        this._handleUnexpectedResponse(false, "uploading a deleted item", response);
++        continue;
++      }
++      yield this._deleteItemForGUID(response.body.id);
++    }
++  }),
++
++  /**
++   * Phase 2
++   *
++   * Downloads items that were modified since the last sync.
++   */
++  _downloadModifiedItems: Task.async(function* () {
++    log.debug("Phase 2: Downloading modified items");
++
++    // Get modified items from the server.
++    let path = "/articles";
++    if (this._serverLastModifiedHeader) {
++      path += "?_since=" + this._serverLastModifiedHeader;
++    }
++    let request = {
++      method: "GET",
++      path: path,
++    };
++    let response = yield this._sendRequest(request);
++    if (response.status != 200) {
++      this._handleUnexpectedResponse(true, "downloading modified items", response);
++      return;
++    }
++
++    // Update local items based on the response.
++    for (let serverRecord of response.body.items) {
++      if (serverRecord.deleted) {
++        // _deleteItemForGUID is a no-op if no item exists with the GUID.
++        yield this._deleteItemForGUID(serverRecord.id);
++        continue;
++      }
++      let localItem = yield this._itemForGUID(serverRecord.id);
++      if (localItem) {
++        if (localItem.serverLastModified == serverRecord.last_modified) {
++          // We just uploaded this item in the new-items phase.
++          continue;
++        }
++        // The local item may have materially changed.  In that case, don't
++        // overwrite the local changes with the server record.  Instead, mark
++        // the item as having material changes and reconcile and upload it in
++        // the material-changes phase.
++        // TODO
++
++        yield this._updateItemWithServerRecord(localItem, serverRecord);
++        continue;
++      }
++      // A potentially new item.  addItem() will fail here when an item was
++      // added to the local list between the time we uploaded new items and
++      // now.
++      let localRecord = localRecordFromServerRecord(serverRecord);
++      try {
++        yield this.list.addItem(localRecord);
++      } catch (ex) {
++        if (ex instanceof ReadingList.Error.Exists) {
++          log.debug("Tried to add an item that already exists.");
++        } else {
++          log.error("Error adding an item from server record ${serverRecord} ${ex}",
++                    { serverRecord, ex });
++        }
++      }
++    }
++
++    // Now that changes have been successfully applied, advance the server
++    // last-modified timestamp so that next time we fetch items starting from
++    // the current point.  Response header names are lowercase.
++    if (response.headers && "last-modified" in response.headers) {
++      this._serverLastModifiedHeader = response.headers["last-modified"];
++    }
++  }),
++
++  /**
++   * Phase 3 (material changes)
++   *
++   * Uploads not-new items with material changes.
++   */
++  _uploadMaterialChanges: Task.async(function* () {
++    log.debug("Phase 3: Uploading material changes");
++    yield this._uploadChanges(ReadingList.SyncStatus.CHANGED_MATERIAL,
++                              MUTABLE_RECORD_PROPERTIES);
++  }),
++
++  /**
++   * Gets the local ReadingListItem with the given GUID.
++   *
++   * @param guid The item's GUID.
++   * @return The matching ReadingListItem.
++   */
++  _itemForGUID: Task.async(function* (guid) {
++    return (yield this.list.item({ guid: guid }));
++  }),
++
++  /**
++   * Updates the given local ReadingListItem with the given server record.  The
++   * local item's sync status is updated to reflect the fact that the item has
++   * been synced and is up to date.
++   *
++   * @param item A local ReadingListItem.
++   * @param serverRecord A server record representing the item.
++   */
++  _updateItemWithServerRecord: Task.async(function* (localItem, serverRecord) {
++    if (!localItem) {
++      // The item may have been deleted from the local list between the time we
++      // saw that it needed updating and now.
++      log.debug("Tried to update a null local item from server record",
++                serverRecord);
++      return;
++    }
++    localItem._record = localRecordFromServerRecord(serverRecord);
++    try {
++      yield this.list.updateItem(localItem);
++    } catch (ex) {
++      // The item may have been deleted from the local list after we fetched it.
++      if (ex instanceof ReadingList.Error.Deleted) {
++        log.debug("Tried to update an item that was deleted from server record",
++                  serverRecord);
++      } else {
++        log.error("Error updating an item from server record ${serverRecord} ${ex}",
++                  { serverRecord, ex });
++      }
++    }
++  }),
++
++  /**
++   * Truly deletes the local ReadingListItem with the given GUID.
++   *
++   * @param guid The item's GUID.
++   */
++  _deleteItemForGUID: Task.async(function* (guid) {
++    let item = yield this._itemForGUID(guid);
++    if (item) {
++      // If item is non-null, then it hasn't been deleted locally.  Therefore
++      // it's important to delete it through its list so that the list and its
++      // consumers are notified properly.  Set the syncStatus to NEW so that the
++      // list truly deletes the item.
++      item._record.syncStatus = ReadingList.SyncStatus.NEW;
++      try {
++        yield this.list.deleteItem(item);
++      } catch (ex) {
++        log.error("Failed delete local item with id ${guid} ${ex}",
++                  { guid, ex });
++      }
++      return;
++    }
++    // If item is null, then it may not actually exist locally, or it may have
++    // been synced and then deleted so that it's marked as being deleted.  In
++    // that case, try to delete it directly from the store.  As far as the list
++    // is concerned, the item has already been deleted.
++    log.debug("Item not present in list, deleting it by GUID instead");
++    try {
++      this.list._store.deleteItemByGUID(guid);
++    } catch (ex) {
++      log.error("Failed to delete local item with id ${guid} ${ex}",
++                { guid, ex });
++    }
++  }),
++
++  /**
++   * Sends a request to the server.
++   *
++   * @param req The request object: { method, path, body, headers }.
++   * @return Promise<response> Resolved with the server's response object:
++   *         { status, body, headers }.
++   */
++  _sendRequest: Task.async(function* (req) {
++    log.debug("Sending request", req);
++    let response = yield this._client.request(req);
++    log.debug("Received response", response);
++    return response;
++  }),
++
++  /**
++   * The server limits the number of sub-requests in POST /batch'es to
++   * BATCH_REQUEST_LIMIT.  This method takes an arbitrarily big batch request
++   * and breaks it apart into many individual batch requests in order to stay
++   * within the limit.
++   *
++   * @param bigRequest The same type of request object that _sendRequest takes.
++   *        Since it's a POST /batch request, its `body` should have a
++   *        `requests` property whose value is an array of sub-requests.
++   *        `method` and `path` are automatically filled.
++   * @return Promise<response> Resolved when all requests complete with 200s, or
++   *         when the first response that is not a 200 is received.  In the
++   *         first case, the resolved response is a combination of all the
++   *         server responses, and response.body.responses contains the sub-
++   *         responses for all the sub-requests in bigRequest.  In the second
++   *         case, the resolved response is the non-200 response straight from
++   *         the server.
++   */
++  _postBatch: Task.async(function* (bigRequest) {
++    log.debug("Sending batch requests");
++    let allSubResponses = [];
++    let remainingSubRequests = bigRequest.body.requests;
++    while (remainingSubRequests.length) {
++      let request = Object.assign({}, bigRequest);
++      request.method = "POST";
++      request.path = "/batch";
++      request.body.requests =
++        remainingSubRequests.splice(0, BATCH_REQUEST_LIMIT);
++      let response = yield this._sendRequest(request);
++      if (response.status != 200) {
++        return response;
++      }
++      allSubResponses = allSubResponses.concat(response.body.responses);
++    }
++    let bigResponse = {
++      status: 200,
++      body: {
++        responses: allSubResponses,
++      },
++    };
++    log.debug("All batch requests successfully sent");
++    return bigResponse;
++  }),
++
++  _handleUnexpectedResponse(isTopLevel, contextMsgFragment, response) {
++    log.error(`Unexpected response ${contextMsgFragment}`, response);
++    // We want to throw in some cases so the sync engine knows there was an
++    // error and retries using the error schedule. 401 implies an auth issue
++    // (possibly transient, possibly not) - but things like 404 might just
++    // relate to a single item and need not throw.  Any 5XX implies a
++    // (hopefully transient) server error.
++    if (isTopLevel && (response.status == 401 || response.status >= 500)) {
++      throw new Error("Sync aborted due to " + response.status + " server response.");
++    }
++  },
++
++  // TODO: Wipe this pref when user logs out.
++  get _serverLastModifiedHeader() {
++    if (!("__serverLastModifiedHeader" in this)) {
++      this.__serverLastModifiedHeader =
++        Preferences.get(SERVER_LAST_MODIFIED_HEADER_PREF, undefined);
++    }
++    return this.__serverLastModifiedHeader;
++  },
++  set _serverLastModifiedHeader(val) {
++    this.__serverLastModifiedHeader = val;
++    Preferences.set(SERVER_LAST_MODIFIED_HEADER_PREF, val);
++  },
++};
++
++
++/**
++ * Translates a local ReadingListItem into a server record.
++ *
++ * @param localItem The local ReadingListItem.
++ * @param localProperties An array of local item property names.  Only these
++ *        properties will be included in the server record.
++ * @return The server record.
++ */
++function serverRecordFromLocalItem(localItem, localProperties) {
++  let serverRecord = {};
++  for (let localProp of localProperties) {
++    let serverProp = SERVER_PROPERTIES_BY_LOCAL_PROPERTIES[localProp];
++    if (localProp in localItem._record) {
++      serverRecord[serverProp] = localItem._record[localProp];
++    }
++  }
++  return serverRecord;
++}
++
++/**
++ * Translates a server record into a local record.  The returned local record's
++ * syncStatus will reflect the fact that the local record is up-to-date synced.
++ *
++ * @param serverRecord The server record.
++ * @return The local record.
++ */
++function localRecordFromServerRecord(serverRecord) {
++  let localRecord = {
++    // Mark the record as being up-to-date synced.
++    syncStatus: ReadingList.SyncStatus.SYNCED,
++  };
++  for (let localProp in SERVER_PROPERTIES_BY_LOCAL_PROPERTIES) {
++    let serverProp = SERVER_PROPERTIES_BY_LOCAL_PROPERTIES[localProp];
++    if (serverProp in serverRecord) {
++      localRecord[localProp] = serverRecord[serverProp];
++    }
++  }
++  return localRecord;
++}
++
++Object.defineProperty(this, "Sync", {
++  get() {
++    if (!this._singleton) {
++      this._singleton = new SyncImpl(ReadingList);
++    }
++    return this._singleton;
++  },
++});
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/jar.mn
+@@ -0,0 +1,7 @@
++# This Source Code Form is subject to the terms of the Mozilla Public
++# License, v. 2.0. If a copy of the MPL was not distributed with this
++# file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++browser.jar:
++  content/browser/readinglist/sidebar.xhtml
++  content/browser/readinglist/sidebar.js
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/moz.build
+@@ -0,0 +1,24 @@
++# This Source Code Form is subject to the terms of the Mozilla Public
++# License, v. 2.0. If a copy of the MPL was not distributed with this
++# file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++JAR_MANIFESTS += ['jar.mn']
++
++EXTRA_JS_MODULES.readinglist += [
++    'ReadingList.jsm',
++    'Scheduler.jsm',
++    'ServerClient.jsm',
++    'SQLiteStore.jsm',
++    'Sync.jsm',
++]
++
++TESTING_JS_MODULES += [
++    'test/ReadingListTestUtils.jsm',
++]
++
++BROWSER_CHROME_MANIFESTS += ['test/browser/browser.ini']
++
++XPCSHELL_TESTS_MANIFESTS += ['test/xpcshell/xpcshell.ini']
++
++with Files('**'):
++    BUG_COMPONENT = ('Firefox', 'Reading List')
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/sidebar.js
+@@ -0,0 +1,484 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++"use strict";
++
++const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
++
++Cu.import("resource://gre/modules/Services.jsm");
++Cu.import("resource://gre/modules/Task.jsm");
++Cu.import("resource://gre/modules/XPCOMUtils.jsm");
++Cu.import("resource:///modules/readinglist/ReadingList.jsm");
++
++let log = Cu.import("resource://gre/modules/Log.jsm", {})
++            .Log.repository.getLogger("readinglist.sidebar");
++
++
++let RLSidebar = {
++  /**
++   * Container element for all list item elements.
++   * @type {Element}
++   */
++  list: null,
++
++  /**
++   * A promise that's resolved when building the initial list completes.
++   * @type {Promise}
++   */
++  listPromise: null,
++
++  /**
++   * <template> element used for constructing list item elements.
++   * @type {Element}
++   */
++  itemTemplate: null,
++
++  /**
++   * Map of ReadingList Item objects, keyed by their ID.
++   * @type {Map}
++   */
++  itemsById: new Map(),
++  /**
++   * Map of list item elements, keyed by their corresponding Item's ID.
++   * @type {Map}
++   */
++  itemNodesById: new Map(),
++
++  /**
++   * Initialize the sidebar UI.
++   */
++  init() {
++    log.debug("Initializing");
++
++    addEventListener("unload", () => this.uninit());
++
++    this.list = document.getElementById("list");
++    this.emptyListInfo = document.getElementById("emptyListInfo");
++    this.itemTemplate = document.getElementById("item-template");
++
++    // click events for middle-clicks are not sent to DOM nodes, only to the document.
++    document.addEventListener("click", event => this.onClick(event));
++
++    this.list.addEventListener("mousemove", event => this.onListMouseMove(event));
++    this.list.addEventListener("keydown", event => this.onListKeyDown(event), true);
++
++    window.addEventListener("message", event => this.onMessage(event));
++
++    this.listPromise = this.ensureListItems();
++    ReadingList.addListener(this);
++
++    Services.prefs.setBoolPref("browser.readinglist.sidebarEverOpened", true);
++
++    let initEvent = new CustomEvent("Initialized", {bubbles: true});
++    document.documentElement.dispatchEvent(initEvent);
++  },
++
++  /**
++   * Un-initialize the sidebar UI.
++   */
++  uninit() {
++    log.debug("Shutting down");
++
++    ReadingList.removeListener(this);
++  },
++
++  /**
++   * Handle an item being added to the ReadingList.
++   * TODO: We may not want to show this new item right now.
++   * TODO: We should guard against the list growing here.
++   *
++   * @param {ReadinglistItem} item - Item that was added.
++   */
++  onItemAdded(item, append = false) {
++    log.trace(`onItemAdded: ${item}`);
++
++    let itemNode = document.importNode(this.itemTemplate.content, true).firstElementChild;
++    this.updateItem(item, itemNode);
++    // XXX Inserting at the top by default is a temp hack that will stop
++    // working once we start including items received from sync.
++    if (append)
++      this.list.appendChild(itemNode);
++    else
++      this.list.insertBefore(itemNode, this.list.firstChild);
++    this.itemNodesById.set(item.id, itemNode);
++    this.itemsById.set(item.id, item);
++
++    this.emptyListInfo.hidden = true;
++    window.requestAnimationFrame(() => {
++      window.requestAnimationFrame(() => {
++        itemNode.classList.add('visible');
++      });
++    });
++  },
++
++  /**
++   * Handle an item being deleted from the ReadingList.
++   * @param {ReadingListItem} item - Item that was deleted.
++   */
++  onItemDeleted(item) {
++    log.trace(`onItemDeleted: ${item}`);
++
++    let itemNode = this.itemNodesById.get(item.id);
++
++    this.itemNodesById.delete(item.id);
++    this.itemsById.delete(item.id);
++
++    itemNode.addEventListener('transitionend', (event) => {
++      if (event.propertyName == "max-height") {
++        itemNode.remove();
++
++        // TODO: ensureListItems doesn't yet cope with needing to add one item.
++        //this.ensureListItems();
++
++        this.emptyListInfo.hidden = (this.numItems > 0);
++      }
++    }, false);
++
++    itemNode.classList.remove('visible');
++  },
++
++  /**
++   * Handle an item in the ReadingList having any of its properties changed.
++   * @param {ReadingListItem} item - Item that was updated.
++   */
++  onItemUpdated(item) {
++    log.trace(`onItemUpdated: ${item}`);
++
++    let itemNode = this.itemNodesById.get(item.id);
++    if (!itemNode)
++      return;
++
++    this.updateItem(item, itemNode);
++  },
++
++  /**
++   * Update the element representing an item, ensuring it's in sync with the
++   * underlying data.
++   * @param {ReadingListItem} item - Item to use as a source.
++   * @param {Element} itemNode - Element to update.
++   */
++  updateItem(item, itemNode) {
++    itemNode.setAttribute("id", "item-" + item.id);
++    itemNode.setAttribute("title", `${item.title}\n${item.url}`);
++
++    itemNode.querySelector(".item-title").textContent = item.title;
++
++    let domain = item.uri.spec;
++    try {
++      domain = item.uri.host;
++    }
++    catch (err) {}
++    itemNode.querySelector(".item-domain").textContent = domain;
++
++    let thumb = itemNode.querySelector(".item-thumb-container");
++    if (item.preview) {
++      thumb.style.backgroundImage = "url(" + item.preview + ")";
++    } else {
++      thumb.style.removeProperty("background-image");
++    }
++    thumb.classList.toggle("preview-available", !!item.preview);
++  },
++
++  /**
++   * Ensure that the list is populated with the correct items.
++   */
++  ensureListItems: Task.async(function* () {
++    yield ReadingList.forEachItem(item => {
++      // TODO: Should be batch inserting via DocumentFragment
++      try {
++        this.onItemAdded(item, true);
++      } catch (e) {
++        log.warn("Error adding item", e);
++      }
++    }, {sort: "addedOn", descending: true});
++    this.emptyListInfo.hidden = (this.numItems > 0);
++  }),
++
++  /**
++   * Get the number of items currently displayed in the list.
++   * @type {number}
++   */
++  get numItems() {
++    return this.list.childElementCount;
++  },
++
++  /**
++   * The list item displayed in the current tab.
++   * @type {Element}
++   */
++  get activeItem() {
++    return document.querySelector("#list > .item.active");
++  },
++
++  set activeItem(node) {
++    if (node && node.parentNode != this.list) {
++      log.error(`Unable to set activeItem to invalid node ${node}`);
++      return;
++    }
++
++    log.trace(`Setting activeItem: ${node ? node.id : null}`);
++
++    if (node && node.classList.contains("active")) {
++      return;
++    }
++
++    let prevItem = document.querySelector("#list > .item.active");
++    if (prevItem) {
++      prevItem.classList.remove("active");
++    }
++
++    if (node) {
++      node.classList.add("active");
++    }
++
++    let event = new CustomEvent("ActiveItemChanged", {bubbles: true});
++    this.list.dispatchEvent(event);
++  },
++
++  /**
++   * The list item selected with the keyboard.
++   * @type {Element}
++   */
++  get selectedItem() {
++    return document.querySelector("#list > .item.selected");
++  },
++
++  set selectedItem(node) {
++    if (node && node.parentNode != this.list) {
++      log.error(`Unable to set selectedItem to invalid node ${node}`);
++      return;
++    }
++
++    log.trace(`Setting selectedItem: ${node ? node.id : null}`);
++
++    let prevItem = document.querySelector("#list > .item.selected");
++    if (prevItem) {
++      prevItem.classList.remove("selected");
++    }
++
++    if (node) {
++      node.classList.add("selected");
++      let itemId = this.getItemIdFromNode(node);
++      this.list.setAttribute("aria-activedescendant", "item-" + itemId);
++    } else {
++      this.list.removeAttribute("aria-activedescendant");
++    }
++
++    let event = new CustomEvent("SelectedItemChanged", {bubbles: true});
++    this.list.dispatchEvent(event);
++  },
++
++  /**
++   * The index of the currently selected item in the list.
++   * @type {number}
++   */
++  get selectedIndex() {
++    for (let i = 0; i < this.numItems; i++) {
++      let item = this.list.children.item(i);
++      if (!item) {
++        break;
++      }
++      if (item.classList.contains("selected")) {
++        return i;
++      }
++    }
++    return -1;
++  },
++
++  set selectedIndex(index) {
++    log.trace(`Setting selectedIndex: ${index}`);
++
++    if (index == -1) {
++      this.selectedItem = null;
++      return;
++    }
++
++    let item = this.list.children.item(index);
++    if (!item) {
++      log.warn(`Unable to set selectedIndex to invalid index ${index}`);
++      return;
++    }
++    this.selectedItem = item;
++  },
++
++  /**
++   * Open a given URL. The event is used to determine where it should be opened
++   * (current tab, new tab, new window).
++   * @param {string} url - URL to open.
++   * @param {Event} event - KeyEvent or MouseEvent that triggered this action.
++   */
++  openURL(url, event) {
++    log.debug(`Opening page ${url}`);
++
++    let mainWindow = window.QueryInterface(Ci.nsIInterfaceRequestor)
++                           .getInterface(Ci.nsIWebNavigation)
++                           .QueryInterface(Ci.nsIDocShellTreeItem)
++                           .rootTreeItem
++                           .QueryInterface(Ci.nsIInterfaceRequestor)
++                           .getInterface(Ci.nsIDOMWindow);
++
++    let currentUrl = mainWindow.gBrowser.currentURI.spec;
++    if (currentUrl.startsWith("about:reader"))
++      url = "about:reader?url=" + encodeURIComponent(url);
++
++    mainWindow.openUILink(url, event);
++  },
++
++  /**
++   * Get the ID of the Item associated with a given list item element.
++   * @param {element} node - List item element to get an ID for.
++   * @return {string} Assocated Item ID.
++   */
++  getItemIdFromNode(node) {
++    let id = node.getAttribute("id");
++    if (id && id.startsWith("item-")) {
++      return id.slice(5);
++    }
++
++    return null;
++  },
++
++  /**
++   * Get the Item associated with a given list item element.
++   * @param {element} node - List item element to get an Item for.
++   * @return {string} Associated Item.
++   */
++  getItemFromNode(node) {
++    let itemId = this.getItemIdFromNode(node);
++    if (!itemId) {
++      return null;
++    }
++
++    return this.itemsById.get(itemId);
++  },
++
++  /**
++   * Open the active item in the list.
++   * @param {Event} event - Event triggering this.
++   */
++  openActiveItem(event) {
++    let itemNode = this.activeItem;
++    if (!itemNode) {
++      return;
++    }
++
++    let item = this.getItemFromNode(itemNode);
++    this.openURL(item.url, event);
++  },
++
++  /**
++   * Find the parent item element, from a given child element.
++   * @param {Element} node - Child element.
++   * @return {Element} Element for the item, or null if not found.
++   */
++  findParentItemNode(node) {
++    while (node && node != this.list && node != document.documentElement &&
++           !node.classList.contains("item")) {
++      node = node.parentNode;
++    }
++
++    if (node != this.list && node != document.documentElement) {
++      return node;
++    }
++
++    return null;
++  },
++
++  /**
++   * Handle a click event on the sidebar.
++   * @param {Event} event - Triggering event.
++   */
++  onClick(event) {
++    let itemNode = this.findParentItemNode(event.target);
++    if (!itemNode)
++      return;
++
++    if (event.target.classList.contains("remove-button")) {
++      ReadingList.deleteItem(this.getItemFromNode(itemNode));
++      return;
++    }
++
++    this.activeItem = itemNode;
++    this.openActiveItem(event);
++  },
++
++  /**
++   * Handle a mousemove event over the list box:
++   * If the hovered item isn't the selected one, clear the selection.
++   * @param {Event} event - Triggering event.
++   */
++  onListMouseMove(event) {
++    let itemNode = this.findParentItemNode(event.target);
++    if (itemNode != this.selectedItem)
++      this.selectedItem = null;
++  },
++
++  /**
++   * Handle a keydown event on the list box.
++   * @param {Event} event - Triggering event.
++   */
++  onListKeyDown(event) {
++    if (event.keyCode == KeyEvent.DOM_VK_DOWN) {
++      // TODO: Refactor this so we pass a direction to a generic method.
++      // See autocomplete.xml's getNextIndex
++      event.preventDefault();
++
++      if (!this.numItems) {
++        return;
++      }
++      let index = this.selectedIndex + 1;
++      if (index >= this.numItems) {
++        index = 0;
++      }
++
++      this.selectedIndex = index;
++      this.selectedItem.focus();
++    } else if (event.keyCode == KeyEvent.DOM_VK_UP) {
++      event.preventDefault();
++
++      if (!this.numItems) {
++        return;
++      }
++      let index = this.selectedIndex - 1;
++      if (index < 0) {
++        index = this.numItems - 1;
++      }
++
++      this.selectedIndex = index;
++      this.selectedItem.focus();
++    } else if (event.keyCode == KeyEvent.DOM_VK_RETURN) {
++      let selectedItem = this.selectedItem;
++      if (selectedItem) {
++        this.activeItem = selectedItem;
++        this.openActiveItem(event);
++      }
++    }
++  },
++
++  /**
++   * Handle a message, typically sent from browser-readinglist.js
++   * @param {Event} event - Triggering event.
++   */
++  onMessage(event) {
++    let msg = event.data;
++
++    if (msg.topic != "UpdateActiveItem") {
++      return;
++    }
++
++    if (!msg.url) {
++      this.activeItem = null;
++    } else {
++      ReadingList.itemForURL(msg.url).then(item => {
++        let node;
++        if (item && (node = this.itemNodesById.get(item.id))) {
++          this.activeItem = node;
++        }
++      });
++    }
++  }
++};
++
++
++addEventListener("DOMContentLoaded", () => RLSidebar.init());
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/sidebar.xhtml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!-- This Source Code Form is subject to the terms of the Mozilla Public
++   - License, v. 2.0. If a copy of the MPL was not distributed with this
++   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
++
++<!DOCTYPE html [
++  <!ENTITY % browserDTD SYSTEM "chrome://browser/locale/browser.dtd">
++  %browserDTD;
++]>
++<html xmlns="http://www.w3.org/1999/xhtml">
++  <head>
++    <script src="chrome://browser/content/readinglist/sidebar.js" type="application/javascript;version=1.8"></script>
++    <link rel="stylesheet" type="text/css" media="all" href="chrome://browser/skin/readinglist/sidebar.css"/>
++    <title>&readingList.label;</title>
++  </head>
++
++  <body role="application">
++    <template id="item-template">
++      <div class="item" role="option" tabindex="-1">
++        <div class="item-thumb-container"></div>
++        <div class="item-summary-container">
++          <div class="item-title-lines">
++            <p class="item-title"/>
++            <button class="remove-button" title="&readingList.sidebar.delete.tooltip;"/>
++          </div>
++          <div class="item-domain"></div>
++        </div>
++      </div>
++    </template>
++
++    <div id="emptyListInfo" hidden="true">&readingList.sidebar.emptyText;</div>
++    <div id="list" role="listbox" tabindex="1"></div>
++  </body>
++</html>
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/ReadingListTestUtils.jsm
+@@ -0,0 +1,169 @@
++"use strict";
++
++this.EXPORTED_SYMBOLS = [
++  "ReadingListTestUtils",
++];
++
++const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
++
++Cu.import("resource://gre/modules/XPCOMUtils.jsm");
++Cu.import("resource://gre/modules/Task.jsm");
++Cu.import("resource://gre/modules/Services.jsm");
++Cu.import("resource://gre/modules/Preferences.jsm");
++Cu.import("resource:///modules/readinglist/ReadingList.jsm");
++
++
++/** Preference name controlling whether the ReadingList feature is enabled/disabled. */
++const PREF_RL_ENABLED = "browser.readinglist.enabled";
++
++
++/**
++ * Utilities for testing the ReadingList sidebar.
++ */
++function SidebarUtils(window, assert) {
++  this.window = window;
++  this.Assert = assert;
++}
++
++SidebarUtils.prototype = {
++  /**
++   * Reference to the RLSidebar object controlling the ReadingList sidebar UI.
++   * @type {object}
++   */
++  get RLSidebar() {
++    return this.window.SidebarUI.browser.contentWindow.RLSidebar;
++  },
++
++  /**
++   * Reference to the list container element in the sidebar.
++   * @type {Element}
++   */
++  get list() {
++    return this.RLSidebar.list;
++  },
++
++  /**
++   * Opens the sidebar and waits until it finishes building its list.
++   * @return {Promise} Resolved when the sidebar's list is ready.
++   */
++  showSidebar: Task.async(function* () {
++    yield this.window.ReadingListUI.showSidebar();
++    yield this.RLSidebar.listPromise;
++  }),
++
++  /**
++   * Check that the number of elements in the list matches the expected count.
++   * @param {number} count - Expected number of items.
++   */
++  expectNumItems(count) {
++    this.Assert.equal(this.list.childElementCount, count,
++                      "Should have expected number of items in the sidebar list");
++  },
++
++  /**
++   * Check all items in the sidebar list, ensuring the DOM matches the data.
++   */
++  checkAllItems() {
++    for (let itemNode of this.list.children) {
++      this.checkSidebarItem(itemNode);
++    }
++  },
++
++  /**
++   * Run a series of sanity checks for an element in the list associated with
++   * an Item, ensuring the DOM matches the data.
++   */
++  checkItem(node) {
++    let item = this.RLSidebar.getItemFromNode(node);
++
++    this.Assert.ok(node.classList.contains("item"),
++                   "Node should have .item class");
++    this.Assert.equal(node.id, "item-" + item.id,
++                      "Node should have correct ID");
++    this.Assert.equal(node.getAttribute("title"), item.title + "\n" + item.url.spec,
++                      "Node should have correct title attribute");
++    this.Assert.equal(node.querySelector(".item-title").textContent, item.title,
++                      "Node's title element's text should match item title");
++
++    let domain = item.uri.spec;
++    try {
++      domain = item.uri.host;
++    }
++    catch (err) {}
++    this.Assert.equal(node.querySelector(".item-domain").textContent, domain,
++                      "Node's domain element's text should match item title");
++  },
++
++  expectSelectedId(itemId) {
++    let selectedItem = this.RLSidebar.selectedItem;
++    if (itemId == null) {
++      this.Assert.equal(selectedItem, null, "Should have no selected item");
++    } else {
++      this.Assert.notEqual(selectedItem, null, "selectedItem should not be null");
++      let selectedId = this.RLSidebar.getItemIdFromNode(selectedItem);
++      this.Assert.equal(itemId, selectedId, "Should have currect item selected");
++    }
++  },
++
++  expectActiveId(itemId) {
++    let activeItem = this.RLSidebar.activeItem;
++    if (itemId == null) {
++      this.Assert.equal(activeItem, null, "Should have no active item");
++    } else {
++      this.Assert.notEqual(activeItem, null, "activeItem should not be null");
++      let activeId = this.RLSidebar.getItemIdFromNode(activeItem);
++      this.Assert.equal(itemId, activeId, "Should have correct item active");
++    }
++  },
++};
++
++
++/**
++ * Utilities for testing the ReadingList.
++ */
++this.ReadingListTestUtils = {
++  /**
++   * Whether the ReadingList feature is enabled or not.
++   * @type {boolean}
++   */
++  get enabled() {
++    return Preferences.get(PREF_RL_ENABLED, false);
++  },
++  set enabled(value) {
++    Preferences.set(PREF_RL_ENABLED, !!value);
++  },
++
++  /**
++   * Utilities for testing the ReadingList sidebar.
++   */
++  SidebarUtils: SidebarUtils,
++
++  /**
++   * Synthetically add an item to the ReadingList.
++   * @param {object|[object]} data - Object or array of objects to pass to the
++   *                                 Item constructor.
++   * @return {Promise} Promise that gets fulfilled with the item or items added.
++   */
++  addItem(data) {
++    if (Array.isArray(data)) {
++      let promises = [];
++      for (let itemData of data) {
++        promises.push(this.addItem(itemData));
++      }
++      return Promise.all(promises);
++    }
++    return ReadingList.addItem(data);
++  },
++
++  /**
++   * Cleanup all data, resetting to a blank state.
++   */
++  cleanup: Task.async(function *() {
++    Preferences.reset(PREF_RL_ENABLED);
++    let items = [];
++    yield ReadingList.forEachItem(i => items.push(i));
++    for (let item of items) {
++      yield ReadingList.deleteItem(item);
++    }
++  }),
++};
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/browser/browser.ini
+@@ -0,0 +1,7 @@
++[DEFAULT]
++support-files =
++  head.js
++
++[browser_ui_enable_disable.js]
++[browser_sidebar_list.js]
++;[browser_sidebar_mouse_nav.js]
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/browser/browser_sidebar_list.js
+@@ -0,0 +1,49 @@
++/**
++ * This tests the basic functionality of the sidebar to list items.
++ */
++
++add_task(function*() {
++  registerCleanupFunction(function*() {
++    ReadingListUI.hideSidebar();
++    yield RLUtils.cleanup();
++  });
++
++  RLUtils.enabled = true;
++
++  yield RLSidebarUtils.showSidebar();
++  let RLSidebar = RLSidebarUtils.RLSidebar;
++  let sidebarDoc = SidebarUI.browser.contentDocument;
++  Assert.equal(RLSidebar.numItems, 0, "Should start with no items");
++  Assert.equal(RLSidebar.activeItem, null, "Should start with no active item");
++  Assert.equal(RLSidebar.activeItem, null, "Should start with no selected item");
++
++  info("Adding first item");
++  yield RLUtils.addItem({
++    url: "http://example.com/article1",
++    title: "Article 1",
++  });
++  RLSidebarUtils.expectNumItems(1);
++
++  info("Adding more items");
++  yield RLUtils.addItem([{
++    url: "http://example.com/article2",
++    title: "Article 2",
++  }, {
++    url: "http://example.com/article3",
++    title: "Article 3",
++  }]);
++  RLSidebarUtils.expectNumItems(3);
++
++  info("Closing sidebar");
++  ReadingListUI.hideSidebar();
++
++  info("Adding another item");
++  yield RLUtils.addItem({
++    url: "http://example.com/article4",
++    title: "Article 4",
++  });
++
++  info("Re-opening sidebar");
++  yield RLSidebarUtils.showSidebar();
++  RLSidebarUtils.expectNumItems(4);
++});
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/browser/browser_sidebar_mouse_nav.js
+@@ -0,0 +1,82 @@
++/**
++ * Test mouse navigation for selecting items in the sidebar.
++ */
++
++
++function mouseInteraction(mouseEvent, responseEvent, itemNode) {
++  let eventPromise = BrowserTestUtils.waitForEvent(RLSidebarUtils.list, responseEvent);
++  let details = {};
++  if (mouseEvent != "click") {
++    details.type = mouseEvent;
++  }
++
++  EventUtils.synthesizeMouseAtCenter(itemNode, details, itemNode.ownerDocument.defaultView);
++  return eventPromise;
++}
++
++add_task(function*() {
++  registerCleanupFunction(function*() {
++    ReadingListUI.hideSidebar();
++    yield RLUtils.cleanup();
++  });
++
++  RLUtils.enabled = true;
++
++  let itemData = [{
++    url: "http://example.com/article1",
++    title: "Article 1",
++  }, {
++    url: "http://example.com/article2",
++    title: "Article 2",
++  }, {
++    url: "http://example.com/article3",
++    title: "Article 3",
++  }, {
++    url: "http://example.com/article4",
++    title: "Article 4",
++  }, {
++    url: "http://example.com/article5",
++    title: "Article 5",
++  }];
++  info("Adding initial mock data");
++  yield RLUtils.addItem(itemData);
++
++  info("Fetching items");
++  let items = yield ReadingList.iterator({ sort: "url" }).items(itemData.length);
++
++  info("Opening sidebar");
++  yield RLSidebarUtils.showSidebar();
++  RLSidebarUtils.expectNumItems(5);
++  RLSidebarUtils.expectSelectedId(null);
++  RLSidebarUtils.expectActiveId(null);
++
++  info("Mouse move over item 1");
++  yield mouseInteraction("mousemove", "SelectedItemChanged", RLSidebarUtils.list.children[0]);
++  RLSidebarUtils.expectSelectedId(items[0].id);
++  RLSidebarUtils.expectActiveId(null);
++
++  info("Mouse move over item 2");
++  yield mouseInteraction("mousemove", "SelectedItemChanged", RLSidebarUtils.list.children[1]);
++  RLSidebarUtils.expectSelectedId(items[1].id);
++  RLSidebarUtils.expectActiveId(null);
++
++  info("Mouse move over item 5");
++  yield mouseInteraction("mousemove", "SelectedItemChanged", RLSidebarUtils.list.children[4]);
++  RLSidebarUtils.expectSelectedId(items[4].id);
++  RLSidebarUtils.expectActiveId(null);
++
++  info("Mouse move over item 1 again");
++  yield mouseInteraction("mousemove", "SelectedItemChanged", RLSidebarUtils.list.children[0]);
++  RLSidebarUtils.expectSelectedId(items[0].id);
++  RLSidebarUtils.expectActiveId(null);
++
++  info("Mouse click on item 1");
++  yield mouseInteraction("click", "ActiveItemChanged", RLSidebarUtils.list.children[0]);
++  RLSidebarUtils.expectSelectedId(items[0].id);
++  RLSidebarUtils.expectActiveId(items[0].id);
++
++  info("Mouse click on item 3");
++  yield mouseInteraction("click", "ActiveItemChanged", RLSidebarUtils.list.children[2]);
++  RLSidebarUtils.expectSelectedId(items[2].id);
++  RLSidebarUtils.expectActiveId(items[2].id);
++});
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/browser/browser_ui_enable_disable.js
+@@ -0,0 +1,68 @@
++/**
++ * Test enabling/disabling the entire ReadingList feature via the
++ * browser.readinglist.enabled preference.
++ */
++
++function checkRLState() {
++  let enabled = RLUtils.enabled;
++  info("Checking ReadingList UI is " + (enabled ? "enabled" : "disabled"));
++
++  let sidebarBroadcaster = document.getElementById("readingListSidebar");
++  let sidebarMenuitem = document.getElementById("menu_readingListSidebar");
++
++  let bookmarksMenubarItem = document.getElementById("menu_readingList");
++  let bookmarksMenubarSeparator = document.getElementById("menu_readingListSeparator");
++
++  if (enabled) {
++    Assert.notEqual(sidebarBroadcaster.getAttribute("hidden"), "true",
++                    "Sidebar broadcaster should not be hidden");
++    Assert.notEqual(sidebarMenuitem.getAttribute("hidden"), "true",
++                    "Sidebar menuitem should be visible");
++
++    // Currently disabled on OSX.
++    if (bookmarksMenubarItem) {
++      Assert.notEqual(bookmarksMenubarItem.getAttribute("hidden"), "true",
++                      "RL bookmarks submenu in menubar should not be hidden");
++      Assert.notEqual(sidebarMenuitem.getAttribute("hidden"), "true",
++                      "RL bookmarks separator in menubar should be visible");
++    }
++  } else {
++    Assert.equal(sidebarBroadcaster.getAttribute("hidden"), "true",
++                 "Sidebar broadcaster should be hidden");
++    Assert.equal(sidebarMenuitem.getAttribute("hidden"), "true",
++                 "Sidebar menuitem should be hidden");
++    Assert.equal(ReadingListUI.isSidebarOpen, false,
++                 "ReadingListUI should not think sidebar is open");
++
++    // Currently disabled on OSX.
++    if (bookmarksMenubarItem) {
++      Assert.equal(bookmarksMenubarItem.getAttribute("hidden"), "true",
++                      "RL bookmarks submenu in menubar should not be hidden");
++      Assert.equal(sidebarMenuitem.getAttribute("hidden"), "true",
++                      "RL bookmarks separator in menubar should be visible");
++    }
++  }
++
++  if (!enabled) {
++    Assert.equal(SidebarUI.isOpen, false, "Sidebar should not be open");
++  }
++}
++
++add_task(function*() {
++  info("Start with ReadingList disabled");
++  RLUtils.enabled = false;
++  checkRLState();
++  info("Enabling ReadingList");
++  RLUtils.enabled = true;
++  checkRLState();
++
++  info("Opening ReadingList sidebar");
++  yield ReadingListUI.showSidebar();
++  Assert.ok(SidebarUI.isOpen, "Sidebar should be open");
++  Assert.equal(SidebarUI.currentID, "readingListSidebar", "Sidebar should have ReadingList loaded");
++
++  info("Disabling ReadingList");
++  RLUtils.enabled = false;
++  Assert.ok(!SidebarUI.isOpen, "Sidebar should be closed");
++  checkRLState();
++});
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/browser/head.js
+@@ -0,0 +1,13 @@
++XPCOMUtils.defineLazyModuleGetter(this, "ReadingList",
++                                  "resource:///modules/readinglist/ReadingList.jsm");
++XPCOMUtils.defineLazyModuleGetter(this, "ReadingListTestUtils",
++                                  "resource://testing-common/ReadingListTestUtils.jsm");
++
++
++XPCOMUtils.defineLazyGetter(this, "RLUtils", () => {
++  return ReadingListTestUtils;
++});
++
++XPCOMUtils.defineLazyGetter(this, "RLSidebarUtils", () => {
++  return new RLUtils.SidebarUtils(window, Assert);
++});
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/xpcshell/head.js
+@@ -0,0 +1,56 @@
++/* Any copyright is dedicated to the Public Domain.
++   http://creativecommons.org/publicdomain/zero/1.0/ */
++
++const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
++
++Cu.import("resource://gre/modules/XPCOMUtils.jsm");
++Cu.import("resource://gre/modules/Services.jsm");
++
++do_get_profile(); // fxa needs a profile directory for storage.
++
++Cu.import("resource://gre/modules/FxAccounts.jsm");
++Cu.import("resource://gre/modules/FxAccountsClient.jsm");
++
++// Create a mocked FxAccounts object with a signed-in, verified user.
++function* createMockFxA() {
++
++  function MockFxAccountsClient() {
++    this._email = "nobody@example.com";
++    this._verified = false;
++
++    this.accountStatus = function(uid) {
++      let deferred = Promise.defer();
++      deferred.resolve(!!uid && (!this._deletedOnServer));
++      return deferred.promise;
++    };
++
++    this.signOut = function() { return Promise.resolve(); };
++
++    FxAccountsClient.apply(this);
++  }
++
++  MockFxAccountsClient.prototype = {
++    __proto__: FxAccountsClient.prototype
++  }
++
++  function MockFxAccounts() {
++    return new FxAccounts({
++      fxAccountsClient: new MockFxAccountsClient(),
++      getAssertion: () => Promise.resolve("assertion"),
++    });
++  }
++
++  let fxa = new MockFxAccounts();
++  let credentials = {
++    email: "foo@example.com",
++    uid: "1234@lcip.org",
++    assertion: "foobar",
++    sessionToken: "dead",
++    kA: "beef",
++    kB: "cafe",
++    verified: true
++  };
++
++  yield fxa.setSignedInUser(credentials);
++  return fxa;
++}
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/xpcshell/test_ReadingList.js
+@@ -0,0 +1,782 @@
++/* Any copyright is dedicated to the Public Domain.
++ * http://creativecommons.org/publicdomain/zero/1.0/ */
++
++"use strict";
++
++let gDBFile = do_get_profile();
++
++Cu.import("resource:///modules/readinglist/ReadingList.jsm");
++Cu.import("resource:///modules/readinglist/SQLiteStore.jsm");
++Cu.import("resource://gre/modules/Sqlite.jsm");
++Cu.import("resource://gre/modules/Timer.jsm");
++Cu.import("resource://gre/modules/Log.jsm");
++
++Log.repository.getLogger("readinglist.api").level = Log.Level.All;
++Log.repository.getLogger("readinglist.api").addAppender(new Log.DumpAppender());
++
++var gList;
++var gItems;
++
++function run_test() {
++  run_next_test();
++}
++
++add_task(function* prepare() {
++  gList = ReadingList;
++  Assert.ok(gList);
++  gDBFile.append(gList._store.pathRelativeToProfileDir);
++  do_register_cleanup(function* () {
++    // Wait for the list's store to close its connection to the database.
++    yield gList.destroy();
++    if (gDBFile.exists()) {
++      gDBFile.remove(true);
++    }
++  });
++
++  gItems = [];
++  for (let i = 0; i < 3; i++) {
++    gItems.push({
++      guid: `guid${i}`,
++      url: `http://example.com/${i}`,
++      resolvedURL: `http://example.com/resolved/${i}`,
++      title: `title ${i}`,
++      excerpt: `excerpt ${i}`,
++      unread: 0,
++      favorite: 0,
++      isArticle: 1,
++      storedOn: Date.now(),
++    });
++  }
++
++  for (let item of gItems) {
++    let addedItem = yield gList.addItem(item);
++    checkItems(addedItem, item);
++  }
++});
++
++add_task(function* item_properties() {
++  // get an item
++  let iter = gList.iterator({
++    sort: "guid",
++  });
++  let item = (yield iter.items(1))[0];
++  Assert.ok(item);
++
++  Assert.ok(item.uri);
++  Assert.ok(item.uri instanceof Ci.nsIURI);
++  Assert.equal(item.uri.spec, item._record.url);
++
++  Assert.ok(item.resolvedURI);
++  Assert.ok(item.resolvedURI instanceof Ci.nsIURI);
++  Assert.equal(item.resolvedURI.spec, item._record.resolvedURL);
++
++  Assert.ok(item.addedOn);
++  Assert.ok(item.addedOn instanceof Cu.getGlobalForObject(ReadingList).Date);
++
++  Assert.ok(item.storedOn);
++  Assert.ok(item.storedOn instanceof Cu.getGlobalForObject(ReadingList).Date);
++
++  Assert.ok(typeof(item.favorite) == "boolean");
++  Assert.ok(typeof(item.isArticle) == "boolean");
++  Assert.ok(typeof(item.unread) == "boolean");
++
++  Assert.equal(item.id, hash(item._record.url));
++});
++
++add_task(function* constraints() {
++  // add an item again
++  let err = null;
++  try {
++    yield gList.addItem(gItems[0]);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++
++  // add a new item with an existing guid
++  let item = kindOfClone(gItems[0]);
++  item.guid = gItems[0].guid;
++  err = null;
++  try {
++    yield gList.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++
++  // add a new item with an existing url
++  item = kindOfClone(gItems[0]);
++  item.url = gItems[0].url;
++  err = null;
++  try {
++    yield gList.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++
++  // add a new item with an existing resolvedURL
++  item = kindOfClone(gItems[0]);
++  item.resolvedURL = gItems[0].resolvedURL;
++  err = null;
++  try {
++    yield gList.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++
++  // add a new item with no url
++  item = kindOfClone(gItems[0]);
++  delete item.url;
++  err = null;
++  try {
++    yield gList.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Error);
++  Assert.ok(!(err instanceof ReadingList.Error.Exists));
++  Assert.ok(!(err instanceof ReadingList.Error.Deleted));
++
++  // update an item with no url
++  item = (yield gList.item({ guid: gItems[0].guid }));
++  Assert.ok(item);
++  let oldURL = item._record.url;
++  item._record.url = null;
++  err = null;
++  try {
++    yield gList.updateItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  item._record.url = oldURL;
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Error);
++  Assert.ok(!(err instanceof ReadingList.Error.Exists));
++  Assert.ok(!(err instanceof ReadingList.Error.Deleted));
++
++  // add an item with a bogus property
++  item = kindOfClone(gItems[0]);
++  item.bogus = "gnarly";
++  err = null;
++  try {
++    yield gList.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Error);
++  Assert.ok(!(err instanceof ReadingList.Error.Exists));
++  Assert.ok(!(err instanceof ReadingList.Error.Deleted));
++
++  // add a new item with no guid, which is allowed
++  item = kindOfClone(gItems[0]);
++  delete item.guid;
++  err = null;
++  let rlitem1;
++  try {
++    rlitem1 = yield gList.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(!err, err ? err.message : undefined);
++
++  // add a second item with no guid, which is allowed
++  item = kindOfClone(gItems[1]);
++  delete item.guid;
++  err = null;
++  let rlitem2;
++  try {
++    rlitem2 = yield gList.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(!err, err ? err.message : undefined);
++
++  // Delete the two previous items since other tests assume the store contains
++  // only gItems.
++  yield gList.deleteItem(rlitem1);
++  yield gList.deleteItem(rlitem2);
++  let items = [];
++  yield gList.forEachItem(i => items.push(i), { url: [rlitem1.uri.spec, rlitem2.uri.spec] });
++  Assert.equal(items.length, 0);
++});
++
++add_task(function* count() {
++  let count = yield gList.count();
++  Assert.equal(count, gItems.length);
++
++  count = yield gList.count({
++    guid: gItems[0].guid,
++  });
++  Assert.equal(count, 1);
++});
++
++add_task(function* forEachItem() {
++  // all items
++  let items = [];
++  yield gList.forEachItem(item => items.push(item), {
++    sort: "guid",
++  });
++  checkItems(items, gItems);
++
++  // first item
++  items = [];
++  yield gList.forEachItem(item => items.push(item), {
++    limit: 1,
++    sort: "guid",
++  });
++  checkItems(items, gItems.slice(0, 1));
++
++  // last item
++  items = [];
++  yield gList.forEachItem(item => items.push(item), {
++    limit: 1,
++    sort: "guid",
++    descending: true,
++  });
++  checkItems(items, gItems.slice(gItems.length - 1, gItems.length));
++
++  // match on a scalar property
++  items = [];
++  yield gList.forEachItem(item => items.push(item), {
++    guid: gItems[0].guid,
++  });
++  checkItems(items, gItems.slice(0, 1));
++
++  // match on an array
++  items = [];
++  yield gList.forEachItem(item => items.push(item), {
++    guid: gItems.map(i => i.guid),
++    sort: "guid",
++  });
++  checkItems(items, gItems);
++
++  // match on AND'ed properties
++  items = [];
++  yield gList.forEachItem(item => items.push(item), {
++    guid: gItems.map(i => i.guid),
++    title: gItems[0].title,
++    sort: "guid",
++  });
++  checkItems(items, [gItems[0]]);
++
++  // match on OR'ed properties
++  items = [];
++  yield gList.forEachItem(item => items.push(item), {
++    guid: gItems[1].guid,
++    sort: "guid",
++  }, {
++    guid: gItems[0].guid,
++  });
++  checkItems(items, [gItems[0], gItems[1]]);
++
++  // match on AND'ed and OR'ed properties
++  items = [];
++  yield gList.forEachItem(item => items.push(item), {
++    guid: gItems.map(i => i.guid),
++    title: gItems[1].title,
++    sort: "guid",
++  }, {
++    guid: gItems[0].guid,
++  });
++  checkItems(items, [gItems[0], gItems[1]]);
++});
++
++add_task(function* forEachSyncedDeletedItem() {
++  let deletedItem = yield gList.addItem({
++    guid: "forEachSyncedDeletedItem",
++    url: "http://example.com/forEachSyncedDeletedItem",
++  });
++  deletedItem._record.syncStatus = gList.SyncStatus.SYNCED;
++  yield gList.deleteItem(deletedItem);
++  let guids = [];
++  yield gList.forEachSyncedDeletedGUID(guid => guids.push(guid));
++  Assert.equal(guids.length, 1);
++  Assert.equal(guids[0], deletedItem.guid);
++});
++
++add_task(function* forEachItem_promises() {
++  // promises resolved immediately
++  let items = [];
++  yield gList.forEachItem(item => {
++    items.push(item);
++    return Promise.resolve();
++  }, {
++    sort: "guid",
++  });
++  checkItems(items, gItems);
++
++  // promises resolved after a delay
++  items = [];
++  let i = 0;
++  let promises = [];
++  yield gList.forEachItem(item => {
++    items.push(item);
++    // The previous promise should have been resolved by now.
++    if (i > 0) {
++      Assert.equal(promises[i - 1], null);
++    }
++    // Make a new promise that should continue iteration when resolved.
++    let this_i = i++;
++    let promise = new Promise(resolve => {
++      // Resolve the promise one second from now.  The idea is that if
++      // forEachItem works correctly, then the callback should not be called
++      // again before the promise resolves -- before one second elapases.
++      // Maybe there's a better way to do this that doesn't hinge on timeouts.
++      setTimeout(() => {
++        promises[this_i] = null;
++        resolve();
++      }, 0);
++    });
++    promises.push(promise);
++    return promise;
++  }, {
++    sort: "guid",
++  });
++  checkItems(items, gItems);
++});
++
++add_task(function* iterator_forEach() {
++  // no limit
++  let items = [];
++  let iter = gList.iterator({
++    sort: "guid",
++  });
++  yield iter.forEach(item => items.push(item));
++  checkItems(items, gItems);
++
++  // limit one each time
++  items = [];
++  iter = gList.iterator({
++    sort: "guid",
++  });
++  for (let i = 0; i < gItems.length; i++) {
++    yield iter.forEach(item => items.push(item), 1);
++    checkItems(items, gItems.slice(0, i + 1));
++  }
++  yield iter.forEach(item => items.push(item), 100);
++  checkItems(items, gItems);
++  yield iter.forEach(item => items.push(item));
++  checkItems(items, gItems);
++
++  // match on a scalar property
++  items = [];
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems[0].guid,
++  });
++  yield iter.forEach(item => items.push(item));
++  checkItems(items, [gItems[0]]);
++
++  // match on an array
++  items = [];
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems.map(i => i.guid),
++  });
++  yield iter.forEach(item => items.push(item));
++  checkItems(items, gItems);
++
++  // match on AND'ed properties
++  items = [];
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems.map(i => i.guid),
++    title: gItems[0].title,
++  });
++  yield iter.forEach(item => items.push(item));
++  checkItems(items, [gItems[0]]);
++
++  // match on OR'ed properties
++  items = [];
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems[1].guid,
++  }, {
++    guid: gItems[0].guid,
++  });
++  yield iter.forEach(item => items.push(item));
++  checkItems(items, [gItems[0], gItems[1]]);
++
++  // match on AND'ed and OR'ed properties
++  items = [];
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems.map(i => i.guid),
++    title: gItems[1].title,
++  }, {
++    guid: gItems[0].guid,
++  });
++  yield iter.forEach(item => items.push(item));
++  checkItems(items, [gItems[0], gItems[1]]);
++});
++
++add_task(function* iterator_items() {
++  // no limit
++  let iter = gList.iterator({
++    sort: "guid",
++  });
++  let items = yield iter.items(gItems.length);
++  checkItems(items, gItems);
++  items = yield iter.items(100);
++  checkItems(items, []);
++
++  // limit one each time
++  iter = gList.iterator({
++    sort: "guid",
++  });
++  for (let i = 0; i < gItems.length; i++) {
++    items = yield iter.items(1);
++    checkItems(items, gItems.slice(i, i + 1));
++  }
++  items = yield iter.items(100);
++  checkItems(items, []);
++
++  // match on a scalar property
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems[0].guid,
++  });
++  items = yield iter.items(gItems.length);
++  checkItems(items, [gItems[0]]);
++
++  // match on an array
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems.map(i => i.guid),
++  });
++  items = yield iter.items(gItems.length);
++  checkItems(items, gItems);
++
++  // match on AND'ed properties
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems.map(i => i.guid),
++    title: gItems[0].title,
++  });
++  items = yield iter.items(gItems.length);
++  checkItems(items, [gItems[0]]);
++
++  // match on OR'ed properties
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems[1].guid,
++  }, {
++    guid: gItems[0].guid,
++  });
++  items = yield iter.items(gItems.length);
++  checkItems(items, [gItems[0], gItems[1]]);
++
++  // match on AND'ed and OR'ed properties
++  iter = gList.iterator({
++    sort: "guid",
++    guid: gItems.map(i => i.guid),
++    title: gItems[1].title,
++  }, {
++    guid: gItems[0].guid,
++  });
++  items = yield iter.items(gItems.length);
++  checkItems(items, [gItems[0], gItems[1]]);
++});
++
++add_task(function* iterator_forEach_promise() {
++  // promises resolved immediately
++  let items = [];
++  let iter = gList.iterator({
++    sort: "guid",
++  });
++  yield iter.forEach(item => {
++    items.push(item);
++    return Promise.resolve();
++  });
++  checkItems(items, gItems);
++
++  // promises resolved after a delay
++  // See forEachItem_promises above for comments on this part.
++  items = [];
++  let i = 0;
++  let promises = [];
++  iter = gList.iterator({
++    sort: "guid",
++  });
++  yield iter.forEach(item => {
++    items.push(item);
++    if (i > 0) {
++      Assert.equal(promises[i - 1], null);
++    }
++    let this_i = i++;
++    let promise = new Promise(resolve => {
++      setTimeout(() => {
++        promises[this_i] = null;
++        resolve();
++      }, 0);
++    });
++    promises.push(promise);
++    return promise;
++  });
++  checkItems(items, gItems);
++});
++
++add_task(function* item() {
++  let item = yield gList.item({ guid: gItems[0].guid });
++  checkItems([item], [gItems[0]]);
++
++  item = yield gList.item({ guid: gItems[1].guid });
++  checkItems([item], [gItems[1]]);
++});
++
++add_task(function* itemForURL() {
++  let item = yield gList.itemForURL(gItems[0].url);
++  checkItems([item], [gItems[0]]);
++
++  item = yield gList.itemForURL(gItems[1].url);
++  checkItems([item], [gItems[1]]);
++});
++
++add_task(function* updateItem() {
++  // get an item
++  let items = [];
++  yield gList.forEachItem(i => items.push(i), {
++    guid: gItems[0].guid,
++  });
++  Assert.equal(items.length, 1);
++  let item = items[0];
++
++  // update its title
++  let newTitle = "updateItem new title";
++  Assert.notEqual(item.title, newTitle);
++  item.title = newTitle;
++  yield gList.updateItem(item);
++
++  // get the item again
++  items = [];
++  yield gList.forEachItem(i => items.push(i), {
++    guid: gItems[0].guid,
++  });
++  Assert.equal(items.length, 1);
++  item = items[0];
++  Assert.equal(item.title, newTitle);
++});
++
++add_task(function* item_setRecord() {
++  // get an item
++  let iter = gList.iterator({
++    sort: "guid",
++  });
++  let item = (yield iter.items(1))[0];
++  Assert.ok(item);
++
++  // Set item._record followed by an updateItem.  After fetching the item again,
++  // its title should be the new title.
++  let newTitle = "item_setRecord title 1";
++  item._record.title = newTitle;
++  yield gList.updateItem(item);
++  Assert.equal(item.title, newTitle);
++  iter = gList.iterator({
++    sort: "guid",
++  });
++  let sameItem = (yield iter.items(1))[0];
++  Assert.ok(item === sameItem);
++  Assert.equal(sameItem.title, newTitle);
++
++  // Set item.title directly and call updateItem.  After fetching the item
++  // again, its title should be the new title.
++  newTitle = "item_setRecord title 2";
++  item.title = newTitle;
++  yield gList.updateItem(item);
++  Assert.equal(item.title, newTitle);
++  iter = gList.iterator({
++    sort: "guid",
++  });
++  sameItem = (yield iter.items(1))[0];
++  Assert.ok(item === sameItem);
++  Assert.equal(sameItem.title, newTitle);
++
++  // Setting _record to an object with a bogus property should throw.
++  let err = null;
++  try {
++    item._record = { bogus: "gnarly" };
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err.message);
++  Assert.ok(err.message.indexOf("Unrecognized item property:") >= 0);
++});
++
++add_task(function* listeners() {
++  Assert.equal((yield gList.count()), gItems.length);
++  // add an item
++  let resolve;
++  let listenerPromise = new Promise(r => resolve = r);
++  let listener = {
++    onItemAdded: resolve,
++  };
++  gList.addListener(listener);
++  let item = kindOfClone(gItems[0]);
++  let items = yield Promise.all([listenerPromise, gList.addItem(item)]);
++  Assert.ok(items[0]);
++  Assert.ok(items[0] === items[1]);
++  gList.removeListener(listener);
++  Assert.equal((yield gList.count()), gItems.length + 1);
++
++  // update an item
++  listenerPromise = new Promise(r => resolve = r);
++  listener = {
++    onItemUpdated: resolve,
++  };
++  gList.addListener(listener);
++  items[0].title = "listeners new title";
++  yield gList.updateItem(items[0]);
++  let listenerItem = yield listenerPromise;
++  Assert.ok(listenerItem);
++  Assert.ok(listenerItem === items[0]);
++  gList.removeListener(listener);
++  Assert.equal((yield gList.count()), gItems.length + 1);
++
++  // delete an item
++  listenerPromise = new Promise(r => resolve = r);
++  listener = {
++    onItemDeleted: resolve,
++  };
++  gList.addListener(listener);
++  items[0].delete();
++  listenerItem = yield listenerPromise;
++  Assert.ok(listenerItem);
++  Assert.ok(listenerItem === items[0]);
++  gList.removeListener(listener);
++  Assert.equal((yield gList.count()), gItems.length);
++});
++
++// This test deletes items so it should probably run last of the 'gItems' tests...
++add_task(function* deleteItem() {
++  // delete first item with item.delete()
++  let iter = gList.iterator({
++    sort: "guid",
++  });
++  let item = (yield iter.items(1))[0];
++  Assert.ok(item);
++  let {url, guid} = item;
++  Assert.ok((yield gList.itemForURL(url)), "should be able to get the item by URL before deletion");
++  Assert.ok((yield gList.item({guid})), "should be able to get the item by GUID before deletion");
++
++  yield item.delete();
++  try {
++    yield item.delete();
++    Assert.ok(false, "should not successfully delete the item a second time")
++  } catch(ex) {
++    Assert.ok(ex instanceof ReadingList.Error.Deleted);
++  }
++
++  Assert.ok(!(yield gList.itemForURL(url)), "should fail to get a deleted item by URL");
++  Assert.ok(!(yield gList.item({guid})), "should fail to get a deleted item by GUID");
++
++  gItems[0].list = null;
++  Assert.equal((yield gList.count()), gItems.length - 1);
++  let items = [];
++  yield gList.forEachItem(i => items.push(i), {
++    sort: "guid",
++  });
++  checkItems(items, gItems.slice(1));
++
++  // delete second item with list.deleteItem()
++  yield gList.deleteItem(items[0]);
++  try {
++    yield gList.deleteItem(items[0]);
++    Assert.ok(false, "should not successfully delete the item a second time")
++  } catch(ex) {
++    Assert.ok(ex instanceof ReadingList.Error.Deleted);
++  }
++  gItems[1].list = null;
++  Assert.equal((yield gList.count()), gItems.length - 2);
++  items = [];
++  yield gList.forEachItem(i => items.push(i), {
++    sort: "guid",
++  });
++  checkItems(items, gItems.slice(2));
++
++  // delete third item with list.deleteItem()
++  yield gList.deleteItem(items[0]);
++  gItems[2].list = null;
++  Assert.equal((yield gList.count()), gItems.length - 3);
++  items = [];
++  yield gList.forEachItem(i => items.push(i), {
++    sort: "guid",
++  });
++  checkItems(items, gItems.slice(3));
++});
++
++// Check that when we delete an item with a GUID it's no longer available as
++// an item
++add_task(function* deletedItemRemovedFromMap() {
++  yield gList.forEachItem(item => item.delete());
++  Assert.equal((yield gList.count()), 0);
++  let map = gList._itemsByNormalizedURL;
++  Assert.equal(gList._itemsByNormalizedURL.size, 0, [for (i of map.keys()) i]);
++  let record = {
++    guid: "test-item",
++    url: "http://localhost",
++    syncStatus: gList.SyncStatus.SYNCED,
++  }
++  let item = yield gList.addItem(record);
++  Assert.equal(map.size, 1);
++  yield item.delete();
++  Assert.equal(gList._itemsByNormalizedURL.size, 0, [for (i of map.keys()) i]);
++
++  // Now enumerate deleted items - should not come back.
++  yield gList.forEachSyncedDeletedGUID(() => {});
++  Assert.equal(gList._itemsByNormalizedURL.size, 0, [for (i of map.keys()) i]);
++});
++
++function checkItems(actualItems, expectedItems) {
++  Assert.equal(actualItems.length, expectedItems.length);
++  for (let i = 0; i < expectedItems.length; i++) {
++    for (let prop in expectedItems[i]._record) {
++      Assert.ok(prop in actualItems[i]._record, prop);
++      Assert.equal(actualItems[i]._record[prop], expectedItems[i][prop]);
++    }
++  }
++}
++
++function kindOfClone(item) {
++  let newItem = {};
++  for (let prop in item) {
++    newItem[prop] = item[prop];
++    if (typeof(newItem[prop]) == "string") {
++      newItem[prop] += " -- make this string different";
++    }
++  }
++  return newItem;
++}
++
++function hash(str) {
++  let hasher = Cc["@mozilla.org/security/hash;1"].
++               createInstance(Ci.nsICryptoHash);
++  hasher.init(Ci.nsICryptoHash.MD5);
++  let stream = Cc["@mozilla.org/io/string-input-stream;1"].
++               createInstance(Ci.nsIStringInputStream);
++  stream.data = str;
++  hasher.updateFromStream(stream, -1);
++  let binaryStr = hasher.finish(false);
++  let hexStr =
++    [("0" + binaryStr.charCodeAt(i).toString(16)).slice(-2) for (i in binaryStr)].
++    join("");
++  return hexStr;
++}
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/xpcshell/test_SQLiteStore.js
+@@ -0,0 +1,333 @@
++/* Any copyright is dedicated to the Public Domain.
++ * http://creativecommons.org/publicdomain/zero/1.0/ */
++
++"use strict";
++
++Cu.import("resource:///modules/readinglist/ReadingList.jsm");
++Cu.import("resource:///modules/readinglist/SQLiteStore.jsm");
++Cu.import("resource://gre/modules/Sqlite.jsm");
++
++var gStore;
++var gItems;
++
++function run_test() {
++  run_next_test();
++}
++
++add_task(function* prepare() {
++  let basename = "reading-list-test.sqlite";
++  let dbFile = do_get_profile();
++  dbFile.append(basename);
++  function removeDB() {
++    if (dbFile.exists()) {
++      dbFile.remove(true);
++    }
++  }
++  removeDB();
++  do_register_cleanup(function* () {
++    // Wait for the store to close its connection to the database.
++    yield gStore.destroy();
++    removeDB();
++  });
++
++  gStore = new SQLiteStore(dbFile.path);
++
++  gItems = [];
++  for (let i = 0; i < 3; i++) {
++    gItems.push({
++      guid: `guid${i}`,
++      url: `http://example.com/${i}`,
++      resolvedURL: `http://example.com/resolved/${i}`,
++      title: `title ${i}`,
++      excerpt: `excerpt ${i}`,
++      unread: true,
++      addedOn: i,
++    });
++  }
++
++  for (let item of gItems) {
++    yield gStore.addItem(item);
++  }
++});
++
++add_task(function* constraints() {
++  // add an item again
++  let err = null;
++  try {
++    yield gStore.addItem(gItems[0]);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++  Assert.ok(err.message);
++  Assert.ok(err.message.indexOf("An item with the following property already exists:") >= 0);
++
++  // add a new item with an existing guid
++  function kindOfClone(item) {
++    let newItem = {};
++    for (let prop in item) {
++      newItem[prop] = item[prop];
++      if (typeof(newItem[prop]) == "string") {
++        newItem[prop] += " -- make this string different";
++      }
++    }
++    return newItem;
++  }
++  let item = kindOfClone(gItems[0]);
++  item.guid = gItems[0].guid;
++  err = null;
++  try {
++    yield gStore.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++  Assert.ok(err.message);
++  Assert.ok(err.message.indexOf("An item with the following property already exists: guid") >= 0);
++
++  // add a new item with an existing url
++  item = kindOfClone(gItems[0]);
++  item.url = gItems[0].url;
++  err = null;
++  try {
++    yield gStore.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++  Assert.ok(err.message);
++  Assert.ok(err.message.indexOf("An item with the following property already exists: url") >= 0);
++
++  // update an item with an existing url
++  item.guid = gItems[1].guid;
++  err = null;
++  try {
++    yield gStore.updateItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  // The failure actually happens on items.guid, not items.url, because the item
++  // is first looked up by url, and then its other properties are updated on the
++  // resulting row.
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++  Assert.ok(err.message);
++  Assert.ok(err.message.indexOf("An item with the following property already exists: guid") >= 0);
++
++  // add a new item with an existing resolvedURL
++  item = kindOfClone(gItems[0]);
++  item.resolvedURL = gItems[0].resolvedURL;
++  err = null;
++  try {
++    yield gStore.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++  Assert.ok(err.message);
++  Assert.ok(err.message.indexOf("An item with the following property already exists: resolvedURL") >= 0);
++
++  // update an item with an existing resolvedURL
++  item.url = gItems[1].url;
++  err = null;
++  try {
++    yield gStore.updateItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(err);
++  Assert.ok(err instanceof ReadingList.Error.Exists);
++  Assert.ok(err.message);
++  Assert.ok(err.message.indexOf("An item with the following property already exists: resolvedURL") >= 0);
++
++  // add a new item with no guid, which is allowed
++  item = kindOfClone(gItems[0]);
++  delete item.guid;
++  err = null;
++  try {
++    yield gStore.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(!err, err ? err.message : undefined);
++  let url1 = item.url;
++
++  // add a second new item with no guid, which is allowed
++  item = kindOfClone(gItems[1]);
++  delete item.guid;
++  err = null;
++  try {
++    yield gStore.addItem(item);
++  }
++  catch (e) {
++    err = e;
++  }
++  Assert.ok(!err, err ? err.message : undefined);
++  let url2 = item.url;
++
++  // Delete both items since other tests assume the store contains only gItems.
++  yield gStore.deleteItemByURL(url1);
++  yield gStore.deleteItemByURL(url2);
++  let items = [];
++  yield gStore.forEachItem(i => items.push(i), [{ url: [url1, url2] }]);
++  Assert.equal(items.length, 0);
++});
++
++add_task(function* count() {
++  let count = yield gStore.count();
++  Assert.equal(count, gItems.length);
++
++  count = yield gStore.count([{
++    guid: gItems[0].guid,
++  }]);
++  Assert.equal(count, 1);
++});
++
++add_task(function* forEachItem() {
++  // all items
++  let items = [];
++  yield gStore.forEachItem(item => items.push(item), [{
++    sort: "guid",
++  }]);
++  checkItems(items, gItems);
++
++  // first item
++  items = [];
++  yield gStore.forEachItem(item => items.push(item), [{
++    limit: 1,
++    sort: "guid",
++  }]);
++  checkItems(items, gItems.slice(0, 1));
++
++  // last item
++  items = [];
++  yield gStore.forEachItem(item => items.push(item), [{
++    limit: 1,
++    sort: "guid",
++    descending: true,
++  }]);
++  checkItems(items, gItems.slice(gItems.length - 1, gItems.length));
++
++  // match on a scalar property
++  items = [];
++  yield gStore.forEachItem(item => items.push(item), [{
++    guid: gItems[0].guid,
++  }]);
++  checkItems(items, gItems.slice(0, 1));
++
++  // match on an array
++  items = [];
++  yield gStore.forEachItem(item => items.push(item), [{
++    guid: gItems.map(i => i.guid),
++    sort: "guid",
++  }]);
++  checkItems(items, gItems);
++
++  // match on AND'ed properties
++  items = [];
++  yield gStore.forEachItem(item => items.push(item), [{
++    guid: gItems.map(i => i.guid),
++    title: gItems[0].title,
++    sort: "guid",
++  }]);
++  checkItems(items, [gItems[0]]);
++
++  // match on OR'ed properties
++  items = [];
++  yield gStore.forEachItem(item => items.push(item), [{
++    guid: gItems[1].guid,
++    sort: "guid",
++  }, {
++    guid: gItems[0].guid,
++  }]);
++  checkItems(items, [gItems[0], gItems[1]]);
++
++  // match on AND'ed and OR'ed properties
++  items = [];
++  yield gStore.forEachItem(item => items.push(item), [{
++    guid: gItems.map(i => i.guid),
++    title: gItems[1].title,
++    sort: "guid",
++  }, {
++    guid: gItems[0].guid,
++  }]);
++  checkItems(items, [gItems[0], gItems[1]]);
++});
++
++add_task(function* updateItem() {
++  let newTitle = "a new title";
++  gItems[0].title = newTitle;
++  yield gStore.updateItem(gItems[0]);
++  let item;
++  yield gStore.forEachItem(i => item = i, [{
++    guid: gItems[0].guid,
++  }]);
++  Assert.ok(item);
++  Assert.equal(item.title, gItems[0].title);
++});
++
++add_task(function* updateItemByGUID() {
++  let newTitle = "updateItemByGUID";
++  gItems[0].title = newTitle;
++  yield gStore.updateItemByGUID(gItems[0]);
++  let item;
++  yield gStore.forEachItem(i => item = i, [{
++    guid: gItems[0].guid,
++  }]);
++  Assert.ok(item);
++  Assert.equal(item.title, gItems[0].title);
++});
++
++// This test deletes items so it should probably run last.
++add_task(function* deleteItemByURL() {
++  // delete first item
++  yield gStore.deleteItemByURL(gItems[0].url);
++  Assert.equal((yield gStore.count()), gItems.length - 1);
++  let items = [];
++  yield gStore.forEachItem(i => items.push(i), [{
++    sort: "guid",
++  }]);
++  checkItems(items, gItems.slice(1));
++
++  // delete second item
++  yield gStore.deleteItemByURL(gItems[1].url);
++  Assert.equal((yield gStore.count()), gItems.length - 2);
++  items = [];
++  yield gStore.forEachItem(i => items.push(i), [{
++    sort: "guid",
++  }]);
++  checkItems(items, gItems.slice(2));
++});
++
++// This test deletes items so it should probably run last.
++add_task(function* deleteItemByGUID() {
++  // delete third item
++  yield gStore.deleteItemByGUID(gItems[2].guid);
++  Assert.equal((yield gStore.count()), gItems.length - 3);
++  let items = [];
++  yield gStore.forEachItem(i => items.push(i), [{
++    sort: "guid",
++  }]);
++  checkItems(items, gItems.slice(3));
++});
++
++function checkItems(actualItems, expectedItems) {
++  Assert.equal(actualItems.length, expectedItems.length);
++  for (let i = 0; i < expectedItems.length; i++) {
++    for (let prop in expectedItems[i]) {
++      Assert.ok(prop in actualItems[i], prop);
++      Assert.equal(actualItems[i][prop], expectedItems[i][prop]);
++    }
++  }
++}
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/xpcshell/test_ServerClient.js
+@@ -0,0 +1,285 @@
++/* Any copyright is dedicated to the Public Domain.
++ * http://creativecommons.org/publicdomain/zero/1.0/ */
++
++"use strict";
++
++Cu.import("resource://testing-common/httpd.js");
++Cu.import("resource:///modules/readinglist/ServerClient.jsm");
++Cu.import("resource://gre/modules/Log.jsm");
++
++let appender = new Log.DumpAppender();
++for (let logName of ["FirefoxAccounts", "readinglist.serverclient"]) {
++  Log.repository.getLogger(logName).addAppender(appender);
++}
++
++// Some test servers we use.
++let Server = function(handlers) {
++  this._server = null;
++  this._handlers = handlers;
++}
++
++Server.prototype = {
++  start() {
++    this._server = new HttpServer();
++    for (let [path, handler] in Iterator(this._handlers)) {
++      // httpd.js seems to swallow exceptions
++      let thisHandler = handler;
++      let wrapper = (request, response) => {
++        try {
++          thisHandler(request, response);
++        } catch (ex) {
++          print("**** Handler for", path, "failed:", ex, ex.stack);
++          throw ex;
++        }
++      }
++      this._server.registerPathHandler(path, wrapper);
++    }
++    this._server.start(-1);
++  },
++
++  stop() {
++    return new Promise(resolve => {
++      this._server.stop(resolve);
++      this._server = null;
++    });
++  },
++
++  get host() {
++    return "http://localhost:" + this._server.identity.primaryPort;
++  },
++};
++
++// An OAuth server that hands out tokens.
++function OAuthTokenServer() {
++  let server;
++  let handlers = {
++    "/v1/authorization": (request, response) => {
++      response.setStatusLine("1.1", 200, "OK");
++      let token = "token" + server.numTokenFetches;
++      print("Test OAuth server handing out token", token);
++      server.numTokenFetches += 1;
++      server.activeTokens.add(token);
++      response.write(JSON.stringify({access_token: token}));
++    },
++    "/v1/destroy": (request, response) => {
++      // Getting the body seems harder than it should be!
++      let sis = Cc["@mozilla.org/scriptableinputstream;1"]
++                .createInstance(Ci.nsIScriptableInputStream);
++      sis.init(request.bodyInputStream);
++      let body = JSON.parse(sis.read(sis.available()));
++      sis.close();
++      let token = body.token;
++      ok(server.activeTokens.delete(token));
++      print("after destroy have", server.activeTokens.size, "tokens left.")
++      response.setStatusLine("1.1", 200, "OK");
++      response.write('{}');
++    },
++  }
++  server = new Server(handlers);
++  server.numTokenFetches = 0;
++  server.activeTokens = new Set();
++  return server;
++}
++
++function promiseObserver(topic) {
++  return new Promise(resolve => {
++    function observe(subject, topic, data) {
++      Services.obs.removeObserver(observe, topic);
++      resolve(data);
++    }
++    Services.obs.addObserver(observe, topic, false);
++  });
++}
++
++// The tests.
++function run_test() {
++  run_next_test();
++}
++
++// Arrange for the first token we hand out to be rejected - the client should
++// notice the 401 and silently get a new token and retry the request.
++add_task(function testAuthRetry() {
++  let handlers = {
++    "/v1/batch": (request, response) => {
++      // We know the first token we will get is "token0", so we simulate that
++      // "expiring" by only accepting "token1". Then we just echo the response
++      // back.
++      let authHeader;
++      try {
++        authHeader = request.getHeader("Authorization");
++      } catch (ex) {}
++      if (authHeader != "Bearer token1") {
++        response.setStatusLine("1.1", 401, "Unauthorized");
++        response.write("wrong token");
++        return;
++      }
++      response.setStatusLine("1.1", 200, "OK");
++      response.write(JSON.stringify({ok: true}));
++    }
++  };
++  let rlserver = new Server(handlers);
++  rlserver.start();
++  let authServer = OAuthTokenServer();
++  authServer.start();
++  try {
++    Services.prefs.setCharPref("readinglist.server", rlserver.host + "/v1");
++    Services.prefs.setCharPref("identity.fxaccounts.remote.oauth.uri", authServer.host + "/v1");
++
++    let fxa = yield createMockFxA();
++    let sc = new ServerClient(fxa);
++
++    let response = yield sc.request({
++      path: "/batch",
++      method: "post",
++      body: {foo: "bar"},
++    });
++    equal(response.status, 200, "got the 200 we expected");
++    equal(authServer.numTokenFetches, 2, "took 2 tokens to get the 200")
++    deepEqual(response.body, {ok: true});
++  } finally {
++    yield authServer.stop();
++    yield rlserver.stop();
++  }
++});
++
++// Check that specified headers are seen by the server, and that server headers
++// in the response are seen by the client.
++add_task(function testHeaders() {
++  let handlers = {
++    "/v1/batch": (request, response) => {
++      ok(request.hasHeader("x-foo"), "got our foo header");
++      equal(request.getHeader("x-foo"), "bar", "foo header has the correct value");
++      response.setHeader("Server-Sent-Header", "hello");
++      response.setStatusLine("1.1", 200, "OK");
++      response.write("{}");
++    }
++  };
++  let rlserver = new Server(handlers);
++  rlserver.start();
++  try {
++    Services.prefs.setCharPref("readinglist.server", rlserver.host + "/v1");
++
++    let fxa = yield createMockFxA();
++    let sc = new ServerClient(fxa);
++    sc._getToken = () => Promise.resolve();
++
++    let response = yield sc.request({
++      path: "/batch",
++      method: "post",
++      headers: {"X-Foo": "bar"},
++      body: {foo: "bar"}});
++    equal(response.status, 200, "got the 200 we expected");
++    equal(response.headers["server-sent-header"], "hello", "got the server header");
++  } finally {
++    yield rlserver.stop();
++  }
++});
++
++// Check that a "backoff" header causes the correct notification.
++add_task(function testBackoffHeader() {
++  let handlers = {
++    "/v1/batch": (request, response) => {
++      response.setHeader("Backoff", "123");
++      response.setStatusLine("1.1", 200, "OK");
++      response.write("{}");
++    }
++  };
++  let rlserver = new Server(handlers);
++  rlserver.start();
++
++  let observerPromise = promiseObserver("readinglist:backoff-requested");
++  try {
++    Services.prefs.setCharPref("readinglist.server", rlserver.host + "/v1");
++
++    let fxa = yield createMockFxA();
++    let sc = new ServerClient(fxa);
++    sc._getToken = () => Promise.resolve();
++
++    let response = yield sc.request({
++      path: "/batch",
++      method: "post",
++      headers: {"X-Foo": "bar"},
++      body: {foo: "bar"}});
++    equal(response.status, 200, "got the 200 we expected");
++    let data = yield observerPromise;
++    equal(data, "123", "got the expected header value.")
++  } finally {
++    yield rlserver.stop();
++  }
++});
++
++// Check that a "backoff" header causes the correct notification.
++add_task(function testRetryAfterHeader() {
++  let handlers = {
++    "/v1/batch": (request, response) => {
++      response.setHeader("Retry-After", "456");
++      response.setStatusLine("1.1", 500, "Not OK");
++      response.write("{}");
++    }
++  };
++  let rlserver = new Server(handlers);
++  rlserver.start();
++
++  let observerPromise = promiseObserver("readinglist:backoff-requested");
++  try {
++    Services.prefs.setCharPref("readinglist.server", rlserver.host + "/v1");
++
++    let fxa = yield createMockFxA();
++    let sc = new ServerClient(fxa);
++    sc._getToken = () => Promise.resolve();
++
++    let response = yield sc.request({
++      path: "/batch",
++      method: "post",
++      headers: {"X-Foo": "bar"},
++      body: {foo: "bar"}});
++    equal(response.status, 500, "got the 500 we expected");
++    let data = yield observerPromise;
++    equal(data, "456", "got the expected header value.")
++  } finally {
++    yield rlserver.stop();
++  }
++});
++
++// Check that unicode ends up as utf-8 in requests, and vice-versa in responses.
++// (Note the ServerClient assumes all strings in and out are UCS, and thus have
++// already been encoded/decoded (ie, it never expects to receive stuff already
++// utf-8 encoded, and never returns utf-8 encoded responses.)
++add_task(function testUTF8() {
++  let handlers = {
++    "/v1/hello": (request, response) => {
++      // Get the body as bytes.
++      let sis = Cc["@mozilla.org/scriptableinputstream;1"]
++                .createInstance(Ci.nsIScriptableInputStream);
++      sis.init(request.bodyInputStream);
++      let body = sis.read(sis.available());
++      sis.close();
++      // The client sent "{"copyright: "\xa9"} where \xa9 is the copyright symbol.
++      // It should have been encoded as utf-8 which is \xc2\xa9
++      equal(body, '{"copyright":"\xc2\xa9"}', "server saw utf-8 encoded data");
++      // and just write it back unchanged.
++      response.setStatusLine("1.1", 200, "OK");
++      response.write(body);
++    }
++  };
++  let rlserver = new Server(handlers);
++  rlserver.start();
++  try {
++    Services.prefs.setCharPref("readinglist.server", rlserver.host + "/v1");
++
++    let fxa = yield createMockFxA();
++    let sc = new ServerClient(fxa);
++    sc._getToken = () => Promise.resolve();
++
++    let body = {copyright: "\xa9"}; // see above - \xa9 is the copyright symbol
++    let response = yield sc.request({
++      path: "/hello",
++      method: "post",
++      body: body
++    });
++    equal(response.status, 200, "got the 200 we expected");
++    deepEqual(response.body, body);
++  } finally {
++    yield rlserver.stop();
++  }
++});
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/xpcshell/test_Sync.js
+@@ -0,0 +1,333 @@
++/* Any copyright is dedicated to the Public Domain.
++ * http://creativecommons.org/publicdomain/zero/1.0/ */
++
++"use strict";
++
++let gProfildDirFile = do_get_profile();
++
++Cu.import("resource://gre/modules/Log.jsm");
++Cu.import("resource://gre/modules/Preferences.jsm");
++Cu.import("resource://gre/modules/Timer.jsm");
++Cu.import("resource:///modules/readinglist/Sync.jsm");
++
++let { localRecordFromServerRecord } =
++  Cu.import("resource:///modules/readinglist/Sync.jsm", {});
++
++let gList;
++let gSync;
++let gClient;
++let gLocalItems = [];
++
++function run_test() {
++  run_next_test();
++}
++
++add_task(function* prepare() {
++  gSync = Sync;
++  gList = Sync.list;
++  let dbFile = gProfildDirFile.clone();
++  dbFile.append(gSync.list._store.pathRelativeToProfileDir);
++  do_register_cleanup(function* () {
++    // Wait for the list's store to close its connection to the database.
++    yield gList.destroy();
++    if (dbFile.exists()) {
++      dbFile.remove(true);
++    }
++  });
++
++  gClient = new MockClient();
++  gSync._client = gClient;
++
++  let dumpAppender = new Log.DumpAppender();
++  dumpAppender.level = Log.Level.All;
++  let logNames = [
++    "readinglist.sync",
++  ];
++  for (let name of logNames) {
++    let log = Log.repository.getLogger(name);
++    log.level = Log.Level.All;
++    log.addAppender(dumpAppender);
++  }
++});
++
++add_task(function* uploadNewItems() {
++  // Add some local items.
++  for (let i = 0; i < 3; i++) {
++    let record = {
++      url: `http://example.com/${i}`,
++      title: `title ${i}`,
++      addedBy: "device name",
++    };
++    gLocalItems.push(yield gList.addItem(record));
++  }
++
++  Assert.ok(!("resolvedURL" in gLocalItems[0]._record));
++  yield gSync.start();
++
++  // The syncer should update local items with the items in the server response.
++  // e.g., the item didn't have a resolvedURL before sync, but after sync it
++  // should.
++  Assert.ok("resolvedURL" in gLocalItems[0]._record);
++
++  checkItems(gClient.items, gLocalItems);
++});
++
++add_task(function* uploadStatusChanges() {
++  // Change an item's unread from true to false.
++  Assert.ok(gLocalItems[0].unread === true);
++
++  gLocalItems[0].unread = false;
++  yield gList.updateItem(gLocalItems[0]);
++  yield gSync.start();
++
++  Assert.ok(gLocalItems[0].unread === false);
++  checkItems(gClient.items, gLocalItems);
++});
++
++add_task(function* downloadChanges() {
++  // Change an item on the server.
++  let newTitle = "downloadChanges new title";
++  let response = yield gClient.request({
++    method: "PATCH",
++    path: "/articles/1",
++    body: {
++      title: newTitle,
++    },
++  });
++  Assert.equal(response.status, 200);
++
++  // Add a new item on the server.
++  let newRecord = {
++    url: "http://example.com/downloadChanges-new-item",
++    title: "downloadChanges 2",
++    added_by: "device name",
++  };
++  response = yield gClient.request({
++    method: "POST",
++    path: "/articles",
++    body: newRecord,
++  });
++  Assert.equal(response.status, 201);
++
++  // Delete an item on the server.
++  response = yield gClient.request({
++    method: "DELETE",
++    path: "/articles/2",
++  });
++  Assert.equal(response.status, 200);
++
++  yield gSync.start();
++
++  // Refresh the list of local items.  The changed item should be changed
++  // locally, the deleted item should be deleted locally, and the new item
++  // should appear in the list.
++  gLocalItems = (yield gList.iterator({ sort: "guid" }).
++                 items(gLocalItems.length));
++
++  Assert.equal(gLocalItems[1].title, newTitle);
++  Assert.equal(gLocalItems[2].url, newRecord.url);
++  checkItems(gClient.items, gLocalItems);
++});
++
++
++function MockClient() {
++  this._items = [];
++  this._nextItemID = 0;
++  this._nextLastModifiedToken = 0;
++}
++
++MockClient.prototype = {
++
++  request(req) {
++    let response = this._routeRequest(req);
++    return new Promise(resolve => {
++      // Resolve the promise asyncly, just as if this were a real server, so
++      // that we don't somehow end up depending on sync behavior.
++      setTimeout(() => {
++        resolve(response);
++      }, 0);
++    });
++  },
++
++  get items() {
++    return this._items.slice().sort((item1, item2) => {
++      return item2.id < item1.id;
++    });
++  },
++
++  itemByID(id) {
++    return this._items.find(item => item.id == id);
++  },
++
++  itemByURL(url) {
++    return this._items.find(item => item.url == url);
++  },
++
++  _items: null,
++  _nextItemID: null,
++  _nextLastModifiedToken: null,
++
++  _routeRequest(req) {
++    for (let prop in this) {
++      let match = (new RegExp("^" + prop + "$")).exec(req.path);
++      if (match) {
++        let handler = this[prop];
++        let method = req.method.toLowerCase();
++        if (!(method in handler)) {
++          throw new Error(`Handler ${prop} does not support method ${method}`);
++        }
++        let response = handler[method].call(this, req.body, match);
++        // Make sure the response really is JSON'able (1) as a kind of sanity
++        // check, (2) to convert any non-primitives (e.g., new String()) into
++        // primitives, and (3) because that's what the real server returns.
++        response = JSON.parse(JSON.stringify(response));
++        return response;
++      }
++    }
++    throw new Error(`Unrecognized path: ${req.path}`);
++  },
++
++  // route handlers
++
++  "/articles": {
++
++    get(body) {
++      return new MockResponse(200, {
++        // No URL params supported right now.
++        items: this.items,
++      });
++    },
++
++    post(body) {
++      let existingItem = this.itemByURL(body.url);
++      if (existingItem) {
++        // The real server seems to return a 200 if the items are identical.
++        if (areSameItems(existingItem, body)) {
++          return new MockResponse(200);
++        }
++        // 303 see other
++        return new MockResponse(303, {
++          id: existingItem.id,
++        });
++      }
++      body.id = new String(this._nextItemID++);
++      let defaultProps = {
++        last_modified: this._nextLastModifiedToken,
++        preview: "",
++        resolved_url: body.url,
++        resolved_title: body.title,
++        excerpt: "",
++        archived: 0,
++        deleted: 0,
++        favorite: false,
++        is_article: true,
++        word_count: null,
++        unread: true,
++        added_on: null,
++        stored_on: this._nextLastModifiedToken,
++        marked_read_by: null,
++        marked_read_on: null,
++        read_position: null,
++      };
++      for (let prop in defaultProps) {
++        if (!(prop in body) || body[prop] === null) {
++          body[prop] = defaultProps[prop];
++        }
++      }
++      this._nextLastModifiedToken++;
++      this._items.push(body);
++      // 201 created
++      return new MockResponse(201, body);
++    },
++  },
++
++  "/articles/([^/]+)": {
++
++    get(body, routeMatch) {
++      let id = routeMatch[1];
++      let item = this.itemByID(id);
++      if (!item) {
++        return new MockResponse(404);
++      }
++      return new MockResponse(200, item);
++    },
++
++    patch(body, routeMatch) {
++      let id = routeMatch[1];
++      let item = this.itemByID(id);
++      if (!item) {
++        return new MockResponse(404);
++      }
++      for (let prop in body) {
++        item[prop] = body[prop];
++      }
++      item.last_modified = this._nextLastModifiedToken++;
++      return new MockResponse(200, item);
++    },
++
++    // There's a bug in pre-39's ES strict mode around forbidding the
++    // redefinition of reserved keywords that flags defining `delete` on an
++    // object as a syntax error.  This weird syntax works around that.
++    ["delete"](body, routeMatch) {
++      let id = routeMatch[1];
++      let item = this.itemByID(id);
++      if (!item) {
++        return new MockResponse(404);
++      }
++      item.deleted = true;
++      return new MockResponse(200);
++    },
++  },
++
++  "/batch": {
++
++    post(body) {
++      let responses = [];
++      let defaults = body.defaults || {};
++      for (let request of body.requests) {
++        for (let prop in defaults) {
++          if (!(prop in request)) {
++            request[prop] = defaults[prop];
++          }
++        }
++        responses.push(this._routeRequest(request));
++      }
++      return new MockResponse(200, {
++        defaults: defaults,
++        responses: responses,
++      });
++    },
++  },
++};
++
++function MockResponse(status, body, headers={}) {
++  this.status = status;
++  this.body = body;
++  this.headers = headers;
++}
++
++function areSameItems(item1, item2) {
++  for (let prop in item1) {
++    if (!(prop in item2) || item1[prop] != item2[prop]) {
++      return false;
++    }
++  }
++  for (let prop in item2) {
++    if (!(prop in item1) || item1[prop] != item2[prop]) {
++      return false;
++    }
++  }
++  return true;
++}
++
++function checkItems(serverRecords, localItems) {
++  serverRecords = serverRecords.map(r => localRecordFromServerRecord(r));
++  serverRecords = serverRecords.filter(r => !r.deleted);
++  Assert.equal(serverRecords.length, localItems.length);
++  for (let i = 0; i < serverRecords.length; i++) {
++    for (let prop in localItems[i]._record) {
++      Assert.ok(prop in serverRecords[i], prop);
++      Assert.equal(serverRecords[i][prop], localItems[i]._record[prop]);
++    }
++  }
++}
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/xpcshell/test_scheduler.js
+@@ -0,0 +1,255 @@
++/* Any copyright is dedicated to the Public Domain.
++   http://creativecommons.org/publicdomain/zero/1.0/ */
++
++XPCOMUtils.defineLazyModuleGetter(this, 'setTimeout',
++  'resource://gre/modules/Timer.jsm');
++
++// Setup logging prefs before importing the scheduler module.
++Services.prefs.setCharPref("readinglist.log.appender.dump", "Trace");
++
++let {createTestableScheduler} = Cu.import("resource:///modules/readinglist/Scheduler.jsm", {});
++Cu.import("resource://gre/modules/Preferences.jsm");
++Cu.import("resource://gre/modules/Timer.jsm");
++
++// Log rotation needs a profile dir.
++do_get_profile();
++
++let prefs = new Preferences("readinglist.scheduler.");
++prefs.set("enabled", true);
++
++function promiseObserver(topic) {
++  return new Promise(resolve => {
++    let obs = (subject, topic, data) => {
++      Services.obs.removeObserver(obs, topic);
++      resolve(data);
++    }
++    Services.obs.addObserver(obs, topic, false);
++  });
++}
++
++function ReadingListMock() {
++  this.listener = null;
++}
++
++ReadingListMock.prototype = {
++  addListener(listener) {
++    ok(!this.listener, "mock only expects 1 listener");
++    this.listener = listener;
++  },
++}
++
++function createScheduler(options) {
++  // avoid typos in the test and other footguns in the options.
++  let allowedOptions = ["expectedDelay", "expectNewTimer", "syncFunction"];
++  for (let key of Object.keys(options)) {
++    if (allowedOptions.indexOf(key) == -1) {
++      throw new Error("Invalid option " + key);
++    }
++  }
++  let rlMock = new ReadingListMock();
++  let scheduler = createTestableScheduler(rlMock);
++  // make our hooks
++  let syncFunction = options.syncFunction || Promise.resolve;
++  scheduler._engine.start = syncFunction;
++  // we expect _setTimeout to be called *twice* - first is the initial sync,
++  // and there's no need to test the delay used for that. options.expectedDelay
++  // is to check the *subsequent* timer.
++  let numCalls = 0;
++  scheduler._setTimeout = function(delay) {
++    ++numCalls;
++    print("Test scheduler _setTimeout call number " + numCalls + " with delay=" + delay);
++    switch (numCalls) {
++      case 1:
++        // this is the first and boring schedule as it initializes - do nothing
++        // other than return a timer that fires immediately.
++        return setTimeout(() => scheduler._doSync(), 0);
++        break;
++      case 2:
++        // This is the one we are interested in, so check things.
++        if (options.expectedDelay) {
++          // a little slop is OK as it takes a few ms to actually set the timer
++          ok(Math.abs(options.expectedDelay * 1000 - delay) < 500, [options.expectedDelay * 1000, delay]);
++        }
++        // and return a timeout that "never" fires
++        return setTimeout(() => scheduler._doSync(), 10000000);
++        break;
++      default:
++        // This is unexpected!
++        ok(false, numCalls);
++    }
++  };
++  // And a callback made once we've determined the next delay. This is always
++  // called even if _setTimeout isn't (due to no timer being created)
++  scheduler._onAutoReschedule = () => {
++    // Most tests expect a new timer, so this is "opt out"
++    let expectNewTimer = options.expectNewTimer === undefined ? true : options.expectNewTimer;
++    ok(expectNewTimer ? scheduler._timer : !scheduler._timer);
++  }
++  // calling .init fires things off...
++  scheduler.init();
++  return scheduler;
++}
++
++add_task(function* testSuccess() {
++  // promises which resolve once we've got all the expected notifications.
++  let allNotifications = [
++    promiseObserver("readinglist:sync:start"),
++    promiseObserver("readinglist:sync:finish"),
++  ];
++  // New delay should be "as regularly scheduled".
++  prefs.set("schedule", 100);
++  let scheduler = createScheduler({expectedDelay: 100});
++  yield Promise.all(allNotifications);
++  scheduler.finalize();
++});
++
++// Test that if we get a reading list notification while we are syncing we
++// immediately start a new one when it complets.
++add_task(function* testImmediateResyncWhenChangedDuringSync() {
++  // promises which resolve once we've got all the expected notifications.
++  let allNotifications = [
++    promiseObserver("readinglist:sync:start"),
++    promiseObserver("readinglist:sync:finish"),
++  ];
++  prefs.set("schedule", 100);
++  // New delay should be "immediate".
++  let scheduler = createScheduler({
++    expectedDelay: 0,
++    syncFunction: () => {
++      // we are now syncing - pretend the readinglist has an item change
++      scheduler.readingList.listener.onItemAdded();
++      return Promise.resolve();
++    }});
++  yield Promise.all(allNotifications);
++  scheduler.finalize();
++});
++
++add_task(function* testOffline() {
++  let scheduler = createScheduler({expectNewTimer: false});
++  Services.io.offline = true;
++  ok(!scheduler._canSync(), "_canSync is false when offline.")
++  ok(!scheduler._timer, "there is no current timer while offline.")
++  Services.io.offline = false;
++  ok(scheduler._canSync(), "_canSync is true when online.")
++  ok(scheduler._timer, "there is a new timer when back online.")
++  scheduler.finalize();
++});
++
++add_task(function* testRetryableError() {
++  let allNotifications = [
++    promiseObserver("readinglist:sync:start"),
++    promiseObserver("readinglist:sync:error"),
++  ];
++  prefs.set("retry", 10);
++  let scheduler = createScheduler({
++    expectedDelay: 10,
++    syncFunction: () => Promise.reject("transient"),
++  });
++  yield Promise.all(allNotifications);
++  scheduler.finalize();
++});
++
++add_task(function* testAuthError() {
++  prefs.set("retry", 10);
++  // We expect an auth error to result in no new timer (as it's waiting for
++  // some indication it can proceed), but with the next delay being a normal
++  // "retry" interval (so when we can proceed it is probably already stale, so
++  // is effectively "immediate")
++  let scheduler = createScheduler({
++    expectedDelay: 10,
++    syncFunction:  () => {
++      return Promise.reject(ReadingListScheduler._engine.ERROR_AUTHENTICATION);
++    },
++    expectNewTimer: false
++  });
++  // XXX - TODO - send an observer that "unblocks" us and ensure we actually
++  // do unblock.
++  scheduler.finalize();
++});
++
++add_task(function* testBackoff() {
++  let scheduler = createScheduler({expectedDelay: 1000});
++  Services.obs.notifyObservers(null, "readinglist:backoff-requested", 1000);
++  // XXX - this needs a little love as nothing checks createScheduler actually
++  // made the checks we think it does.
++  scheduler.finalize();
++});
++
++add_task(function testErrorBackoff() {
++  // This test can't sanely use the "test scheduler" above, so make one more
++  // suited.
++  let rlMock = new ReadingListMock();
++  let scheduler = createTestableScheduler(rlMock);
++  scheduler._setTimeout = function(delay) {
++    // create a timer that fires immediately
++    return setTimeout(() => scheduler._doSync(), 0);
++  }
++
++  // This does all the work...
++  function checkBackoffs(expectedSequences) {
++    let orig_maybeReschedule = scheduler._maybeReschedule;
++    return new Promise(resolve => {
++      let isSuccess = true; // ie, first run will put us in "fail" mode.
++      let expected;
++      function nextSequence() {
++        if (expectedSequences.length == 0) {
++          resolve();
++          return true; // we are done.
++        }
++        // setup the current set of expected results.
++        expected = expectedSequences.shift()
++        // and toggle the success status of the engine.
++        isSuccess = !isSuccess;
++        if (isSuccess) {
++          scheduler._engine.start = Promise.resolve;
++        } else {
++          scheduler._engine.start = () => {
++            return Promise.reject(new Error("oh no"))
++          }
++        }
++        return false; // not done.
++      };
++      // get the first sequence;
++      nextSequence();
++      // and setup the scheduler to check the sequences.
++      scheduler._maybeReschedule = function(nextDelay) {
++        let thisExpected = expected.shift();
++        equal(thisExpected * 1000, nextDelay);
++        if (expected.length == 0) {
++          if (nextSequence()) {
++            // we are done, so do nothing.
++            return;
++          }
++        }
++        // call the original impl to get the next schedule.
++        return orig_maybeReschedule.call(scheduler, nextDelay);
++      }
++    });
++  }
++
++  prefs.set("schedule", 100);
++  prefs.set("retry", 5);
++  // The sequences of timeouts we expect as the Sync error state changes.
++  let backoffsChecked = checkBackoffs([
++    // first sequence is in failure mode - expect the timeout to double until 'schedule'
++    [5, 10, 20, 40, 80, 100, 100],
++    // Sync just started working - more 'schedule'
++    [100, 100],
++    // Just stopped again - error backoff process restarts.
++    [5, 10],
++    // Another success and we are back to 'schedule'
++    [100, 100],
++  ]);
++
++  // fire things off.
++  scheduler.init();
++
++  // and wait for completion.
++  yield backoffsChecked;
++
++  scheduler.finalize();
++});
++
++function run_test() {
++  run_next_test();
++}
+reverted:
+--- /dev/null
++++ a/browser/components/readinglist/test/xpcshell/xpcshell.ini
+@@ -0,0 +1,9 @@
++[DEFAULT]
++head = head.js
++firefox-appdir = browser
++
++[test_ReadingList.js]
++[test_ServerClient.js]
++[test_scheduler.js]
++[test_SQLiteStore.js]
++[test_Sync.js]

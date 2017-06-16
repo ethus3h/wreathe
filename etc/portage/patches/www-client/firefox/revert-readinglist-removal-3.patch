@@ -1,0 +1,1883 @@
+reverted:
+--- b/browser/app/profile/firefox.js
++++ a/browser/app/profile/firefox.js
+@@ -1951,16 +1951,21 @@
+ #ifdef DEBUG
+ // Don't report hangs in DEBUG builds. They're too slow and often a
+ // debugger is attached.
+ pref("dom.ipc.reportProcessHangs", false);
+ #else
+ pref("dom.ipc.reportProcessHangs", true);
+ #endif
+ 
++pref("browser.readinglist.enabled", false);
++pref("browser.readinglist.sidebarEverOpened", false);
++pref("readinglist.scheduler.enabled", false);
++pref("readinglist.server", "https://readinglist.services.mozilla.com/v1");
++
+ pref("browser.reader.detectedFirstArticle", false);
+ // Don't limit how many nodes we care about on desktop:
+ pref("reader.parse-node-limit", 0);
+ 
+ pref("browser.pocket.enabled", true);
+ pref("browser.pocket.api", "api.getpocket.com");
+ pref("browser.pocket.site", "getpocket.com");
+ pref("browser.pocket.oAuthConsumerKey", "40249-e88c401e1b1f2242d9e441c4");
+reverted:
+--- b/browser/base/content/browser-menubar.inc
++++ a/browser/base/content/browser-menubar.inc
+@@ -205,16 +205,20 @@
+                   <menupopup id="viewSidebarMenu">
+                     <menuitem id="menu_bookmarksSidebar"
+                               key="viewBookmarksSidebarKb"
+                               observes="viewBookmarksSidebar"/>
+                     <menuitem id="menu_historySidebar"
+                               key="key_gotoHistory"
+                               observes="viewHistorySidebar"
+                               label="&historyButton.label;"/>
++                    <menuitem id="menu_readingListSidebar"
++                              key="key_readingListSidebar"
++                              observes="readingListSidebar"
++                              label="&readingList.label;"/>
+ 
+                     <!-- Service providers with sidebars are inserted between these two menuseperators -->
+                     <menuseparator hidden="true"/>
+                     <menuseparator class="social-provider-menu" hidden="true"/>
+                   </menupopup>
+                 </menu>
+                 <menuseparator/>
+                 <menu id="viewFullZoomMenu" label="&fullZoom.label;"
+@@ -434,16 +438,40 @@
+         <menupopup id="bookmarksToolbarFolderPopup"
+ #ifndef XP_MACOSX
+                    placespopup="true"
+ #endif
+                    context="placesContext"
+                    onpopupshowing="if (!this.parentNode._placesView)
+                                      new PlacesMenu(event, 'place:folder=TOOLBAR');"/>
+       </menu>
++#ifndef XP_MACOSX
++# Disabled on Mac because we can't fill native menupopups asynchronously
++      <menuseparator id="menu_readingListSeparator">
++        <observes element="readingListSidebar" attribute="hidden"/>
++      </menuseparator>
++      <menu id="menu_readingList"
++            class="menu-iconic bookmark-item"
++            label="&readingList.label;"
++            container="true">
++        <observes element="readingListSidebar" attribute="hidden"/>
++        <menupopup id="readingListPopup"
++#ifndef XP_MACOSX
++                   placespopup="true"
++#endif
++                   onpopupshowing="ReadingListUI.onReadingListPopupShowing(this);">
++          <menuseparator id="viewReadingListSidebarSeparator"/>
++          <menuitem id="viewReadingListSidebar" class="subviewbutton"
++                    oncommand="SidebarUI.toggle('readingListSidebar');"
++                    label="&readingList.showSidebar.label;">
++            <observes element="readingListSidebar" attribute="checked"/>
++          </menuitem>
++        </menupopup>
++      </menu>
++#endif
+       <menuseparator id="bookmarksMenuItemsSeparator"/>
+       <!-- Bookmarks menu items -->
+       <menuseparator builder="end"
+                      class="hide-if-empty-places-result"/>
+       <menuitem id="menu_unsortedBookmarks"
+                 label="&unsortedBookmarksCmd.label;"
+                 oncommand="PlacesCommandHook.showPlacesOrganizer('UnfiledBookmarks');"/>
+     </menupopup>
+reverted:
+--- /dev/null
++++ a/browser/base/content/browser-readinglist.js
+@@ -0,0 +1,376 @@
++/*
++# This Source Code Form is subject to the terms of the Mozilla Public
++# License, v. 2.0. If a copy of the MPL was not distributed with this
++# file, You can obtain one at http://mozilla.org/MPL/2.0/.
++*/
++
++XPCOMUtils.defineLazyModuleGetter(this, "ReadingList",
++  "resource:///modules/readinglist/ReadingList.jsm");
++
++const READINGLIST_COMMAND_ID = "readingListSidebar";
++
++let ReadingListUI = {
++  /**
++   * Frame-script messages we want to listen to.
++   * @type {[string]}
++   */
++  MESSAGES: [
++    "ReadingList:GetVisibility",
++    "ReadingList:ToggleVisibility",
++    "ReadingList:ShowIntro",
++  ],
++
++  /**
++   * Add-to-ReadingList toolbar button in the URLbar.
++   * @type {Element}
++   */
++  toolbarButton: null,
++
++  /**
++   * Whether this object is currently registered as a listener with ReadingList.
++   * Used to avoid inadvertantly loading the ReadLingList.jsm module on startup.
++   * @type {Boolean}
++   */
++  listenerRegistered: false,
++
++  /**
++   * Initialize the ReadingList UI.
++   */
++  init() {
++    this.toolbarButton = document.getElementById("readinglist-addremove-button");
++
++    Preferences.observe("browser.readinglist.enabled", this.updateUI, this);
++
++    const mm = window.messageManager;
++    for (let msg of this.MESSAGES) {
++      mm.addMessageListener(msg, this);
++    }
++
++    this.updateUI();
++  },
++
++  /**
++   * Un-initialize the ReadingList UI.
++   */
++  uninit() {
++    Preferences.ignore("browser.readinglist.enabled", this.updateUI, this);
++
++    const mm = window.messageManager;
++    for (let msg of this.MESSAGES) {
++      mm.removeMessageListener(msg, this);
++    }
++
++    if (this.listenerRegistered) {
++      ReadingList.removeListener(this);
++      this.listenerRegistered = false;
++    }
++  },
++
++  /**
++   * Whether the ReadingList feature is enabled or not.
++   * @type {boolean}
++   */
++  get enabled() {
++    return Preferences.get("browser.readinglist.enabled", false);
++  },
++
++  /**
++   * Whether the ReadingList sidebar is currently open or not.
++   * @type {boolean}
++   */
++  get isSidebarOpen() {
++    return SidebarUI.isOpen && SidebarUI.currentID == READINGLIST_COMMAND_ID;
++  },
++
++  /**
++   * Update the UI status, ensuring the UI is shown or hidden depending on
++   * whether the feature is enabled or not.
++   */
++  updateUI() {
++    let enabled = this.enabled;
++    if (enabled) {
++      // This is a no-op if we're already registered.
++      ReadingList.addListener(this);
++      this.listenerRegistered = true;
++    } else {
++      if (this.listenerRegistered) {
++        // This is safe to call if we're not currently registered, but we don't
++        // want to forcibly load the normally lazy-loaded module on startup.
++        ReadingList.removeListener(this);
++        this.listenerRegistered = false;
++      }
++
++      this.hideSidebar();
++    }
++
++    document.getElementById(READINGLIST_COMMAND_ID).setAttribute("hidden", !enabled);
++    document.getElementById(READINGLIST_COMMAND_ID).setAttribute("disabled", !enabled);
++  },
++
++  /**
++   * Show the ReadingList sidebar.
++   * @return {Promise}
++   */
++  showSidebar() {
++    if (this.enabled) {
++      return SidebarUI.show(READINGLIST_COMMAND_ID);
++    }
++  },
++
++  /**
++   * Hide the ReadingList sidebar, if it is currently shown.
++   */
++  hideSidebar() {
++    if (this.isSidebarOpen) {
++      SidebarUI.hide();
++    }
++  },
++
++  /**
++   * Re-refresh the ReadingList bookmarks submenu when it opens.
++   *
++   * @param {Element} target - Menu element opening.
++   */
++  onReadingListPopupShowing: Task.async(function* (target) {
++    if (target.id == "BMB_readingListPopup") {
++      // Setting this class in the .xul file messes with the way
++      // browser-places.js inserts bookmarks in the menu.
++      document.getElementById("BMB_viewReadingListSidebar")
++              .classList.add("panel-subview-footer");
++    }
++
++    while (!target.firstChild.id)
++      target.firstChild.remove();
++
++    let classList = "menuitem-iconic bookmark-item menuitem-with-favicon";
++    let insertPoint = target.firstChild;
++    if (insertPoint.classList.contains("subviewbutton"))
++      classList += " subviewbutton";
++
++    let hasItems = false;
++    yield ReadingList.forEachItem(item => {
++      hasItems = true;
++
++      let menuitem = document.createElement("menuitem");
++      menuitem.setAttribute("label", item.title || item.url);
++      menuitem.setAttribute("class", classList);
++
++      let node = menuitem._placesNode = {
++        // Passing the PlacesUtils.nodeIsURI check is required for the
++        // onCommand handler to load our URI.
++        type: Ci.nsINavHistoryResultNode.RESULT_TYPE_URI,
++
++        // makes PlacesUIUtils.canUserRemove return false.
++        // The context menu is broken without this.
++        parent: {type: Ci.nsINavHistoryResultNode.RESULT_TYPE_FOLDER},
++
++        // A -1 id makes this item a non-bookmark, which avoids calling
++        // PlacesUtils.annotations.itemHasAnnotation to check if the
++        // bookmark should be opened in the sidebar (this call fails for
++        // readinglist item, and breaks loading our URI).
++        itemId: -1,
++
++        // Used by the tooltip and onCommand handlers.
++        uri: item.url,
++
++        // Used by the tooltip.
++        title: item.title
++      };
++
++      Favicons.getFaviconURLForPage(item.uri, uri => {
++        if (uri) {
++          menuitem.setAttribute("image",
++                                Favicons.getFaviconLinkForIcon(uri).spec);
++        }
++      });
++
++      target.insertBefore(menuitem, insertPoint);
++    }, {sort: "addedOn", descending: true});
++
++    if (!hasItems) {
++      let menuitem = document.createElement("menuitem");
++      let bundle =
++        Services.strings.createBundle("chrome://browser/locale/places/places.properties");
++      menuitem.setAttribute("label", bundle.GetStringFromName("bookmarksMenuEmptyFolder"));
++      menuitem.setAttribute("class", "bookmark-item");
++      menuitem.setAttribute("disabled", true);
++      target.insertBefore(menuitem, insertPoint);
++    }
++  }),
++
++  /**
++   * Hide the ReadingList sidebar, if it is currently shown.
++   */
++  toggleSidebar() {
++    if (this.enabled) {
++      SidebarUI.toggle(READINGLIST_COMMAND_ID);
++    }
++  },
++
++  /**
++   * Respond to messages.
++   */
++  receiveMessage(message) {
++    switch (message.name) {
++      case "ReadingList:GetVisibility": {
++        if (message.target.messageManager) {
++          message.target.messageManager.sendAsyncMessage("ReadingList:VisibilityStatus",
++            { isOpen: this.isSidebarOpen });
++        }
++        break;
++      }
++
++      case "ReadingList:ToggleVisibility": {
++        this.toggleSidebar();
++        break;
++      }
++
++      case "ReadingList:ShowIntro": {
++        if (this.enabled && !Preferences.get("browser.readinglist.introShown", false)) {
++          Preferences.set("browser.readinglist.introShown", true);
++          this.showSidebar();
++        }
++        break;
++      }
++    }
++  },
++
++  /**
++   * Handles toolbar button styling based on page proxy state changes.
++   *
++   * @see SetPageProxyState()
++   *
++   * @param {string} state - New state. Either "valid" or "invalid".
++   */
++  onPageProxyStateChanged: Task.async(function* (state) {
++    if (!this.toolbarButton) {
++      // nothing to do if we have no button.
++      return;
++    }
++
++    let uri;
++    if (this.enabled && state == "valid") {
++      uri = gBrowser.currentURI;
++      if (uri.schemeIs("about"))
++        uri = ReaderMode.getOriginalUrl(uri.spec);
++      else if (!uri.schemeIs("http") && !uri.schemeIs("https"))
++        uri = null;
++    }
++
++    let msg = {topic: "UpdateActiveItem", url: null};
++    if (!uri) {
++      this.toolbarButton.setAttribute("hidden", true);
++      if (this.isSidebarOpen)
++        document.getElementById("sidebar").contentWindow.postMessage(msg, "*");
++      return;
++    }
++
++    let isInList = yield ReadingList.hasItemForURL(uri);
++
++    if (window.closed) {
++      // Skip updating the UI if the window was closed since our hasItemForURL call.
++      return;
++    }
++
++    if (this.isSidebarOpen) {
++      if (isInList)
++        msg.url = typeof uri == "string" ? uri : uri.spec;
++      document.getElementById("sidebar").contentWindow.postMessage(msg, "*");
++    }
++    this.setToolbarButtonState(isInList);
++  }),
++
++  /**
++   * Set the state of the ReadingList toolbar button in the urlbar.
++   * If the current tab's page is in the ReadingList (active), sets the button
++   * to allow removing the page. Otherwise, sets the button to allow adding the
++   * page (not active).
++   *
++   * @param {boolean} active - True if the button should be active (page is
++   *                           already in the list).
++   */
++  setToolbarButtonState(active) {
++    this.toolbarButton.setAttribute("already-added", active);
++
++    let type = (active ? "remove" : "add");
++    let tooltip = gNavigatorBundle.getString(`readingList.urlbar.${type}`);
++    this.toolbarButton.setAttribute("tooltiptext", tooltip);
++
++    this.toolbarButton.removeAttribute("hidden");
++  },
++
++  buttonClick(event) {
++    if (event.button != 0) {
++      return;
++    }
++    this.togglePageByBrowser(gBrowser.selectedBrowser);
++  },
++
++  /**
++   * Toggle a page (from a browser) in the ReadingList, adding if it's not already added, or
++   * removing otherwise.
++   *
++   * @param {<xul:browser>} browser - Browser with page to toggle.
++   * @returns {Promise} Promise resolved when operation has completed.
++   */
++  togglePageByBrowser: Task.async(function* (browser) {
++    let uri = browser.currentURI;
++    if (uri.spec.startsWith("about:reader?"))
++      uri = ReaderMode.getOriginalUrl(uri.spec);
++    if (!uri)
++      return;
++
++    let item = yield ReadingList.itemForURL(uri);
++    if (item) {
++      yield item.delete();
++    } else {
++      yield ReadingList.addItemFromBrowser(browser, uri);
++    }
++  }),
++
++  /**
++   * Checks if a given item matches the current tab in this window.
++   *
++   * @param {ReadingListItem} item - Item to check
++   * @returns True if match, false otherwise.
++   */
++  isItemForCurrentBrowser(item) {
++    let currentURL = gBrowser.currentURI.spec;
++    if (currentURL.startsWith("about:reader?"))
++      currentURL = ReaderMode.getOriginalUrl(currentURL);
++
++    if (item.url == currentURL || item.resolvedURL == currentURL) {
++      return true;
++    }
++    return false;
++  },
++
++  /**
++   * ReadingList event handler for when an item is added.
++   *
++   * @param {ReadingListItem} item - Item added.
++   */
++  onItemAdded(item) {
++    if (!Services.prefs.getBoolPref("browser.readinglist.sidebarEverOpened")) {
++      SidebarUI.show("readingListSidebar");
++    }
++    if (this.isItemForCurrentBrowser(item)) {
++      this.setToolbarButtonState(true);
++      if (this.isSidebarOpen) {
++        let msg = {topic: "UpdateActiveItem", url: item.url};
++        document.getElementById("sidebar").contentWindow.postMessage(msg, "*");
++      }
++    }
++  },
++
++  /**
++   * ReadingList event handler for when an item is deleted.
++   *
++   * @param {ReadingListItem} item - Item deleted.
++   */
++  onItemDeleted(item) {
++    if (this.isItemForCurrentBrowser(item)) {
++      this.setToolbarButtonState(false);
++    }
++  },
++};
+reverted:
+--- b/browser/base/content/browser-sets.inc
++++ a/browser/base/content/browser-sets.inc
+@@ -141,16 +141,21 @@
+     <!-- for both places and non-places, the sidebar lives at
+          chrome://browser/content/history/history-panel.xul so there are no
+          problems when switching between versions -->
+     <broadcaster id="viewHistorySidebar" autoCheck="false" sidebartitle="&historyButton.label;"
+                  type="checkbox" group="sidebar"
+                  sidebarurl="chrome://browser/content/history/history-panel.xul"
+                  oncommand="SidebarUI.toggle('viewHistorySidebar');"/>
+ 
++    <broadcaster id="readingListSidebar" hidden="true" autoCheck="false" disabled="true"
++                 sidebartitle="&readingList.label;" type="checkbox" group="sidebar"
++                 sidebarurl="chrome://browser/content/readinglist/sidebar.xhtml"
++                 oncommand="SidebarUI.toggle('readingListSidebar');"/>
++
+     <broadcaster id="viewWebPanelsSidebar" autoCheck="false"
+                  type="checkbox" group="sidebar" sidebarurl="chrome://browser/content/web-panels.xul"
+                  oncommand="SidebarUI.toggle('viewWebPanelsSidebar');"/>
+ 
+     <broadcaster id="bookmarkThisPageBroadcaster"
+                  label="&bookmarkThisPageCmd.label;"
+                  bookmarklabel="&bookmarkThisPageCmd.label;"
+                  editlabel="&editThisBookmarkCmd.label;"/>
+@@ -411,16 +416,21 @@
+          key="&historySidebarCmd.commandKey;"
+ #ifdef XP_MACOSX
+          modifiers="accel,shift"
+ #else
+          modifiers="accel"
+ #endif
+          command="viewHistorySidebar"/>
+ 
++    <key id="key_readingListSidebar"
++         key="&readingList.sidebar.commandKey;"
++         modifiers="accel,alt"
++         command="readingListSidebar"/>
++
+     <key id="key_fullZoomReduce"  key="&fullZoomReduceCmd.commandkey;"   command="cmd_fullZoomReduce"  modifiers="accel"/>
+     <key                          key="&fullZoomReduceCmd.commandkey2;"  command="cmd_fullZoomReduce"  modifiers="accel"/>
+     <key id="key_fullZoomEnlarge" key="&fullZoomEnlargeCmd.commandkey;"  command="cmd_fullZoomEnlarge" modifiers="accel"/>
+     <key                          key="&fullZoomEnlargeCmd.commandkey2;" command="cmd_fullZoomEnlarge" modifiers="accel"/>
+     <key                          key="&fullZoomEnlargeCmd.commandkey3;" command="cmd_fullZoomEnlarge" modifiers="accel"/>
+     <key id="key_fullZoomReset"   key="&fullZoomResetCmd.commandkey;"    command="cmd_fullZoomReset"   modifiers="accel"/>
+     <key                          key="&fullZoomResetCmd.commandkey2;"   command="cmd_fullZoomReset"   modifiers="accel"/>
+ 
+reverted:
+--- b/browser/base/content/browser-syncui.js
++++ a/browser/base/content/browser-syncui.js
+@@ -6,16 +6,19 @@
+ 
+ #ifdef MOZ_SERVICES_CLOUDSYNC
+ XPCOMUtils.defineLazyModuleGetter(this, "CloudSync",
+                                   "resource://gre/modules/CloudSync.jsm");
+ #else
+ let CloudSync = null;
+ #endif
+ 
++XPCOMUtils.defineLazyModuleGetter(this, "ReadingListScheduler",
++                                  "resource:///modules/readinglist/Scheduler.jsm");
++
+ // gSyncUI handles updating the tools menu and displaying notifications.
+ let gSyncUI = {
+   _obs: ["weave:service:sync:start",
+          "weave:service:sync:finish",
+          "weave:service:sync:error",
+          "weave:service:quota:remaining",
+          "weave:service:setup-complete",
+          "weave:service:login:start",
+@@ -23,16 +26,20 @@
+          "weave:service:login:error",
+          "weave:service:logout:finish",
+          "weave:service:start-over",
+          "weave:service:start-over:finish",
+          "weave:ui:login:error",
+          "weave:ui:sync:error",
+          "weave:ui:sync:finish",
+          "weave:ui:clear-error",
++
++         "readinglist:sync:start",
++         "readinglist:sync:finish",
++         "readinglist:sync:error",
+   ],
+ 
+   _unloaded: false,
+   // The number of "active" syncs - while this is non-zero, our button will spin
+   _numActiveSyncTasks: 0,
+ 
+   init: function () {
+     Cu.import("resource://services-common/stringbundle.js");
+@@ -103,36 +110,41 @@
+   _needsSetup() {
+     // We want to treat "account needs verification" as "needs setup". So
+     // "reach in" to Weave.Status._authManager to check whether we the signed-in
+     // user is verified.
+     // Referencing Weave.Status spins a nested event loop to initialize the
+     // authManager, so this should always return a value directly.
+     // This only applies to fxAccounts-based Sync.
+     if (Weave.Status._authManager._signedInUser !== undefined) {
++      // So we are using Firefox accounts - in this world, checking Sync isn't
++      // enough as reading list may be configured but not Sync.
++      // We consider ourselves setup if we have a verified user.
++      // XXX - later we should consider checking preferences to ensure at least
++      // one engine is enabled?
+-      // If we have a signed in user already, and that user is not verified,
+-      // revert to the "needs setup" state.
+       return !Weave.Status._authManager._signedInUser ||
+              !Weave.Status._authManager._signedInUser.verified;
+     }
+ 
++    // So we are using legacy sync, and reading-list isn't supported for such
++    // users, so check sync itself.
+-    // We are using legacy sync - check that.
+     let firstSync = "";
+     try {
+       firstSync = Services.prefs.getCharPref("services.sync.firstSync");
+     } catch (e) { }
+ 
+     return Weave.Status.checkSetup() == Weave.CLIENT_NOT_CONFIGURED ||
+            firstSync == "notReady";
+   },
+ 
+   _loginFailed: function () {
++    this.log.debug("_loginFailed has sync state=${sync}, readinglist state=${rl}",
++                   { sync: Weave.Status.login, rl: ReadingListScheduler.state});
++    return Weave.Status.login == Weave.LOGIN_FAILED_LOGIN_REJECTED ||
++           ReadingListScheduler.state == ReadingListScheduler.STATE_ERROR_AUTHENTICATION;
+-    this.log.debug("_loginFailed has sync state=${sync}",
+-                   { sync: Weave.Status.login});
+-    return Weave.Status.login == Weave.LOGIN_FAILED_LOGIN_REJECTED;
+   },
+ 
+   updateUI: function SUI_updateUI() {
+     let needsSetup = this._needsSetup();
+     let loginFailed = this._loginFailed();
+ 
+     // Start off with a clean slate
+     document.getElementById("sync-reauth-state").hidden = true;
+@@ -218,16 +230,18 @@
+   },
+ 
+   onSetupComplete: function SUI_onSetupComplete() {
+     this.onLoginFinish();
+   },
+ 
+   onLoginError: function SUI_onLoginError() {
+     this.log.debug("onLoginError: login=${login}, sync=${sync}", Weave.Status);
++    // Note: This is used for *both* Sync and ReadingList login errors.
++    // if login fails, any other notifications are essentially moot
+     Weave.Notifications.removeAll();
+ 
+     // if we haven't set up the client, don't show errors
+     if (this._needsSetup()) {
+       this.updateUI();
+       return;
+     }
+     // if we are still waiting for the identity manager to initialize, or it's
+@@ -241,20 +255,22 @@
+       this.updateUI();
+       return;
+     }
+     this.showLoginError();
+     this.updateUI();
+   },
+ 
+   showLoginError() {
++    // Note: This is used for *both* Sync and ReadingList login errors.
+     let title = this._stringBundle.GetStringFromName("error.login.title");
+ 
+     let description;
++    if (Weave.Status.sync == Weave.PROLONGED_SYNC_FAILURE ||
++        this.isProlongedReadingListError()) {
+-    if (Weave.Status.sync == Weave.PROLONGED_SYNC_FAILURE) {
+       this.log.debug("showLoginError has a prolonged login error");
+       // Convert to days
+       let lastSync =
+         Services.prefs.getIntPref("services.sync.errorhandler.networkFailureReportTimeout") / 86400;
+       description =
+         this._stringBundle.formatStringFromName("error.sync.prolonged_failure", [lastSync], 1);
+     } else {
+       let reason = Weave.Utils.getErrorString(Weave.Status.login);
+@@ -312,16 +328,17 @@
+   doSync: function SUI_doSync() {
+     let needsSetup = this._needsSetup();
+ 
+     if (!needsSetup) {
+       setTimeout(function () Weave.Service.errorHandler.syncAndReportErrors(), 0);
+     }
+ 
+     Services.obs.notifyObservers(null, "cloudsync:user-sync", null);
++    Services.obs.notifyObservers(null, "readinglist:user-sync", null);
+   },
+ 
+   handleToolbarButton: function SUI_handleStatusbarButton() {
+     if (this._needsSetup())
+       this.openSetup();
+     else
+       this.doSync();
+   },
+@@ -410,16 +427,24 @@
+     let syncButton = document.getElementById("sync-button");
+     let statusButton = document.getElementById("PanelUI-fxa-icon");
+ 
+     let lastSync;
+     try {
+       lastSync = new Date(Services.prefs.getCharPref("services.sync.lastSync"));
+     }
+     catch (e) { };
++    // and reading-list time - we want whatever one is the most recent.
++    try {
++      let lastRLSync = new Date(Services.prefs.getCharPref("readinglist.scheduler.lastSync"));
++      if (!lastSync || lastRLSync > lastSync) {
++        lastSync = lastRLSync;
++      }
++    }
++    catch (e) { };
+     if (!lastSync || this._needsSetup()) {
+       if (syncButton) {
+         syncButton.removeAttribute("tooltiptext");
+       }
+       if (statusButton) {
+         statusButton.removeAttribute("tooltiptext");
+       }
+       return;
+@@ -445,16 +470,85 @@
+ 
+   onSyncFinish: function SUI_onSyncFinish() {
+     let title = this._stringBundle.GetStringFromName("error.sync.title");
+ 
+     // Clear out sync failures on a successful sync
+     this.clearError(title);
+   },
+ 
++  // Return true if the reading-list is in a "prolonged" error state. That
++  // engine doesn't impose what that means, so calculate it here. For
++  // consistency, we just use the sync prefs.
++  isProlongedReadingListError() {
++    // If the readinglist scheduler is disabled we don't treat it as prolonged.
++    let enabled = false;
++    try {
++      enabled = Services.prefs.getBoolPref("readinglist.scheduler.enabled");
++    } catch (_) {}
++    if (!enabled) {
++      return false;
++    }
++    let lastSync, threshold, prolonged;
++    try {
++      lastSync = new Date(Services.prefs.getCharPref("readinglist.scheduler.lastSync"));
++      threshold = new Date(Date.now() - Services.prefs.getIntPref("services.sync.errorhandler.networkFailureReportTimeout") * 1000);
++      prolonged = lastSync <= threshold;
++    } catch (ex) {
++      // no pref, assume not prolonged.
++      prolonged = false;
++    }
++    this.log.debug("isProlongedReadingListError has last successful sync at ${lastSync}, threshold is ${threshold}, prolonged=${prolonged}",
++                   {lastSync, threshold, prolonged});
++    return prolonged;
++  },
++
++  onRLSyncError() {
++    // Like onSyncError, but from the reading-list engine.
++    // However, the current UX around Sync is that error notifications should
++    // generally *not* be seen as they typically aren't actionable - so only
++    // authentication errors (which require user action) and "prolonged" errors
++    // (which technically aren't actionable, but user really should know anyway)
++    // are shown.
++    this.log.debug("onRLSyncError with readingList state", ReadingListScheduler.state);
++    if (ReadingListScheduler.state == ReadingListScheduler.STATE_ERROR_AUTHENTICATION) {
++      this.onLoginError();
++      return;
++    }
++    // If it's not prolonged there's nothing to do.
++    if (!this.isProlongedReadingListError()) {
++      this.log.debug("onRLSyncError has a non-authentication, non-prolonged error, so not showing any error UI");
++      return;
++    }
++    // So it's a prolonged error.
++    // Unfortunate duplication from below...
++    this.log.debug("onRLSyncError has a prolonged error");
++    let title = this._stringBundle.GetStringFromName("error.sync.title");
++    // XXX - this is somewhat wrong - we are reporting the threshold we consider
++    // to be prolonged, not how long it actually has been. (ie, lastSync below
++    // is effectively constant) - bit it too is copied from below.
++    let lastSync =
++      Services.prefs.getIntPref("services.sync.errorhandler.networkFailureReportTimeout") / 86400;
++    let description =
++      this._stringBundle.formatStringFromName("error.sync.prolonged_failure", [lastSync], 1);
++    let priority = Weave.Notifications.PRIORITY_INFO;
++    let buttons = [
++      new Weave.NotificationButton(
++        this._stringBundle.GetStringFromName("error.sync.tryAgainButton.label"),
++        this._stringBundle.GetStringFromName("error.sync.tryAgainButton.accesskey"),
++        function() { gSyncUI.doSync(); return true; }
++      ),
++    ];
++    let notification =
++      new Weave.Notification(title, description, null, priority, buttons);
++    Weave.Notifications.replaceTitle(notification);
++
++    this.updateUI();
++  },
++
+   onSyncError: function SUI_onSyncError() {
+     this.log.debug("onSyncError: login=${login}, sync=${sync}", Weave.Status);
+     let title = this._stringBundle.GetStringFromName("error.sync.title");
+ 
+     if (Weave.Status.login != Weave.LOGIN_SUCCEEDED) {
+       this.onLoginError();
+       return;
+     }
+@@ -538,27 +632,31 @@
+         ("observersModuleSubjectWrapper" in subject.wrappedJSObject)) {
+       subject = subject.wrappedJSObject.object;
+     }
+ 
+     // First handle "activity" only.
+     switch (topic) {
+       case "weave:service:sync:start":
+       case "weave:service:login:start":
++      case "readinglist:sync:start":
+         this.onActivityStart();
+         break;
+       case "weave:service:sync:finish":
+       case "weave:service:sync:error":
+       case "weave:service:login:finish":
+       case "weave:service:login:error":
++      case "readinglist:sync:finish":
++      case "readinglist:sync:error":
+         this.onActivityStop();
+         break;
+     }
+     // Now non-activity state (eg, enabled, errors, etc)
+     // Note that sync uses the ":ui:" notifications for errors because sync.
++    // ReadingList has no such concept (yet?; hopefully the :error is enough!)
+     switch (topic) {
+       case "weave:ui:sync:finish":
+         this.onSyncFinish();
+         break;
+       case "weave:ui:sync:error":
+         this.onSyncError();
+         break;
+       case "weave:service:quota:remaining":
+@@ -586,16 +684,23 @@
+         this.initUI();
+         break;
+       case "weave:notification:added":
+         this.initNotifications();
+         break;
+       case "weave:ui:clear-error":
+         this.clearError();
+         break;
++
++      case "readinglist:sync:error":
++        this.onRLSyncError();
++        break;
++      case "readinglist:sync:finish":
++        this.clearError();
++        break;
+     }
+   },
+ 
+   QueryInterface: XPCOMUtils.generateQI([
+     Ci.nsIObserver,
+     Ci.nsISupportsWeakReference
+   ])
+ };
+reverted:
+--- b/browser/base/content/browser.js
++++ a/browser/base/content/browser.js
+@@ -269,16 +269,17 @@
+ #include browser-eme.js
+ #include browser-feeds.js
+ #include browser-fullScreen.js
+ #include browser-fullZoom.js
+ #include browser-gestureSupport.js
+ #include browser-loop.js
+ #include browser-places.js
+ #include browser-plugins.js
++#include browser-readinglist.js
+ #include browser-safebrowsing.js
+ #include browser-sidebar.js
+ #include browser-social.js
+ #include browser-tabview.js
+ #include browser-thumbnails.js
+ #include browser-trackingprotection.js
+ 
+ #ifdef MOZ_DATA_REPORTING
+@@ -1263,16 +1264,18 @@
+     window.messageManager.addMessageListener("Browser:URIFixup", gKeywordURIFixup);
+ 
+     BrowserOffline.init();
+     OfflineApps.init();
+     IndexedDBPromptHelper.init();
+ #ifdef E10S_TESTING_ONLY
+     gRemoteTabsUI.init();
+ #endif
++    ReadingListUI.init();
++
+     // Initialize the full zoom setting.
+     // We do this before the session restore service gets initialized so we can
+     // apply full zoom settings to tabs restored by the session restore service.
+     FullZoom.init();
+     PanelUI.init();
+     LightweightThemeListener.init();
+ 
+     Services.telemetry.getHistogramById("E10S_WINDOW").add(gMultiProcessBrowser);
+@@ -1543,16 +1546,18 @@
+     BrowserOnClick.uninit();
+ 
+     DevEdition.uninit();
+ 
+     TrackingProtection.uninit();
+ 
+     gMenuButtonUpdateBadge.uninit();
+ 
++    ReadingListUI.uninit();
++
+     SidebarUI.uninit();
+ 
+     // Now either cancel delayedStartup, or clean up the services initialized from
+     // it.
+     if (this._boundDelayedStartup) {
+       this._cancelDelayedStartup();
+     } else {
+       if (Win7Features)
+@@ -2539,16 +2544,18 @@
+ {
+   if (gURLBar && gURLBar.value != gLastValidURLStr)
+     SetPageProxyState("invalid");
+ }
+ 
+ function SetPageProxyState(aState)
+ {
+   BookmarkingUI.onPageProxyStateChanged(aState);
++  ReadingListUI.onPageProxyStateChanged(aState);
++
+   if (!gURLBar)
+     return;
+ 
+   if (!gProxyFavIcon)
+     gProxyFavIcon = document.getElementById("page-proxy-favicon");
+ 
+   gURLBar.setAttribute("pageproxystate", aState);
+   gProxyFavIcon.setAttribute("pageproxystate", aState);
+reverted:
+--- b/browser/base/content/browser.xul
++++ a/browser/base/content/browser.xul
+@@ -777,16 +777,20 @@
+                 <label class="urlbar-display urlbar-display-switchtab" value="&urlbar.switchToTab.label;"/>
+               </box>
+               <hbox id="urlbar-icons">
+                 <image id="page-report-button"
+                        class="urlbar-icon"
+                        hidden="true"
+                        tooltiptext="&pageReportIcon.tooltip;"
+                        onclick="gPopupBlockerObserver.onReportButtonClick(event);"/>
++                <image id="readinglist-addremove-button"
++                       class="urlbar-icon"
++                       hidden="true"
++                       onclick="ReadingListUI.buttonClick(event);"/>
+                 <image id="reader-mode-button"
+                        class="urlbar-icon"
+                        hidden="true"
+                        onclick="ReaderParent.buttonClick(event);"/>
+               </hbox>
+               <toolbarbutton id="urlbar-go-button"
+                              class="chromeclass-toolbar-additional"
+                              onclick="gURLBar.handleCommand(event);"
+@@ -907,16 +911,32 @@
+                   container="true">
+               <menupopup id="BMB_unsortedBookmarksPopup"
+                          placespopup="true"
+                          context="placesContext"
+                          onpopupshowing="if (!this.parentNode._placesView)
+                                            new PlacesMenu(event, 'place:folder=UNFILED_BOOKMARKS',
+                                                           PlacesUIUtils.getViewForNode(this.parentNode.parentNode).options);"/>
+             </menu>
++            <menuseparator>
++              <observes element="readingListSidebar" attribute="hidden"/>
++            </menuseparator>
++            <menu id="BMB_readingList"
++                  class="menu-iconic bookmark-item subviewbutton"
++                  label="&readingList.label;"
++                  container="true">
++              <observes element="readingListSidebar" attribute="hidden"/>
++              <menupopup id="BMB_readingListPopup"
++                         placespopup="true"
++                         onpopupshowing="ReadingListUI.onReadingListPopupShowing(this);">
++                <menuitem id="BMB_viewReadingListSidebar" class="subviewbutton"
++                          oncommand="SidebarUI.show('readingListSidebar');"
++                          label="&readingList.showSidebar.label;"/>
++              </menupopup>
++            </menu>
+             <menuseparator/>
+             <!-- Bookmarks menu items will go here -->
+             <menuitem id="BMB_bookmarksShowAll"
+                       class="subviewbutton panel-subview-footer"
+                       label="&showAllBookmarks2.label;"
+                       command="Browser:ShowAllBookmarks"
+                       key="manBookmarkKb"/>
+           </menupopup>
+reverted:
+--- b/browser/base/content/sync/customize.js
++++ a/browser/base/content/sync/customize.js
+@@ -1,16 +1,25 @@
+ /* This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ 
+ "use strict";
+ 
+ Components.utils.import("resource://gre/modules/Services.jsm");
+ 
++addEventListener("load", function () {
++  // unhide the reading-list engine if readinglist is enabled (note this
++  // dialog is only used with FxA sync, so no special action is needed
++  // for legacy sync.)
++  if (Services.prefs.getBoolPref("browser.readinglist.enabled")) {
++    document.getElementById("readinglist-engine").removeAttribute("hidden");
++  }
++});
++
+ addEventListener("dialogaccept", function () {
+   let pane = document.getElementById("sync-customize-pane");
+   // First determine what the preference for the "global" sync enabled pref
+   // should be based on the engines selected.
+   let prefElts = pane.querySelectorAll("preferences > preference");
+   let syncEnabled = false;
+   for (let elt of prefElts) {
+     if (elt.name.startsWith("services.sync.") && elt.value) {
+reverted:
+--- b/browser/base/content/sync/customize.xul
++++ a/browser/base/content/sync/customize.xul
+@@ -22,16 +22,18 @@
+   <prefpane id="sync-customize-pane">
+     <preferences>
+       <preference id="engine.bookmarks" name="services.sync.engine.bookmarks" type="bool"/>
+       <preference id="engine.history"   name="services.sync.engine.history"   type="bool"/>
+       <preference id="engine.tabs"      name="services.sync.engine.tabs"      type="bool"/>
+       <preference id="engine.passwords" name="services.sync.engine.passwords" type="bool"/>
+       <preference id="engine.addons"    name="services.sync.engine.addons"    type="bool"/>
+       <preference id="engine.prefs"     name="services.sync.engine.prefs"     type="bool"/>
++      <!-- non Sync-Engine engines -->
++      <preference id="engine.readinglist" name="readinglist.scheduler.enabled" type="bool"/>
+     </preferences>
+ 
+     <label id="sync-customize-title" value="&syncCustomize.title;"/>
+     <description id="sync-customize-subtitle"
+ #ifdef XP_UNIX
+                  value="&syncCustomizeUnix.description;"
+ #else
+                  value="&syncCustomize.description;"
+@@ -46,16 +48,21 @@
+                 accesskey="&engine.bookmarks.accesskey;"
+                 preference="engine.bookmarks"/>
+       <checkbox label="&engine.passwords.label;"
+                 accesskey="&engine.passwords.accesskey;"
+                 preference="engine.passwords"/>
+       <checkbox label="&engine.history.label;"
+                 accesskey="&engine.history.accesskey;"
+                 preference="engine.history"/>
++      <checkbox id="readinglist-engine"
++                label="&engine.readinglist.label;"
++                accesskey="&engine.readinglist.accesskey;"
++                preference="engine.readinglist"
++                hidden="true"/>
+       <checkbox label="&engine.addons.label;"
+                 accesskey="&engine.addons.accesskey;"
+                 preference="engine.addons"/>
+       <checkbox label="&engine.prefs.label;"
+                 accesskey="&engine.prefs.accesskey;"
+                 preference="engine.prefs"/>
+   </vbox>
+ 
+reverted:
+--- b/browser/base/content/test/general/browser_readerMode.js
++++ a/browser/base/content/test/general/browser_readerMode.js
+@@ -1,18 +1,21 @@
+ /* This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ 
+ /**
+  * Test that the reader mode button appears and works properly on
++ * reader-able content, and that ReadingList button can open and close
++ * its Sidebar UI.
+- * reader-able content.
+  */
+ const TEST_PREFS = [
+   ["reader.parse-on-load.enabled", true],
++  ["browser.readinglist.enabled", true],
++  ["browser.readinglist.introShown", false],
+ ];
+ 
+ const TEST_PATH = "http://example.com/browser/browser/base/content/test/general/";
+ 
+ let readerButton = document.getElementById("reader-mode-button");
+ 
+ add_task(function* test_reader_button() {
+   registerCleanupFunction(function() {
+@@ -55,16 +58,36 @@
+ 
+   let readerUrl = gBrowser.selectedBrowser.currentURI.spec;
+   ok(readerUrl.startsWith("about:reader"), "about:reader loaded after clicking reader mode button");
+   is_element_visible(readerButton, "Reader mode button is present on about:reader");
+ 
+   is(gURLBar.value, readerUrl, "gURLBar value is about:reader URL");
+   is(gURLBar.textValue, url.substring("http://".length), "gURLBar is displaying original article URL");
+ 
++  // Readinglist button should be present, and status should be "openned", as the
++  // first time in readerMode opens the Sidebar ReadingList as a feature introduction.
++  let listButton;
++  yield promiseWaitForCondition(() =>
++    listButton = gBrowser.contentDocument.getElementById("list-button"));
++  is_element_visible(listButton, "List button is present on a reader-able page");
++  yield promiseWaitForCondition(() => listButton.classList.contains("on"));
++  ok(listButton.classList.contains("on"),
++    "List button should indicate SideBar-ReadingList open.");
++  ok(ReadingListUI.isSidebarOpen,
++    "The ReadingListUI should indicate SideBar-ReadingList open.");
++
++  // Now close the Sidebar ReadingList.
++  listButton.click();
++  yield promiseWaitForCondition(() => !listButton.classList.contains("on"));
++  ok(!listButton.classList.contains("on"),
++    "List button should now indicate SideBar-ReadingList closed.");
++  ok(!ReadingListUI.isSidebarOpen,
++    "The ReadingListUI should now indicate SideBar-ReadingList closed.");
++
+   // Switch page back out of reader mode.
+   readerButton.click();
+   yield promiseTabLoadEvent(tab);
+   is(gBrowser.selectedBrowser.currentURI.spec, url,
+     "Original page loaded after clicking active reader mode button");
+ 
+   // Load a new tab that is NOT reader-able.
+   let newTab = gBrowser.selectedTab = gBrowser.addTab();
+reverted:
+--- b/browser/base/content/test/general/browser_readerMode_hidden_nodes.js
++++ a/browser/base/content/test/general/browser_readerMode_hidden_nodes.js
+@@ -1,15 +1,16 @@
+ /* This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ 
+ /**
+  * Test that the reader mode button appears and works properly on
++ * reader-able content, and that ReadingList button can open and close
++ * its Sidebar UI.
+- * reader-able content.
+  */
+ const TEST_PREFS = [
+   ["reader.parse-on-load.enabled", true],
+   ["browser.reader.detectedFirstArticle", false],
+ ];
+ 
+ const TEST_PATH = "http://example.com/browser/browser/base/content/test/general/";
+ 
+reverted:
+--- b/browser/base/content/test/general/browser_syncui.js
++++ a/browser/base/content/test/general/browser_syncui.js
+@@ -1,14 +1,16 @@
+ /* Any copyright is dedicated to the Public Domain.
+  * http://creativecommons.org/publicdomain/zero/1.0/ */
+ 
+ let {Log} = Cu.import("resource://gre/modules/Log.jsm", {});
+ let {Weave} = Cu.import("resource://services-sync/main.js", {});
+ let {Notifications} = Cu.import("resource://services-sync/notifications.js", {});
++// The BackStagePass allows us to get this test-only non-exported function.
++let {getInternalScheduler} = Cu.import("resource:///modules/readinglist/Scheduler.jsm", {});
+ 
+ let stringBundle = Cc["@mozilla.org/intl/stringbundle;1"]
+                    .getService(Ci.nsIStringBundleService)
+                    .createBundle("chrome://weave/locale/services/sync.properties");
+ 
+ // ensure test output sees log messages.
+ Log.repository.getLogger("browserwindow.syncui").addAppender(new Log.DumpAppender());
+ 
+@@ -30,16 +32,33 @@
+   // mock out the "_needsSetup()" function so we don't short-circuit.
+   let oldNeedsSetup = window.gSyncUI._needsSetup;
+   window.gSyncUI._needsSetup = () => false;
+   registerCleanupFunction(() => {
+     window.gSyncUI._needsSetup = oldNeedsSetup;
+   });
+ });
+ 
++add_task(function* testNotProlongedRLErrorWhenDisabled() {
++  // Here we arrange for the (dead?) readinglist scheduler to have a last-synced
++  // date of long ago and the RL scheduler is disabled.
++  // gSyncUI.isProlongedReadingListError() should return false.
++  // Pretend the reading-list is in the "prolonged error" state.
++  let longAgo = new Date(Date.now() - 100 * 24 * 60 * 60 * 1000); // 100 days ago.
++  Services.prefs.setCharPref("readinglist.scheduler.lastSync", longAgo.toString());
++
++  // It's prolonged while it's enabled.
++  Services.prefs.setBoolPref("readinglist.scheduler.enabled", true);
++  Assert.equal(gSyncUI.isProlongedReadingListError(), true);
++
++  // But false when disabled.
++  Services.prefs.setBoolPref("readinglist.scheduler.enabled", false);
++  Assert.equal(gSyncUI.isProlongedReadingListError(), false);
++});
++
+ add_task(function* testProlongedSyncError() {
+   let promiseNotificationAdded = promiseObserver("weave:notification:added");
+   Assert.equal(Notifications.notifications.length, 0, "start with no notifications");
+ 
+   // Pretend we are in the "prolonged error" state.
+   Weave.Status.sync = Weave.PROLONGED_SYNC_FAILURE;
+   Weave.Status.login = Weave.LOGIN_SUCCEEDED;
+   Services.obs.notifyObservers(null, "weave:ui:sync:error", null);
+@@ -52,16 +71,42 @@
+   // Now pretend we just had a successful sync - the error notification should go away.
+   let promiseNotificationRemoved = promiseObserver("weave:notification:removed");
+   Weave.Status.sync = Weave.STATUS_OK;
+   Services.obs.notifyObservers(null, "weave:ui:sync:finish", null);
+   yield promiseNotificationRemoved;
+   Assert.equal(Notifications.notifications.length, 0, "no notifications left");
+ });
+ 
++add_task(function* testProlongedRLError() {
++  Services.prefs.setBoolPref("readinglist.scheduler.enabled", true);
++  let promiseNotificationAdded = promiseObserver("weave:notification:added");
++  Assert.equal(Notifications.notifications.length, 0, "start with no notifications");
++
++  // Pretend the reading-list is in the "prolonged error" state.
++  let longAgo = new Date(Date.now() - 100 * 24 * 60 * 60 * 1000); // 100 days ago.
++  Services.prefs.setCharPref("readinglist.scheduler.lastSync", longAgo.toString());
++  getInternalScheduler().state = ReadingListScheduler.STATE_ERROR_OTHER;
++  Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++  Services.obs.notifyObservers(null, "readinglist:sync:error", null);
++
++  let subject = yield promiseNotificationAdded;
++  let notification = subject.wrappedJSObject.object; // sync's observer abstraction is abstract!
++  Assert.equal(notification.title, stringBundle.GetStringFromName("error.sync.title"));
++  Assert.equal(Notifications.notifications.length, 1, "exactly 1 notification");
++
++  // Now pretend we just had a successful sync - the error notification should go away.
++  let promiseNotificationRemoved = promiseObserver("weave:notification:removed");
++  Services.prefs.setCharPref("readinglist.scheduler.lastSync", Date.now().toString());
++  Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++  Services.obs.notifyObservers(null, "readinglist:sync:finish", null);
++  yield promiseNotificationRemoved;
++  Assert.equal(Notifications.notifications.length, 0, "no notifications left");
++});
++
+ add_task(function* testSyncLoginError() {
+   let promiseNotificationAdded = promiseObserver("weave:notification:added");
+   Assert.equal(Notifications.notifications.length, 0, "start with no notifications");
+ 
+   // Pretend we are in the "prolonged error" state.
+   Weave.Status.sync = Weave.LOGIN_FAILED;
+   Weave.Status.login = Weave.LOGIN_FAILED_LOGIN_REJECTED;
+   Services.obs.notifyObservers(null, "weave:ui:sync:error", null);
+@@ -105,17 +150,23 @@
+   Services.obs.addObserver(obs, "weave:notification:added", false);
+   try {
+     // notify of a display-able error - we should synchronously see our flag set.
+     Weave.Status.sync = Weave.LOGIN_FAILED;
+     Weave.Status.login = Weave.LOGIN_FAILED_LOGIN_REJECTED;
+     Services.obs.notifyObservers(null, "weave:ui:login:error", null);
+     Assert.ok(sawNotificationAdded);
+ 
++    // clear the notification.
++    let promiseNotificationRemoved = promiseObserver("weave:notification:removed");
++    Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++    Services.obs.notifyObservers(null, "readinglist:sync:finish", null);
++    yield promiseNotificationRemoved;
++
++    // cool - so reset the flag and test what should *not* show an error.
+-    // reset the flag and test what should *not* show an error.
+     sawNotificationAdded = false;
+     Weave.Status.sync = Weave.LOGIN_FAILED;
+     Weave.Status.login = Weave.LOGIN_FAILED_NETWORK_ERROR;
+     Services.obs.notifyObservers(null, "weave:ui:login:error", null);
+     Assert.ok(!sawNotificationAdded);
+ 
+     // ditto for LOGIN_FAILED_SERVER_ERROR
+     Weave.Status.sync = Weave.LOGIN_FAILED;
+@@ -123,16 +174,90 @@
+     Services.obs.notifyObservers(null, "weave:ui:login:error", null);
+     Assert.ok(!sawNotificationAdded);
+     // we are done.
+   } finally {
+     Services.obs.removeObserver(obs, "weave:notification:added");
+   }
+ });
+ 
++add_task(function* testRLLoginError() {
++  let promiseNotificationAdded = promiseObserver("weave:notification:added");
++  Assert.equal(Notifications.notifications.length, 0, "start with no notifications");
++
++  // Pretend RL is in an auth error state
++  getInternalScheduler().state = ReadingListScheduler.STATE_ERROR_AUTHENTICATION;
++  Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++  Services.obs.notifyObservers(null, "readinglist:sync:error", null);
++
++  let subject = yield promiseNotificationAdded;
++  let notification = subject.wrappedJSObject.object; // sync's observer abstraction is abstract!
++  Assert.equal(notification.title, stringBundle.GetStringFromName("error.login.title"));
++  Assert.equal(Notifications.notifications.length, 1, "exactly 1 notification");
++
++  // Now pretend we just had a successful sync - the error notification should go away.
++  getInternalScheduler().state = ReadingListScheduler.STATE_OK;
++  let promiseNotificationRemoved = promiseObserver("weave:notification:removed");
++  Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++  Services.obs.notifyObservers(null, "readinglist:sync:finish", null);
++  yield promiseNotificationRemoved;
++  Assert.equal(Notifications.notifications.length, 0, "no notifications left");
++});
++
++// Here we put readinglist into an "authentication error" state (should see
++// the error bar reflecting this), then report a prolonged error from Sync (an
++// infobar to reflect the sync error should replace it), then resolve the sync
++// error - the authentication error from readinglist should remain.
++add_task(function* testRLLoginErrorRemains() {
++  let promiseNotificationAdded = promiseObserver("weave:notification:added");
++  Assert.equal(Notifications.notifications.length, 0, "start with no notifications");
++
++  // Pretend RL is in an auth error state
++  getInternalScheduler().state = ReadingListScheduler.STATE_ERROR_AUTHENTICATION;
++  Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++  Services.obs.notifyObservers(null, "readinglist:sync:error", null);
++
++  let subject = yield promiseNotificationAdded;
++  let notification = subject.wrappedJSObject.object; // sync's observer abstraction is abstract!
++  Assert.equal(notification.title, stringBundle.GetStringFromName("error.login.title"));
++  Assert.equal(Notifications.notifications.length, 1, "exactly 1 notification");
++
++  // Now Sync into a prolonged auth error state.
++  promiseNotificationAdded = promiseObserver("weave:notification:added");
++  Weave.Status.sync = Weave.PROLONGED_SYNC_FAILURE;
++  Weave.Status.login = Weave.LOGIN_FAILED_LOGIN_REJECTED;
++  Services.obs.notifyObservers(null, "weave:ui:sync:error", null);
++  subject = yield promiseNotificationAdded;
++  // still exactly 1 notification with the "login" title.
++  notification = subject.wrappedJSObject.object;
++  Assert.equal(notification.title, stringBundle.GetStringFromName("error.login.title"));
++  Assert.equal(Notifications.notifications.length, 1, "exactly 1 notification");
++
++  // Resolve the sync problem.
++  promiseNotificationAdded = promiseObserver("weave:notification:added");
++  Weave.Status.sync = Weave.STATUS_OK;
++  Weave.Status.login = Weave.LOGIN_SUCCEEDED;
++  Services.obs.notifyObservers(null, "weave:ui:sync:finish", null);
++
++  // Expect one notification - the RL login problem.
++  subject = yield promiseNotificationAdded;
++  // still exactly 1 notification with the "login" title.
++  notification = subject.wrappedJSObject.object;
++  Assert.equal(notification.title, stringBundle.GetStringFromName("error.login.title"));
++  Assert.equal(Notifications.notifications.length, 1, "exactly 1 notification");
++
++  // and cleanup - resolve the readinglist error.
++  getInternalScheduler().state = ReadingListScheduler.STATE_OK;
++  let promiseNotificationRemoved = promiseObserver("weave:notification:removed");
++  Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++  Services.obs.notifyObservers(null, "readinglist:sync:finish", null);
++  yield promiseNotificationRemoved;
++  Assert.equal(Notifications.notifications.length, 0, "no notifications left");
++});
++
+ function checkButtonsStatus(shouldBeActive) {
+   let button = document.getElementById("sync-button");
+   let fxaContainer = document.getElementById("PanelUI-footer-fxa");
+   if (shouldBeActive) {
+     Assert.equal(button.getAttribute("status"), "active");
+     Assert.equal(fxaContainer.getAttribute("syncstatus"), "active");
+   } else {
+     Assert.ok(!button.hasAttribute("status"));
+@@ -157,20 +282,34 @@
+   yield PanelUI.show();
+   try {
+     testButtonActions("weave:service:login:start", "weave:service:login:finish");
+     testButtonActions("weave:service:login:start", "weave:service:login:error");
+ 
+     testButtonActions("weave:service:sync:start", "weave:service:sync:finish");
+     testButtonActions("weave:service:sync:start", "weave:service:sync:error");
+ 
++    testButtonActions("readinglist:sync:start", "readinglist:sync:finish");
++    testButtonActions("readinglist:sync:start", "readinglist:sync:error");
++
+     // and ensure the counters correctly handle multiple in-flight syncs
+     Services.obs.notifyObservers(null, "weave:service:sync:start", null);
+     checkButtonsStatus(true);
++    Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++    checkButtonsStatus(true);
++    Services.obs.notifyObservers(null, "readinglist:sync:finish", null);
++    // sync is still going...
++    checkButtonsStatus(true);
++    // another reading list starts
++    Services.obs.notifyObservers(null, "readinglist:sync:start", null);
++    checkButtonsStatus(true);
++    // The initial sync stops.
+-    // sync stops.
+     Services.obs.notifyObservers(null, "weave:service:sync:finish", null);
++    // RL is still going...
++    checkButtonsStatus(true);
++    // RL finishes with an error, so no longer active.
++    Services.obs.notifyObservers(null, "readinglist:sync:error", null);
+-    // Button should not be active.
+     checkButtonsStatus(false);
+   } finally {
+     PanelUI.hide();
+     CustomizableUI.removeWidgetFromArea("sync-button");
+   }
+ });
+reverted:
+--- b/browser/components/customizableui/content/panelUI.inc.xul
++++ a/browser/components/customizableui/content/panelUI.inc.xul
+@@ -134,16 +134,27 @@
+         <toolbarbutton id="panelMenu_bookmarksToolbar"
+                        label="&personalbarCmd.label;"
+                        class="subviewbutton cui-withicon"
+                        oncommand="PlacesCommandHook.showPlacesOrganizer('BookmarksToolbar'); PanelUI.hide();"/>
+         <toolbarbutton id="panelMenu_unsortedBookmarks"
+                        label="&unsortedBookmarksCmd.label;"
+                        class="subviewbutton cui-withicon"
+                        oncommand="PlacesCommandHook.showPlacesOrganizer('UnfiledBookmarks'); PanelUI.hide();"/>
++        <toolbarseparator>
++          <observes element="readingListSidebar" attribute="hidden"/>
++        </toolbarseparator>
++        <toolbarbutton id="panelMenu_viewReadingListSidebar"
++                       label="&readingList.showSidebar.label;"
++                       class="subviewbutton"
++                       key="key_readingListSidebar"
++                       oncommand="SidebarUI.toggle('readingListSidebar'); PanelUI.hide();">
++          <observes element="readingListSidebar" attribute="checked"/>
++          <observes element="readingListSidebar" attribute="hidden"/>
++        </toolbarbutton>
+         <toolbarseparator class="small-separator"/>
+         <toolbaritem id="panelMenu_bookmarksMenu"
+                      orient="vertical"
+                      smoothscroll="false"
+                      onclick="if (event.button == 1) BookmarkingUI.onPanelMenuViewCommand(event, this._placesView);"
+                      oncommand="BookmarkingUI.onPanelMenuViewCommand(event, this._placesView);"
+                      flatList="true"
+                      tooltip="bhTooltip">
+reverted:
+--- b/browser/components/moz.build
++++ a/browser/components/moz.build
+@@ -11,16 +11,17 @@
+     'downloads',
+     'feeds',
+     'loop',
+     'migration',
+     'places',
+     'pocket',
+     'preferences',
+     'privatebrowsing',
++    'readinglist',
+     'search',
+     'sessionstore',
+     'shell',
+     'selfsupport',
+     'tabview',
+     'uitour',
+     'translation',
+ ]
+reverted:
+--- b/browser/components/preferences/in-content/sync.js
++++ a/browser/components/preferences/in-content/sync.js
+@@ -290,16 +290,22 @@
+     // service.fxAccountsEnabled is false iff sync is already configured for
+     // the legacy provider.
+     if (service.fxAccountsEnabled) {
+       let displayNameLabel = document.getElementById("fxaDisplayName");
+       let fxaEmailAddress1Label = document.getElementById("fxaEmailAddress1");
+       fxaEmailAddress1Label.hidden = false;
+       displayNameLabel.hidden = true;
+ 
++      // unhide the reading-list engine if readinglist is enabled (note we do
++      // it here as it must remain disabled for legacy sync users)
++      if (Services.prefs.getBoolPref("browser.readinglist.enabled")) {
++        document.getElementById("readinglist-engine").removeAttribute("hidden");
++      }
++
+       let profileInfoEnabled;
+       try {
+         profileInfoEnabled = Services.prefs.getBoolPref("identity.fxaccounts.profile_image.enabled");
+       } catch (ex) {}
+ 
+       // determine the fxa status...
+       this.page = PAGE_PLEASE_WAIT;
+ 
+reverted:
+--- b/browser/components/preferences/in-content/sync.xul
++++ a/browser/components/preferences/in-content/sync.xul
+@@ -19,16 +19,20 @@
+               name="services.sync.engine.tabs"
+               type="bool"/>
+   <preference id="engine.prefs"
+               name="services.sync.engine.prefs"
+               type="bool"/>
+   <preference id="engine.passwords"
+               name="services.sync.engine.passwords"
+               type="bool"/>
++  <!-- non Sync-Engine engines -->
++  <preference id="engine.readinglist"
++              name="readinglist.scheduler.enabled"
++              type="bool"/>
+ </preferences>
+ 
+ <script type="application/javascript"
+         src="chrome://browser/content/preferences/in-content/sync.js"/>
+ <script type="application/javascript"
+         src="chrome://browser/content/sync/utils.js"/>
+ 
+ <hbox id="header-sync"
+@@ -297,16 +301,21 @@
+           <checkbox label="&engine.passwords.label;"
+                     accesskey="&engine.passwords.accesskey;"
+                     preference="engine.passwords"/>
+         </vbox>
+         <vbox align="start">
+           <checkbox label="&engine.history.label;"
+                     accesskey="&engine.history.accesskey;"
+                     preference="engine.history"/>
++          <checkbox id="readinglist-engine"
++                    label="&engine.readinglist.label;"
++                    accesskey="&engine.readinglist.accesskey;"
++                    preference="engine.readinglist"
++                    hidden="true"/>
+           <checkbox label="&engine.addons.label;"
+                     accesskey="&engine.addons.accesskey;"
+                     preference="engine.addons"/>
+           <checkbox label="&engine.prefs.label;"
+                     accesskey="&engine.prefs.accesskey;"
+                     preference="engine.prefs"/>
+         </vbox>
+         <spacer/>
+reverted:
+--- b/browser/components/preferences/sync.js
++++ a/browser/components/preferences/sync.js
+@@ -151,16 +151,21 @@
+     Services.obs.notifyObservers(null, "fxa-migration:state-request", null);
+ 
+     let service = Components.classes["@mozilla.org/weave/service;1"]
+                   .getService(Components.interfaces.nsISupports)
+                   .wrappedJSObject;
+     // service.fxAccountsEnabled is false iff sync is already configured for
+     // the legacy provider.
+     if (service.fxAccountsEnabled) {
++      // unhide the reading-list engine if readinglist is enabled (note we do
++      // it here as it must remain disabled for legacy sync users)
++      if (Services.prefs.getBoolPref("browser.readinglist.enabled")) {
++        document.getElementById("readinglist-engine").removeAttribute("hidden");
++      }
+       // determine the fxa status...
+       this.page = PAGE_PLEASE_WAIT;
+       fxAccounts.getSignedInUser().then(data => {
+         if (!data) {
+           this.page = FXA_PAGE_LOGGED_OUT;
+           return;
+         }
+         this.page = FXA_PAGE_LOGGED_IN;
+reverted:
+--- b/browser/components/preferences/sync.xul
++++ a/browser/components/preferences/sync.xul
+@@ -23,16 +23,18 @@
+ 
+     <preferences id="syncEnginePrefs">
+       <preference id="engine.addons"    name="services.sync.engine.addons"    type="bool"/>
+       <preference id="engine.bookmarks" name="services.sync.engine.bookmarks" type="bool"/>
+       <preference id="engine.history"   name="services.sync.engine.history"   type="bool"/>
+       <preference id="engine.tabs"      name="services.sync.engine.tabs"      type="bool"/>
+       <preference id="engine.prefs"     name="services.sync.engine.prefs"     type="bool"/>
+       <preference id="engine.passwords" name="services.sync.engine.passwords" type="bool"/>
++      <!-- non Sync-Engine engines -->
++      <preference id="engine.readinglist" name="readinglist.scheduler.enabled" type="bool"/>
+     </preferences>
+ 
+ 
+     <script type="application/javascript"
+             src="chrome://browser/content/preferences/sync.js"/>
+     <script type="application/javascript"
+             src="chrome://browser/content/sync/utils.js"/>
+ 
+@@ -294,16 +296,22 @@
+                 <checkbox label="&engine.passwords.label;"
+                           accesskey="&engine.passwords.accesskey;"
+                           onsynctopreference="gSyncPane.onPreferenceChanged();"
+                           preference="engine.passwords"/>
+                 <checkbox label="&engine.history.label;"
+                           accesskey="&engine.history.accesskey;"
+                           onsynctopreference="gSyncPane.onPreferenceChanged(this);"
+                           preference="engine.history"/>
++                <!-- onpreferencechanged not needed for the readinglist engine -->
++                <checkbox id="readinglist-engine"
++                          label="&engine.readinglist.label;"
++                          accesskey="&engine.readinglist.accesskey;"
++                          preference="engine.readinglist"
++                          hidden="true"/>
+                 <checkbox label="&engine.addons.label;"
+                           accesskey="&engine.addons.accesskey;"
+                           onsynctopreference="gSyncPane.onPreferenceChanged();"
+                           preference="engine.addons"/>
+                 <checkbox label="&engine.prefs.label;"
+                           accesskey="&engine.prefs.accesskey;"
+                           onsynctopreference="gSyncPane.onPreferenceChanged();"
+                           preference="engine.prefs"/>
+reverted:
+--- b/browser/components/uitour/UITour.jsm
++++ a/browser/components/uitour/UITour.jsm
+@@ -374,20 +374,19 @@
+ 
+   get _readerViewTriggerRegEx() {
+     delete this._readerViewTriggerRegEx;
+     let readerViewUITourTrigger = Services.prefs.getCharPref(PREF_READERVIEW_TRIGGER);
+     return this._readerViewTriggerRegEx = new RegExp(readerViewUITourTrigger, "i");
+   },
+ 
+   onLocationChange: function(aLocation) {
++    // The ReadingList/ReaderView tour page is expected to run in Reader View,
+-    // The ReaderView tour page is expected to run in Reader View,
+     // which disables JavaScript on the page. To get around that, we
++    // automatically start a pre-defined tour on page load.
+-    // automatically start a pre-defined tour on page load (for hysterical
+-    // raisins the ReaderView tour is known as "readinglist")
+     let originalUrl = ReaderMode.getOriginalUrl(aLocation);
+     if (this._readerViewTriggerRegEx.test(originalUrl)) {
+       this.startSubTour("readinglist");
+     }
+   },
+ 
+   onPageEvent: function(aMessage, aEvent) {
+     let browser = aMessage.target;
+reverted:
+--- b/browser/locales/en-US/chrome/browser/browser.dtd
++++ a/browser/locales/en-US/chrome/browser/browser.dtd
+@@ -859,14 +859,26 @@
+ 
+ <!ENTITY emeLearnMoreContextMenu.label            "Learn more about DRM…">
+ <!ENTITY emeLearnMoreContextMenu.accesskey        "D">
+ <!ENTITY emeNotificationsNotNow.label             "Not now">
+ <!ENTITY emeNotificationsNotNow.accesskey         "N">
+ <!ENTITY emeNotificationsDontAskAgain.label       "Don't ask me again">
+ <!ENTITY emeNotificationsDontAskAgain.accesskey   "D">
+ 
++<!ENTITY readingList.label                        "Reading List">
++<!ENTITY readingList.sidebar.commandKey           "R">
++<!ENTITY readingList.showSidebar.label            "Show Reading List Sidebar">
++<!-- Pre-landed string for bug 1124153 -->
++<!ENTITY readingList.sidebar.showMore.label       "Show more…">
++<!-- Pre-landed string for bug 1133662 -->
++<!ENTITY readingList.sidebar.emptyText            "Add articles to your Reading List to save them for later and find them easily when you need them.">
++<!ENTITY readingList.sidebar.delete.tooltip       "Remove this from your Reading List">
++<!-- Pre-landed strings for bug 1123519 -->
++<!ENTITY readingList.sidebar.add.label            "Add to Reading List">
++<!ENTITY readingList.sidebar.add.tooltip          "Add this page to your Reading List">
++
+ <!-- LOCALIZATION NOTE (saveToPocketCmd.label, saveLinkToPocketCmd.label, pocketMenuitem.label): Pocket is a brand name -->
+ <!ENTITY saveToPocketCmd.label     "Save Page to Pocket">
+ <!ENTITY saveToPocketCmd.accesskey "k">
+ <!ENTITY saveLinkToPocketCmd.label     "Save Link to Pocket">
+ <!ENTITY saveLinkToPocketCmd.accesskey "o">
+ <!ENTITY pocketMenuitem.label      "View Pocket List">
+reverted:
+--- b/browser/locales/en-US/chrome/browser/browser.properties
++++ a/browser/locales/en-US/chrome/browser/browser.properties
+@@ -709,20 +709,92 @@
+ # the appmenu labels and buttons that appear when an update is staged for
+ # installation or a background update has failed and a manual download is required.
+ # %S is brandShortName
+ appmenu.restartNeeded.description = Restart %S to apply updates
+ appmenu.updateFailed.description = Background update failed, please download update
+ appmenu.restartBrowserButton.label = Restart %S
+ appmenu.downloadUpdateButton.label = Download Update
+ 
++# LOCALIZATION NOTE : FILE Reading List and Reader View are feature names and therefore typically used as proper nouns.
+-# LOCALIZATION NOTE : FILE Reader View is a feature name and therefore typically used as a proper noun.
+ 
++# Pre-landed string for bug 1124153
++# LOCALIZATION NOTE(readingList.sidebar.showMore.tooltip): %S is the number of items that will be added by clicking this button
++# Semicolon-separated list of plural forms. See:
++# http://developer.mozilla.org/en/docs/Localization_and_Plurals
++readingList.sidebar.showMore.tooltip = Show %S more item;Show %S more items
++# Pre-landed strings for bug 1131457 / bug 1131461
++readingList.urlbar.add = Add page to Reading List
++readingList.urlbar.addDone = Page added to Reading List
++readingList.urlbar.remove = Remove page from Reading List
++readingList.urlbar.removeDone = Page removed from Reading List
++# Pre-landed strings for bug 1133610 & bug 1133611
++# LOCALIZATION NOTE(readingList.promo.noSync.label): %S a link, using the text from readingList.promo.noSync.link
++readingList.promo.noSync.label = Access your Reading List on all your devices. %S
++# LOCALIZATION NOTE(readingList.promo.noSync.link): %S is syncBrandShortName
++readingList.promo.noSync.link = Get started with %S.
++# LOCALIZATION NOTE(readingList.promo.hasSync.label): %S is syncBrandShortName
++readingList.promo.hasSync.label = You can now access your Reading List on all your devices connected by %S.
++
++# Pre-landed strings for bug 1136570
++readerView.promo.firstDetectedArticle.title = Read and save articles easily
++readerView.promo.firstDetectedArticle.body = Click the book to make articles easier to read and use the plus to save them for later.
++readingList.promo.firstUse.exitTourButton = Close
++# LOCALIZATION NOTE(readingList.promo.firstUse.tourDoneButton):
++# » is used as an indication that pressing this button progresses through the tour.
++readingList.promo.firstUse.tourDoneButton = Start Reading »
++# LOCALIZATION NOTE(readingList.promo.firstUse.readingList.multipleStepsTitle):
++# This is used when there are multiple steps in the tour.
++# %1$S is the current step's title (readingList.promo.firstUse.*.title), %2$S is the current step number of the tour, %3$S is the total number of steps.
++readingList.promo.firstUse.multipleStepsTitle = %1$S (%2$S/%3$S)
++readingList.promo.firstUse.readingList.title = Reading List
++readingList.promo.firstUse.readingList.body = Save articles for later and find them easily when you need them.
++# LOCALIZATION NOTE(readingList.promo.firstUse.readingList.moveToButton):
++# » is used as an indication that pressing this button progresses through the tour.
++readingList.promo.firstUse.readingList.moveToButton = Next: Easy finding »
+ readingList.promo.firstUse.readerView.title = Reader View
+ readingList.promo.firstUse.readerView.body = Remove clutter so you can focus exactly on what you want to read.
++# LOCALIZATION NOTE(readingList.promo.firstUse.readerView.moveToButton):
++# » is used as an indication that pressing this button progresses through the tour.
++readingList.promo.firstUse.readerView.moveToButton = Next: Easy reading »
++readingList.promo.firstUse.syncNotSignedIn.title = Sync
++# LOCALIZATION NOTE(readingList.promo.firstUse.syncNotSignedIn.body): %S is brandShortName
++readingList.promo.firstUse.syncNotSignedIn.body = Sign in to access your Reading List everywhere you use %S.
++# LOCALIZATION NOTE(readingList.promo.firstUse.syncNotSignedIn.moveToButton):
++# » is used as an indication that pressing this button progresses through the tour.
++readingList.promo.firstUse.syncNotSignedIn.moveToButton = Next: Easy access »
++readingList.promo.firstUse.syncSignedIn.title = Sync
++# LOCALIZATION NOTE(readingList.promo.firstUse.syncSignedIn.body): %S is brandShortName
++readingList.promo.firstUse.syncSignedIn.body = Open your Reading List articles everywhere you use %S.
++# LOCALIZATION NOTE(readingList.promo.firstUse.syncSignedIn.moveToButton):
++# » is used as an indication that pressing this button progresses through the tour.
++readingList.promo.firstUse.syncSignedIn.moveToButton = Next: Easy access »
++
++# Pre-landed strings for bug 1136570
++# LOCALIZATION NOTE(readingList.prepopulatedArticles.learnMore):
++# This will show as an item in the Reading List, and will link to a page that explains and shows how the Reading List and Reader View works.
++# This will be staged at:
++#   https://www.allizom.org/firefox/reading/start/
++# And eventually available at:
++#   https://www.mozilla.org/firefox/reading/start/
++# %S is brandShortName
++readingList.prepopulatedArticles.learnMore = Learn how %S makes reading more pleasant
++# LOCALIZATION NOTE(readingList.prepopulatedArticles.supportReadingList):
++# This will show as an item in the Reading List, and will link to a SUMO article describing the Reading List:
++#   https://support.mozilla.org/kb/save-sync-and-read-pages-anywhere-reading-list
++readingList.prepopulatedArticles.supportReadingList = Save, sync and read pages anywhere with Reading List
++# LOCALIZATION NOTE(readingList.prepopulatedArticles.supportReaderView):
++# This will show as an item in the Reading List, and will link to a SUMO article describing the Reader View:
++#   https://support.mozilla.org/kb/enjoy-clutter-free-web-pages-reader-view
++readingList.prepopulatedArticles.supportReaderView = Enjoy clutter-free Web pages with Reader View
++# LOCALIZATION NOTE(readingList.prepopulatedArticles.learnMore):
++# This will show as an item in the Reading List, and will link to a SUMO article describing Sync:
++#   https://support.mozilla.org/kb/how-do-i-set-up-firefox-sync
++# %S is syncBrandShortName
++readingList.prepopulatedArticles.supportSync = Access your Reading List anywhere with %S
+ 
+ # LOCALIZATION NOTE (e10s.offerPopup.mainMessage
+ #                    e10s.offerPopup.highlight1
+ #                    e10s.offerPopup.highlight2
+ #                    e10s.offerPopup.enableAndRestart.label
+ #                    e10s.offerPopup.enableAndRestart.accesskey
+ #                    e10s.offerPopup.noThanks.label
+ #                    e10s.offerPopup.noThanks.accesskey
+reverted:
+--- b/browser/locales/en-US/chrome/browser/preferences/sync.dtd
++++ a/browser/locales/en-US/chrome/browser/preferences/sync.dtd
+@@ -21,16 +21,18 @@
+ <!ENTITY myRecoveryKey.label          "My Recovery Key">
+ <!ENTITY resetSync2.label             "Reset Sync…">
+ 
+ <!ENTITY pairDevice.label             "Pair a Device">
+ 
+ <!ENTITY syncMy.label               "Sync My">
+ <!ENTITY engine.bookmarks.label     "Bookmarks">
+ <!ENTITY engine.bookmarks.accesskey "m">
++<!ENTITY engine.readinglist.label   "Reading List">
++<!ENTITY engine.readinglist.accesskey "L">
+ <!ENTITY engine.tabs.label          "Tabs">
+ <!ENTITY engine.tabs.accesskey      "T">
+ <!ENTITY engine.history.label       "History">
+ <!ENTITY engine.history.accesskey   "r">
+ <!ENTITY engine.passwords.label     "Passwords">
+ <!ENTITY engine.passwords.accesskey "P">
+ <!ENTITY engine.prefs.label         "Preferences">
+ <!ENTITY engine.prefs.accesskey     "S">
+reverted:
+--- b/browser/locales/en-US/chrome/browser/syncCustomize.dtd
++++ a/browser/locales/en-US/chrome/browser/syncCustomize.dtd
+@@ -10,16 +10,18 @@
+ <!ENTITY syncCustomizeUnix.description    "You can change this selection in Preferences.">
+ 
+ <!--
+   These engine names are the same as in browser/preferences/sync.dtd except
+   for the last two that are marked as being specific to Desktop browsers.
+ -->
+ <!ENTITY engine.bookmarks.label           "Bookmarks">
+ <!ENTITY engine.bookmarks.accesskey       "m">
++<!ENTITY engine.readinglist.label         "Reading List">
++<!ENTITY engine.readinglist.accesskey     "L">
+ <!ENTITY engine.history.label             "History">
+ <!ENTITY engine.history.accesskey         "r">
+ <!ENTITY engine.tabs.label                "Tabs">
+ <!ENTITY engine.tabs.accesskey            "T">
+ <!ENTITY engine.passwords.label           "Passwords">
+ <!ENTITY engine.passwords.accesskey       "P">
+ <!ENTITY engine.addons.label              "Desktop Add-ons">
+ <!ENTITY engine.addons.accesskey          "A">
+reverted:
+--- b/browser/modules/ReaderParent.jsm
++++ a/browser/modules/ReaderParent.jsm
+@@ -11,16 +11,17 @@
+ 
+ Cu.import("resource://gre/modules/XPCOMUtils.jsm");
+ Cu.import("resource://gre/modules/Services.jsm");
+ Cu.import("resource://gre/modules/Task.jsm");
+ 
+ XPCOMUtils.defineLazyModuleGetter(this, "CustomizableUI", "resource:///modules/CustomizableUI.jsm");
+ XPCOMUtils.defineLazyModuleGetter(this, "PlacesUtils","resource://gre/modules/PlacesUtils.jsm");
+ XPCOMUtils.defineLazyModuleGetter(this, "ReaderMode", "resource://gre/modules/ReaderMode.jsm");
++XPCOMUtils.defineLazyModuleGetter(this, "ReadingList", "resource:///modules/readinglist/ReadingList.jsm");
+ XPCOMUtils.defineLazyModuleGetter(this, "UITour", "resource:///modules/UITour.jsm");
+ 
+ const gStringBundle = Services.strings.createBundle("chrome://global/locale/aboutReader.properties");
+ 
+ let ReaderParent = {
+   _readerModeInfoPanelOpen: false,
+ 
+   MESSAGES: [
+@@ -42,16 +43,33 @@
+     let mm = Cc["@mozilla.org/globalmessagemanager;1"].getService(Ci.nsIMessageListenerManager);
+     for (let msg of this.MESSAGES) {
+       mm.addMessageListener(msg, this);
+     }
+   },
+ 
+   receiveMessage: function(message) {
+     switch (message.name) {
++      case "Reader:AddToList": {
++        let article = message.data.article;
++        ReadingList.getMetadataFromBrowser(message.target).then(function(metadata) {
++          if (metadata.previews.length > 0) {
++            article.preview = metadata.previews[0];
++          }
++
++          ReadingList.addItem({
++            url: article.url,
++            title: article.title,
++            excerpt: article.excerpt,
++            preview: article.preview
++          });
++        });
++        break;
++      }
++
+       case "Reader:AddToPocket": {
+         let doc = message.target.ownerDocument;
+         let pocketWidget = doc.getElementById("pocket-button");
+         let placement = CustomizableUI.getPlacementOfWidget("pocket-button");
+         if (placement) {
+           if (placement.area == CustomizableUI.AREA_PANEL) {
+             doc.defaultView.PanelUI.show().then(function() {
+               // The DOM node might not exist yet if the panel wasn't opened before.
+@@ -91,16 +109,34 @@
+             })
+           },
+           function onRejection(reason) {
+             Cu.reportError("Error requesting favicon URL for about:reader content: " + reason);
+           }).catch(Cu.reportError);
+         }
+         break;
+       }
++      case "Reader:ListStatusRequest":
++        ReadingList.hasItemForURL(message.data.url).then(inList => {
++          let mm = message.target.messageManager
++          // Make sure the target browser is still alive before trying to send data back.
++          if (mm) {
++            mm.sendAsyncMessage("Reader:ListStatusData",
++                                { inReadingList: inList, url: message.data.url });
++          }
++        });
++        break;
++
++      case "Reader:RemoveFromList":
++        // We need to get the "real" item to delete it.
++        ReadingList.itemForURL(message.data.url).then(item => {
++          ReadingList.deleteItem(item)
++        });
++        break;
++
+       case "Reader:Share":
+         // XXX: To implement.
+         break;
+ 
+       case "Reader:SystemUIVisibility":
+         // XXX: To implement.
+         break;
+ 
+reverted:
+--- b/testing/profiles/prefs_general.js
++++ a/testing/profiles/prefs_general.js
+@@ -308,17 +308,18 @@
+ // Don't prompt about e10s
+ user_pref("browser.displayedE10SPrompt.1", 5);
+ // Don't use auto-enabled e10s
+ user_pref("browser.tabs.remote.autostart.1", false);
+ user_pref("browser.tabs.remote.autostart.2", false);
+ // Don't forceably kill content processes after a timeout
+ user_pref("dom.ipc.tabs.shutdownTimeoutSecs", 0);
+ 
++// Avoid performing Reading List and Reader Mode intros during tests.
++user_pref("browser.readinglist.introShown", true);
+-// Avoid performing Reader Mode intros during tests.
+ user_pref("browser.reader.detectedFirstArticle", true);
+ 
+ // Don't let PAC generator to set PAC, as mochitest framework has its own PAC
+ // rules during testing.
+ user_pref("network.proxy.pac_generator", false);
+ 
+ // Make tests run consistently on DevEdition (which has a lightweight theme
+ // selected by default).

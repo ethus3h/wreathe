@@ -1,0 +1,18 @@
+diff -urN firefox-45.3.0esr/browser/base/content/tabbrowser.xml firefox-45.3.0esr-patch/browser/base/content/tabbrowser.xml
+--- firefox-45.3.0esr/browser/base/content/tabbrowser.xml	2016-07-06 12:19:04.000000000 -0400
++++ firefox-45.3.0esr-patch/browser/base/content/tabbrowser.xml	2016-08-11 14:58:16.000000000 -0400
+@@ -4918,10 +4918,12 @@
+             for (let i = numPinned - 1; i >= 0; i--) {
+               let tab = this.childNodes[i];
+               width += tab.getBoundingClientRect().width;
+-              tab.style.MozMarginStart = - (width + scrollButtonWidth + paddingStart) + "px";
++              tab.style.MozMarginEnd = + (width + scrollButtonWidth + 
++paddingStart) + "px";
+             }
+ 
+-            this.style.MozPaddingStart = width + paddingStart + "px";
++            this.style.MozPaddingEnd = -1 * (width + paddingStart) + 
++"px";
+ 
+           } else {
+             this.removeAttribute("positionpinnedtabs");

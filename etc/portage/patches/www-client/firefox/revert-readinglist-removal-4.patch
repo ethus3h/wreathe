@@ -1,0 +1,42 @@
+reverted:
+--- b/addon-sdk/source/test/addons/private-browsing-supported/sidebar/utils.js
++++ a/addon-sdk/source/test/addons/private-browsing-supported/sidebar/utils.js
+@@ -6,16 +6,17 @@
+ const { Cu } = require('chrome');
+ const { getMostRecentBrowserWindow } = require('sdk/window/utils');
+ const { fromIterator } = require('sdk/util/array');
+ 
+ const BUILTIN_SIDEBAR_MENUITEMS = exports.BUILTIN_SIDEBAR_MENUITEMS = [
+   'menu_socialSidebar',
+   'menu_historySidebar',
+   'menu_bookmarksSidebar',
++  'menu_readingListSidebar'
+ ];
+ 
+ function isSidebarShowing(window) {
+   window = window || getMostRecentBrowserWindow();
+   let sidebar = window.document.getElementById('sidebar-box');
+   return !sidebar.hidden;
+ }
+ exports.isSidebarShowing = isSidebarShowing;
+reverted:
+--- b/addon-sdk/source/test/sidebar/utils.js
++++ a/addon-sdk/source/test/sidebar/utils.js
+@@ -12,16 +12,17 @@
+ const { Cu } = require('chrome');
+ const { getMostRecentBrowserWindow } = require('sdk/window/utils');
+ const { fromIterator } = require('sdk/util/array');
+ 
+ const BUILTIN_SIDEBAR_MENUITEMS = exports.BUILTIN_SIDEBAR_MENUITEMS = [
+   'menu_socialSidebar',
+   'menu_historySidebar',
+   'menu_bookmarksSidebar',
++  'menu_readingListSidebar'
+ ];
+ 
+ function isSidebarShowing(window) {
+   window = window || getMostRecentBrowserWindow();
+   let sidebar = window.document.getElementById('sidebar-box');
+   return !sidebar.hidden;
+ }
+ exports.isSidebarShowing = isSidebarShowing;

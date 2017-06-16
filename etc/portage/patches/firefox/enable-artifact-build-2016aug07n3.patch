@@ -1,9 +1,0 @@
-diff -urN firefox-45.2.0esr/browser/config/mozconfig firefox-45.2.0esr-patch/browser/config/mozconfig
---- firefox-45.2.0esr/browser/config/mozconfig	2016-05-12 13:09:53.000000000 -0400
-+++ firefox-45.2.0esr-patch/browser/config/mozconfig	2016-08-07 18:35:15.000000000 -0400
-@@ -7,3 +7,5 @@
- # to the top of your mozconfig file.
- 
- ac_add_options --enable-application=browser
-+ac_add_options --enable-artifact-builds
-+mk_add_options MOZ_OBJDIR=./objdir-frontend
