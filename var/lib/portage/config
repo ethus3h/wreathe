@@ -20,7 +20,7 @@
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-toggledeco.diff 19e162e14e2560712de0a09d67ae5b28
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-scalefilter.diff f4e33f7da11890680fcde19784f17e78
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-shift.diff 8f4a8979585b952e3be7a60979121e4a
-/usr/local/etc/crystallize.conf 149bbd2c295a2b69cda3a610057fb11c
+/usr/local/etc/crystallize.conf 3fee3e9383bf5ab76f41335b3ec29d36
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-snow.diff e74dc7506b502350010c94f7ef4a0c48
 /etc/portage/package.license/wreathe.license 2beb5a81fd71d18695da0599f4b4079f
 /etc/xdg/openbox/autostart cf7cd22e452ddfb7c5887e465d97d4f5
