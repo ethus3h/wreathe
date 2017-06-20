@@ -86,6 +86,7 @@ dev-ruby/json
 dev-tex/bibtexu
 dev-tex/xmltex
 dev-util/android-tools
+dev-util/cloc
 dev-util/xxdiff
 games-roguelike/behemmoth
 games-simulation/openttd
