@@ -10,8 +10,8 @@ egup-env-catch() {
 }
 
 egup-env() {
-    if [ -f .egup.useOverrides ]; then
-        if [ -f .egup.environment ]; then
+    if [[ -f .egup.useOverrides ]]; then
+        if [[ -f .egup.environment ]]; then
             egup-exit
         fi
 
@@ -23,7 +23,7 @@ egup-env() {
 
         egupGitdir=".git"
 
-        if [ -f .egup.gitdir ]; then
+        if [[ -f .egup.gitdir ]]; then
             egupGitdir=$(<.egup.gitdir)
             egupGitdir="$(readlink -f "$egupGitdir")"
             echo "Using custom gitdir: $egupGitdir"
@@ -31,7 +31,7 @@ egup-env() {
             export GIT_DIR
         fi
 
-        if [ -f .egup.worktree ]; then
+        if [[ -f .egup.worktree ]]; then
             worktree=$(<.egup.worktree)
             worktree="$(readlink -f "$worktree")"
             echo "Using custom worktree: $worktree"
@@ -46,44 +46,44 @@ egup-env() {
             noMoveOverrides=true
         fi
 
-        if [ -f "$egupDir/.egup.nopush" ]; then
+        if [[ -f "$egupDir/.egup.nopush" ]]; then
             echo "Applying .egup.nopush override"
             if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v .egup.nopush .egup.nopush.bak || echo "(no .egup.nopush found so not moving)"
             fi
-            cp -v "$egupDir/.egup.nopush" .egup.nopush
+            cp -p "$egupDir/.egup.nopush" .egup.nopush
         fi
 
-        if [ -f "$egupDir/.egup.gitattributes" ]; then
+        if [[ -f "$egupDir/.egup.gitattributes" ]]; then
             echo "Applying .gitattributes override"
             if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v .gitattributes .egup.gitattributes.bak || echo "(no .gitattributes found so not moving)"
             fi
-            cp -v "$egupDir/.egup.gitattributes" .gitattributes
+            cp -p "$egupDir/.egup.gitattributes" .gitattributes
         fi
 
-        if [ -f "$egupDir/.egup.gitignore" ]; then
+        if [[ -f "$egupDir/.egup.gitignore" ]]; then
             echo "Applying .gitignore override"
             if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v .gitignore .egup.gitignore.bak || echo "(no .gitignore found so not moving)"
             fi
-            cp -v "$egupDir/.egup.gitignore" .gitignore
+            cp -p "$egupDir/.egup.gitignore" .gitignore
         fi
 
-        if [ -f "$egupDir/.egup.gitmodules" ]; then
+        if [[ -f "$egupDir/.egup.gitmodules" ]]; then
             echo "Applying .gitmodules override"
             if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v .gitmodules .egup.gitmodules.bak || echo "(no .gitmodules found so not moving)"
             fi
-            cp -v "$egupDir/.egup.gitmodules" .gitmodules
+            cp -p "$egupDir/.egup.gitmodules" .gitmodules
         fi
 
-        if [ -f "$egupDir/.egup.readme" ]; then
+        if [[ -f "$egupDir/.egup.readme" ]]; then
             echo "Applying README.md override"
             if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v README.md .egup.readme.bak || echo "(no README.md found so not moving)"
             fi
-            cp -v "$egupDir/.egup.readme" README.md
+            cp -p "$egupDir/.egup.readme" README.md
         fi
 
         egupEnvPsbak="$PS1"
@@ -94,54 +94,54 @@ egup-env() {
 }
 
 egup-exit() {
-    if [ -f "$egupDir/.egup.useOverrides" ]; then
+    if [[ -f "$egupDir/.egup.useOverrides" ]]; then
         if [[ "$(readlink -f "$(pwd)")" != "$(readlink -f "$egupDir")" ]]; then
-            if [ -f .egup.nopush ]; then
-                if [ -f "$egupDir/.egup.nopush" ]; then
+            if [[ -f .egup.nopush ]]; then
+                if [[ -f "$egupDir/.egup.nopush" ]]; then
                     mv -vf .egup.nopush "$egupDir/.egup.nopush"
                 fi
             fi
-            if [ -f .egup.nopush.bak ]; then
+            if [[ -f .egup.nopush.bak ]]; then
                 echo "Restoring .egup.nopush"
                 mv -v .egup.nopush.bak .egup.nopush
             fi
 
-            if [ -f .gitattributes ]; then
-                if [ -f "$egupDir/.egup.gitattributes" ]; then
+            if [[ -f .gitattributes ]]; then
+                if [[ -f "$egupDir/.egup.gitattributes" ]]; then
                     mv -vf .gitattributes "$egupDir/.egup.gitattributes"
                 fi
             fi
-            if [ -f .egup.gitattributes.bak ]; then
+            if [[ -f .egup.gitattributes.bak ]]; then
                 echo "Restoring overridden .gitattributes"
                 mv -v .egup.gitattributes.bak .gitattributes
             fi
 
-            if [ -f .gitignore ]; then
-                if [ -f "$egupDir/.egup.gitignore" ]; then
+            if [[ -f .gitignore ]]; then
+                if [[ -f "$egupDir/.egup.gitignore" ]]; then
                     mv -vf .gitignore "$egupDir/.egup.gitignore"
                 fi
             fi
-            if [ -f .egup.gitignore.bak ]; then
+            if [[ -f .egup.gitignore.bak ]]; then
                 echo "Restoring overridden .gitignore"
                 mv -v .egup.gitignore.bak .gitignore
             fi
 
-            if [ -f .gitmodules ]; then
-                if [ -f "$egupDir/.egup.gitmodules" ]; then
+            if [[ -f .gitmodules ]]; then
+                if [[ -f "$egupDir/.egup.gitmodules" ]]; then
                     mv -vf .gitmodules "$egupDir/.egup.gitmodules"
                 fi
             fi
-            if [ -f .egup.gitmodules.bak ]; then
+            if [[ -f .egup.gitmodules.bak ]]; then
                 echo "Restoring overridden .gitmodules"
                 mv -v .egup.gitmodules.bak .gitmodules
             fi
 
-            if [ -f README.md ]; then
-                if [ -f "$egupDir/.egup.readme" ]; then
+            if [[ -f README.md ]]; then
+                if [[ -f "$egupDir/.egup.readme" ]]; then
                     mv -vf README.md "$egupDir/.egup.readme"
                 fi
             fi
-            if [ -f .egup.readme.bak ]; then
+            if [[ -f .egup.readme.bak ]]; then
                 echo "Restoring overridden README.md"
                 mv -v .egup.readme.bak README.md
             fi
