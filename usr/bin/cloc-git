@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
-git clone --depth 1 "$1" temp-linecount-repo
-printf "('temp-linecount-repo' will be deleted automatically)\n\n\n"
-cloc temp-linecount-repo
-rm -rf temp-linecount-repo
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null
+#set -x
+
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
+crystalWorkdir="$(crystallize-getconf WorkDirectory)"
+(
+    cd "$crystalWorkdir" || exit 1
+    streamId="scache-$(date +%Y-%m-%d-%H-%M-%S-%N)-$(xxd -pu <<< "$(date +%z)")"
+    git clone --depth 1 "$1" "$streamId"
+    cloc "$streamId"
+    rm -rf "$streamId"
+)
