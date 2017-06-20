@@ -1,8 +1,7 @@
 /etc/fonts/conf.avail/67-lohit-malayalam.conf b3732dcb3640521dd81443f9bd70237d
 /etc/conf.d/hwclock 4d2ca100708dddac4c3ce821a61a4489
-/etc/portage/patches/x11-misc/ccsm/roach-icon.patch 26320c197eb7983cb73e8ee467406f89
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-group.diff d8ee5363007aa39ae2154b2f66dedf7c
-/etc/portage/package.use/wreathe.use 8fd6b2f7cbf82aa0e71fde5441d4363d
+/etc/portage/package.use/wreathe.use d5debf8647849c2cbe132dab5603cf71
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-crashhandler.diff 8399b4896a0a7ae6acbea6b7aa23f79a
 /etc/genkernel.conf c2e84e993b005ea9af6ff334e76c2173
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-grid.diff fbf01f7410346698238222051bc6bc3f
@@ -19,7 +18,7 @@
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-notification.diff cf2c8bb9ebdd16d5bafff3164bca2abc
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-toggledeco.diff 19e162e14e2560712de0a09d67ae5b28
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-scalefilter.diff f4e33f7da11890680fcde19784f17e78
-/etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-shift.diff 8f4a8979585b952e3be7a60979121e4a
+/etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-shift.diff 7c669de6ea349de8dd68e55fb1a0f2c1
 /usr/local/etc/crystallize.conf 7fa68c879877292661b276a12dd8a6cc
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-snow.diff e74dc7506b502350010c94f7ef4a0c48
 /etc/ssh/sshd_config a8b9f550b3e4d5013b27bd60ff1a8454
@@ -66,7 +65,6 @@
 /etc/portage/patches/kde-apps/kfilereplace/empty-replacement.patch 33bbc660a1b01f8d24c59baefa0d60d0
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-animation.diff e376fe74ee97d25d871ae45c07cea49e
 /etc/skel/.bash_logout 7d8a8ef90c1818a0cd66808ac2740638
-/etc/portage/patches/x11-misc/ccsm/rubik-icon.patch c39bd04b3b3b16f521df305058afc33e
 /etc/portage/patches/x11-wm/compiz/default-enabled-plugins.diff a1fd1501a2b799b6e58f0a07369f4777
 /etc/portage/patches/x11-wm/compiz/defaults-scale.diff d1f6cd9348f276f25ffaf0fee3cbf55d
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-extrawm.diff d7b647f377bf86fa22bc1603dda341c6
@@ -88,4 +86,4 @@
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug17n2 30c942feb83f90f7260ba247cc492f11
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug06 3338ec2897be87b6b2389eebd8636a5b
 /etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25n4 0e303fd207834e306bbb0e3f51f2da61
-/etc/portage/package.accept_keywords/wreathe.accept_keywords 6342a1e0d4876a14787d8202d7240378
+/etc/portage/package.accept_keywords/wreathe.accept_keywords 967d6ab986794ac18c033e3cacc79b0b
