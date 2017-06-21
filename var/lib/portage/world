@@ -121,6 +121,7 @@ media-plugins/alsa-plugins
 media-plugins/gst-plugins-libav
 media-plugins/npapi-vlc
 media-sound/carla
+media-sound/darkice
 media-sound/gmusicbrowser
 media-sound/jack-audio-connection-kit
 media-sound/jack_capture
@@ -132,6 +133,7 @@ media-video/sswf
 media-video/vlc
 net-irc/irssi
 net-misc/freerdp
+net-misc/icecast
 net-misc/jdownloader
 net-misc/taylor-uucp
 net-misc/youtube-dl
