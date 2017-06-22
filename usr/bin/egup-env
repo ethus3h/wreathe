@@ -85,7 +85,7 @@ egup-env() {
                 mv -v README.md .egup.readme.bak || echo "(no README.md found so not moving)"
             fi
             cp -p "$egupDir/.egup.readme" README.md
-            ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak.egup.readme.bak || true
+            ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
         fi
 
         egupEnvPsbak="$PS1"
