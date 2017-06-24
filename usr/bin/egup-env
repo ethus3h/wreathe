@@ -80,7 +80,7 @@ egup-env() {
 
         if [[ -f "$egupDir/.egup.readme" ]]; then
             echo "Applying README.md override"
-            ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak.egup.readme.bak || true
+            ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
             if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v README.md .egup.readme.bak || echo "(no README.md found so not moving)"
             fi
@@ -144,10 +144,10 @@ egup-exit() {
                 fi
             fi
             if [[ -f .egup.readme.bak ]]; then
-                ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak.egup.readme.bak || true
+                ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
                 echo "Restoring overridden README.md"
                 mv -v .egup.readme.bak README.md
-                ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak.egup.readme.bak || true
+                ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
             fi
         fi
         GIT_WORK_TREE="$worktreebak"
@@ -170,14 +170,14 @@ elen() {
     fi
     originalDir="$(pwd)"
     cd "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/ || exit 1
-    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak.egup.readme.bak || true
+    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
     egup-env
-    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak.egup.readme.bak || true
+    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
 }
 
 elex() {
-    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak.egup.readme.bak || true
+    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
     egup-exit
-    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak.egup.readme.bak || true
+    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
     cd "$originalDir"
 }
