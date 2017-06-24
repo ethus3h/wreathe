@@ -30,7 +30,7 @@ EmberLibrary="$(crystallize-getconf EmberLibrary)"
     )
     (
         elen
-        egup-single
+        "$egupCmd"-single
         elex
     )
     findemberlibraryfolders() {
