@@ -119,6 +119,7 @@ media-libs/phonon-vlc
 media-libs/xine-lib
 media-plugins/alsa-plugins
 media-plugins/gst-plugins-libav
+media-plugins/kodi-plugin-video-elysium
 media-plugins/npapi-vlc
 media-sound/carla
 media-sound/darkice
@@ -141,6 +142,8 @@ net-misc/youtube-dl
 net-nntp/sabnzbd
 net-wireless/gnuradio
 sci-libs/scipy
+sys-apps/hwinfo
+sys-apps/lshw
 sys-devel/crossdev
 sys-fs/fuse
 sys-fs/squashfs-tools
