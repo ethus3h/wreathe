@@ -141,9 +141,6 @@ dev-java/jna ~amd64
 dev-lang/gforth ~amd64
 dev-lang/moarvm ~amd64
 dev-lang/nqp ~amd64
-media-plugins/kodi-visualization-projectm ~amd64
-media-libs/kodi-platform ~amd64
-media-plugins/kodi-visualization-fishbmc ~amd64
 dev-lang/open-cobol ~amd64
 dev-lang/rakudo ~amd64
 dev-libs/appstream
@@ -222,6 +219,7 @@ media-gfx/freecad ~amd64
 media-gfx/inkscape ~amd64
 media-gfx/synfig ~amd64
 media-libs/fidlib ~amd64
+media-libs/kodi-platform ~amd64
 media-libs/libbluray ~amd64
 media-libs/libffado ~amd64
 media-libs/libilbc ~amd64
@@ -232,6 +230,8 @@ media-libs/SoQt ~amd64
 media-libs/suil ~amd64
 media-libs/volpack ~amd64
 media-plugins/kipi-plugins ~amd64
+media-plugins/kodi-visualization-fishbmc ~amd64
+media-plugins/kodi-visualization-projectm ~amd64
 media-sound/dcadec ~amd64
 media-sound/jack_capture ~amd64
 media-sound/jack-audio-connection-kit ~amd64
