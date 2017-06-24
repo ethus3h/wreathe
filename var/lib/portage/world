@@ -119,7 +119,6 @@ media-libs/phonon-vlc
 media-libs/xine-lib
 media-plugins/alsa-plugins
 media-plugins/gst-plugins-libav
-media-plugins/kodi-script-module-beautifulsoup
 media-plugins/npapi-vlc
 media-sound/carla
 media-sound/darkice

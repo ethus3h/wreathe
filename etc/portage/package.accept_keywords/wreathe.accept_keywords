@@ -141,6 +141,9 @@ dev-java/jna ~amd64
 dev-lang/gforth ~amd64
 dev-lang/moarvm ~amd64
 dev-lang/nqp ~amd64
+media-plugins/kodi-visualization-projectm ~amd64
+media-libs/kodi-platform ~amd64
+media-plugins/kodi-visualization-fishbmc ~amd64
 dev-lang/open-cobol ~amd64
 dev-lang/rakudo ~amd64
 dev-libs/appstream
