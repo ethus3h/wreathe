@@ -1,0 +1,30 @@
+--- a/src/main.c
++++ b/src/main.c
+@@ -1618,26 +1618,7 @@ static void update_button_regions(decor_t * d)
+     gdouble x, y;
+     gdouble glow_x, glow_y;	/* glow top left coordinates */
+ 
+-    for (b_t = 0; b_t < B_T_COUNT; b_t++)
+-    {
+-	if (BUTTON_NOT_VISIBLE(d, b_t))
+-	    continue;
+-
+-	if (d->button_region[b_t].bg_surface != NULL)
+-	    cairo_surface_destroy(d->button_region[b_t].bg_surface);
+-	d->button_region[b_t].bg_surface = NULL;
+-	if (d->button_region_inact[b_t].bg_surface != NULL)
+-	    cairo_surface_destroy(d->button_region_inact[b_t].bg_surface);
+-	d->button_region_inact[b_t].bg_surface = NULL;
+-
+-	/* reset overlaps */
+-	for (b_t2 = 0; b_t2 < b_t; b_t2++)
+-	    if (!BUTTON_NOT_VISIBLE(d, b_t2))
+-		d->button_region[b_t].overlap_buttons[b_t2] = FALSE;
+-	for (b_t2 = 0; b_t2 < b_t; b_t2++)
+-	    if (!BUTTON_NOT_VISIBLE(d, b_t2))
+-		d->button_region_inact[b_t].overlap_buttons[b_t2] = FALSE;
+-    }
++    reset_buttons_bg_and_fade(d);
+     d->button_fade_info.first_draw = TRUE;
+ 
+     if (ws->use_pixmap_buttons)
