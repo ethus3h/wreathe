@@ -167,6 +167,9 @@ dev-python/lxml ~amd64
 dev-python/pivy ~amd64
 dev-python/pydb ~amd64
 dev-python/python-rethinkdb ~amd64
+dev-python/args ~amd64
+dev-python/schema ~amd64
+dev-python/clint ~amd64
 dev-python/pythonutils ~amd64
 dev-python/requests-file ~amd64
 dev-python/rethinkstuff ~amd64
