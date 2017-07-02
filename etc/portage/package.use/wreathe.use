@@ -47,6 +47,7 @@ dev-python/sympy -doc
 dev-ruby/net-ssh -doc
 dev-ruby/rest-client -doc
 gnustep-base/gnustep-make -doc
+dev-python/clint -examples
 
 # Cause dependency problems
 dev-python/botocore -doc
