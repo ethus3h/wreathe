@@ -1,6 +1,6 @@
-diff -uraN a/xbmc/system/addon-manifest.xml b/xbmc/system/addon-manifest.xml
---- a/xbmc/system/addon-manifest.xml    2017-06-24 18:56:32.000000000 -0400
-+++ b/xbmc/system/addon-manifest.xml    2017-06-24 19:00:04.000000000 -0400
+diff -uraN a/system/addon-manifest.xml b/system/addon-manifest.xml
+--- a/system/addon-manifest.xml    2017-06-24 18:56:32.000000000 -0400
++++ b/system/addon-manifest.xml    2017-06-24 19:00:04.000000000 -0400
 @@ -1,1 +1,2 @@
  <addons>
 +  <addon>script.module.myconnpy</addon>
