@@ -1,0 +1,28 @@
+diff --git a/lib/urlresolver/common.py b/lib/urlresolver/common.py
+index ef7fb9c6..674d8e8e 100644
+--- a/lib/urlresolver/common.py
++++ b/lib/urlresolver/common.py
+@@ -17,6 +17,7 @@
+ """
+ import os
+ import hashlib
++import shutil
+ from lib import log_utils
+ from lib.net import Net, get_ua  # @UnusedImport
+ from lib import cache  # @UnusedImport
+@@ -27,7 +28,14 @@
+ addon_path = kodi.get_path()
+ plugins_path = os.path.join(addon_path, 'lib', 'urlresolver', 'plugins')
+ profile_path = kodi.translate_path(kodi.get_profile())
+-settings_file = os.path.join(addon_path, 'resources', 'settings.xml')
++global_settings_file = os.path.join(addon_path, 'resources', 'settings.xml')
++settings_addon_instance = xbmcaddon.Addon(id='script.module.urlresolver')
++settings_addon_dir = xbmc.translatePath(settings_addon_instance.getAddonInfo('profile'))
++settings_file = os.path.join(settings_addon_dir, 'resources', 'settings.xml')
++if not os.path.exists(os.path.basename(settings_file)):
++    os.makedirs(os.path.basename(settings_file))
++if not os.path.isfile(settings_file):
++    shutil.copy2(global_settings_file, settings_file)
+ addon_version = kodi.get_version()
+ get_setting = kodi.get_setting
+ set_setting = kodi.set_setting
