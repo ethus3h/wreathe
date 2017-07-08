@@ -19,7 +19,6 @@
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-toggledeco.diff 19e162e14e2560712de0a09d67ae5b28
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-scalefilter.diff f4e33f7da11890680fcde19784f17e78
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-shift.diff 7c669de6ea349de8dd68e55fb1a0f2c1
-/usr/local/etc/crystallize.conf 7fef9eab4a744c5074fb85d331b34b54
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-snow.diff e74dc7506b502350010c94f7ef4a0c48
 /etc/ssh/sshd_config a8b9f550b3e4d5013b27bd60ff1a8454
 /etc/xdg/openbox/autostart cf7cd22e452ddfb7c5887e465d97d4f5
