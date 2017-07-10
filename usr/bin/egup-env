@@ -82,12 +82,12 @@ egup-env() {
 
         if [[ -f "$egupDir/.egup.readme" ]]; then
             echo "Applying README.md override in $(pwd)"
-            ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+            ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
             if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v README.md .egup.readme.bak || echo "(no README.md found so not moving)"
             fi
             cp -p "$egupDir/.egup.readme" README.md
-            ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+            ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
         fi
 
         egupEnvPsbak="$PS1"
@@ -143,16 +143,16 @@ egup-exit() {
 
             if [[ -f README.md ]]; then
                 if [[ -f "$egupDir/.egup.readme" ]]; then
-                    ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+                    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
                     mv -vf README.md "$egupDir/.egup.readme"
-                    ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+                    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
                 fi
             fi
             if [[ -f .egup.readme.bak ]]; then
-                ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+                ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
                 echo "Restoring overridden README.md"
                 mv -v .egup.readme.bak README.md
-                ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+                ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
             fi
         fi
         GIT_WORK_TREE="$worktreebak"
@@ -175,14 +175,14 @@ elen() {
     fi
     originalDir="$(pwd)"
     cd "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/ || exit 1
-    ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
     egup-env
-    ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
 }
 
 elex() {
-    ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
     egup-exit
-    ls -lsa "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/.egup.readme "$(crystallize-getconf EmberLibrary)/.egup.readme" /library/README.md /library/.egup.readme.bak || true
+    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
     cd "$originalDir"
 }
