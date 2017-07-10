@@ -26,7 +26,7 @@ egup-env() {
         egupGitdir=".git"
 
         if [[ -f .egup.gitdir ]]; then
-            egupGitdir=$(<.egup.gitdir)
+            egupGitdir="$(<.egup.gitdir)"
             egupGitdir="$(readlink -f "$egupGitdir")"
             echo "Using custom gitdir: $egupGitdir"
             GIT_DIR="$egupGitdir"
@@ -34,7 +34,7 @@ egup-env() {
         fi
 
         if [[ -f .egup.worktree ]]; then
-            worktree=$(<.egup.worktree)
+            worktree="$(<.egup.worktree)"
             worktree="$(readlink -f "$worktree")"
             echo "Using custom worktree: $worktree"
             GIT_WORK_TREE="$worktree"
@@ -43,9 +43,12 @@ egup-env() {
         fi
 
         touch .egup.environment
+        
+        local pwdPath="$(readlink -f "$(pwd)")"
+        local egupDirPath="$(readlink -f "$egupDir")"
 
-        if [[ "$(readlink "$(pwd)")" == "$(readlink "$egupDir")" ]]; then
-            noMoveOverrides=true
+        if [[ "$pwdPath" == "$egupDirPath" ]]; then
+            noMoveOverrides="true"
         fi
 
         if [[ -f "$egupDir/.egup.nopush" ]]; then
