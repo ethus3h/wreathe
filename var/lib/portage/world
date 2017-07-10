@@ -94,6 +94,7 @@ games-simulation/openttd
 kde-apps/dolphin
 kde-apps/dolphin:4
 kde-apps/kfilereplace
+kde-apps/konsole
 kde-frameworks/kdelibs
 kde-frameworks/kfilemetadata
 kde-frameworks/khtml

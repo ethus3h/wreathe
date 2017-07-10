@@ -1,0 +1,154 @@
+diff --git a/data/color-schemes/CMakeLists.txt b/data/color-schemes/CMakeLists.txt
+index 0f4f4d3b..996927b7 100644
+--- a/data/color-schemes/CMakeLists.txt
++++ b/data/color-schemes/CMakeLists.txt
+@@ -14,5 +14,6 @@ install( FILES
+          RedOnBlack.colorscheme
+          Solarized.colorscheme
+          SolarizedLight.colorscheme
++         Wreathe.colorscheme
+          DESTINATION
+          ${KDE_INSTALL_DATADIR}/konsole )
+diff --git a/data/color-schemes/Wreathe.colorscheme b/data/color-schemes/Wreathe.colorscheme
+new file mode 100644
+index 00000000..885d4877
+--- /dev/null
++++ b/data/color-schemes/Wreathe.colorscheme
+@@ -0,0 +1,94 @@
++[Background]
++Color=227,208,247
++
++[BackgroundIntense]
++Color=255,255,255
++
++[BackgroundFaint]
++Color=255,255,255
++
++[Color0]
++Color=0,0,0
++
++[Color0Intense]
++Color=104,104,104
++
++[Color0Faint]
++Color=192,192,192
++
++[Color1]
++Color=178,24,24
++
++[Color1Intense]
++Color=255,84,84
++
++[Color1Faint]
++Color=224,142,142
++
++[Color2]
++Color=24,178,24
++
++[Color2Intense]
++Color=84,255,84
++
++[Color2Faint]
++Color=142,224,142
++
++[Color3]
++Color=178,104,24
++
++[Color3Intense]
++Color=0,100,36
++
++[Color3Faint]
++Color=224,224,142
++
++[Color4]
++Color=24,24,178
++
++[Color4Intense]
++Color=84,84,255
++
++[Color4Faint]
++Color=142,142,224
++
++[Color5]
++Color=178,24,178
++
++[Color5Intense]
++Color=255,84,255
++
++[Color5Faint]
++Color=224,142,224
++
++[Color6]
++Color=24,178,178
++
++[Color6Intense]
++Color=84,255,255
++
++[Color6Faint]
++Color=142,224,224
++
++[Color7]
++Color=178,178,178
++
++[Color7Intense]
++Color=255,255,255
++
++[Color7Faint]
++Color=142,142,142
++
++[Foreground]
++Color=0,0,0
++
++[ForegroundIntense]
++Bold=true
++Color=0,0,0
++
++[ForegroundFaint]
++Color=0,0,0
++
++[General]
++Description=Black on White
++Opacity=1
+diff --git a/src/Profile.cpp b/src/Profile.cpp
+index 1224147f..cf230aad 100644
+--- a/src/Profile.cpp
++++ b/src/Profile.cpp
+@@ -171,21 +171,21 @@ void Profile::useFallback()
+     setProperty(MouseWheelZoomEnabled, true);
+ 
+     setProperty(KeyBindings, QStringLiteral("default"));
+-    setProperty(ColorScheme, QStringLiteral("Linux")); //use DarkPastels when is start support blue ncurses UI properly
++    setProperty(ColorScheme, QStringLiteral("Wreathe")); //use DarkPastels when is start support blue ncurses UI properly
+     setProperty(Font, QFontDatabase::systemFont(QFontDatabase::FixedFont));
+ 
+-    setProperty(HistoryMode, Enum::FixedSizeHistory);
++    setProperty(HistoryMode, Enum::UnlimitedHistory);
+     setProperty(HistorySize, 1000);
+     setProperty(ScrollBarPosition, Enum::ScrollBarRight);
+     setProperty(ScrollFullPage, false);
+ 
+-    setProperty(FlowControlEnabled, true);
++    setProperty(FlowControlEnabled, false);
+     setProperty(UrlHintsModifiers, 0);
+     setProperty(BlinkingTextEnabled, true);
+     setProperty(UnderlineLinksEnabled, true);
+     setProperty(UnderlineFilesEnabled, false);
+     setProperty(OpenLinksByDirectClickEnabled, false);
+-    setProperty(CtrlRequiredForDrag, true);
++    setProperty(CtrlRequiredForDrag, false);
+     setProperty(AutoCopySelectedText, false);
+     setProperty(TrimTrailingSpacesInSelectedText, false);
+     setProperty(DropUrlsAsText, false);
+@@ -194,10 +194,10 @@ void Profile::useFallback()
+     setProperty(MiddleClickPasteMode, Enum::PasteFromX11Selection);
+     setProperty(TripleClickMode, Enum::SelectWholeLine);
+ 
+-    setProperty(BlinkingCursorEnabled, false);
++    setProperty(BlinkingCursorEnabled, true);
+     setProperty(BidiRenderingEnabled, true);
+     setProperty(LineSpacing, 0);
+-    setProperty(CursorShape, Enum::BlockCursor);
++    setProperty(CursorShape, Enum::UnderlineCursor);
+     setProperty(UseCustomCursorColor, false);
+     setProperty(CustomCursorColor, QColor(Qt::black));
+     setProperty(BellMode, Enum::NotifyBell);
