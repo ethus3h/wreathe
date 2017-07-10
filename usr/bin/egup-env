@@ -96,7 +96,7 @@ egup-env() {
 }
 
 egup-exit() {
-    if [[ -f "$egupDir/.egup.useOverrides" ]]; then
+    if [[ -f "${egupDir:?}/.egup.useOverrides" ]]; then
         if [[ "$(readlink -f "$(pwd)")" != "$(readlink -f "$egupDir")" ]]; then
             if [[ -f .egup.nopush ]]; then
                 if [[ -f "$egupDir/.egup.nopush" ]]; then
