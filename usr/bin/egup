@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-#Ember Git UPdater
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
-set -x
+# set -x
 
 egupCmd="egup"
 if [[ "$1" == "--offline" ]]; then
