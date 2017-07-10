@@ -170,14 +170,14 @@ elen() {
     fi
     originalDir="$(pwd)"
     cd "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/ || exit 1
-    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
+    ls -lsa "$(crystallize-getconf EmberLibrary)/.egup.readme" README.md .egup.readme.bak || true
     egup-env
-    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
+    ls -lsa "$(crystallize-getconf EmberLibrary)/.egup.readme" README.md .egup.readme.bak || true
 }
 
 elex() {
-    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
+    ls -lsa "$(crystallize-getconf EmberLibrary)/.egup.readme" README.md .egup.readme.bak || true
     egup-exit
-    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
+    ls -lsa "$(crystallize-getconf EmberLibrary)/.egup.readme" README.md .egup.readme.bak || true
     cd "$originalDir"
 }
