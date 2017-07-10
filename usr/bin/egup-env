@@ -85,13 +85,11 @@ egup-env() {
 
         if [[ -f "$egupDir/.egup.readme" ]]; then
             echo "Applying README.md override in $(pwd)"
-            ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-            if [[ "$noMoveOverrides" != "true" ]]; then
+                        if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v README.md .egup.readme.bak || echo "(no README.md found so not moving)"
             fi
             cp -p "$egupDir/.egup.readme" README.md
-            ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-        fi
+                    fi
 
         egupEnvPsbak="$PS1"
         PS1="\[\033]0;\u@\h:\w\007\]\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \[\033[1;31m\](egup-env)\[\033[00m\]\[\033[01;34m\] $\[\033[00m\] "
@@ -146,17 +144,13 @@ egup-exit() {
 
             if [[ -f README.md ]]; then
                 if [[ -f "$egupDir/.egup.readme" ]]; then
-                    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-                    mv -vf README.md "$egupDir/.egup.readme"
-                    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-                fi
+                                        mv -vf README.md "$egupDir/.egup.readme"
+                                    fi
             fi
             if [[ -f .egup.readme.bak ]]; then
-                ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-                echo "Restoring overridden README.md"
+                                echo "Restoring overridden README.md"
                 mv -v .egup.readme.bak README.md
-                ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-            fi
+                            fi
         fi
         GIT_WORK_TREE="$worktreebak"
         export GIT_WORK_TREE
@@ -178,14 +172,10 @@ elen() {
     fi
     originalDir="$(pwd)"
     cd "$(crystallize-getconf EmberLibrary)"/Ember/ember-library/"$libraryDir"/ || exit 1
-    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-    egup-env
-    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-}
+        egup-env
+    }
 
 elex() {
-    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-    egup-exit
-    ls -lsa /library/Ember/ember-library/ember-library-2/.egup.readme /library/.egup.readme /library/README.md /library/.egup.readme.bak || true
-    cd "$originalDir"
+        egup-exit
+        cd "$originalDir"
 }
