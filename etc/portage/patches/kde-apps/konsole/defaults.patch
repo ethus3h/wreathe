@@ -116,8 +116,8 @@ index 1224147f..cf230aad 100644
 @@ -171,21 +171,21 @@ void Profile::useFallback()
      setProperty(MouseWheelZoomEnabled, true);
  
-     setProperty(KeyBindings, QStringLiteral("default"));
--    setProperty(ColorScheme, QStringLiteral("Linux")); //use DarkPastels when is start support blue ncurses UI properly
+     setProperty(KeyBindings, "default");
+-    setProperty(ColorScheme, "Linux"); //use DarkPastels when is start support blue ncurses UI properly
 +    setProperty(ColorScheme, QStringLiteral("Wreathe")); //use DarkPastels when is start support blue ncurses UI properly
      setProperty(Font, QFontDatabase::systemFont(QFontDatabase::FixedFont));
  
