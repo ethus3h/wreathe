@@ -143,7 +143,9 @@ egup-exit() {
 
             if [[ -f README.md ]]; then
                 if [[ -f "$egupDir/.egup.readme" ]]; then
+                    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
                     mv -vf README.md "$egupDir/.egup.readme"
+                    ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
                 fi
             fi
             if [[ -f .egup.readme.bak ]]; then
