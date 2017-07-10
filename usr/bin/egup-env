@@ -79,7 +79,7 @@ egup-env() {
         fi
 
         if [[ -f "$egupDir/.egup.readme" ]]; then
-            echo "Applying README.md override"
+            echo "Applying README.md override in $(pwd)"
             ls -lsa "$egupDir/.egup.readme" README.md .egup.readme.bak || true
             if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v README.md .egup.readme.bak || echo "(no README.md found so not moving)"
