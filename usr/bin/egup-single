@@ -4,7 +4,7 @@
 source ember_bash_setup &> /dev/null
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
-# set -x
+set -x
 
 if [[ "$1" == "--offline" ]]; then
     offline="true"
