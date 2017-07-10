@@ -108,9 +108,13 @@ diff -uraN konsole-16.12.3/data/color-schemes/Wreathe.colorscheme konsole-16.12.
 +Opacity=0.92
 diff -uraN konsole-16.12.3/src/Profile.cpp konsole-16.12.3-b/src/Profile.cpp
 --- konsole-16.12.3/src/Profile.cpp	2017-03-04 05:15:40.000000000 -0500
-+++ konsole-16.12.3-b/src/Profile.cpp	2017-07-10 00:15:12.000000000 -0400
-@@ -162,7 +162,7 @@
-     setProperty(LocalTabTitleFormat, "%d : %n");
++++ konsole-16.12.3-b/src/Profile.cpp	2017-07-10 00:37:56.000000000 -0400
+@@ -159,10 +159,10 @@
+     setProperty(Arguments, QStringList() << qgetenv("SHELL"));
+     setProperty(Icon, "utilities-terminal");
+     setProperty(Environment, QStringList() << QStringLiteral("TERM=xterm-256color") << QStringLiteral("COLORTERM=truecolor"));
+-    setProperty(LocalTabTitleFormat, "%d : %n");
++    setProperty(LocalTabTitleFormat, "%n: %d — %w");
      setProperty(RemoteTabTitleFormat, "(%u) %H");
      setProperty(ShowTerminalSizeHint, true);
 -    setProperty(StartInCurrentSessionDir, true);
