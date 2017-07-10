@@ -108,7 +108,7 @@ diff -uraN konsole-16.12.3/data/color-schemes/Wreathe.colorscheme konsole-16.12.
 +Opacity=0.92
 diff -uraN konsole-16.12.3/src/Profile.cpp konsole-16.12.3-b/src/Profile.cpp
 --- konsole-16.12.3/src/Profile.cpp	2017-03-04 05:15:40.000000000 -0500
-+++ konsole-16.12.3-b/src/Profile.cpp	2017-07-10 00:37:56.000000000 -0400
++++ konsole-16.12.3-b/src/Profile.cpp	2017-07-10 01:40:04.000000000 -0400
 @@ -159,10 +159,10 @@
      setProperty(Arguments, QStringList() << qgetenv("SHELL"));
      setProperty(Icon, "utilities-terminal");
@@ -122,7 +122,7 @@ diff -uraN konsole-16.12.3/src/Profile.cpp konsole-16.12.3-b/src/Profile.cpp
      setProperty(MenuIndex, "0");
      setProperty(SilenceSeconds, 10);
      setProperty(TerminalColumns, 80);
-@@ -172,21 +172,21 @@
+@@ -172,33 +172,33 @@
      setProperty(MouseWheelZoomEnabled, true);
  
      setProperty(KeyBindings, "default");
@@ -147,8 +147,10 @@ diff -uraN konsole-16.12.3/src/Profile.cpp konsole-16.12.3-b/src/Profile.cpp
 +    setProperty(CtrlRequiredForDrag, false);
      setProperty(AutoCopySelectedText, false);
      setProperty(TrimTrailingSpacesInSelectedText, false);
-     setProperty(DropUrlsAsText, false);
-@@ -195,10 +195,10 @@
+-    setProperty(DropUrlsAsText, false);
++    setProperty(DropUrlsAsText, true);
+     setProperty(PasteFromSelectionEnabled, true);
+     setProperty(PasteFromClipboardEnabled, false);
      setProperty(MiddleClickPasteMode, Enum::PasteFromX11Selection);
      setProperty(TripleClickMode, Enum::SelectWholeLine);
  
