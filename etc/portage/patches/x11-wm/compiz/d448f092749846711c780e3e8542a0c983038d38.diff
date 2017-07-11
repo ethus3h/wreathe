@@ -11,3 +11,16 @@ index d6b8ca91..53d47c08 100644
  	    </option>
  	    <option name="gaussian_strength" type="float">
  		<_short>Gaussian Strength</_short>
+diff --git a/plugins/blur.c b/plugins/blur.c
+index 5d7303ad..0551a4fb 100644
+--- a/plugins/blur.c
++++ b/plugins/blur.c
+@@ -35,7 +35,7 @@
+ 
+ static CompMetadata blurMetadata;
+ 
+-#define BLUR_GAUSSIAN_RADIUS_MAX 15
++#define BLUR_GAUSSIAN_RADIUS_MAX 128
+ 
+ #define BLUR_FILTER_4X_BILINEAR 0
+ #define BLUR_FILTER_GAUSSIAN    1
