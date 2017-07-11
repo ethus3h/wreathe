@@ -1,0 +1,13 @@
+diff --git a/metadata/blur.xml.in b/metadata/blur.xml.in
+index d6b8ca91..53d47c08 100644
+--- a/metadata/blur.xml.in
++++ b/metadata/blur.xml.in
+@@ -72,7 +72,7 @@
+ 		<_long>Gaussian radius</_long>
+ 		<default>3</default>
+ 		<min>1</min>
+-		<max>15</max>
++		<max>128</max>
+ 	    </option>
+ 	    <option name="gaussian_strength" type="float">
+ 		<_short>Gaussian Strength</_short>
