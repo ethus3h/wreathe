@@ -165,7 +165,7 @@ egup-exit() {
 export -f egup-exit
 
 elen() {
-    set -x
+    # set -x
     libraryDir="ember-library-2"
     if [[ -n "$1" ]]; then
         libraryDir="$1"
