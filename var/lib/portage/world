@@ -64,12 +64,15 @@ dev-python/PyQt5
 dev-python/certauth
 dev-python/doublethink
 dev-python/eyeD3
+dev-python/google-api-python-client
 dev-python/internetarchive
 dev-python/ipython
 dev-python/matplotlib
 dev-python/numpy
 dev-python/pandas
+dev-python/psycopg:2
 dev-python/pycrypto
+dev-python/pymysql
 dev-python/python-lzo
 dev-python/requests-file
 dev-python/rethinkstuff
