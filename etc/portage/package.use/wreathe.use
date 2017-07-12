@@ -43,6 +43,7 @@ dev-java/rxtx -doc
 dev-python/logilab-common -doc
 dev-python/pillow -doc
 dev-python/pymongo -doc
+dev-python/statsmodels -doc
 dev-python/sympy -doc
 dev-ruby/net-ssh -doc
 dev-ruby/rest-client -doc
