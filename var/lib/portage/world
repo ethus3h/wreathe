@@ -78,6 +78,8 @@ dev-python/requests-file
 dev-python/rethinkstuff
 dev-python/sabyenc
 dev-python/sphinx
+dev-python/sqlalchemy
+dev-python/statsmodels
 dev-python/surt
 dev-python/sympy
 dev-python/tldextract
