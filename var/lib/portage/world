@@ -74,6 +74,7 @@ dev-python/psycopg:2
 dev-python/pycrypto
 dev-python/pymysql
 dev-python/python-lzo
+dev-python/requests
 dev-python/requests-file
 dev-python/rethinkstuff
 dev-python/sabyenc
