@@ -1,0 +1,389 @@
+>From 39d0fbc760686d6bcc9110404d33115d3f5e38f5 Mon Sep 17 00:00:00 2001
+From: Noah Levitt <address@hidden(none)>
+Date: Fri, 13 Nov 2009 20:12:10 -0800
+Subject: [PATCH] md5sum, sha*sum: add --base32 option
+
+* src/md5sum.c: Add --base32 option. With --base32, when printing
+digests, print in base32 instead of hex; when verifying, expect them in
+base32.
+* doc/coreutils.texi: Document --base32 option.
+---
+ doc/coreutils.texi |    7 ++
+ src/md5sum.c       |  191 ++++++++++++++++++++++++++++++++++++++++++----------
+ 2 files changed, 162 insertions(+), 36 deletions(-)
+
+diff --git a/doc/coreutils.texi b/doc/coreutils.texi
+index 3721bee..f9fe5f2 100644
+--- a/doc/coreutils.texi
++++ b/doc/coreutils.texi
+@@ -3454,6 +3454,13 @@ the MD5 checksum is unaffected.  This option is the 
+default on systems
+ like MS-DOS that distinguish between binary and text files, except
+ for reading standard input when standard input is a terminal.
+ 
+address@hidden --base32
++When printing checksums, print in base32 encoding, rather than
++hexadecimal.  When verifying checksums, expect them in base32.  See
+address@hidden://tools.ietf.org/html/rfc4648, RFC 4648} for the definition 
++of base32.  Note that @command{md5sum} uses the standard base32 alphabet
++(not the ``extended hex'' version).
++
+ @item -c
+ @itemx --check
+ Read file names and checksum information (not data) from each
+diff --git a/src/md5sum.c b/src/md5sum.c
+index b7db03e..0adee76 100644
+--- a/src/md5sum.c
++++ b/src/md5sum.c
+@@ -87,6 +87,7 @@
+ #endif
+ 
+ #define DIGEST_HEX_BYTES (DIGEST_BITS / 4)
++#define DIGEST_BASE32_BYTES ((DIGEST_BITS + 4) / 5)
+ #define DIGEST_BIN_BYTES (DIGEST_BITS / 8)
+ 
+ #define AUTHORS \
+@@ -96,10 +97,14 @@
+ 
+ /* The minimum length of a valid digest line.  This length does
+    not include any newline character at the end of a line.  */
+-#define MIN_DIGEST_LINE_LENGTH \
++#define MIN_HEX_DIGEST_LINE_LENGTH \
+   (DIGEST_HEX_BYTES /* length of hexadecimal message digest */ \
+    + 2 /* blank and binary indicator */ \
+    + 1 /* minimum filename length */ )
++#define MIN_BASE32_DIGEST_LINE_LENGTH \
++  (DIGEST_BASE32_BYTES /* length of base32 message digest */ \
++   + 2 /* blank and binary indicator */ \
++   + 1 /* minimum filename length */ )
+ 
+ /* True if any of the files read were the standard input. */
+ static bool have_read_stdin;
+@@ -107,8 +112,12 @@ static bool have_read_stdin;
+ /* The minimum length of a valid checksum line for the selected algorithm.  */
+ static size_t min_digest_line_length;
+ 
+-/* Set to the length of a digest hex string for the selected algorithm.  */
+-static size_t digest_hex_bytes;
++/* Set to the length of a digest string for the selected algorithm and base
++ * (hex or base32). */
++static size_t digest_string_bytes;
++
++/* Base32 digits as specified by RFC 4648. */
++static char base32_chars[] = "abcdefghijklmnopqrstuvwxyz234567";
+ 
+ /* With --check, don't generate any output.
+    The exit code indicates success or failure.  */
+@@ -137,6 +146,7 @@ static struct option const long_options[] =
+   { "status", no_argument, NULL, STATUS_OPTION },
+   { "text", no_argument, NULL, 't' },
+   { "warn", no_argument, NULL, 'w' },
++  { "base32", no_argument, NULL, '3' },
+   { GETOPT_HELP_OPTION_DECL },
+   { GETOPT_VERSION_OPTION_DECL },
+   { NULL, 0, NULL, 0 }
+@@ -178,6 +188,9 @@ With no FILE, or when FILE is -, read standard input.\n\
+         fputs (_("\
+   -t, --text              read in text mode (default)\n\
+ "), stdout);
++      printf (_("\
++      --base32            print or check %s sums in base32 (RFC 4648)\n"), 
++              DIGEST_TYPE_STRING);
+       fputs (_("\
+ \n\
+ The following three options are useful only when verifying checksums:\n\
+@@ -244,12 +257,12 @@ bsd_split_3 (char *s, size_t s_len, unsigned char 
+**hex_digest, char **file_name
+ }
+ 
+ /* Split the string S (of length S_LEN) into three parts:
+-   a hexadecimal digest, binary flag, and the file name.
++   a digest string, binary flag, and the file name.
+    S is modified.  Return true if successful.  */
+ 
+ static bool
+ split_3 (char *s, size_t s_len,
+-         unsigned char **hex_digest, int *binary, char **file_name)
++         unsigned char **digest, int *binary, char **file_name)
+ {
+   bool escaped_filename = false;
+   size_t algo_name_len;
+@@ -269,7 +282,7 @@ split_3 (char *s, size_t s_len,
+           *binary = 0;
+           return bsd_split_3 (s +      i + algo_name_len + 1,
+                               s_len - (i + algo_name_len + 1),
+-                              hex_digest, file_name);
++                              digest, file_name);
+         }
+     }
+ 
+@@ -285,12 +298,12 @@ split_3 (char *s, size_t s_len,
+       ++i;
+       escaped_filename = true;
+     }
+-  *hex_digest = (unsigned char *) &s[i];
++  *digest = (unsigned char *) &s[i];
+ 
+   /* The first field has to be the n-character hexadecimal
+      representation of the message digest.  If it is not followed
+      immediately by a white space it's an error.  */
+-  i += digest_hex_bytes;
++  i += digest_string_bytes;
+   if (!ISWHITE (s[i]))
+     return false;
+ 
+@@ -357,7 +370,7 @@ static bool
+ hex_digits (unsigned char const *s)
+ {
+   unsigned int i;
+-  for (i = 0; i < digest_hex_bytes; i++)
++  for (i = 0; i < DIGEST_HEX_BYTES; i++)
+     {
+       if (!isxdigit (*s))
+         return false;
+@@ -366,6 +379,21 @@ hex_digits (unsigned char const *s)
+   return *s == '\0';
+ }
+ 
++/* Return true if S is a NUL-terminated string of DIGEST_HEX_BYTES hex digits.
++   Otherwise, return false.  */
++static bool
++base32_digits (unsigned char const *s)
++{
++  unsigned int i;
++  for (i = 0; i < DIGEST_BASE32_BYTES; i++)
++    {
++      if (! strchr (base32_chars, tolower (*s)))
++        return false;
++      ++s;
++    }
++  return *s == '\0';
++}
++
+ /* An interface to the function, DIGEST_STREAM.
+    Operate on FILENAME (it may be "-").
+ 
+@@ -425,7 +453,89 @@ digest_file (const char *filename, int *binary, unsigned 
+char *bin_result)
+ }
+ 
+ static bool
+-digest_check (const char *checkfile_name)
++hex_digest_matches (unsigned char const *bin_buffer, 
++                    char const          *purported_digest)
++{
++  static const char bin2hex[] = { '0', '1', '2', '3',
++                                  '4', '5', '6', '7',
++                                  '8', '9', 'a', 'b',
++                                  'c', 'd', 'e', 'f' };
++  size_t digest_bin_bytes = DIGEST_HEX_BYTES / 2;
++  size_t cnt;
++
++  /* Compare generated binary number with text representation
++     in check file.  Ignore case of hex digits.  */
++  for (cnt = 0; cnt < digest_bin_bytes; ++cnt)
++    {
++      if (tolower (purported_digest[2 * cnt]) != bin2hex[bin_buffer[cnt] >> 4]
++          || (tolower (purported_digest[2 * cnt + 1]) != 
+(bin2hex[bin_buffer[cnt] & 0xf])))
++        return false;
++    }
++
++  return true;
++}
++
++static bool
++print_or_check_base32 (unsigned char const *bin_buffer,
++                       char const          *purported_digest,
++                       FILE                *out)
++{
++  /* based on public domain code from bitzi by way of heritrix */
++  int i = 0, index = 0, digit = 0;
++  size_t cnt = 0;
++  unsigned char currByte, nextByte;
++
++  for (i = 0; i < DIGEST_BASE32_BYTES; i++)
++    {
++      currByte = bin_buffer[cnt];
++
++      /* Is the current digit going to span a byte boundary? */
++      if (index > 3) 
++        {
++          if (cnt + 1 < DIGEST_BIN_BYTES) 
++            nextByte = bin_buffer[cnt+1];
++          else 
++            nextByte = 0;
++
++          digit = currByte & (0xFF >> index);
++          index = (index + 5) % 8;
++          digit <<= index;
++          digit |= nextByte >> (8 - index);
++          cnt++;
++        } 
++      else 
++        {
++          digit = (currByte >> (8 - (index + 5))) & 0x1F;
++          index = (index + 5) % 8;
++          if (index == 0)
++            cnt++;
++        }
++
++      if (purported_digest != NULL
++          && base32_chars[digit] != tolower (purported_digest[i]))
++        return false;
++      else if (out)
++        fputc (base32_chars[digit], out);
++    }
++
++  return true;
++}
++
++static void
++print_base32_digest (const unsigned char *bin_buffer)
++{
++  print_or_check_base32 (bin_buffer, NULL, stdout);
++}
++
++static bool
++base32_digest_matches (const unsigned char *bin_buffer, 
++                       const char          *purported_digest)
++{
++  return print_or_check_base32 (bin_buffer, purported_digest, NULL);
++}
++
++static bool
++digest_check (const char *checkfile_name, bool base32)
+ {
+   FILE *checkfile_stream;
+   uintmax_t n_properly_formatted_lines = 0;
+@@ -462,7 +572,7 @@ digest_check (const char *checkfile_name)
+     {
+       char *filename IF_LINT (= NULL);
+       int binary;
+-      unsigned char *hex_digest IF_LINT (= NULL);
++      unsigned char *purported_digest IF_LINT (= NULL);
+       ssize_t line_length;
+ 
+       ++line_number;
+@@ -482,9 +592,11 @@ digest_check (const char *checkfile_name)
+       if (line[line_length - 1] == '\n')
+         line[--line_length] = '\0';
+ 
+-      if (! (split_3 (line, line_length, &hex_digest, &binary, &filename)
++      if (! (split_3 (line, line_length, &purported_digest, &binary, &filename)
+              && ! (is_stdin && STREQ (filename, "-"))
+-             && hex_digits (hex_digest)))
++             && (base32 && base32_digits (purported_digest)
++                 || ! base32 && hex_digits (purported_digest))))
++
+         {
+           if (warn)
+             {
+@@ -497,10 +609,6 @@ digest_check (const char *checkfile_name)
+         }
+       else
+         {
+-          static const char bin2hex[] = { '0', '1', '2', '3',
+-                                          '4', '5', '6', '7',
+-                                          '8', '9', 'a', 'b',
+-                                          'c', 'd', 'e', 'f' };
+           bool ok;
+ 
+           ++n_properly_formatted_lines;
+@@ -517,24 +625,20 @@ digest_check (const char *checkfile_name)
+             }
+           else
+             {
+-              size_t digest_bin_bytes = digest_hex_bytes / 2;
+-              size_t cnt;
+-              /* Compare generated binary number with text representation
+-                 in check file.  Ignore case of hex digits.  */
+-              for (cnt = 0; cnt < digest_bin_bytes; ++cnt)
+-                {
+-                  if (tolower (hex_digest[2 * cnt])
+-                      != bin2hex[bin_buffer[cnt] >> 4]
+-                      || (tolower (hex_digest[2 * cnt + 1])
+-                          != (bin2hex[bin_buffer[cnt] & 0xf])))
+-                    break;
+-                }
+-              if (cnt != digest_bin_bytes)
++              bool digest_matches;
++              if (base32)
++                digest_matches = base32_digest_matches (bin_buffer, 
++                                                        purported_digest); 
++              else 
++                digest_matches = hex_digest_matches (bin_buffer, 
++                                                     purported_digest);
++
++              if (!digest_matches)
+                 ++n_mismatched_checksums;
+ 
+               if (!status_only)
+                 {
+-                  if (cnt != digest_bin_bytes)
++                  if (!digest_matches)
+                     printf ("%s: %s\n", filename, _("FAILED"));
+                   else if (!quiet)
+                     printf ("%s: %s\n", filename, _("OK"));
+@@ -607,6 +711,7 @@ main (int argc, char **argv)
+   int opt;
+   bool ok = true;
+   int binary = -1;
++  bool base32 = false;
+ 
+   /* Setting values of global variables.  */
+   initialize_main (&argc, &argv);
+@@ -630,6 +735,9 @@ main (int argc, char **argv)
+       case 'c':
+         do_check = true;
+         break;
++      case '3':
++        base32 = true;
++        break;
+       case STATUS_OPTION:
+         status_only = true;
+         warn = false;
+@@ -654,8 +762,16 @@ main (int argc, char **argv)
+         usage (EXIT_FAILURE);
+       }
+ 
+-  min_digest_line_length = MIN_DIGEST_LINE_LENGTH;
+-  digest_hex_bytes = DIGEST_HEX_BYTES;
++  if (base32)
++    {
++      digest_string_bytes = DIGEST_BASE32_BYTES;
++      min_digest_line_length = MIN_BASE32_DIGEST_LINE_LENGTH;
++    }
++  else
++    {
++      digest_string_bytes = DIGEST_HEX_BYTES;
++      min_digest_line_length = MIN_HEX_DIGEST_LINE_LENGTH;
++    }
+ 
+   if (0 <= binary && do_check)
+     {
+@@ -696,7 +812,7 @@ main (int argc, char **argv)
+       char *file = argv[optind];
+ 
+       if (do_check)
+-        ok &= digest_check (file);
++        ok &= digest_check (file, base32);
+       else
+         {
+           int file_is_binary = binary;
+@@ -712,8 +828,11 @@ main (int argc, char **argv)
+               if (strchr (file, '\n') || strchr (file, '\\'))
+                 putchar ('\\');
+ 
+-              for (i = 0; i < (digest_hex_bytes / 2); ++i)
+-                printf ("%02x", bin_buffer[i]);
++              if (base32) 
++                print_base32_digest (bin_buffer);
++              else
++                for (i = 0; i < (DIGEST_HEX_BYTES / 2); ++i)
++                  printf ("%02x", bin_buffer[i]);
+ 
+               putchar (' ');
+               if (file_is_binary)
+-- 
+1.6.3.3
