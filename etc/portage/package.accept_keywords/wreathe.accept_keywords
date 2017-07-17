@@ -273,6 +273,7 @@ sci-geosciences/opencpn-plugins-meta
 sci-geosciences/routino ~amd64
 sci-libs/matio ~amd64
 sci-libs/opencascade ~amd64
+sci-mathematics/form ~amd64
 sci-mathematics/freemat ~amd64
 sci-mathematics/octave-epstk ~amd64
 sys-apps/hwloc ~amd64
