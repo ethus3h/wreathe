@@ -19,12 +19,13 @@
   editor:
     backUpBeforeSaving: true
     fontFamily: "Courier New"
-    fontSize: 11
+    fontSize: 12
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true
     softWrap: true
     softWrapHangingIndent: 2
+    tabLength: 4
     useShadowDOM: false
   "exception-reporting":
     userId: "02ceb146-50d9-4403-2188-ab26f78d1bab"
