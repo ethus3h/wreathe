@@ -163,11 +163,13 @@ net-irc/irssi
 net-misc/freerdp
 net-misc/icecast
 net-misc/jdownloader
+net-misc/nitroshare
 net-misc/taylor-uucp
 net-misc/youtube-dl
 net-nntp/sabnzbd
 net-wireless/gnuradio
 sci-libs/scipy
+sci-mathematics/form
 sys-apps/hwinfo
 sys-apps/lshw
 sys-devel/crossdev
