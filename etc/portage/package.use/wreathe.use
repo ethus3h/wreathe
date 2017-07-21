@@ -40,6 +40,7 @@ dev-java/hamcrest-core -doc
 dev-java/icu4j -doc
 dev-java/libreadline-java -doc
 dev-java/rxtx -doc
+dev-ml/lwt -doc
 dev-python/logilab-common -doc
 dev-python/pillow -doc
 dev-python/pymongo -doc
