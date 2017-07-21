@@ -57,6 +57,7 @@ dev-libs/kpathsea
 dev-libs/libcgroup
 dev-libs/libdbusmenu
 dev-libs/wayland-protocols
+dev-ml/csv
 dev-perl/ttylog
 dev-php/ZendFramework
 dev-python/PyQt4
