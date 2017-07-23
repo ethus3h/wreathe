@@ -196,9 +196,11 @@ dev-ruby/listen ~amd64
 dev-ruby/net-scp ~amd64
 dev-ruby/net-ssh ~amd64
 dev-ruby/nokogiri ~amd64
+dev-ruby/polyglot ~amd64
 dev-ruby/rake ~amd64
 dev-ruby/rb-inotify ~amd64
 dev-ruby/ruby_dep ~amd64
+dev-ruby/treetop ~amd64
 dev-tex/metapost ~amd64
 dev-util/electron ~amd64
 dev-util/lttng-ust ~amd64
