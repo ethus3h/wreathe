@@ -31,6 +31,7 @@ app-misc/wreathe-overlays-redist
 app-officeext/ooofbtools
 app-portage/pfl
 app-text/aspell
+app-text/convertlit
 app-text/dvipng
 app-text/jadetex
 app-text/libgxps
@@ -56,6 +57,7 @@ dev-libs/gnulib
 dev-libs/kpathsea
 dev-libs/libcgroup
 dev-libs/libdbusmenu
+dev-libs/libtommath
 dev-libs/wayland-protocols
 dev-ml/csv
 dev-perl/ttylog
@@ -184,6 +186,7 @@ sys-libs/glibc
 sys-libs/libomp
 sys-process/parallel
 virtual/liblash
+virtual/perl6
 www-apps/bugzilla
 www-apps/cgit
 www-apps/dokuwiki
