@@ -2,9 +2,9 @@
 /etc/kernels/kernel-config-x86_64-3.16.0-pf4-wreathe-7.3-2016aug03 7b16d67c49dc5b8e156a5f99b0f99faa
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.module.simplejson.patch 3181898d95cf5566ec9dde8cf4c77c96
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-group.diff d8ee5363007aa39ae2154b2f66dedf7c
-/etc/portage/package.use/wreathe.use 190c220990ab2be5073ebf6bae303baf
+/etc/portage/package.use/wreathe.use 2136838af78173e7fedda85c028d9972
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-crashhandler.diff 8399b4896a0a7ae6acbea6b7aa23f79a
-/etc/genkernel.conf c2e84e993b005ea9af6ff334e76c2173
+/etc/genkernel.conf 443b3e4c2d3180d35add4b85742b6985
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.module.schism.common.patch a3b1303c6b9ed358a866875c7e7ff9ce
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-grid.diff fbf01f7410346698238222051bc6bc3f
 /etc/kernels/wreathe-kernel.config 0c2fb0146d4acfc1c62aaf4047301b3b
@@ -26,7 +26,7 @@
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-snow.diff e74dc7506b502350010c94f7ef4a0c48
 /etc/portage/package.license/wreathe.license 2beb5a81fd71d18695da0599f4b4079f
 /etc/xdg/openbox/autostart cf7cd22e452ddfb7c5887e465d97d4f5
-/etc/portage/make.conf f4f175c90bab39ed3061d28e3063ea5b
+/etc/portage/make.conf bc6bd4ff7268bbbcf6541717c405fcef
 /etc/portage/package.use 8543086c63a9abe868db1b72f98e156a
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-staticswitcher.diff c79c36f6cecc3c262b85854bf8e59335
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-wizard.diff 511f585270bde531b6566b0ab2ccc319
@@ -107,4 +107,4 @@
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.module.urlresolver.patch 98edfa3b2801ae12b157d2dffe33417f
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug06 3338ec2897be87b6b2389eebd8636a5b
 /etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25n4 0e303fd207834e306bbb0e3f51f2da61
-/etc/portage/package.accept_keywords/wreathe.accept_keywords 4f3e655f45d60b92a7dde249d58d90b5
+/etc/portage/package.accept_keywords/wreathe.accept_keywords a38dedf1abe07f521c24ce38fa8c7375
