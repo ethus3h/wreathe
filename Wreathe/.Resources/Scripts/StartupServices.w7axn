@@ -1,5 +1,9 @@
-#!/bin/sh
-#2016jun12
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null
+#set -x
+
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 echo "Welcome to Wreathe! Setting things up..."
 
@@ -12,6 +16,7 @@ echo "Welcome to Wreathe! Setting things up..."
     ln -s /Wreathe/Apps/* /usr/bin/
     ln -s /Wreathe/.Resources/7r2-Compatibility/Scripts/* /usr/bin/
 ) || echo "(Couldn't update symlinks.)"
+
 wreathe-settings_keymap-apply
 
 echo "Wreathe setup done."
