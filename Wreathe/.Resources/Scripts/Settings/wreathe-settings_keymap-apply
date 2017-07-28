@@ -3,8 +3,12 @@
 
 # Apply changes to file
 sudo cp /usr/share/X11/xkb/symbols/us /tmp/wreathe-settings_keymap-apply.tmp
-sudo perl -0777 -p -i -e 's/\/\/ DO NOT MODIFY THIS LINE\! 2263d1e9-d9f5-4b1a-91fb-2536ea268212.*//g'
-sudo cat /Wreathe/.Resources/Keymaps/wreathe >> /usr/share/X11/xkb/symbols/us
+xkbUsSymbolsKnownChecksum="$(grep /usr/share/X11/xkb/symbols/us /var/db/pkg/x11-misc/xkeyboard-config-*/CONTENTS | awk '{print $(NF-1)}')"
+xkbUsSymbolsRealChecksum="$(md5sum /usr/share/X11/xkb/symbols/us | awk '{print $1}')"
+if [[ "$xkbUsSymbolsRealChecksum" == "$xkbUsSymbolsKnownChecksum" ]]; then
+    # Keymap file has not been modified by this script
+    sudo cat /Wreathe/.Resources/Keymaps/wreathe >> /usr/share/X11/xkb/symbols/us
+fi
 # Read and apply settings
 (
     cd /etc/wreathe/keyboard/mapping/
