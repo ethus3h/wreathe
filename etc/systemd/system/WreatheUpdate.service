@@ -1,6 +1,5 @@
 [Unit]
-Description=Wreathe Startup Services
-Wants=usbmuxd
+Description=Wreathe Update Service
 
 [Service]
 Type=oneshot
