@@ -2,8 +2,10 @@
 Description=Wreathe Update Service
 
 [Service]
-Type=oneshot
-ExecStart=/Wreathe/.Resources/Scripts/StartupServices.w7axn
+Type=idle
+Restart=always
+RestartSec=14400
+ExecStart=/Wreathe/.Resources/Scripts/UpdateService.w7axn
 
 [Install]
 WantedBy=multi-user.target
