@@ -5,7 +5,7 @@
 sys-kernel/wreathe-kernel freedist
 
 # Required for Intel wifi to work
-sys-kernel/linux-firmware freedist
+sys-kernel/linux-firmware freedist no-source-code
 
 # License is basically WTFPL, provided you don't misrepresent authorship.
 app-misc/sl freedist
