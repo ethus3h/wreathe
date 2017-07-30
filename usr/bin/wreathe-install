@@ -16,12 +16,18 @@ bootPartition=read
 wget -O - https://archive.org/download/Wreathe7.3/boot.dd
 dd if=foo of="${bootPartition:?}"
 
+efiPartition=read
+
 swapPartition=read
 
 mkdir mountpoint
 mount "$sysPartition" mountpoint
 
-mkdir boot
-mount "$bootPartition" /boot
+mkdir -p boot/efi
+mkdir -p boot/grub
+mount "$bootPartition" boot
 
+grub-install --target=x86_64-efi --efi-directory=boot/efi
 grub-mkconfig -o boot/grub/grub.cfg
+
+echo "Done."
