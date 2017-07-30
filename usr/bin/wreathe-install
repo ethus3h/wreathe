@@ -22,23 +22,23 @@ sleep 3
 ia configure
 
 echo "What is the path to use as the system (root) partition?"
-read sysPartition
+read -r sysPartition
 
 echo "What is the path to use as the boot partition?"
-read bootPartition
+read -r bootPartition
 
 echo "What is the path to the EFI partition?"
-read efiPartition
+read -r efiPartition
 
 echo "What is the path to use as the swap partition?"
-read swapPartition
+read -r swapPartition
 
 echo "What is the path to use for temporary storage?"
-read tempStorage
+read -r tempStorage
 
 identifier="$(wget -O - http://futuramerlin.com/ancillary/wreathe/7.3/identifier.php)"
 
-cd "$tempStorage"
+cd "$tempStorage" || die "Could not cd to temporary storage path."
 
 echo "(Beginning downloading Wreathe. This will probably take a while.)"
 ia download "$identifier"
