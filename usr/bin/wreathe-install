@@ -57,8 +57,8 @@ echo "(Creating /etc/fstab)"
 mkdir -p install
 mount "$sysPartition" install
 
-echo '# /etc/fstab: static file system information.' > install/etc/fstab
 {
+    echo '# /etc/fstab: static file system information.'
     echo '# '
     echo '# noatime turns off atimes for increased performance (atimes normally aren'"'"'t'
     echo '# needed); notail increases performance of ReiserFS (at the expense of storage'
@@ -78,7 +78,7 @@ echo '# /etc/fstab: static file system information.' > install/etc/fstab
     echo "$swapPartition"'         none            swap            sw              0 0'
     echo '/dev/cdrom              /mnt/cdrom      auto            noauto,user,ro  0 0'
     echo '/dev/fd0                /mnt/floppy     auto            noauto,user,ro  0 1'
-} >> install/etc/fstab
+} > install/etc/fstab
 
 echo "(Setting up bootloader)"
 mkdir -p install/boot
