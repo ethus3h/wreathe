@@ -57,7 +57,26 @@ echo "(Creating /etc/fstab)"
 mkdir -p install
 mount "$sysPartition" install
 
-# TODO: Fix up /etc/fstab
+echo '# /etc/fstab: static file system information.' > install/etc/fstab
+echo '# ' >> install/etc/fstab
+echo '# noatime turns off atimes for increased performance (atimes normally aren'"'"'t' >> install/etc/fstab
+echo '# needed); notail increases performance of ReiserFS (at the expense of storage' >> install/etc/fstab
+echo '# efficiency).  It'"'"'s safe to drop the noatime options if you want and to' >> install/etc/fstab
+echo '# switch between notail / tail freely.' >> install/etc/fstab
+echo '# The root filesystem should have a pass number of either 0 or 1.' >> install/etc/fstab
+echo '# All other filesystems should have a pass number of 0 or greater than 1.' >> install/etc/fstab
+echo '# ' >> install/etc/fstab
+echo '# See the manpage fstab(5) for more information.' >> install/etc/fstab
+echo '# ' >> install/etc/fstab
+echo '' >> install/etc/fstab
+echo '# <fs>                  <mountpoint>    <type>          <opts>          <dump/pass>' >> install/etc/fstab
+echo '' >> install/etc/fstab
+echo '# NOTE: If your BOOT partition is ReiserFS, add the notail option to opts.' >> install/etc/fstab
+echo "$bootPartition"'          /boot           ext4            noauto,noatime,discard  0 2' >> install/etc/fstab
+echo "$sysPartition"'          /               ext4            noatime,discard 0 1' >> install/etc/fstab
+echo "$swapPartition"'         none            swap            sw              0 0' >> install/etc/fstab
+echo '/dev/cdrom              /mnt/cdrom      auto            noauto,user,ro  0 0' >> install/etc/fstab
+echo '/dev/fd0                /mnt/floppy     auto            noauto,user,ro  0 1' >> install/etc/fstab
 
 mkdir -p install/boot
 mount "$bootPartition" boot
