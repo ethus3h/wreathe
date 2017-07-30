@@ -3,15 +3,25 @@
 source ember_bash_setup &> /dev/null
 #set -x
 
-trap 'warn "A nonfatal update error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+trap 'die "A fatal kernel update error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-smart-live-rebuild -f app-misc/wreathe-base -f app-misc/wreathe-overlays-redist
-layman -S -n
-eix-update
-emerge --update app-misc/gentoo-portage-tree
-eix-update
-smart-live-rebuild
-emerge --backtrack=0 --deep --complete-graph=y --with-bdeps=y --changed-deps=y --newuse --update --verbose --verbose-conflicts @world
-emerge @preserved-rebuild
-emerge @x11-module-rebuild @module-rebuild
-haskell-updater
+emerge --update wreathe-kernel
+
+emerge @module-rebuild
+grub-mkconfig -o /boot/grub/grub.cfg && elog "Updated /boot/grub/grub.cfg"
+# Send notification about kernel update to users
+(
+    getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
+        top="${home#/}"
+        top="${top%%/*}"
+        case $top in
+            bin|dev|etc|lib*|no*|proc|sbin|usr|var)
+                # probably not a human, so don't bother notfiying
+                true
+                ;;
+            *)
+                DISPLAY=:0 sudo -u "$name" bash -c 'DISPLAY=:0 notify-send "Kernel update installed" "A kernel update has been installed. A system administrator can reboot the computer to use the new kernel."'
+                ;;
+        esac
+    done
+)

@@ -5,13 +5,14 @@ source ember_bash_setup &> /dev/null
 
 trap 'warn "A nonfatal update error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-Run KernelUpdate
-
 smart-live-rebuild -f app-misc/wreathe-base -f app-misc/wreathe-overlays-redist
 layman -S -n
 eix-update
 emerge --update app-misc/gentoo-portage-tree
 eix-update
+
+Run KernelUpdate
+
 smart-live-rebuild
 emerge --backtrack=0 --deep --complete-graph=y --with-bdeps=y --changed-deps=y --newuse --update --verbose --verbose-conflicts @world
 emerge @preserved-rebuild
