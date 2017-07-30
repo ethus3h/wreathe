@@ -7,6 +7,12 @@ trap 'die "A fatal kernel update error was reported on ${BASH_SOURCE[0]} line ${
 
 emerge --update wreathe-kernel
 
+(
+    cd /usr/src/linux
+    make oldconfig
+    make modules_prepare
+)
+
 emerge @module-rebuild
 
 grub-mkconfig -o /boot/grub/grub.cfg && echo "Updated /boot/grub/grub.cfg"
