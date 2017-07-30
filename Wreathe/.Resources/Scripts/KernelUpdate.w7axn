@@ -8,8 +8,10 @@ trap 'die "A fatal kernel update error was reported on ${BASH_SOURCE[0]} line ${
 emerge --update wreathe-kernel
 
 emerge @module-rebuild
+
 grub-mkconfig -o /boot/grub/grub.cfg && elog "Updated /boot/grub/grub.cfg"
-# Send notification about kernel update to users
+
+# Finished successfully, so send a notification about the kernel update to users
 (
     getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
         top="${home#/}"
