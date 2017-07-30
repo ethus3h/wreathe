@@ -14,6 +14,8 @@ echo "You should log in now. (Continuing in 3 seconds.)"
 sleep 3
 ia configure
 
+identifier="$(wget -O - http://futuramerlin.com/ancillary/wreathe/7.3/identifier.php)"
+
 echo "What is the path to use as the system (root) partition?"
 read sysPartition
 wget -O - https://archive.org/details/Wreathe7.3/sys.dd
@@ -33,9 +35,12 @@ read swapPartition
 mkdir mountpoint
 mount "$sysPartition" mountpoint
 
+# TODO: Fix up /etc/fstab
+
 mkdir -p boot/efi
 mkdir -p boot/grub
 mount "$bootPartition" boot
+mount "$efiPartition" boot/efi
 
 grub-install --target=x86_64-efi --efi-directory=boot/efi
 grub-mkconfig -o boot/grub/grub.cfg
