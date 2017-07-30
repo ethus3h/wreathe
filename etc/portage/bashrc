@@ -1,8 +1,7 @@
 function post_pkg_postinst() {
-    if test "$CATEGORY/$PN" = "sys-kernel/wreathe-kernel"; then
-        emerge @module-rebuild
+	if test "$CATEGORY/$PN" = "sys-kernel/wreathe-kernel"; then
+		emerge @module-rebuild
 		grub-mkconfig -o /boot/grub/grub.cfg && elog "Updated /boot/grub/grub.cfg"
-		dosym /boot/grub/grub.cfg /boot/grub/grub.conf
 		# Send notification about kernel update to users
 		(
 			getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
@@ -19,5 +18,5 @@ function post_pkg_postinst() {
 				esac
 			done
 		)
-    fi
+	fi
 }
