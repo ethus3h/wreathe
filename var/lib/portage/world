@@ -184,6 +184,7 @@ sys-fs/squashfs-tools
 sys-kernel/genkernel-next
 sys-kernel/linux-firmware
 sys-kernel/wreathe-kernel
+sys-kernel/wreathe-kernel:4.9.16
 sys-libs/glibc
 sys-libs/libomp
 sys-process/parallel
