@@ -3,12 +3,27 @@
 source ember_bash_setup &> /dev/null
 #set -x
 
+((EUID)) && exec sudo -- "$0" "$@"
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 ia configure
-wget https://archive.org/details/Wreathe7.3/foo
-partition=read
-dd if=foo of="$partition"
-wget https://archive.org/download/Wreathe7.3/boot.dd
+
+sysPartition=read
+wget -O - https://archive.org/details/Wreathe7.3/sys.dd
+dd if=foo of="${sysPartition:?}"
+
 bootPartition=read
-dd if=foo of="$bootPartition"
+wget -O - https://archive.org/download/Wreathe7.3/boot.dd
+dd if=foo of="${bootPartition:?}"
+
+swapPartition=read
+
+mkdir mountpoint
+mount "$sysPartition" mountpoint
+
+trap - ERR
+mv /boot /boot.disabled
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
+mkdir /boot
+mount "$bootPartition" /boot
