@@ -43,12 +43,17 @@ cd "$tempStorage" || die "Could not cd to temporary storage path."
 echo "(Beginning downloading Wreathe. This will probably take a while.)"
 ia download "$identifier"
 
-echo "(Beginning copying system partition. This will probably take a while.)"
+echo "(Beginning copying to system partition $sysPartition. This will probably take a while.)"
 dd if=sys.dd of="${sysPartition:?}"
 
-echo "(Beginning copying boot partition.)"
+echo "(Beginning copying boot partition $bootPartition.)"
 dd if=boot.dd of="${bootPartition:?}"
 
+echo "(Beginning preparing swap partition $swapPartition.)"
+mkswap "$swapPartition"
+swapon -U "$(blkid "$swapPartition")"
+
+echo "(Creating /etc/fstab)"
 mkdir -p install
 mount "$sysPartition" install
 
