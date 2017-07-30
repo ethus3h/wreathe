@@ -5,7 +5,7 @@ source ember_bash_setup &> /dev/null
 
 trap 'die "A fatal kernel update error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-emerge --update wreathe-kernel
+emerge --update sys-kernel/wreathe-kernel
 
 (
     cd /usr/src/linux
@@ -13,7 +13,7 @@ emerge --update wreathe-kernel
     make modules_prepare
 )
 
-emerge @module-rebuild
+emerge --exclude sys-kernel/wreathe-kernel @module-rebuild
 
 grub-mkconfig -o /boot/grub/grub.cfg && echo "Updated /boot/grub/grub.cfg"
 
