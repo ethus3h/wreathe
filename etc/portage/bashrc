@@ -1,8 +1,7 @@
-
 function post_pkg_postinst() {
-  if test "$CATEGORY/$PN" = "net-fs/cifs-utils"; then
-    TARGET=/sbin/mount.cifs
-    echo -e "\n\n\e[01;31m >>> Post-install hook: setting $TARGET SUID <<<\e[00m\n\n"
-    chmod +s $TARGET
-  fi
+    if test "$CATEGORY/$PN" = "net-fs/cifs-utils"; then
+        TARGET=/sbin/mount.cifs
+        echo -e "\n\n\e[01;31m >>> Post-install hook: setting $TARGET SUID <<<\e[00m\n\n"
+        chmod +s $TARGET
+    fi
 }
