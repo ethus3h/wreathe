@@ -49,15 +49,18 @@ dd if=sys.dd of="${sysPartition:?}"
 echo "(Beginning copying boot partition.)"
 dd if=boot.dd of="${bootPartition:?}"
 
-mkdir mountpoint
-mount "$sysPartition" mountpoint
+mkdir -p install
+mount "$sysPartition" install
 
 # TODO: Fix up /etc/fstab
 
-mkdir -p boot/efi
-mkdir -p boot/grub
+mkdir -p install/boot
 mount "$bootPartition" boot
+
+mkdir -p install/boot/efi
 mount "$efiPartition" boot/efi
+
+mkdir -p install/boot/grub
 
 grub-install --target=x86_64-efi --efi-directory=boot/efi
 grub-mkconfig -o boot/grub/grub.cfg
