@@ -39,10 +39,13 @@ read tempStorage
 identifier="$(wget -O - http://futuramerlin.com/ancillary/wreathe/7.3/identifier.php)"
 
 cd "$tempStorage"
+
+echo "(Beginning downloading Wreathe. This will probably take a while.)"
 ia download "$identifier"
 
 echo "(Beginning copying system partition. This will probably take a while.)"
 dd if=sys.dd of="${sysPartition:?}"
+
 echo "(Beginning copying boot partition.)"
 dd if=boot.dd of="${bootPartition:?}"
 
@@ -58,5 +61,9 @@ mount "$efiPartition" boot/efi
 
 grub-install --target=x86_64-efi --efi-directory=boot/efi
 grub-mkconfig -o boot/grub/grub.cfg
+
+umount boot/efi
+umount boot
+umount mountpoint
 
 echo "Done."
