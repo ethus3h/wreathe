@@ -18,12 +18,12 @@ identifier="$(wget -O - http://futuramerlin.com/ancillary/wreathe/7.3/identifier
 
 echo "What is the path to use as the system (root) partition?"
 read sysPartition
-wget -O - https://archive.org/details/Wreathe7.3/sys.dd
+wget -O - https://archive.org/details/$identifier/sys.dd
 dd if=foo of="${sysPartition:?}"
 
 echo "What is the path to use as the boot partition?"
 read bootPartition
-wget -O - https://archive.org/download/Wreathe7.3/boot.dd
+wget -O - https://archive.org/download/$identifier/boot.dd
 dd if=foo of="${bootPartition:?}"
 
 echo "What is the path to the EFI partition?"
