@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
-source ember_bash_setup &> /dev/null
 #set -x
+
+die() {
+    printf %b '\033[1;31m' "$(ps -o args= $PPID)" '\nfailed with the error on '"${BASH_SOURCE[0]} line ${LINENO}"':\n' "${@+$@$'\n'}" '\033[0m' >&2
+    save_traps="$(trap)"
+    save_traps="${save_traps//error-notify/true}"
+    trap 'eval "$save_traps"; false; exit 1' ERR
+    exit 1
+}
 
 ((EUID)) && exec sudo -- "$0" "$@"
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
@@ -14,23 +21,30 @@ echo "You should log in now. (Continuing in 3 seconds.)"
 sleep 3
 ia configure
 
-identifier="$(wget -O - http://futuramerlin.com/ancillary/wreathe/7.3/identifier.php)"
-
 echo "What is the path to use as the system (root) partition?"
 read sysPartition
-wget -O - https://archive.org/details/$identifier/sys.dd
-dd if=foo of="${sysPartition:?}"
 
 echo "What is the path to use as the boot partition?"
 read bootPartition
-wget -O - https://archive.org/download/$identifier/boot.dd
-dd if=foo of="${bootPartition:?}"
 
 echo "What is the path to the EFI partition?"
 read efiPartition
 
 echo "What is the path to use as the swap partition?"
 read swapPartition
+
+echo "What is the path to use for temporary storage?"
+read tempStorage
+
+identifier="$(wget -O - http://futuramerlin.com/ancillary/wreathe/7.3/identifier.php)"
+
+cd "$tempStorage"
+ia download "$identifier"
+
+echo "(Beginning copying system partition. This will probably take a while.)"
+dd if=sys.dd of="${sysPartition:?}"
+echo "(Beginning copying boot partition.)"
+dd if=boot.dd of="${bootPartition:?}"
 
 mkdir mountpoint
 mount "$sysPartition" mountpoint
