@@ -21,9 +21,7 @@ swapPartition=read
 mkdir mountpoint
 mount "$sysPartition" mountpoint
 
-trap - ERR
-mv /boot /boot.disabled
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
-
-mkdir /boot
+mkdir boot
 mount "$bootPartition" /boot
+
+grub-mkconfig -o /boot/grub/grub.cfg

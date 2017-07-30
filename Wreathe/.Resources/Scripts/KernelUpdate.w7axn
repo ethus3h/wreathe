@@ -9,7 +9,7 @@ emerge --update wreathe-kernel
 
 emerge @module-rebuild
 
-grub-mkconfig -o /boot/grub/grub.cfg && elog "Updated /boot/grub/grub.cfg"
+grub-mkconfig -o /boot/grub/grub.cfg && echo "Updated /boot/grub/grub.cfg"
 
 # Finished successfully, so send a notification about the kernel update to users
 (
