@@ -4,3 +4,7 @@ source ember_bash_setup &> /dev/null
 #set -x
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
+ia configure
+wget https://archive.org/details/foo
+partition=read
