@@ -78,6 +78,7 @@ echo "$swapPartition"'         none            swap            sw              0
 echo '/dev/cdrom              /mnt/cdrom      auto            noauto,user,ro  0 0' >> install/etc/fstab
 echo '/dev/fd0                /mnt/floppy     auto            noauto,user,ro  0 1' >> install/etc/fstab
 
+echo "(Setting up bootloader)"
 mkdir -p install/boot
 mount "$bootPartition" boot
 
