@@ -17,8 +17,8 @@ echo "An Internet Archive library card is needed for installing Wreathe."
 sleep 1
 echo "If you do not already have one, please press Ctrl+C to exit this installer, and open https://archive.org/account/login.createaccount.php in a Web browser to create one."
 sleep 1
-echo "You should log in now. (Continuing in 3 seconds.)"
-sleep 3
+echo "You should log in now. (Continuing in 5 seconds.)"
+sleep 5
 ia configure
 
 echo "What is the path to use as the system (root) partition?"
