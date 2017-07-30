@@ -1,5 +1,5 @@
 # Use firmware blobs until I can use wi-fi without it
-sys-kernel/wreathe-kernel firmware
+sys-kernel/wreathe-kernel compile firmware
 
 # Required by Portage. I'm not sure why.
 dev-python/warcprox -python_targets_python3_4
