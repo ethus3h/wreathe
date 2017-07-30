@@ -6,19 +6,29 @@ source ember_bash_setup &> /dev/null
 ((EUID)) && exec sudo -- "$0" "$@"
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
+echo "An account with the nonprofit Internet Archive is needed for installing Wreathe."
+sleep 1
+echo "If you do not already have one, please press Ctrl+C to exit this installer, and open https://archive.org/account/login.createaccount.php in a Web browser to create one."
+sleep 1
+echo "You should log in now. (Continuing in 3 seconds.)"
+sleep 3
 ia configure
 
-sysPartition=read
+echo "What is the path to use as the system (root) partition?"
+read sysPartition
 wget -O - https://archive.org/details/Wreathe7.3/sys.dd
 dd if=foo of="${sysPartition:?}"
 
-bootPartition=read
+echo "What is the path to use as the boot partition?"
+read bootPartition
 wget -O - https://archive.org/download/Wreathe7.3/boot.dd
 dd if=foo of="${bootPartition:?}"
 
-efiPartition=read
+echo "What is the path to the EFI partition?"
+read efiPartition
 
-swapPartition=read
+echo "What is the path to use as the swap partition?"
+read swapPartition
 
 mkdir mountpoint
 mount "$sysPartition" mountpoint
