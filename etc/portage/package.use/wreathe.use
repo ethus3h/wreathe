@@ -298,6 +298,7 @@ dev-libs/libpcre abi_x86_32
 dev-libs/libpthread-stubs abi_x86_32
 dev-libs/libsigc++ abi_x86_32
 dev-libs/libtasn1 abi_x86_32
+dev-libs/libunistring abi_x86_32
 dev-libs/libusb abi_x86_32
 dev-libs/libusb-compat abi_x86_32
 dev-libs/libverto abi_x86_32
@@ -366,6 +367,7 @@ media-libs/libmng abi_x86_32
 media-libs/libmodplug abi_x86_32
 media-libs/libmpeg2 abi_x86_32
 media-libs/libogg abi_x86_32
+media-libs/libomxil-bellagio abi_x86_32
 media-libs/libpng abi_x86_32
 media-libs/libquicktime abi_x86_32
 media-libs/libreplaygain abi_x86_32
@@ -375,6 +377,7 @@ media-libs/libsdl2 abi_x86_32
 media-libs/libsndfile abi_x86_32
 media-libs/libtheora abi_x86_32
 media-libs/libtxc_dxtn abi_x86_32
+media-libs/libv4l abi_x86_32
 media-libs/libvisual abi_x86_32
 media-libs/libvorbis abi_x86_32
 media-libs/libvpx abi_x86_32
@@ -423,6 +426,7 @@ media-plugins/gst-plugins-pulse abi_x86_32
 media-plugins/gst-plugins-resindvd abi_x86_32
 media-plugins/gst-plugins-taglib abi_x86_32
 media-plugins/gst-plugins-theora abi_x86_32
+media-plugins/gst-plugins-v4l2 abi_x86_32
 media-plugins/gst-plugins-vaapi abi_x86_32
 media-plugins/gst-plugins-vorbis abi_x86_32
 media-plugins/gst-plugins-vp8 abi_x86_32
@@ -448,6 +452,7 @@ media-video/mjpegtools abi_x86_32
 media-video/rtmpdump abi_x86_32
 media-video/simplescreenrecorder abi_x86_32
 net-dns/avahi abi_x86_32
+net-dns/libidn2 abi_x86_32
 net-fs/samba abi_x86_32
 net-libs/glib-networking abi_x86_32
 net-libs/gnutls abi_x86_32
