@@ -7,16 +7,19 @@ trap 'die "A fatal kernel update error was reported on ${BASH_SOURCE[0]} line ${
 
 emerge --update sys-kernel/wreathe-kernel
 
+kernelVersion="$(basename "$(readlink -f /usr/src/linux)")"
+kernelVersion="${kernelVersion#linux-}"
+
 (
     cd /usr/src/linux
     make oldconfig
     make modules_prepare
-    depmod
+    depmod "$kernelVersion"
 )
 
 emerge --exclude sys-kernel/wreathe-kernel @module-rebuild
 
-depmod
+depmod "$kernelVersion"
 
 if ! mountpoint -q /boot; then
     [[ -d /boot ]] || mkdir /boot
