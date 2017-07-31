@@ -1,0 +1,11 @@
+[Unit]
+Description=Wreathe Kernel Update Service
+
+[Service]
+Type=idle
+Restart=always
+RestartSec=604800
+ExecStart=/Wreathe/.Resources/Scripts/KernelUpdate.w7axn
+
+[Install]
+WantedBy=multi-user.target

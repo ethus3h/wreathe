@@ -7,7 +7,7 @@ trap 'warn "A nonfatal update error was reported on ${BASH_SOURCE[0]} line ${LIN
 
 Run UpdatePrep
 
-Run KernelUpdate
+# Run KernelUpdate
 
 smart-live-rebuild
 emerge --backtrack=0 --deep --complete-graph=y --with-bdeps=y --changed-deps=y --newuse --update --verbose --verbose-conflicts @world
