@@ -5,9 +5,9 @@ source ember_bash_setup &> /dev/null
 
 trap 'warn "A nonfatal update error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-Run UpdatePrep
+UpdatePrep.w7axn
 
-# Run KernelUpdate
+# KernelUpdate.w7axn
 
 smart-live-rebuild
 emerge --backtrack=0 --deep --complete-graph=y --with-bdeps=y --changed-deps=y --newuse --update --verbose --verbose-conflicts @world
