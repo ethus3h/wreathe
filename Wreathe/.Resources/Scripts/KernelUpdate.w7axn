@@ -11,10 +11,15 @@ emerge --update sys-kernel/wreathe-kernel
     cd /usr/src/linux
     make oldconfig
     make modules_prepare
+    depmod
 )
 
 emerge --exclude sys-kernel/wreathe-kernel @module-rebuild
 
+if ! mountpoint -q /boot; then
+    [[ -d /boot ]] || mkdir /boot
+    mount /boot || die "Could not mount /boot!"
+fi
 grub-mkconfig -o /boot/grub/grub.cfg && echo "Updated /boot/grub/grub.cfg"
 
 # Finished successfully, so send a notification about the kernel update to users
