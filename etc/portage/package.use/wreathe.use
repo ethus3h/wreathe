@@ -26,6 +26,9 @@ media-sound/supercollider -portaudio
 sci-libs/hdf5 -mpi
 sci-libs/netcdf -mpi
 
+# Conflicts with fortran cxx and hl
+sci-libs/hdf5 -threads
+
 # Causes build failure:
 # checking for GPSD... yes
 # checking for SKYHOOK... no
