@@ -29,8 +29,6 @@ app-misc/sl
 app-misc/strigi
 app-misc/wreathe-base
 app-misc/wreathe-overlays-redist
-app-misc/wreathe-typeface-family
-app-misc/wreathe-typefaces-redist
 app-officeext/ooofbtools
 app-portage/pfl
 app-text/aspell
