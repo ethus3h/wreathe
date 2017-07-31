@@ -16,6 +16,8 @@ emerge --update sys-kernel/wreathe-kernel
 
 emerge --exclude sys-kernel/wreathe-kernel @module-rebuild
 
+depmod
+
 if ! mountpoint -q /boot; then
     [[ -d /boot ]] || mkdir /boot
     mount /boot || die "Could not mount /boot!"
