@@ -25,7 +25,7 @@ dev-util/pycharm-community
 >kde-apps/kfind-4.14.3
 
 # Use tdelibs instead
-trinity-base/kdelibs
+# trinity-base/kdelibs
 
 # Use imagemagick instead
 media-gfx/graphicsmagick
