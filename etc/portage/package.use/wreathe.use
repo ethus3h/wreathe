@@ -85,15 +85,22 @@ dev-java/miglayout swt
 dev-libs/libcec cubox exynos raspberry-pi
 dev-python/ipython nbconvert notebook
 dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
-media-libs/mesa d3d9 gles1 gles2 openmax xa
+media-libs/mesa d3d9 gles1 gles2 xa
 media-tv/kodi webserver
 net-analyzer/nmap nping
 net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
+www-plugins/gnash agg cygnal dump gtk gnome ffmpeg
 x11-libs/gtk+ broadway
 x11-misc/colord extra-print-profiles
 x11-wm/xpra client clipboard csc dec_avcodec2 enc_ffmpeg enc_264 enc_x265 lz4 pillow server
+
+# Only install lightspark's nsplugin
+www-plugins/gnash -nsplugin
+
+# Use upstream's recommended hardening build flags rather than the system flags
+www-plugins/gnash harden
 
 # Required for GNU Radio
 dev-python/PyQt4 compat
@@ -237,7 +244,6 @@ trinity-apps/kolf arts
 virtual/mpi threads
 virtual/mysql embedded
 www-client/firefox bindist -gmp-autoupdate -jack
-www-plugins/gnash gtk gnome ffmpeg -kde -vaapi -nsplugin
 www-servers/apache apache2_modules_auth_digest
 x11-apps/fusion-icon -qt4
 x11-base/xorg-server dmx
