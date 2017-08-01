@@ -12,7 +12,6 @@
 =x11-plugins/compiz-plugins-community-9999::wreathe-overlay **
 
 # Overlays
-*/*::trinity **
 */*::compiz-reloaded **
 
 # Epson scanner driver (depends on gnulib)
