@@ -21,8 +21,6 @@
 =media-libs/oyranos-9999 **
 
 # Only live (~amd64) ebuilds are available for these
-=dev-libs/libp8-platform-9999 ~amd64
-=media-libs/kodiplatform-9999 ~amd64
 =net-im/hangups-9999 **
 
 # Use GRUB from git for now, since it's needed for nvme
