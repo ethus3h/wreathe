@@ -1,12 +1,4 @@
 {
-    "dev-qt/tqtinterface:0": [
-        "dev-qt/tqtinterface-9999", 
-        "12109", 
-        [
-            "/usr/lib64/libtqt.so.4.2.0", 
-            "/usr/lib64/libtqt.so.4"
-        ]
-    ], 
     "sys-libs/binutils-libs:0": [
         "sys-libs/binutils-libs-2.27", 
         "12468", 
