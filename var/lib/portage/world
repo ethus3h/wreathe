@@ -133,6 +133,7 @@ media-libs/phonon-vlc
 media-libs/xine-lib
 media-plugins/alsa-plugins
 media-plugins/gst-plugins-libav
+media-plugins/kodi-plugin-video-covenant
 media-plugins/kodi-plugin-video-elysium
 media-plugins/kodi-script-common-plugin-cache
 media-plugins/kodi-script-elysium-artwork
