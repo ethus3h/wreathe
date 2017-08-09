@@ -182,6 +182,7 @@ sci-mathematics/form
 sys-apps/hwinfo
 sys-apps/lshw
 sys-devel/crossdev
+sys-fs/dosfstools
 sys-fs/fuse
 sys-fs/squashfs-tools
 sys-kernel/genkernel-next
