@@ -1,3 +1,21 @@
+diff --git a/include/compiz-core.h b/include/compiz-core.h
+index 7db648b..146c74e 100644
+--- a/include/compiz-core.h
++++ b/include/compiz-core.h
+@@ -1691,9 +1691,10 @@ disableTexture (CompScreen  *screen,
+ #define COMP_SCREEN_OPTION_OVERLAPPING_OUTPUTS	  11
+ #define COMP_SCREEN_OPTION_FOCUS_PREVENTION_LEVEL 12
+ #define COMP_SCREEN_OPTION_FOCUS_PREVENTION_MATCH 13
+-#define COMP_SCREEN_OPTION_TEXTURE_COMPRESSION	  14
+-#define COMP_SCREEN_OPTION_FORCE_INDEPENDENT      15
+-#define COMP_SCREEN_OPTION_NUM		          16
++#define COMP_SCREEN_OPTION_INVERTED_FOCUS_PREVENTION_LEVEL 14
++#define COMP_SCREEN_OPTION_TEXTURE_COMPRESSION	  15
++#define COMP_SCREEN_OPTION_FORCE_INDEPENDENT      16
++#define COMP_SCREEN_OPTION_NUM		          17
+ 
+ #ifndef GLX_EXT_texture_from_pixmap
+ #define GLX_BIND_TO_TEXTURE_RGB_EXT        0x20D0
 diff --git a/metadata/core.xml.in.in b/metadata/core.xml.in.in
 index 228fd25..2c7e0d8 100644
 --- a/metadata/core.xml.in.in
@@ -37,10 +55,10 @@ index 228fd25..2c7e0d8 100644
  	    <option name="unredirect_fullscreen_windows" type="bool">
  		<_short>Unredirect Fullscreen Windows</_short>
 diff --git a/src/window.c b/src/window.c
-index 47404a3..dd3529f 100644
+index 47404a3..bfeda86 100644
 --- a/src/window.c
 +++ b/src/window.c
-@@ -5109,20 +5109,55 @@ isWindowFocusAllowed (CompWindow   *w,
+@@ -5109,21 +5109,46 @@ isWindowFocusAllowed (CompWindow   *w,
      CompDisplay  *d = w->screen->display;
      CompScreen   *s = w->screen;
      CompWindow   *active;
@@ -49,24 +67,23 @@ index 47404a3..dd3529f 100644
      CompMatch    *match;
 -    int          level, vx, vy;
 +    int          level, nonMatchedLevel, vx, vy;
-+    bool         matched, matchedNone, matchedLow, matchedNormal,
-+	matchedHigh, matchedVeryHigh, nonMatchedNone, nonMatchedLow,
-+	nonMatchedNormal, nonMatchedHigh, nonMatchedVeryHigh;
++    Bool         matched, matchedNormal, matchedHigh, matchedVeryHigh,
++	nonMatchedNone, nonMatchedNormal, nonMatchedHigh, nonMatchedVeryHigh;
  
      level = s->opt[COMP_SCREEN_OPTION_FOCUS_PREVENTION_LEVEL].value.i;
 +    nonMatchedLevel =
 +	s->opt[COMP_SCREEN_OPTION_INVERTED_FOCUS_PREVENTION_LEVEL].value.i;
  
 -    if (level == FOCUS_PREVENTION_LEVEL_NONE)
-+    match = &s->opt[COMP_SCREEN_OPTION_FOCUS_PREVENTION_MATCH].value.match;
+-	return TRUE;
+-
+-    /* allow focus for excluded windows */
+     match = &s->opt[COMP_SCREEN_OPTION_FOCUS_PREVENTION_MATCH].value.match;
+-    if (!matchEval (match, w))
 +    matched = matchEval (match, w);
 +
 +    /* These values indicate that the window was matched, and the
 +	corresponding prevention level should apply to it. */
-+    matchedNone = matched &&
-+	level == FOCUS_PREVENTION_LEVEL_NONE;
-+    matchedLow = matched &&
-+	level == FOCUS_PREVENTION_LEVEL_LOW;
 +    matchedNormal = matched &&
 +	level == FOCUS_PREVENTION_LEVEL_NORMAL;
 +    matchedHigh = matched &&
@@ -78,8 +95,6 @@ index 47404a3..dd3529f 100644
 +	the corresponding prevention level should apply to it. */
 +    nonMatchedNone = !matched &&
 +	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NONE;
-+    nonMatchedLow = !matched &&
-+	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_LOW;
 +    nonMatchedNormal = !matched &&
 +	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NORMAL;
 +    nonMatchedHigh = !matched &&
@@ -87,22 +102,18 @@ index 47404a3..dd3529f 100644
 +    nonMatchedVeryHigh = !matched &&
 +	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_VERYHIGH;
 +
-+    if (level == FOCUS_PREVENTION_LEVEL_NONE || nonMatchedNone)
- 	return TRUE;
- 
--    /* allow focus for excluded windows */
--    match = &s->opt[COMP_SCREEN_OPTION_FOCUS_PREVENTION_MATCH].value.match;
--    if (!matchEval (match, w))
 +    /* allow focus for excluded windows if nonMatchedLevel is none */
-+    if (nonMatchedNone)
++    if (matchedNone || nonMatchedNone)
  	return TRUE;
  
-+    if (matchEval (match, w) || !nonMatchedNone)
+-    if (level == FOCUS_PREVENTION_LEVEL_VERYHIGH)
++    if (matched || !nonMatchedNone)
 +    {
-     if (level == FOCUS_PREVENTION_LEVEL_VERYHIGH)
++    if (matchedVeryHigh || nonMatchedVeryHigh)
  	return FALSE;
  
-@@ -5136,7 +5171,7 @@ isWindowFocusAllowed (CompWindow   *w,
+     active = findWindowAtDisplay (d, d->activeWindow);
+@@ -5136,7 +5161,7 @@ isWindowFocusAllowed (CompWindow   *w,
      if (w->clientLeader == active->clientLeader)
  	return TRUE;
  
@@ -111,7 +122,7 @@ index 47404a3..dd3529f 100644
  	return FALSE;
  
      /* not in current viewport or desktop */
-@@ -5151,7 +5186,7 @@ isWindowFocusAllowed (CompWindow   *w,
+@@ -5151,7 +5176,7 @@ isWindowFocusAllowed (CompWindow   *w,
      {
  	/* unsure as we have nothing to compare - allow focus in low level,
  	   don't allow in normal level */
