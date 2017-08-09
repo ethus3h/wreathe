@@ -17,16 +17,16 @@ index 7db648b..146c74e 100644
  #ifndef GLX_EXT_texture_from_pixmap
  #define GLX_BIND_TO_TEXTURE_RGB_EXT        0x20D0
 diff --git a/metadata/core.xml.in.in b/metadata/core.xml.in.in
-index 228fd25..2c7e0d8 100644
+index 228fd25..0036845 100644
 --- a/metadata/core.xml.in.in
 +++ b/metadata/core.xml.in.in
 @@ -315,6 +315,33 @@
  		    <_long>Windows to prevent grabbing keyboard focus</_long>
  		    <default>any</default>
  		</option>
-+        <option name="inverted_focus_prevention_level" type="int">
++		<option name="inverted_focus_prevention_level" type="int">
 +		    <_short>Non-matched Windows Focus-Stealing Prevention Level</_short>
-+		    <_long>Level of focus stealing prevention for windows not matched by the focus stealing prevention match.</_long>
++		    <_long>Level of focus stealing prevention for windows not matched by the focus stealing prevention match</_long>
 +		    <min>0</min>
 +		    <max>4</max>
 +		    <default>0</default>
