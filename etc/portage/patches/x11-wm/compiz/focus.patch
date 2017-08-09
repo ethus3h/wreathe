@@ -55,10 +55,10 @@ index 228fd25..2c7e0d8 100644
  	    <option name="unredirect_fullscreen_windows" type="bool">
  		<_short>Unredirect Fullscreen Windows</_short>
 diff --git a/src/window.c b/src/window.c
-index 47404a3..12373ad 100644
+index 47404a3..089fd25 100644
 --- a/src/window.c
 +++ b/src/window.c
-@@ -5109,21 +5109,48 @@ isWindowFocusAllowed (CompWindow   *w,
+@@ -5109,21 +5109,49 @@ isWindowFocusAllowed (CompWindow   *w,
      CompDisplay  *d = w->screen->display;
      CompScreen   *s = w->screen;
      CompWindow   *active;
@@ -67,8 +67,9 @@ index 47404a3..12373ad 100644
      CompMatch    *match;
 -    int          level, vx, vy;
 +    int          level, nonMatchedLevel, vx, vy;
-+    Bool         matched, matchedNormal, matchedHigh, matchedVeryHigh,
-+	nonMatchedNone, nonMatchedNormal, nonMatchedHigh, nonMatchedVeryHigh;
++    Bool         matched, matchedNone, matchedNormal, matchedHigh,
++	matchedVeryHigh, nonMatchedNone, nonMatchedNormal, nonMatchedHigh,
++	nonMatchedVeryHigh;
  
      level = s->opt[COMP_SCREEN_OPTION_FOCUS_PREVENTION_LEVEL].value.i;
 +    nonMatchedLevel =
@@ -115,7 +116,7 @@ index 47404a3..12373ad 100644
  	return FALSE;
  
      active = findWindowAtDisplay (d, d->activeWindow);
-@@ -5136,7 +5163,7 @@ isWindowFocusAllowed (CompWindow   *w,
+@@ -5136,7 +5164,7 @@ isWindowFocusAllowed (CompWindow   *w,
      if (w->clientLeader == active->clientLeader)
  	return TRUE;
  
@@ -124,7 +125,7 @@ index 47404a3..12373ad 100644
  	return FALSE;
  
      /* not in current viewport or desktop */
-@@ -5151,7 +5178,7 @@ isWindowFocusAllowed (CompWindow   *w,
+@@ -5151,7 +5179,7 @@ isWindowFocusAllowed (CompWindow   *w,
      {
  	/* unsure as we have nothing to compare - allow focus in low level,
  	   don't allow in normal level */
