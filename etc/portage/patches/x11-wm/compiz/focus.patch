@@ -69,7 +69,7 @@ index 5036cc3..6e70115 100644
      { "force_independent_output_painting", "bool", 0, 0, 0 }
  };
 diff --git a/src/window.c b/src/window.c
-index 47404a3..f7754f9 100644
+index 47404a3..087a669 100644
 --- a/src/window.c
 +++ b/src/window.c
 @@ -5109,21 +5109,47 @@ isWindowFocusAllowed (CompWindow   *w,
@@ -100,24 +100,24 @@ index 47404a3..f7754f9 100644
 +    /* These values indicate that the window was matched, and the
 +	corresponding prevention level should apply to it. */
 +    matchedNone = matched &&
-+	level == FOCUS_PREVENTION_LEVEL_NONE;
++	(level == FOCUS_PREVENTION_LEVEL_NONE);
 +    matchedNormal = matched &&
-+	level == FOCUS_PREVENTION_LEVEL_NORMAL;
++	(level == FOCUS_PREVENTION_LEVEL_NORMAL);
 +    matchedHigh = matched &&
-+	level == FOCUS_PREVENTION_LEVEL_HIGH;
++	(level == FOCUS_PREVENTION_LEVEL_HIGH);
 +    matchedVeryHigh = matched &&
-+	level == FOCUS_PREVENTION_LEVEL_VERYHIGH;
++	(level == FOCUS_PREVENTION_LEVEL_VERYHIGH);
 +
 +    /* These values indicate that the window wasn't matched, but
 +	the corresponding prevention level should apply to it. */
-+    nonMatchedNone = !matched &&
-+	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NONE;
-+    nonMatchedNormal = !matched &&
-+	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NORMAL;
-+    nonMatchedHigh = !matched &&
-+	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_HIGH;
-+    nonMatchedVeryHigh = !matched &&
-+	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_VERYHIGH;
++    nonMatchedNone = (!matched) &&
++	(nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NONE);
++    nonMatchedNormal = (!matched) &&
++	(nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NORMAL);
++    nonMatchedHigh = (!matched) &&
++	(nonMatchedLevel == FOCUS_PREVENTION_LEVEL_HIGH);
++    nonMatchedVeryHigh = (!matched) &&
++	(nonMatchedLevel == FOCUS_PREVENTION_LEVEL_VERYHIGH);
 +
 +    /* allow focus for excluded windows if nonMatchedLevel is none */
 +    if (matchedNone || nonMatchedNone)
