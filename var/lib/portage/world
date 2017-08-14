@@ -115,6 +115,8 @@ kde-frameworks/nepomuk-core
 kde-frameworks/nepomuk-widgets
 mail-client/thunderbird
 media-fonts/infinality-ultimate-meta
+media-gfx/gphoto2
+media-gfx/gphotofs
 media-gfx/imagemagick
 media-gfx/krita
 media-gfx/utsushi
