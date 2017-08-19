@@ -3,23 +3,23 @@
 
 # Absolute value
 abs() {
-  [ $1 -lt 0 ] && echo $((-$1)) || echo $1
+    [ $1 -lt 0 ] && echo $((-$1)) || echo $1
 }
 
 # Greatest Common Divsior
 gcd() {
-  local a=$(abs $1)
-  local b=$(abs $2)
-  while [ $a -ne $b ]; do
-    [ $a -gt $b ] && a=$(( $a - $b )) || b=$(( $b - $a ))
-  done
-  echo $a
+    local a=$(abs $1)
+    local b=$(abs $2)
+    while [ $a -ne $b ]; do
+        [ $a -gt $b ] && a=$(( $a - $b )) || b=$(( $b - $a ))
+    done
+    echo $a
 }
 
 # Lowest Common Multiple
 lcm() {
- local g=$(gcd $1 $2)
- local p=$(($1 * $2))
- p=$(abs $p)
- echo $(( $p / $g ))
+    local g=$(gcd $1 $2)
+    local p=$(($1 * $2))
+    p=$(abs $p)
+    echo $(( $p / $g ))
 }
