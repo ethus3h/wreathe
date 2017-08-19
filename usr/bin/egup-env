@@ -176,6 +176,26 @@ egup-exit() {
                 mv -v .egup.readme.bak README.md
             fi
 
+            if [[ -f .egup.branches ]]; then
+                if [[ -f "$egupDir/.egup.branches" ]]; then
+                    mv -vf .egup.branches "$egupDir/.egup.branches"
+                fi
+            fi
+            if [[ -f .egup.branches.bak ]]; then
+                echo "Restoring overridden .egup.branches"
+                mv -v .egup.branches.bak .egup.branches
+            fi
+
+            if [[ -f .egup.refs ]]; then
+                if [[ -f "$egupDir/.egup.refs" ]]; then
+                    mv -vf .egup.refs "$egupDir/.egup.refs"
+                fi
+            fi
+            if [[ -f .egup.refs.bak ]]; then
+                echo "Restoring overridden .egup.refs"
+                mv -v .egup.refs.bak .egup.refs
+            fi
+
             if [[ -f .egup.tags ]]; then
                 if [[ -f "$egupDir/.egup.tags" ]]; then
                     mv -vf .egup.tags "$egupDir/.egup.tags"
