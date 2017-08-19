@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# from https://voat.co/v/bash/comments/37335
+# based on https://voat.co/v/bash/comments/37335
 
 # Absolute value
 abs() {
