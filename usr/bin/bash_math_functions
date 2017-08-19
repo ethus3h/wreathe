@@ -3,7 +3,7 @@
 
 # Absolute value
 abs() {
-    [[ $1 -lt 0 ]] && echo $(( -$1 )) || echo "$1"
+    [[ "$1" -lt 0 ]] && echo $(( -$1 )) || echo "$1"
 }
 
 # Greatest Common Divsior
