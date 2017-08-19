@@ -3,7 +3,7 @@
 
 # Absolute value
 abs() {
-    [[ $1 -lt 0 ]] && echo $((-$1)) || echo "$1"
+    [[ $1 -lt 0 ]] && echo $(( -$1 )) || echo "$1"
 }
 
 # Greatest Common Divsior
@@ -13,7 +13,7 @@ gcd() {
     local b
     b="$(abs "$2")"
     while [[ "$a" -ne "$b" ]]; do
-        [[ "$a" -gt "$b" ]] && a=$(( $a - $b )) || b=$(( $b - $a ))
+        [[ "$a" -gt "$b" ]] && a=$(( a - b )) || b=$(( b - a ))
     done
     echo "$a"
 }
@@ -23,7 +23,7 @@ lcm() {
     local g
     g="$(gcd "$1" "$2")"
     local p
-    p=$(($1 * $2))
+    p=$(( 1 * 2 ))
     p="$(abs "$p")"
-    echo $(( $p / $g ))
+    echo $(( p / g ))
 }
