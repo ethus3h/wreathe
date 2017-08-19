@@ -83,13 +83,21 @@ egup-env() {
             cp -p "$egupDir/.egup.gitmodules" .gitmodules
         fi
 
+        if [[ -f "$egupDir/.egup.tags" ]]; then
+            echo "Applying .egup.tags override"
+            if [[ "$noMoveOverrides" != "true" ]]; then
+                mv -v .egup.tags .egup.tags.bak || echo "(no .egup.tags found so not moving)"
+            fi
+            cp -p "$egupDir/.egup.tags" .egup.tags
+        fi
+
         if [[ -f "$egupDir/.egup.readme" ]]; then
             echo "Applying README.md override in $(pwd)"
-                        if [[ "$noMoveOverrides" != "true" ]]; then
+                if [[ "$noMoveOverrides" != "true" ]]; then
                 mv -v README.md .egup.readme.bak || echo "(no README.md found so not moving)"
             fi
             cp -p "$egupDir/.egup.readme" README.md
-                    fi
+        fi
 
         egupEnvPsbak="$PS1"
         PS1="\[\033]0;\u@\h:\w\007\]\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \[\033[1;31m\](egup-env)\[\033[00m\]\[\033[01;34m\] $\[\033[00m\] "
@@ -144,13 +152,23 @@ egup-exit() {
 
             if [[ -f README.md ]]; then
                 if [[ -f "$egupDir/.egup.readme" ]]; then
-                                        mv -vf README.md "$egupDir/.egup.readme"
-                                    fi
+                    mv -vf README.md "$egupDir/.egup.readme"
+                fi
             fi
             if [[ -f .egup.readme.bak ]]; then
-                                echo "Restoring overridden README.md"
+                echo "Restoring overridden README.md"
                 mv -v .egup.readme.bak README.md
-                            fi
+            fi
+
+            if [[ -f .egup.tags ]]; then
+                if [[ -f "$egupDir/.egup.tags" ]]; then
+                    mv -vf .egup.tags "$egupDir/.egup.tags"
+                fi
+            fi
+            if [[ -f .egup.tags.bak ]]; then
+                echo "Restoring overridden .egup.tags"
+                mv -v .egup.tags.bak .egup.tags
+            fi
         fi
         GIT_WORK_TREE="$worktreebak"
         export GIT_WORK_TREE
