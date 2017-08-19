@@ -83,6 +83,22 @@ egup-env() {
             cp -p "$egupDir/.egup.gitmodules" .gitmodules
         fi
 
+        if [[ -f "$egupDir/.egup.branches" ]]; then
+            echo "Applying .egup.branches override"
+            if [[ "$noMoveOverrides" != "true" ]]; then
+                mv -v .egup.branches .egup.branches.bak || echo "(no .egup.branches found so not moving)"
+            fi
+            cp -p "$egupDir/.egup.branches" .egup.branches
+        fi
+
+        if [[ -f "$egupDir/.egup.refs" ]]; then
+            echo "Applying .egup.refs override"
+            if [[ "$noMoveOverrides" != "true" ]]; then
+                mv -v .egup.refs .egup.refs.bak || echo "(no .egup.refs found so not moving)"
+            fi
+            cp -p "$egupDir/.egup.refs" .egup.refs
+        fi
+
         if [[ -f "$egupDir/.egup.tags" ]]; then
             echo "Applying .egup.tags override"
             if [[ "$noMoveOverrides" != "true" ]]; then
