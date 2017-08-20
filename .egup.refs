@@ -1,8 +1,5 @@
 01ed647153f6a1388db7ba6fe991cd78744157c1 refs/heads/2017apr02a03confused
-bfe4c74c49fdeb3265ccd984f2ab39b62a313976 refs/heads/master
 01ed647153f6a1388db7ba6fe991cd78744157c1 refs/remotes/origin/2017apr02a03confused
-03ed000dec06f5f6f6b2c4b84c0431143cd1b697 refs/remotes/origin/HEAD
-03ed000dec06f5f6f6b2c4b84c0431143cd1b697 refs/remotes/origin/master
 b461f7cfb41ec66cddf34fbc81f87c2861bad4b0 refs/tags/list
 07aadf081603d30052540f7238ecba0db005dc91 refs/tags/v7.3_pre4
 b461f7cfb41ec66cddf34fbc81f87c2861bad4b0 refs/tags/v7.3_pre4^{}
