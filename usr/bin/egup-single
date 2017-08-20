@@ -27,6 +27,7 @@ if [[ -f .egup.hooks ]]; then
     git commit -a -m "Update Ember tree" || true #It's ok if this fails — it probably means there is nothing to commit, and the user was already notified by saying "no changes to commit" earlier.
 fi
 
+status=""
 while [[ "$status" != "completed" ]]; do
     # Do this part of the process twice to make reasonably sure remote changes to branches/refs/tags are correctly reflected in the .egup.{branches/refs/tags} files
 
@@ -51,6 +52,12 @@ while [[ "$status" != "completed" ]]; do
             git push --verbose --tags -u origin master || die "Error pushing changes."
             git push --verbose --all -u origin || die "Error pushing changes."
         fi
+    fi
+    
+    if [[ "$status" == "partial" ]]; then
+        status="completed"
+    else
+        status="partial"
     fi
 done
 
