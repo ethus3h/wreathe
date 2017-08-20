@@ -40,6 +40,8 @@ createListFiles() {
 
 while [[ "$status" != "completed" ]]; do
     # Do this twice to make sure remote changes to branches/refs/tags are correctly reflected in the .egup.{branches/refs/tags} files
+    createListFiles
+    
     git add -A || die "Error adding tag changes."
     trap - ERR
     git commit -a -m "Update Ember tree" || true
