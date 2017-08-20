@@ -127,9 +127,7 @@ egup-exit() {
     if [[ -f "${egupDir:?}/.egup.useOverrides" ]]; then
         if [[ "$(readlink -f "$(pwd)")" != "$(readlink -f "$egupDir")" ]]; then
             if [[ -f .egup.nopush ]]; then
-                if [[ -f "$egupDir/.egup.nopush" ]]; then
-                    mv -vf .egup.nopush "$egupDir/.egup.nopush"
-                fi
+                mv -vf .egup.nopush "$egupDir/.egup.nopush"
             fi
             if [[ -f .egup.nopush.bak ]]; then
                 echo "Restoring .egup.nopush"
@@ -137,9 +135,7 @@ egup-exit() {
             fi
 
             if [[ -f .gitattributes ]]; then
-                if [[ -f "$egupDir/.egup.gitattributes" ]]; then
-                    mv -vf .gitattributes "$egupDir/.egup.gitattributes"
-                fi
+                mv -vf .gitattributes "$egupDir/.egup.gitattributes"
             fi
             if [[ -f .egup.gitattributes.bak ]]; then
                 echo "Restoring overridden .gitattributes"
@@ -147,9 +143,7 @@ egup-exit() {
             fi
 
             if [[ -f .gitignore ]]; then
-                if [[ -f "$egupDir/.egup.gitignore" ]]; then
-                    mv -vf .gitignore "$egupDir/.egup.gitignore"
-                fi
+                mv -vf .gitignore "$egupDir/.egup.gitignore"
             fi
             if [[ -f .egup.gitignore.bak ]]; then
                 echo "Restoring overridden .gitignore"
@@ -157,9 +151,7 @@ egup-exit() {
             fi
 
             if [[ -f .gitmodules ]]; then
-                if [[ -f "$egupDir/.egup.gitmodules" ]]; then
-                    mv -vf .gitmodules "$egupDir/.egup.gitmodules"
-                fi
+                mv -vf .gitmodules "$egupDir/.egup.gitmodules"
             fi
             if [[ -f .egup.gitmodules.bak ]]; then
                 echo "Restoring overridden .gitmodules"
@@ -167,9 +159,7 @@ egup-exit() {
             fi
 
             if [[ -f README.md ]]; then
-                if [[ -f "$egupDir/.egup.readme" ]]; then
-                    mv -vf README.md "$egupDir/.egup.readme"
-                fi
+                mv -vf README.md "$egupDir/.egup.readme"
             fi
             if [[ -f .egup.readme.bak ]]; then
                 echo "Restoring overridden README.md"
@@ -177,9 +167,7 @@ egup-exit() {
             fi
 
             if [[ -f .egup.branches ]]; then
-                if [[ -f "$egupDir/.egup.branches" ]]; then
-                    mv -vf .egup.branches "$egupDir/.egup.branches"
-                fi
+                mv -vf .egup.branches "$egupDir/.egup.branches"
             fi
             if [[ -f .egup.branches.bak ]]; then
                 echo "Restoring overridden .egup.branches"
@@ -187,9 +175,7 @@ egup-exit() {
             fi
 
             if [[ -f .egup.refs ]]; then
-                if [[ -f "$egupDir/.egup.refs" ]]; then
-                    mv -vf .egup.refs "$egupDir/.egup.refs"
-                fi
+                mv -vf .egup.refs "$egupDir/.egup.refs"
             fi
             if [[ -f .egup.refs.bak ]]; then
                 echo "Restoring overridden .egup.refs"
@@ -197,9 +183,7 @@ egup-exit() {
             fi
 
             if [[ -f .egup.tags ]]; then
-                if [[ -f "$egupDir/.egup.tags" ]]; then
-                    mv -vf .egup.tags "$egupDir/.egup.tags"
-                fi
+                mv -vf .egup.tags "$egupDir/.egup.tags"
             fi
             if [[ -f .egup.tags.bak ]]; then
                 echo "Restoring overridden .egup.tags"
