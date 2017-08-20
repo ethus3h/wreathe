@@ -26,26 +26,33 @@ if [[ -f .egup.hooks ]]; then
     echo "Done running hooks."
     git commit -a -m "Update Ember tree" || true #It's ok if this fails — it probably means there is nothing to commit, and the user was already notified by saying "no changes to commit" earlier.
 fi
-git branch --list -a -v > .egup.branches
-sed -i '/\* master /d' .egup.branches
-sed -i '/remotes\/origin\/master /d' .egup.branches
-git show-ref -d > .egup.refs
-sed -i '/refs\/heads\/master /d' .egup.branches
-sed -i '/refs\/remotes\/origin\/HEAD /d' .egup.branches
-sed -i '/refs\/remotes\/origin\/master /d' .egup.branches
-git show-ref -d --tags > .egup.tags || echo "(Note: Repository appears to have no tags.)"
-git add -A || die "Error adding tag changes."
-trap - ERR
-git commit -a -m "Update Ember tree" || true
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+createListFiles() {
+    git branch --list -a -v > .egup.branches
+    sed -i '/\* master /d' .egup.branches
+    sed -i '/remotes\/origin\/master /d' .egup.branches
+    git show-ref -d > .egup.refs
+    sed -i '/refs\/heads\/master /d' .egup.branches
+    sed -i '/refs\/remotes\/origin\/HEAD /d' .egup.branches
+    sed -i '/refs\/remotes\/origin\/master /d' .egup.branches
+    git show-ref -d --tags > .egup.tags || echo "(Note: Repository appears to have no tags.)"
 
-if [[ "$offline" != "true" ]]; then
-    git pull --all || die "Error pulling."
-    git submodule update --remote || warn "Error updating submodules. Maybe a remote server is down?"
-    if ! [[ -f .egup.nopush ]]; then
-        git push --verbose --tags -u origin master || die "Error pushing changes."
-        git push --verbose --all -u origin || die "Error pushing changes."
+}
+
+while [[ "$status" != "completed" ]]; do
+    # Do this twice to make sure remote changes to branches/refs/tags are correctly reflected in the .egup.{branches/refs/tags} files
+    git add -A || die "Error adding tag changes."
+    trap - ERR
+    git commit -a -m "Update Ember tree" || true
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
+    if [[ "$offline" != "true" ]]; then
+        git pull --all || die "Error pulling."
+        git submodule update --remote || warn "Error updating submodules. Maybe a remote server is down?"
+        if ! [[ -f .egup.nopush ]]; then
+            git push --verbose --tags -u origin master || die "Error pushing changes."
+            git push --verbose --all -u origin || die "Error pushing changes."
+        fi
     fi
-fi
+done
 
 egup-exit
