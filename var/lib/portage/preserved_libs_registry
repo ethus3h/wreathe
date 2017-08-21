@@ -1,4 +1,12 @@
 {
+    "dev-db/postgresql:9.5": [
+        "dev-db/postgresql-9.5.5", 
+        "11927", 
+        [
+            "/usr/lib64/postgresql-9.5/lib64/libpq.so.5.8", 
+            "/usr/lib64/postgresql-9.5/lib64/libpq.so.5"
+        ]
+    ], 
     "sys-libs/binutils-libs:0": [
         "sys-libs/binutils-libs-2.27", 
         "12468", 
