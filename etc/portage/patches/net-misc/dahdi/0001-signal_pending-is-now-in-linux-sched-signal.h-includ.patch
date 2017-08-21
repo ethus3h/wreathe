@@ -1,0 +1,156 @@
+From ca7eaf1eec231e3d9e41aeeb7b3b5025ca8d2fe0 Mon Sep 17 00:00:00 2001
+From: Shaun Ruffell <sruffell@digium.com>
+Date: Thu, 1 Jun 2017 12:05:57 -0500
+Subject: [PATCH 1/2] signal_pending() is now in linux/sched/signal.h include.
+
+Upstream kernel 4.11, in commit (bd0f9b356d00aa241ced36fb075a07041c28d3b8
+"sched/headers: fix up header file dependency on <linux/sched/signal.h>"), now
+requires users of signal_pending to include the new linux/sched/signal.h file.
+
+Signed-off-by: Shaun Ruffell <sruffell@digium.com>
+---
+ drivers/dahdi/dahdi-base.c      | 5 +++++
+ drivers/dahdi/wcaxx-base.c      | 4 ++++
+ drivers/dahdi/wctc4xxp/base.c   | 8 +++++++-
+ drivers/dahdi/wctdm24xxp/base.c | 5 +++++
+ drivers/dahdi/wcte12xp/base.c   | 5 +++++
+ drivers/dahdi/wcte43x-base.c    | 4 ++++
+ include/dahdi/kernel.h          | 6 ++++++
+ 7 files changed, 36 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/dahdi/dahdi-base.c b/drivers/dahdi/dahdi-base.c
+index f2caad04..305ea67c 100644
+--- a/drivers/dahdi/dahdi-base.c
++++ b/drivers/dahdi/dahdi-base.c
+@@ -66,6 +66,11 @@
+ /* Grab fasthdlc with tables */
+ #define FAST_HDLC_NEED_TABLES
+ #include <dahdi/kernel.h>
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++#include <linux/sched/signal.h>
++#endif /* 4.11.0 */
++
+ #include "ecdis.h"
+ #include "dahdi.h"
+ 
+diff --git a/drivers/dahdi/wcaxx-base.c b/drivers/dahdi/wcaxx-base.c
+index 00c2d216..ed7207a7 100644
+--- a/drivers/dahdi/wcaxx-base.c
++++ b/drivers/dahdi/wcaxx-base.c
+@@ -50,6 +50,10 @@
+ #include <dahdi/kernel.h>
+ #include <dahdi/wctdm_user.h>
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++#include <linux/sched/signal.h>
++#endif /* 4.11.0 */
++
+ #include "proslic.h"
+ 
+ #include <dahdi/kernel.h>
+diff --git a/drivers/dahdi/wctc4xxp/base.c b/drivers/dahdi/wctc4xxp/base.c
+index 068f7416..0d76d6a9 100644
+--- a/drivers/dahdi/wctc4xxp/base.c
++++ b/drivers/dahdi/wctc4xxp/base.c
+@@ -26,6 +26,7 @@
+ #include <linux/slab.h>
+ #include <linux/kmod.h>
+ #include <linux/sched.h>
++
+ #include <linux/pci.h>
+ #include <linux/interrupt.h>
+ #include <linux/delay.h>
+@@ -40,7 +41,12 @@
+ 
+ #include <stdbool.h>
+ 
+-#include "dahdi/kernel.h"
++#include <dahdi/kernel.h>
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++#include <linux/sched/signal.h>
++#endif /* 4.11.0 */
++
+ 
+ #include <linux/io.h>
+ 
+diff --git a/drivers/dahdi/wctdm24xxp/base.c b/drivers/dahdi/wctdm24xxp/base.c
+index 8ecb125d..ad899f85 100644
+--- a/drivers/dahdi/wctdm24xxp/base.c
++++ b/drivers/dahdi/wctdm24xxp/base.c
+@@ -44,6 +44,7 @@ Tx Gain - W/Pre-Emphasis: -23.99 to 0.00 db
+ #include <linux/init.h>
+ #include <linux/pci.h>
+ #include <linux/sched.h>
++
+ #include <linux/interrupt.h>
+ #include <linux/workqueue.h>
+ #include <linux/delay.h>
+@@ -72,6 +73,10 @@ Tx Gain - W/Pre-Emphasis: -23.99 to 0.00 db
+ #include <dahdi/kernel.h>
+ #include <dahdi/wctdm_user.h>
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++#include <linux/sched/signal.h>
++#endif /* 4.11.0 */
++
+ #include "proslic.h"
+ 
+ #include "wctdm24xxp.h"
+diff --git a/drivers/dahdi/wcte12xp/base.c b/drivers/dahdi/wcte12xp/base.c
+index 2fe74bc1..c327c5f2 100644
+--- a/drivers/dahdi/wcte12xp/base.c
++++ b/drivers/dahdi/wcte12xp/base.c
+@@ -40,11 +40,16 @@
+ #include <linux/workqueue.h>
+ #include <linux/delay.h>
+ #include <linux/sched.h>
++
+ #include <linux/slab.h>
+ 
+ #include <stdbool.h>
+ #include <dahdi/kernel.h>
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++#include <linux/sched/signal.h>
++#endif /* 4.11.0 */
++
+ #include "wct4xxp/wct4xxp.h"	/* For certain definitions */
+ 
+ #include "voicebus/voicebus.h"
+diff --git a/drivers/dahdi/wcte43x-base.c b/drivers/dahdi/wcte43x-base.c
+index 3c1b9e5b..3e6159b0 100644
+--- a/drivers/dahdi/wcte43x-base.c
++++ b/drivers/dahdi/wcte43x-base.c
+@@ -46,6 +46,10 @@
+ #include <stdbool.h>
+ #include <dahdi/kernel.h>
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++#include <linux/sched/signal.h>
++#endif /* 4.11.0 */
++
+ #include "wct4xxp/wct4xxp.h"	/* For certain definitions */
+ #include "wcxb.h"
+ #include "wcxb_spi.h"
+diff --git a/include/dahdi/kernel.h b/include/dahdi/kernel.h
+index ce16668c..34e906a0 100644
+--- a/include/dahdi/kernel.h
++++ b/include/dahdi/kernel.h
+@@ -60,6 +60,12 @@
+ 
+ #define dahdi_pci_module pci_register_driver
+ 
++#if 0
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++#include <linux/sched/signal.h>
++#endif /* 4.11.0 */
++#endif
++
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,19)
+ #define DAHDI_IRQ_HANDLER(a) static irqreturn_t a(int irq, void *dev_id)
+ #else
+-- 
+2.13.0
+

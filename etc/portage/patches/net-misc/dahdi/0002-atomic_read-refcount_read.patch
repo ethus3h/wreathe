@@ -1,0 +1,94 @@
+From 40f3f360fe1b7a5f84baa5ff215439fec9cc736e Mon Sep 17 00:00:00 2001
+From: Shaun Ruffell <sruffell@digium.com>
+Date: Thu, 1 Jun 2017 12:16:54 -0500
+Subject: [PATCH 2/2] 'atomic_read()' -> refcount_read()'
+
+The upstream 4.11 kernel, in commit (10383aea2f445bce9b2a2b308def08134b438c8e
+"kref: Implement 'struct kref' using refcount_t"), changed refcount type on kref
+objects. We now need to use refcount_read to read them.
+
+Signed-off-by: Shaun Ruffell <sruffell@digium.com>
+---
+ drivers/dahdi/dahdi_dynamic.c  | 2 +-
+ drivers/dahdi/xpp/xbus-core.c  | 2 +-
+ drivers/dahdi/xpp/xbus-sysfs.c | 2 +-
+ drivers/dahdi/xpp/xpp_dahdi.c  | 2 +-
+ include/dahdi/kernel.h         | 3 +++
+ 5 files changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/dahdi/dahdi_dynamic.c b/drivers/dahdi/dahdi_dynamic.c
+index 5be3b978..0a37e2af 100644
+--- a/drivers/dahdi/dahdi_dynamic.c
++++ b/drivers/dahdi/dahdi_dynamic.c
+@@ -467,7 +467,7 @@ static int _destroy_dynamic(struct dahdi_dynamic_span *dds)
+ 
+ 	/* We shouldn't have more than the two references at this point.  If
+ 	 * we do, there are probably channels that are still opened. */
+-	if (atomic_read(&d->kref.refcount) > 2) {
++	if (refcount_read(&d->kref.refcount) > 2) {
+ 		dynamic_put(d);
+ 		return -EBUSY;
+ 	}
+diff --git a/drivers/dahdi/xpp/xbus-core.c b/drivers/dahdi/xpp/xbus-core.c
+index f98a2b94..4281f1c4 100644
+--- a/drivers/dahdi/xpp/xbus-core.c
++++ b/drivers/dahdi/xpp/xbus-core.c
+@@ -244,7 +244,7 @@ int refcount_xbus(xbus_t *xbus)
+ {
+ 	struct kref *kref = &xbus->kref;
+ 
+-	return atomic_read(&kref->refcount);
++	return refcount_read(&kref->refcount);
+ }
+ 
+ /*------------------------- Frame  Handling ------------------------*/
+diff --git a/drivers/dahdi/xpp/xbus-sysfs.c b/drivers/dahdi/xpp/xbus-sysfs.c
+index 8e81670c..2d8e676c 100644
+--- a/drivers/dahdi/xpp/xbus-sysfs.c
++++ b/drivers/dahdi/xpp/xbus-sysfs.c
+@@ -1000,7 +1000,7 @@ void xbus_sysfs_remove(xbus_t *xbus)
+ 		return;
+ 	}
+ 	XBUS_DBG(DEVICES, xbus, "going to unregister: refcount=%d\n",
+-		atomic_read(&astribank->kobj.kref.refcount));
++		refcount_read(&astribank->kobj.kref.refcount));
+ 	BUG_ON(dev_get_drvdata(astribank) != xbus);
+ 	device_unregister(astribank);
+ 	dev_set_drvdata(astribank, NULL);
+diff --git a/drivers/dahdi/xpp/xpp_dahdi.c b/drivers/dahdi/xpp/xpp_dahdi.c
+index c58d720d..6c80df7e 100644
+--- a/drivers/dahdi/xpp/xpp_dahdi.c
++++ b/drivers/dahdi/xpp/xpp_dahdi.c
+@@ -124,7 +124,7 @@ int refcount_xpd(xpd_t *xpd)
+ {
+ 	struct kref *kref = &xpd->kref;
+ 
+-	return atomic_read(&kref->refcount);
++	return refcount_read(&kref->refcount);
+ }
+ 
+ xpd_t *get_xpd(const char *msg, xpd_t *xpd)
+diff --git a/include/dahdi/kernel.h b/include/dahdi/kernel.h
+index 34e906a0..819fad11 100644
+--- a/include/dahdi/kernel.h
++++ b/include/dahdi/kernel.h
+@@ -1410,6 +1410,8 @@ static inline short dahdi_txtone_nextsample(struct dahdi_chan *ss)
+ /*! Maximum audio mask */
+ #define DAHDI_FORMAT_AUDIO_MASK	((1 << 16) - 1)
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 11, 0)
++#define refcount_read atomic_read
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(3, 16, 0)
+ 
+ /* DAHDI only was using the xxx_clear_bit variants. */
+@@ -1539,6 +1541,7 @@ static inline int strcasecmp(const char *s1, const char *s2)
+ #endif /* 2.6.31 */
+ #endif /* 3.10.0 */
+ #endif /* 3.16.0 */
++#endif /* 4.11.0 */
+ 
+ #ifndef DEFINE_SPINLOCK
+ #define DEFINE_SPINLOCK(x)      spinlock_t x = SPIN_LOCK_UNLOCKED
+-- 
+2.13.0
+
