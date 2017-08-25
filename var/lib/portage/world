@@ -1,6 +1,7 @@
 app-arch/cfv
 app-arch/lha
 app-arch/lziprecover
+app-arch/par2cmdline
 app-doc/cldr
 app-doc/ember-web-site
 app-doc/emoji
