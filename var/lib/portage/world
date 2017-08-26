@@ -262,6 +262,7 @@ x11-plugins/moz-ext-multiple-tab-handler
 x11-plugins/moz-ext-noscript-security-suite
 x11-plugins/moz-ext-overbiteff
 x11-plugins/moz-ext-paywall-pass
+x11-plugins/moz-ext-redirector
 x11-plugins/moz-ext-save-to-read
 x11-plugins/moz-ext-saved-password-editor
 x11-plugins/moz-ext-selection-links
