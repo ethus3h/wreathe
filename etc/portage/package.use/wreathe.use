@@ -1,6 +1,12 @@
 # Use firmware blobs until I can use wi-fi without it
 sys-kernel/wreathe-kernel compile firmware
 
+# Install these Mozilla addons for Thunderbird as well as Firefox
+x11-plugins/moz-ext-dom-inspector-plus-dm thunderbird
+x11-plugins/moz-ext-element-inspector thunderbird
+x11-plugins/moz-ext-gnotifier thunderbird
+x11-plugins/moz-ext-inspectorwidget thunderbird
+
 # Required by Portage. I'm not sure why.
 dev-python/warcprox -python_targets_python3_4
 
