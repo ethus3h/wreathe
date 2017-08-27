@@ -1,12 +1,5 @@
 # Mask overlays
-*/*::bar
-*/*::booboo
-*/*::elementary
-*/*::gentoo-kodi-overlay
-*/*::jscinoz
-*/*::mv
-*/*::proaudio
-*/*::sabayon
+*/*::haskell
 =dev-libs/libplatform-9999::wreathe-overlay
 
 # Misc. nonlibre software
