@@ -238,6 +238,7 @@ x11-plugins/moz-ext-beyond-australis
 x11-plugins/moz-ext-bug489729-disable-detach-and-tear-off-tab
 x11-plugins/moz-ext-checkfox
 x11-plugins/moz-ext-classic-theme-restorer
+x11-plugins/moz-ext-copy-plain-text
 x11-plugins/moz-ext-disable-webrtc-indicator-overlay
 x11-plugins/moz-ext-dom-inspector-plus-dm
 x11-plugins/moz-ext-download-manager-tweak
