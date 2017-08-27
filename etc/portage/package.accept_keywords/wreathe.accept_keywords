@@ -157,6 +157,7 @@ dev-haskell/conduit ~amd64
 dev-haskell/conduit-extra ~amd64
 dev-haskell/connection ~amd64
 dev-haskell/cryptohash ~amd64
+dev-haskell/cryptohash-conduit ~amd64
 dev-haskell/cryptohash-sha256 ~amd64
 dev-haskell/cryptonite ~amd64
 dev-haskell/cryptonite-conduit ~amd64
@@ -179,6 +180,7 @@ dev-haskell/gitrev ~amd64
 dev-haskell/glob ~amd64
 dev-haskell/hackage-security ~amd64
 dev-haskell/hastache ~amd64
+dev-haskell/hit ~amd64
 dev-haskell/hpack ~amd64
 dev-haskell/hspec-smallcheck ~amd64
 dev-haskell/http-api-data ~amd64
