@@ -55,6 +55,7 @@ dev-haskell/x509
 dev-haskell/x509-store
 dev-haskell/x509-system
 dev-java/icedtea:8
+dev-lang/open-cobol
 dev-lang/python
 dev-lang/python:2.7
 dev-lang/snap
