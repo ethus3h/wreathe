@@ -21,11 +21,13 @@ app-emulation/vagrant
 app-eselect/eselect-infinality
 app-i18n/poedit
 app-misc/binwalk
+app-misc/cmap-resources
 app-misc/crystallize
 app-misc/ember-dev-environment
 app-misc/ember-shared
 app-misc/futuramerlin-web-toolkit
 app-misc/gentoo-portage-tree
+app-misc/mapping-resources-pdf
 app-misc/onboard-emoji
 app-misc/sl
 app-misc/strigi
