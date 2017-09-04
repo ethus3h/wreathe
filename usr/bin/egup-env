@@ -123,81 +123,86 @@ egup-env() {
 }
 
 egup-exit() {
-    [[ -n "$egupDir" ]] || egupDir="."
-    if [[ -f "${egupDir:?}/.egup.useOverrides" ]]; then
-        if [[ "$(readlink -f "$(pwd)")" != "$(readlink -f "$egupDir")" ]]; then
-            if [[ -f .egup.nopush ]]; then
-                mv -vf .egup.nopush "$egupDir/.egup.nopush"
-            fi
-            if [[ -f .egup.nopush.bak ]]; then
-                echo "Restoring .egup.nopush"
-                mv -v .egup.nopush.bak .egup.nopush
-            fi
+    if ! [[ -f .egup.lock ]]; then
+        true
+    else
+        [[ -n "$egupDir" ]] || egupDir="."
+        if [[ -f "${egupDir:?}/.egup.useOverrides" ]]; then
+            if [[ "$(readlink -f "$(pwd)")" != "$(readlink -f "$egupDir")" ]]; then
+                if [[ -f .egup.nopush ]]; then
+                    mv -vf .egup.nopush "$egupDir/.egup.nopush"
+                fi
+                if [[ -f .egup.nopush.bak ]]; then
+                    echo "Restoring .egup.nopush"
+                    mv -v .egup.nopush.bak .egup.nopush
+                fi
 
-            if [[ -f .gitattributes ]]; then
-                mv -vf .gitattributes "$egupDir/.egup.gitattributes"
-            fi
-            if [[ -f .egup.gitattributes.bak ]]; then
-                echo "Restoring overridden .gitattributes"
-                mv -v .egup.gitattributes.bak .gitattributes
-            fi
+                if [[ -f .gitattributes ]]; then
+                    mv -vf .gitattributes "$egupDir/.egup.gitattributes"
+                fi
+                if [[ -f .egup.gitattributes.bak ]]; then
+                    echo "Restoring overridden .gitattributes"
+                    mv -v .egup.gitattributes.bak .gitattributes
+                fi
 
-            if [[ -f .gitignore ]]; then
-                mv -vf .gitignore "$egupDir/.egup.gitignore"
-            fi
-            if [[ -f .egup.gitignore.bak ]]; then
-                echo "Restoring overridden .gitignore"
-                mv -v .egup.gitignore.bak .gitignore
-            fi
+                if [[ -f .gitignore ]]; then
+                    mv -vf .gitignore "$egupDir/.egup.gitignore"
+                fi
+                if [[ -f .egup.gitignore.bak ]]; then
+                    echo "Restoring overridden .gitignore"
+                    mv -v .egup.gitignore.bak .gitignore
+                fi
 
-            if [[ -f .gitmodules ]]; then
-                mv -vf .gitmodules "$egupDir/.egup.gitmodules"
-            fi
-            if [[ -f .egup.gitmodules.bak ]]; then
-                echo "Restoring overridden .gitmodules"
-                mv -v .egup.gitmodules.bak .gitmodules
-            fi
+                if [[ -f .gitmodules ]]; then
+                    mv -vf .gitmodules "$egupDir/.egup.gitmodules"
+                fi
+                if [[ -f .egup.gitmodules.bak ]]; then
+                    echo "Restoring overridden .gitmodules"
+                    mv -v .egup.gitmodules.bak .gitmodules
+                fi
 
-            if [[ -f README.md ]]; then
-                mv -vf README.md "$egupDir/.egup.readme"
-            fi
-            if [[ -f .egup.readme.bak ]]; then
-                echo "Restoring overridden README.md"
-                mv -v .egup.readme.bak README.md
-            fi
+                if [[ -f README.md ]]; then
+                    mv -vf README.md "$egupDir/.egup.readme"
+                fi
+                if [[ -f .egup.readme.bak ]]; then
+                    echo "Restoring overridden README.md"
+                    mv -v .egup.readme.bak README.md
+                fi
 
-            if [[ -f .egup.branches ]]; then
-                mv -vf .egup.branches "$egupDir/.egup.branches"
-            fi
-            if [[ -f .egup.branches.bak ]]; then
-                echo "Restoring overridden .egup.branches"
-                mv -v .egup.branches.bak .egup.branches
-            fi
+                if [[ -f .egup.branches ]]; then
+                    mv -vf .egup.branches "$egupDir/.egup.branches"
+                fi
+                if [[ -f .egup.branches.bak ]]; then
+                    echo "Restoring overridden .egup.branches"
+                    mv -v .egup.branches.bak .egup.branches
+                fi
 
-            if [[ -f .egup.refs ]]; then
-                mv -vf .egup.refs "$egupDir/.egup.refs"
-            fi
-            if [[ -f .egup.refs.bak ]]; then
-                echo "Restoring overridden .egup.refs"
-                mv -v .egup.refs.bak .egup.refs
-            fi
+                if [[ -f .egup.refs ]]; then
+                    mv -vf .egup.refs "$egupDir/.egup.refs"
+                fi
+                if [[ -f .egup.refs.bak ]]; then
+                    echo "Restoring overridden .egup.refs"
+                    mv -v .egup.refs.bak .egup.refs
+                fi
 
-            if [[ -f .egup.tags ]]; then
-                mv -vf .egup.tags "$egupDir/.egup.tags"
+                if [[ -f .egup.tags ]]; then
+                    mv -vf .egup.tags "$egupDir/.egup.tags"
+                fi
+                if [[ -f .egup.tags.bak ]]; then
+                    echo "Restoring overridden .egup.tags"
+                    mv -v .egup.tags.bak .egup.tags
+                fi
             fi
-            if [[ -f .egup.tags.bak ]]; then
-                echo "Restoring overridden .egup.tags"
-                mv -v .egup.tags.bak .egup.tags
-            fi
+            GIT_WORK_TREE="$worktreebak"
+            export GIT_WORK_TREE
+            GIT_DIR="$gitdirbak"
+            export GIT_DIR
+            PS1="$egupEnvPsbak"
+            rm .egup.environment
+            cd "$egupDir" || exit 1
+            # stty eof ^D
         fi
-        GIT_WORK_TREE="$worktreebak"
-        export GIT_WORK_TREE
-        GIT_DIR="$gitdirbak"
-        export GIT_DIR
-        PS1="$egupEnvPsbak"
-        rm .egup.environment
-        cd "$egupDir" || exit 1
-        # stty eof ^D
+        rm .egup.lock
     fi
 }
 export -f egup-exit

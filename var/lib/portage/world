@@ -269,6 +269,7 @@ x11-plugins/moz-ext-linkification
 x11-plugins/moz-ext-menu-wizard
 x11-plugins/moz-ext-mozilla-archive-format-with-mht-and-faithful-save
 x11-plugins/moz-ext-multiple-tab-handler
+x11-plugins/moz-ext-native-mathml
 x11-plugins/moz-ext-noscript-security-suite
 x11-plugins/moz-ext-overbiteff
 x11-plugins/moz-ext-paywall-pass

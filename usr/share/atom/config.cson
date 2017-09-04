@@ -5,6 +5,7 @@
     customFileTypes:
       "source.shell": [
         "ebuild"
+        "eclass"
       ]
     disabledPackages: [
       "column-select"
