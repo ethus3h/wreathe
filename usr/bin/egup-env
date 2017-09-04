@@ -123,7 +123,7 @@ egup-env() {
 }
 
 egup-exit() {
-    if ! [[ -f .egup.lock ]]; then
+    if ! [[ -f .egup.environment ]]; then
         true
     else
         [[ -n "$egupDir" ]] || egupDir="."
@@ -202,7 +202,6 @@ egup-exit() {
             cd "$egupDir" || exit 1
             # stty eof ^D
         fi
-        rm .egup.lock
     fi
 }
 export -f egup-exit
