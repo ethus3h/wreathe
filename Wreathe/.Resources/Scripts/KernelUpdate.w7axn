@@ -7,6 +7,8 @@ trap 'die "A fatal kernel update error was reported on ${BASH_SOURCE[0]} line ${
 
 UpdatePrep.w7axn
 
+emerge --update sys-kernel/linux-firmware
+
 emerge --update sys-kernel/wreathe-kernel
 
 kernelVersion="$(basename "$(readlink -f /usr/src/linux)")"
