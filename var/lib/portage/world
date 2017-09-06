@@ -65,6 +65,7 @@ dev-lang/python
 dev-lang/python:2.7
 dev-lang/snap
 dev-libs/STLport
+dev-libs/booze
 dev-libs/capstone
 dev-libs/gnulib
 dev-libs/kpathsea
