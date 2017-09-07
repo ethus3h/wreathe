@@ -15,6 +15,11 @@ cd "$1" || exit 1
 
 egup-env
 
+if [[ -f .egup.git-native-excludes ]]; then
+    echo "(Applying native Git excludes)"
+    cp .egup.git-native-excludes .git/info/exclude # instead of using $GIT_DIR, because then it would get applied to the egup-env git dir too
+fi
+
 branch="$(git branch | grep -E "^\* " | cut -c 3-)"
 git checkout "$branch"
 git add -A || die "Error adding changes."
