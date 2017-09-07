@@ -9,6 +9,7 @@
       ]
     disabledPackages: [
       "column-select"
+      "linter-pylint"
     ]
     excludeVcsIgnoredPaths: false
     followSymlinks: false
