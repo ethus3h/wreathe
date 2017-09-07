@@ -17,7 +17,16 @@ egup-env
 
 if [[ -f .egup.git-native-excludes ]]; then
     echo "(Applying native Git excludes)"
-    cp .egup.git-native-excludes .git/info/exclude # instead of using $GIT_DIR, because then it would get applied to the egup-env git dir too
+    cp .egup.git-native-excludes .git/info/exclude # instead of using $GIT_DIR, because then it would get applied to the elen environment git dir too
+fi
+
+# Back up the .gitignore in preparation for the next step
+git add .gitignore
+git commit -m "Update Ember tree"
+
+if [[ "$(readlink -f .git/info/exclude)" == "$(readlink -f "$GIT_DIR"/info/exclude)" ]]; then
+    # Not in an elen environment, so make sure the .gitignore hasn't gotten screwed up before running anything else
+    cp .egup.git-native-excludes .gitignore
 fi
 
 branch="$(git branch | grep -E "^\* " | cut -c 3-)"
