@@ -114,6 +114,9 @@ www-plugins/gnash harden
 # Required for GNU Radio
 dev-python/PyQt4 compat
 
+# Deprecated
+media-sound/pulseaudio -libsamplerate
+
 # Required for IPython
 >=dev-lang/python-3.4.5 readline
 
