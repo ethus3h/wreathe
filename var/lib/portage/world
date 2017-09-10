@@ -161,6 +161,7 @@ media-plugins/kodi-script-module-schism-common
 media-plugins/kodi-script-module-simplejson
 media-plugins/kodi-script-module-six
 media-plugins/kodi-script-module-t0mm0-common
+media-plugins/kodi-script-module-urlresolver
 media-plugins/kodi-script-openweathermap-maps
 media-plugins/kodi-skin-confluence
 media-plugins/kodi-visualization-fishbmc
