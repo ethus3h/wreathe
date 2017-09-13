@@ -29,6 +29,7 @@ app-misc/futuramerlin-web-toolkit
 app-misc/gentoo-portage-tree
 app-misc/mapping-resources-pdf
 app-misc/onboard-emoji
+app-misc/rlwrap
 app-misc/sl
 app-misc/strigi
 app-misc/wreathe-base
@@ -60,6 +61,7 @@ dev-haskell/tls
 dev-haskell/x509
 dev-haskell/x509-store
 dev-haskell/x509-system
+dev-java/ant-javamail
 dev-java/icedtea:8
 dev-java/oracle-javamail
 dev-lang/open-cobol
@@ -109,6 +111,7 @@ dev-python/xvfbwrapper
 dev-qt/assistant
 dev-qt/qtwebengine
 dev-ruby/json
+dev-ruby/polyglot
 dev-ruby/treetop
 dev-tex/bibtexu
 dev-tex/xmltex

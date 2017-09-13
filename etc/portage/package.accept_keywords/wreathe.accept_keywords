@@ -155,7 +155,6 @@ dev-haskell/clock ~amd64
 dev-haskell/comonad ~amd64
 dev-haskell/conduit ~amd64
 dev-haskell/conduit-extra ~amd64
-dev-haskell/connection ~amd64
 dev-haskell/cryptohash ~amd64
 dev-haskell/cryptohash-conduit ~amd64
 dev-haskell/cryptohash-sha256 ~amd64
@@ -185,7 +184,6 @@ dev-haskell/hpack ~amd64
 dev-haskell/hspec-smallcheck ~amd64
 dev-haskell/http-api-data ~amd64
 dev-haskell/http-client ~amd64
-dev-haskell/http-client-tls ~amd64
 dev-haskell/http-conduit ~amd64
 dev-haskell/http-link-header ~amd64
 dev-haskell/ieee754 ~amd64
