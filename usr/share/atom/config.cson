@@ -10,6 +10,7 @@
     disabledPackages: [
       "column-select"
       "linter-pylint"
+      "linter-csslint"
     ]
     excludeVcsIgnoredPaths: false
     followSymlinks: false
