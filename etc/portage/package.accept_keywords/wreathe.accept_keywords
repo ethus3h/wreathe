@@ -258,9 +258,6 @@ dev-haskell/vector-algorithms ~amd64
 dev-haskell/vector-binary-instances ~amd64
 dev-haskell/vector-instances ~amd64
 dev-haskell/vector-th-unbox ~amd64
-dev-haskell/x509 ~amd64
-dev-haskell/x509-store ~amd64
-dev-haskell/x509-validation ~amd64
 dev-haskell/yaml ~amd64
 dev-java/icedtea ~amd64
 dev-java/jackson ~amd64

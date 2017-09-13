@@ -40,6 +40,7 @@ app-shells/looptest
 app-text/aspell
 app-text/convertlit
 app-text/dvipng
+app-text/html2text
 app-text/jadetex
 app-text/libgxps
 app-text/pandoc
@@ -60,6 +61,7 @@ dev-haskell/x509
 dev-haskell/x509-store
 dev-haskell/x509-system
 dev-java/icedtea:8
+dev-java/oracle-javamail
 dev-lang/open-cobol
 dev-lang/python
 dev-lang/python:2.7
