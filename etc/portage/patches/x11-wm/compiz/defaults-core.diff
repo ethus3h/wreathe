@@ -63,12 +63,3 @@ index 90032787..b8356646 100644
  		    <desc>
  			<value>0</value>
  			<_name>Off</_name>
-@@ -313,7 +314,7 @@
- 		<option name="focus_prevention_match" type="match">
- 		    <_short>Focus-Stealing Prevention Windows</_short>
- 		    <_long>Windows to prevent grabbing keyboard focus</_long>
--		    <default>any</default>
-+		    <default>!(class=dolphin)</default>
- 		</option>
- 	    </group>
- 	    <option name="unredirect_fullscreen_windows" type="bool">

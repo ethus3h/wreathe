@@ -29,7 +29,7 @@ index 228fd25..0036845 100644
 +		    <_long>Level of focus stealing prevention for windows not matched by the focus stealing prevention match</_long>
 +		    <min>0</min>
 +		    <max>4</max>
-+		    <default>4</default>
++		    <default>0</default>
 +		    <desc>
 +			<value>0</value>
 +			<_name>Off</_name>
@@ -54,22 +54,8 @@ index 228fd25..0036845 100644
  	    </group>
  	    <option name="unredirect_fullscreen_windows" type="bool">
  		<_short>Unredirect Fullscreen Windows</_short>
-diff --git a/src/screen.c b/src/screen.c
-index 5036cc3..6e70115 100644
---- a/src/screen.c
-+++ b/src/screen.c
-@@ -705,6 +705,9 @@ const CompMetadataOptionInfo coreScreenOptionInfo[COMP_SCREEN_OPTION_NUM] = {
-     { "focus_prevention_level", "int",
-       RESTOSTRING (0, FOCUS_PREVENTION_LEVEL_LAST), 0, 0 },
-     { "focus_prevention_match", "match", 0, 0, 0 },
-+    { "inverted_focus_prevention_level", "int",
-+      RESTOSTRING (0, INVERTED_FOCUS_PREVENTION_LEVEL_LAST),
-+        0, 0 },
-     { "texture_compression", "bool", 0, 0, 0 },
-     { "force_independent_output_painting", "bool", 0, 0, 0 }
- };
 diff --git a/src/window.c b/src/window.c
-index 47404a3..087a669 100644
+index 47404a3..f7754f9 100644
 --- a/src/window.c
 +++ b/src/window.c
 @@ -5109,21 +5109,47 @@ isWindowFocusAllowed (CompWindow   *w,
@@ -100,24 +86,24 @@ index 47404a3..087a669 100644
 +    /* These values indicate that the window was matched, and the
 +	corresponding prevention level should apply to it. */
 +    matchedNone = matched &&
-+	(level == FOCUS_PREVENTION_LEVEL_NONE);
++	level == FOCUS_PREVENTION_LEVEL_NONE;
 +    matchedNormal = matched &&
-+	(level == FOCUS_PREVENTION_LEVEL_NORMAL);
++	level == FOCUS_PREVENTION_LEVEL_NORMAL;
 +    matchedHigh = matched &&
-+	(level == FOCUS_PREVENTION_LEVEL_HIGH);
++	level == FOCUS_PREVENTION_LEVEL_HIGH;
 +    matchedVeryHigh = matched &&
-+	(level == FOCUS_PREVENTION_LEVEL_VERYHIGH);
++	level == FOCUS_PREVENTION_LEVEL_VERYHIGH;
 +
 +    /* These values indicate that the window wasn't matched, but
 +	the corresponding prevention level should apply to it. */
-+    nonMatchedNone = (!matched) &&
-+	(nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NONE);
-+    nonMatchedNormal = (!matched) &&
-+	(nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NORMAL);
-+    nonMatchedHigh = (!matched) &&
-+	(nonMatchedLevel == FOCUS_PREVENTION_LEVEL_HIGH);
-+    nonMatchedVeryHigh = (!matched) &&
-+	(nonMatchedLevel == FOCUS_PREVENTION_LEVEL_VERYHIGH);
++    nonMatchedNone = !matched &&
++	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NONE;
++    nonMatchedNormal = !matched &&
++	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_NORMAL;
++    nonMatchedHigh = !matched &&
++	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_HIGH;
++    nonMatchedVeryHigh = !matched &&
++	nonMatchedLevel == FOCUS_PREVENTION_LEVEL_VERYHIGH;
 +
 +    /* allow focus for excluded windows if nonMatchedLevel is none */
 +    if (matchedNone || nonMatchedNone)
