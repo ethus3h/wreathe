@@ -27,6 +27,7 @@ app-misc/ember-dev-environment
 app-misc/ember-shared
 app-misc/futuramerlin-web-toolkit
 app-misc/gentoo-portage-tree
+app-misc/jq
 app-misc/mapping-resources-pdf
 app-misc/onboard-emoji
 app-misc/rlwrap
@@ -91,6 +92,7 @@ dev-python/ipython
 dev-python/matplotlib
 dev-python/numpy
 dev-python/pandas
+dev-python/polyglot
 dev-python/psycopg:2
 dev-python/pycrypto
 dev-python/pymysql

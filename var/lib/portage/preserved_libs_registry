@@ -28,6 +28,20 @@
             "/usr/lib64/asn1-types-0.3.0/ghc-7.10.3/libHSasn1-types-0.3.0-8ntOEyNQwGtB9P0Dgs6y1U-ghc7.10.3.so"
         ]
     ], 
+    "dev-haskell/crypto-pubkey-types:0": [
+        "dev-haskell/crypto-pubkey-types-0.4.3", 
+        "15058", 
+        [
+            "/usr/lib64/crypto-pubkey-types-0.4.3/ghc-7.10.3/libHScrypto-pubkey-types-0.4.3-5X3104z82WyGJVS4zpFP2Y-ghc7.10.3.so"
+        ]
+    ], 
+    "dev-haskell/cryptohash:0": [
+        "dev-haskell/cryptohash-0.11.9", 
+        "15059", 
+        [
+            "/usr/lib64/cryptohash-0.11.1/ghc-7.10.3/libHScryptohash-0.11.1-ATF0HK5U1VHK0ohWBuFdLe-ghc7.10.3.so"
+        ]
+    ], 
     "dev-haskell/tls:0": [
         "dev-haskell/tls-1.3.9", 
         "14914", 
