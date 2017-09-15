@@ -22,7 +22,7 @@ fi
 
 # Back up the .gitignore in preparation for the next step
 git add .gitignore
-git commit -m "Update Ember tree"
+git commit -m "Update Ember tree" || true #It's ok if this fails — it probably means there is nothing to commit
 
 if [[ "$(readlink -f .git/info/exclude)" == "$(readlink -f "$GIT_DIR"/info/exclude)" ]]; then
     # Not in an elen environment, so make sure the .gitignore hasn't gotten screwed up before running anything else

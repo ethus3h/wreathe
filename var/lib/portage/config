@@ -21,7 +21,7 @@
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-toggledeco.diff 19e162e14e2560712de0a09d67ae5b28
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-scalefilter.diff f4e33f7da11890680fcde19784f17e78
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-shift.diff 7c669de6ea349de8dd68e55fb1a0f2c1
-/usr/local/etc/crystallize.conf 8308b6f2ea6ad9d8f66601cd16f1cb94
+/usr/local/etc/crystallize.conf c9d8a88b1a7317db493856ce6f7c0b08
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-snow.diff e74dc7506b502350010c94f7ef4a0c48
 /etc/ssh/sshd_config a8b9f550b3e4d5013b27bd60ff1a8454
 /etc/xdg/openbox/autostart cf7cd22e452ddfb7c5887e465d97d4f5
@@ -34,6 +34,7 @@
 /etc/pulse/daemon.conf 8fbe3a076107b02024bbf66f2f255df3
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.module.six.patch 80755bf90635a8a288ee6661720035c8
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7.3-2016aug03n2 63c05a486d1a74bad123db9febef3849
+/etc/portage/patches/media-sound/cadence/58861b81c8e6393c2ca6844627b784912864c0b6.diff 7b943e1066ede37afd7883b64aa8b754
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-animationsim.diff d1d432cd7071f9a76778f80b9c61301c
 /etc/fonts/conf.d/10-sub-pixel-rgb.conf e7a61350940a942fd0fa400113ea0afa
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.openweathermap.maps.patch aa16dd8b2eed59abd160d2fa58c9d122
@@ -62,6 +63,7 @@
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.module.futures.patch 693c38bec898273f061461db4688513d
 /etc/locale.gen cbe30e840741d09fecff916084c90bd9
 /etc/portage/patches/x11-wm/compiz/defaults-core.diff 0360258a898e531056fd5306de6f9c54
+/etc/asound.conf f4a2df8478b4d1fa6a6822f9cc70a13c
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug17 6b56f16e901cda3244d3081687f25073
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-ezoom.diff a45c3d3d23023a9bddb3121fb94d1d07
 /etc/fonts/conf.avail/66-lohit-telugu.conf 311dc6289281203842f5e488e0ffacdf
@@ -109,4 +111,4 @@
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug06 3338ec2897be87b6b2389eebd8636a5b
 /etc/portage/patches/media-tv/kodi/default-enable-addon-plugin.video.elysium.patch ff770905d6c4518c59fa1af222c4cba7
 /etc/portage/patches/net-misc/dahdi/0002-atomic_read-refcount_read.patch 0ff8ffe4491b4f5a8e4babb74309dbae
-/etc/portage/package.accept_keywords/wreathe.accept_keywords ecc5e9a132dd23673e673ebdb0c4114f
+/etc/portage/package.accept_keywords/wreathe.accept_keywords a3c16d0667ea766cfedf3f2c7bf8ff74
