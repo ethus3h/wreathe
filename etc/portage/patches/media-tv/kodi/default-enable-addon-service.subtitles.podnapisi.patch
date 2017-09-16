@@ -3,4 +3,4 @@ diff -uraN a/system/addon-manifest.xml b/system/addon-manifest.xml
 +++ b/system/addon-manifest.xml    2017-06-24 19:00:04.000000000 -0400
 @@ -1,1 +1,2 @@
  <addons>
-+  <addon>service.subtitles.subspedia</addon>
++  <addon>service.subtitles.podnapisi</addon>
