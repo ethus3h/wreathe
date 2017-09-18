@@ -35,6 +35,7 @@ app-misc/sl
 app-misc/strigi
 app-misc/wreathe-base
 app-misc/wreathe-overlays-redist
+app-office/libreoffice
 app-office/libreoffice-l10n
 app-officeext/ooofbtools
 app-portage/pfl
@@ -48,6 +49,8 @@ app-text/libgxps
 app-text/pandoc
 app-text/stardict
 app-text/tree
+dev-db/postgresql
+dev-db/postgresql:9.6
 dev-dotnet/dotnetzip-semverd
 dev-dotnet/googlemaps-locationservices
 dev-dotnet/ilspy
@@ -150,6 +153,7 @@ media-libs/libdmtx
 media-libs/libwebp
 media-libs/ming
 media-libs/opencv
+media-libs/oyranos
 media-libs/phonon-vlc
 media-libs/xine-lib
 media-plugins/alsa-plugins
