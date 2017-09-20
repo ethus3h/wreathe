@@ -1,16 +1,16 @@
 diff --git a/metadata/ezoom.xml.in b/metadata/ezoom.xml.in
-index 5dc2d6b..e23ea78 100644
+index f198716..db68f0b 100644
 --- a/metadata/ezoom.xml.in
 +++ b/metadata/ezoom.xml.in
-@@ -37,6 +37,7 @@
+@@ -36,6 +36,7 @@
  		<option type="key" name="zoom_out_key">
  		    <_short>Zoom Out</_short>
  		    <_long>Zoom Out</_long>
-+		    <default>&lt;Primary&gt;&lt;Alt&gt;u</default>
++		    <default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;u</default>
  		</option>
  		<option type="button" name="zoom_box_button">
  		    <_short>Zoom Box</_short>
-@@ -135,7 +136,7 @@
+@@ -134,7 +135,7 @@
  		    <option type="key" name="fit_to_window_key">
  			<_short>Fit zoomed area to window</_short>
  			<_long>Zooms in/out so the focused window is zoomed to the maximum while still being fully visible.</_long>
@@ -19,3 +19,36 @@ index 5dc2d6b..e23ea78 100644
  		    </option>
  		</subgroup>
  	    </group>
+@@ -164,12 +165,12 @@
+ 		<option type="bool" name="sync_mouse">
+ 		    <_short>Sync Mouse</_short>
+ 		    <_long>Always keep the zoomed area in sync with where the mouse is, and vice versa. Use this if you don't intend to draw a scaled pointer or hide the original pointer. The zoomed area will move as you move your mouse.</_long>
+-		    <default>true</default>
++		    <default>false</default>
+ 		</option>
+ 		<option type="bool" name="scale_mouse">
+ 		    <_short>Scale the mouse pointer</_short>
+ 		    <_long>Enable this to get a gradually larger mouse pointer as you zoom in</_long>
+-		    <default>false</default>
++		    <default>true</default>
+ 		</option>
+ 		<option type="bool" name="scale_mouse_dynamic">
+ 		    <_short>Dynamic mouse pointer scale</_short>
+@@ -187,7 +188,7 @@
+ 		<option type="bool" name="hide_original_mouse">
+ 		    <_short>Hide original mouse pointer</_short>
+ 		    <_long>Hides the original mouse pointer when zoomed in and scaling the mouse</_long>
+-		    <default>false</default>
++		    <default>true</default>
+ 		</option>
+ 		<option type="bool" name="restrain_mouse">
+ 		    <_short>Restrain the mouse to the zoom area</_short>
+@@ -197,7 +198,7 @@
+ 		<option type="bool" name="mouse_pan">
+ 		    <_short>Mouse panning</_short>
+ 		    <_long>Pan the zoom area when the mouse cursor moves outside the visible area.</_long>
+-		    <default>false</default>
++		    <default>true</default>
+ 		</option>
+ 		<option type="int" name="restrain_margin">
+ 		    <_short>Mouse Restrain Margin</_short>
