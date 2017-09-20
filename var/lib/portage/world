@@ -60,6 +60,7 @@ dev-haskell/cpphs
 dev-haskell/pandoc-citeproc
 dev-haskell/pandoc-types
 dev-haskell/parallel
+dev-haskell/stack-bin
 dev-haskell/texmath
 dev-haskell/tls
 dev-haskell/x509
