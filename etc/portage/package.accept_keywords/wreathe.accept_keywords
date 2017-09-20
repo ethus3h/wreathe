@@ -1,3 +1,7 @@
+dev-haskell/x509-system ~amd64
+dev-haskell/x509-store ~amd64
+dev-haskell/x509-validation ~amd64
+dev-haskell/x509 ~amd64
 dev-haskell/store-core ~amd64
 dev-haskell/primitive ~amd64
 dev-haskell/store ~amd64
