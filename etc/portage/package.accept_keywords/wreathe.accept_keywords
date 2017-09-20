@@ -1,3 +1,6 @@
+#todo replace with non-bin and remove this
+dev-haskell/stack-bin ~amd64
+
 dev-haskell/x509-system ~amd64
 dev-haskell/x509-store ~amd64
 dev-haskell/x509-validation ~amd64

@@ -42,6 +42,13 @@
             "/usr/lib64/cryptohash-0.11.1/ghc-7.10.3/libHScryptohash-0.11.1-ATF0HK5U1VHK0ohWBuFdLe-ghc7.10.3.so"
         ]
     ], 
+    "dev-haskell/http-client:0": [
+        "dev-haskell/http-client-0.5.7.0", 
+        "15135", 
+        [
+            "/usr/lib64/http-client-0.4.18.1/ghc-7.10.3/libHShttp-client-0.4.18.1-434LaoCXrOH5G0ZwQF8Ogq-ghc7.10.3.so"
+        ]
+    ], 
     "dev-haskell/tls:0": [
         "dev-haskell/tls-1.3.9", 
         "14914", 
@@ -54,6 +61,13 @@
         "14912", 
         [
             "/usr/lib64/x509-store-1.5.0/ghc-7.10.3/libHSx509-store-1.5.0-LAGKAD4ywxVD1JtfSBZ2jq-ghc7.10.3.so"
+        ]
+    ], 
+    "dev-haskell/x509-system:0": [
+        "dev-haskell/x509-system-1.6.4", 
+        "15134", 
+        [
+            "/usr/lib64/x509-system-1.5.0/ghc-7.10.3/libHSx509-system-1.5.0-LScvJ5mKefFBD5HKaF9qv1-ghc7.10.3.so"
         ]
     ], 
     "dev-haskell/x509-validation:0": [
