@@ -5,14 +5,24 @@ dev-haskell/primitive ~amd64
 dev-haskell/http-client-tls ~amd64
 dev-haskell/conduit ~amd64
 dev-haskell/conduit-extra ~amd64
-dev-haskell/vector
-dev-haskell/tf-random
-dev-haskell/primitive
-dev-haskell/resourcet
-dev-haskell/enclosed-exceptions
-dev-haskell/lifted-base
-dev-haskell/tls
-dev-haskell/async
+dev-haskell/vector ~amd64
+dev-haskell/tf-random ~amd64
+dev-haskell/primitive ~amd64
+dev-haskell/resourcet ~amd64
+dev-haskell/enclosed-exceptions ~amd64
+dev-haskell/lifted-base ~amd64
+dev-haskell/tls ~amd64
+dev-haskell/async ~amd64
+dev-haskell/blaze-builder ~amd64
+dev-haskell/blaze-markup ~amd64
+dev-haskell/streaming-commons ~amd64
+dev-haskell/blaze-html ~amd64
+dev-haskell/http-types ~amd64
+dev-haskell/cookie ~amd64
+dev-haskell/stm ~amd64
+dev-haskell/monad-control ~amd64
+dev-haskell/transformers-base ~amd64
+dev-haskell/aeson ~amd64
 
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
