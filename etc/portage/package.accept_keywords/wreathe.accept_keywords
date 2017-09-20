@@ -1,7 +1,18 @@
 dev-haskell/void ~amd64
 dev-haskell/pandoc-types ~amd64
 dev-haskell/exceptions ~amd64
-
+dev-haskell/primitive ~amd64
+dev-haskell/http-client-tls ~amd64
+dev-haskell/conduit ~amd64
+dev-haskell/conduit-extra ~amd64
+dev-haskell/vector
+dev-haskell/tf-random
+dev-haskell/primitive
+dev-haskell/resourcet
+dev-haskell/enclosed-exceptions
+dev-haskell/lifted-base
+dev-haskell/tls
+dev-haskell/async
 
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
