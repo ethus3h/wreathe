@@ -1,3 +1,8 @@
+dev-haskell/void ~amd64
+dev-haskell/pandoc-types ~amd64
+dev-haskell/exceptions ~amd64
+
+
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
 =app-doc/ember-web-site-9999::wreathe-overlay **
