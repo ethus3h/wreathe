@@ -97,6 +97,7 @@ dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia ne
 media-libs/mesa d3d9 gles1 gles2 xa
 media-tv/kodi webserver
 net-analyzer/nmap nping
+net-misc/plowshare view-captcha
 net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
