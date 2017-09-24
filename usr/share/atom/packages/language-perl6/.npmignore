@@ -1,0 +1,5 @@
+.tags
+node_modules
+tests
+.precomp
+.*.swp

@@ -1,0 +1,62 @@
+From 8c211647f67c7a51b5284e408492e1bcefdb1a3d Mon Sep 17 00:00:00 2001
+From: Scott Moreau <oreaus@gmail.com>
+Date: Sat, 23 Sep 2017 18:20:19 -0600
+Subject: [PATCH] Call timeout directly to avoid map delay
+
+---
+ src/window.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+
+diff --git a/src/window.c b/src/window.c
+index 47404a3..0e3ade3 100644
+--- a/src/window.c
++++ b/src/window.c
+@@ -2533,6 +2533,17 @@ sendConfigureNotify (CompWindow *w)
+     }
+ }
+ 
++static Bool
++syncWaitTimeout (void *closure)
++{
++    CompWindow *w = closure;
++
++    w->syncWaitHandle = 0;
++    handleSyncAlarm (w);
++
++    return FALSE;
++}
++
+ void
+ mapWindow (CompWindow *w)
+ {
+@@ -2590,6 +2601,8 @@ mapWindow (CompWindow *w)
+ 			  w->attrib.width, ++w->attrib.height - 1,
+ 			  w->attrib.border_width);
+     }
++    else
++		syncWaitTimeout(w);
+ }
+ 
+ void
+@@ -2866,17 +2879,6 @@ initializeSyncCounter (CompWindow *w)
+     return FALSE;
+ }
+ 
+-static Bool
+-syncWaitTimeout (void *closure)
+-{
+-    CompWindow *w = closure;
+-
+-    w->syncWaitHandle = 0;
+-    handleSyncAlarm (w);
+-
+-    return FALSE;
+-}
+-
+ void
+ sendSyncRequest (CompWindow *w)
+ {
+-- 
+2.7.4
+
+
