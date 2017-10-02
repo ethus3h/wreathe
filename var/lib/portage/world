@@ -1,3 +1,4 @@
+app-admin/systemdgenie
 app-arch/cfv
 app-arch/lha
 app-arch/lziprecover
@@ -199,6 +200,7 @@ media-tv/kodi
 media-video/ffmpeg
 media-video/sswf
 media-video/vlc
+net-dns/dnscrypt-proxy
 net-irc/irssi
 net-misc/freerdp
 net-misc/icecast
