@@ -217,6 +217,7 @@ sci-libs/scipy
 sci-mathematics/form
 sys-apps/hwinfo
 sys-apps/lshw
+sys-apps/portage
 sys-apps/renameutils
 sys-devel/crossdev
 sys-fs/dosfstools
