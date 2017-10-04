@@ -72,9 +72,11 @@ dev-haskell/x509-system
 dev-java/ant-javamail
 dev-java/icedtea:8
 dev-java/oracle-javamail
+dev-lang/R
 dev-lang/open-cobol
 dev-lang/python
 dev-lang/python:2.7
+dev-lang/python:3.4
 dev-lang/snap
 dev-libs/STLport
 dev-libs/booze
@@ -105,6 +107,7 @@ dev-python/polyglot
 dev-python/psycopg:2
 dev-python/pycrypto
 dev-python/pymysql
+dev-python/pytables
 dev-python/python-lzo
 dev-python/requests
 dev-python/requests-file
