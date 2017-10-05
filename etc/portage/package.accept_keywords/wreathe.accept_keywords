@@ -502,3 +502,4 @@ x11-misc/keynav ~amd64
 media-sound/musescore ~amd64
 x11-misc/xvfb-run ~amd64
 x11-themes/arc-theme ~amd64
+app-admin/elektra ~amd64

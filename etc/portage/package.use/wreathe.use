@@ -5,6 +5,7 @@ sys-kernel/wreathe-kernel compile firmware
 media-tv/kodi -cec
 
 # Can only have one of gles2 or opengl.
+media-libs/gst-plugins-bad -gles2
 net-libs/webkit-gtk -gles2
 
 # Install these Mozilla addons for Thunderbird as well as Firefox
