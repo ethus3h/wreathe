@@ -22,7 +22,6 @@
   editor:
     backUpBeforeSaving: true
     fontFamily: "Fira Code"
-    fontSize: 9
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true
