@@ -126,6 +126,7 @@ dev-python/warctools
 dev-python/xvfbwrapper
 dev-qt/assistant
 dev-qt/qtcore
+dev-qt/qtdbus
 dev-qt/qtwebengine
 dev-qt/tqt
 dev-ruby/json
