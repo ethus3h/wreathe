@@ -1,3 +1,4 @@
+dev-libs/efl -gles
 # Use firmware blobs until I can use wi-fi without it
 sys-kernel/wreathe-kernel compile firmware
 

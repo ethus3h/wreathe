@@ -16,12 +16,5 @@
             "/usr/lib64/libevent-2.0.so.5", 
             "/usr/lib64/libevent_pthreads-2.0.so.5"
         ]
-    ], 
-    "sys-libs/binutils-libs:0": [
-        "sys-libs/binutils-libs-2.27", 
-        "12468", 
-        [
-            "/usr/lib64/libbfd-2.25.1.so"
-        ]
     ]
 }

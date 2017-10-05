@@ -125,15 +125,18 @@ dev-python/warcprox
 dev-python/warctools
 dev-python/xvfbwrapper
 dev-qt/assistant
+dev-qt/qt3support
 dev-qt/qtconcurrent
 dev-qt/qtcore
 dev-qt/qtdbus
+dev-qt/qtnetwork
 dev-qt/qtpaths
 dev-qt/qtserialport
 dev-qt/qtsql
 dev-qt/qttest
 dev-qt/qtwebengine
 dev-qt/qtxml
+dev-qt/qtxmlpatterns
 dev-qt/tqt
 dev-ruby/json
 dev-ruby/polyglot
@@ -232,6 +235,7 @@ sys-apps/hwinfo
 sys-apps/lshw
 sys-apps/portage
 sys-apps/renameutils
+sys-devel/binutils
 sys-devel/crossdev
 sys-fs/dosfstools
 sys-fs/fuse
@@ -260,7 +264,6 @@ www-apps/mediawiki
 www-apps/owncloud
 www-apps/wordpress
 www-client/firefox
-www-client/vivaldi
 www-plugins/adobe-flash
 www-plugins/freshplayerplugin
 www-plugins/gnash
@@ -277,6 +280,7 @@ x11-misc/keynav
 x11-misc/obkey
 x11-misc/read-edid
 x11-misc/run-scaled
+x11-misc/xcb
 x11-misc/xcur2png
 x11-misc/xvfb-run
 x11-misc/xvisbell
