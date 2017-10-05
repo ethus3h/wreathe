@@ -125,9 +125,15 @@ dev-python/warcprox
 dev-python/warctools
 dev-python/xvfbwrapper
 dev-qt/assistant
+dev-qt/qtconcurrent
 dev-qt/qtcore
 dev-qt/qtdbus
+dev-qt/qtpaths
+dev-qt/qtserialport
+dev-qt/qtsql
+dev-qt/qttest
 dev-qt/qtwebengine
+dev-qt/qtxml
 dev-qt/tqt
 dev-ruby/json
 dev-ruby/polyglot
