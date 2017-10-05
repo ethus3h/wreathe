@@ -4,6 +4,9 @@ sys-kernel/wreathe-kernel compile firmware
 # Use cec results in broken build
 media-tv/kodi -cec
 
+# Can only have one of gles2 or opengl.
+net-libs/webkit-gtk -gles2
+
 # Install these Mozilla addons for Thunderbird as well as Firefox
 x11-plugins/moz-ext-dom-inspector-plus-dm thunderbird
 x11-plugins/moz-ext-element-inspector thunderbird
@@ -231,7 +234,6 @@ net-libs/libssh server
 net-libs/libvncserver threads
 net-libs/pjsip g711 g722 g7221 ilbc l16 ring
 net-libs/telepathy-qt farstream
-net-libs/webkit-gtk gles2
 net-misc/asterisk span
 net-misc/hylafaxplus mgetty
 net-nds/openldap kinit

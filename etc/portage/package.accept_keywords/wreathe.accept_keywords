@@ -380,6 +380,7 @@ dev-util/lttng-ust ~amd64
 dev-util/shellcheck ~amd64
 games-action/minetest ~amd64
 games-kids/scratch ~amd64
+gnome-extra/gnome-color-chooser ~amd64
 kde-misc/kdeconnect ~amd64
 kde-misc/kolor-manager ~amd64
 lxqt-base/liblxqt ~amd64
@@ -495,6 +496,7 @@ www-apps/wordpress ~amd64
 www-plugins/lightspark ~amd64
 www-plugins/mozplugger ~amd64
 x11-libs/libdrm ~amd64
+x11-misc/appmenu-qt ~amd64
 x11-misc/cairo-dock ~amd64
 x11-misc/keynav ~amd64
 x11-misc/xvfb-run ~amd64
