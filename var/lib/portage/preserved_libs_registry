@@ -7,88 +7,14 @@
             "/usr/lib64/postgresql-9.5/lib64/libpq.so.5"
         ]
     ], 
-    "dev-haskell/asn1-encoding:0": [
-        "dev-haskell/asn1-encoding-0.9.0", 
-        "14909", 
+    "dev-libs/libevent:0": [
+        "dev-libs/libevent-2.1.8", 
+        "15249", 
         [
-            "/usr/lib64/asn1-encoding-0.9.0/ghc-7.10.3/libHSasn1-encoding-0.9.0-KpuTcAAzwXf48QrChe5ir1-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/asn1-parse:0": [
-        "dev-haskell/asn1-parse-0.9.4", 
-        "14910", 
-        [
-            "/usr/lib64/asn1-parse-0.9.1/ghc-7.10.3/libHSasn1-parse-0.9.1-E6chpuCCkolC4lbBnWt4QR-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/asn1-types:0": [
-        "dev-haskell/asn1-types-0.3.2", 
-        "14907", 
-        [
-            "/usr/lib64/asn1-types-0.3.0/ghc-7.10.3/libHSasn1-types-0.3.0-8ntOEyNQwGtB9P0Dgs6y1U-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/crypto-pubkey-types:0": [
-        "dev-haskell/crypto-pubkey-types-0.4.3", 
-        "15058", 
-        [
-            "/usr/lib64/crypto-pubkey-types-0.4.3/ghc-7.10.3/libHScrypto-pubkey-types-0.4.3-5X3104z82WyGJVS4zpFP2Y-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/cryptohash:0": [
-        "dev-haskell/cryptohash-0.11.9", 
-        "15059", 
-        [
-            "/usr/lib64/cryptohash-0.11.1/ghc-7.10.3/libHScryptohash-0.11.1-ATF0HK5U1VHK0ohWBuFdLe-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/http-client:0": [
-        "dev-haskell/http-client-0.5.7.0", 
-        "15135", 
-        [
-            "/usr/lib64/http-client-0.4.18.1/ghc-7.10.3/libHShttp-client-0.4.18.1-434LaoCXrOH5G0ZwQF8Ogq-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/sandi:0": [
-        "dev-haskell/sandi-0.4.0", 
-        "15193", 
-        [
-            "/usr/lib64/sandi-0.3.6/ghc-7.10.3/libHSsandi-0.3.6-EH1dyZaqTG73kpWKP8lF41-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/tls:0": [
-        "dev-haskell/tls-1.3.9", 
-        "14914", 
-        [
-            "/usr/lib64/tls-1.2.18/ghc-7.10.3/libHStls-1.2.18-5Mck8AXsO502ZHoWbhpdNB-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/x509-store:0": [
-        "dev-haskell/x509-store-1.6.2", 
-        "14912", 
-        [
-            "/usr/lib64/x509-store-1.5.0/ghc-7.10.3/libHSx509-store-1.5.0-LAGKAD4ywxVD1JtfSBZ2jq-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/x509-system:0": [
-        "dev-haskell/x509-system-1.6.4", 
-        "15134", 
-        [
-            "/usr/lib64/x509-system-1.5.0/ghc-7.10.3/libHSx509-system-1.5.0-LScvJ5mKefFBD5HKaF9qv1-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/x509-validation:0": [
-        "dev-haskell/x509-validation-1.6.5", 
-        "14913", 
-        [
-            "/usr/lib64/x509-validation-1.5.2/ghc-7.10.3/libHSx509-validation-1.5.2-Er91jgFpf1D4sFeg4WKjfk-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/x509:0": [
-        "dev-haskell/x509-1.6.5", 
-        "14911", 
-        [
-            "/usr/lib64/x509-1.5.1/ghc-7.10.3/libHSx509-1.5.1-8wzhCPund6FIhkCFpGtkGa-ghc7.10.3.so"
+            "/usr/lib64/libevent-2.0.so.5.1.9", 
+            "/usr/lib64/libevent_pthreads-2.0.so.5.1.9", 
+            "/usr/lib64/libevent-2.0.so.5", 
+            "/usr/lib64/libevent_pthreads-2.0.so.5"
         ]
     ], 
     "sys-libs/binutils-libs:0": [

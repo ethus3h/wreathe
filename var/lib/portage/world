@@ -59,6 +59,7 @@ dev-dotnet/googlemaps-locationservices
 dev-dotnet/ilspy
 dev-dotnet/libgdiplus
 dev-haskell/c2hs
+dev-haskell/connection
 dev-haskell/cpphs
 dev-haskell/pandoc-citeproc
 dev-haskell/pandoc-types
@@ -86,6 +87,7 @@ dev-libs/gnulib
 dev-libs/kpathsea
 dev-libs/libcgroup
 dev-libs/libdbusmenu
+dev-libs/libevent
 dev-libs/libtommath
 dev-libs/wayland-protocols
 dev-ml/csv
@@ -123,6 +125,7 @@ dev-python/warcprox
 dev-python/warctools
 dev-python/xvfbwrapper
 dev-qt/assistant
+dev-qt/qtcore
 dev-qt/qtwebengine
 dev-qt/tqt
 dev-ruby/json
