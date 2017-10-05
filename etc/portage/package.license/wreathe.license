@@ -1,3 +1,7 @@
+# For now
+games-fps/sauerbraten freedist
+app-arch/p7zip unRAR
+
 # Accept freedist license for wreathe-overlay since it uses it for documentation; if packages in there have evil licenses they should be removed from the overlay
 */*::wreathe-overlay freedist
 
