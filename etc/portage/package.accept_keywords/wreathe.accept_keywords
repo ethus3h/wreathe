@@ -38,6 +38,7 @@ dev-haskell/tls ~amd64
 dev-haskell/async ~amd64
 dev-haskell/blaze-builder ~amd64
 dev-haskell/blaze-markup ~amd64
+dev-haskell/connection ~amd64
 dev-haskell/streaming-commons ~amd64
 dev-haskell/blaze-html ~amd64
 dev-haskell/http-types ~amd64
