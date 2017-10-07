@@ -1,4 +1,19 @@
 # For now
+games-misc/opensfx  CC-Sampling-Plus-1.0
+app-dicts/aspell-nl freedist
+net-print/adobeps AdobePS
+sci-visualization/gnuplot free-noncomm
+app-text/pstotext PSTT
+sys-kernel/gentoo-sources freedist
+sci-libs/szip szip
+app-arch/zoo zoo
+media-gfx/jpeg2ps free-noncomm
+net-misc/hylafaxplus hylafaxplus
+app-dicts/myspell-ru myspell-ru_RU-AlexanderLebedev
+app-text/mpage freedist
+www-plugins/adobe-flash AdobeFlash-11.x
+app-arch/unrar unRAR
+app-text/calibre unRAR
 games-fps/sauerbraten freedist
 app-arch/p7zip unRAR
 
