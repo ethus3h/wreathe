@@ -78,6 +78,7 @@ dev-java/icedtea:8
 dev-java/oracle-javamail
 dev-lang/R
 dev-lang/open-cobol
+dev-lang/perl
 dev-lang/php
 dev-lang/php:5.6
 dev-lang/python
@@ -136,6 +137,7 @@ dev-qt/qt3support
 dev-qt/qtconcurrent
 dev-qt/qtcore
 dev-qt/qtdbus
+dev-qt/qtgui
 dev-qt/qtnetwork
 dev-qt/qtpaths
 dev-qt/qtserialport
@@ -245,6 +247,7 @@ sys-apps/renameutils
 sys-cluster/openmpi
 sys-devel/binutils
 sys-devel/crossdev
+sys-devel/gcc:4.9.4
 sys-fs/dosfstools
 sys-fs/fuse
 sys-fs/squashfs-tools
@@ -288,6 +291,7 @@ x11-misc/keynav
 x11-misc/obkey
 x11-misc/read-edid
 x11-misc/run-scaled
+x11-misc/sddm
 x11-misc/xcb
 x11-misc/xcur2png
 x11-misc/xvfb-run

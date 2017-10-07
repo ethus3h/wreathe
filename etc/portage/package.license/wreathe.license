@@ -1,4 +1,6 @@
 # For now
+app-arch/lha lha
+media-libs/faac MPEG-4
 games-misc/opensfx  CC-Sampling-Plus-1.0
 app-dicts/aspell-nl freedist
 net-print/adobeps AdobePS
