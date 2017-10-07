@@ -1,20 +1,10 @@
 {
-    "dev-db/postgresql:9.5": [
-        "dev-db/postgresql-9.5.5", 
-        "11927", 
-        [
-            "/usr/lib64/postgresql-9.5/lib64/libpq.so.5.8", 
-            "/usr/lib64/postgresql-9.5/lib64/libpq.so.5"
-        ]
-    ], 
     "dev-libs/libevent:0": [
         "dev-libs/libevent-2.1.8", 
         "15249", 
         [
             "/usr/lib64/libevent-2.0.so.5.1.9", 
-            "/usr/lib64/libevent_pthreads-2.0.so.5.1.9", 
-            "/usr/lib64/libevent-2.0.so.5", 
-            "/usr/lib64/libevent_pthreads-2.0.so.5"
+            "/usr/lib64/libevent-2.0.so.5"
         ]
     ]
 }

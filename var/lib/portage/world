@@ -1,3 +1,4 @@
+app-admin/gentoo-perl-helpers
 app-admin/systemdgenie
 app-arch/cfv
 app-arch/lha
@@ -36,6 +37,7 @@ app-misc/onboard-emoji
 app-misc/rlwrap
 app-misc/sl
 app-misc/strigi
+app-misc/tmux
 app-misc/wreathe-base
 app-misc/wreathe-overlays-redist
 app-office/libreoffice
@@ -52,6 +54,7 @@ app-text/libgxps
 app-text/pandoc
 app-text/stardict
 app-text/tree
+app-text/wgetpaste
 dev-db/postgresql
 dev-db/postgresql:9.6
 dev-dotnet/dotnetzip-semverd
@@ -75,6 +78,8 @@ dev-java/icedtea:8
 dev-java/oracle-javamail
 dev-lang/R
 dev-lang/open-cobol
+dev-lang/php
+dev-lang/php:5.6
 dev-lang/python
 dev-lang/python:2.7
 dev-lang/python:3.4
@@ -91,6 +96,7 @@ dev-libs/libevent
 dev-libs/libtommath
 dev-libs/wayland-protocols
 dev-ml/csv
+dev-perl/DBD-Pg
 dev-perl/ttylog
 dev-perl6/zef
 dev-php/ZendFramework
@@ -125,6 +131,7 @@ dev-python/warcprox
 dev-python/warctools
 dev-python/xvfbwrapper
 dev-qt/assistant
+dev-qt/designer
 dev-qt/qt3support
 dev-qt/qtconcurrent
 dev-qt/qtcore
@@ -235,6 +242,7 @@ sys-apps/hwinfo
 sys-apps/lshw
 sys-apps/portage
 sys-apps/renameutils
+sys-cluster/openmpi
 sys-devel/binutils
 sys-devel/crossdev
 sys-fs/dosfstools
