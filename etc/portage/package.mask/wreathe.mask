@@ -25,3 +25,6 @@ media-gfx/graphicsmagick
 
 # Getting pulled in by something.
 <dev-python/pyxattr-0.5.5
+
+# Requires unstable LLVM
+=dev-dotnet/dotnet-cli-1.1.1-r2
