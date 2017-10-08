@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+cat /var/cache/edb/mtimedb | sed '1,/\"mergelist\"/d;/\"myopts\"/,$d' | \
+sed '
+/[a-z;A-Z]/!d
+/\"ebuild\"/d
+/\"merge\"/d
+s/\"//g
+s/\,//g
+s/^[ \t]*//
+s/^/=/
+s/$/\ \\/
+' | \
+sed '
+$ s/.$//
+1 i\emerge -av1 \\
+'
