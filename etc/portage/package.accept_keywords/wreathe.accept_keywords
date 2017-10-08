@@ -1,3 +1,4 @@
+media-gfx/scour ~amd64
 #todo replace with non-bin and remove this
 dev-haskell/stack-bin ~amd64
 

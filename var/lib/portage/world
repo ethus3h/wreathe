@@ -5,6 +5,7 @@ app-arch/lha
 app-arch/lziprecover
 app-arch/par2cmdline
 app-doc/cldr
+app-doc/doxygen
 app-doc/ember-web-site
 app-doc/emoji
 app-doc/emoji:4.0
@@ -92,6 +93,7 @@ dev-libs/dbus-1-tqt
 dev-libs/gnulib
 dev-libs/kpathsea
 dev-libs/libcgroup
+dev-libs/libclc
 dev-libs/libdbusmenu
 dev-libs/libevent
 dev-libs/libtommath
@@ -111,6 +113,7 @@ dev-python/internetarchive
 dev-python/ipython
 dev-python/matplotlib
 dev-python/numpy
+dev-python/oct2py
 dev-python/pandas
 dev-python/polyglot
 dev-python/psycopg:2
@@ -134,16 +137,22 @@ dev-python/xvfbwrapper
 dev-qt/assistant
 dev-qt/designer
 dev-qt/qt3support
+dev-qt/qtbluetooth
 dev-qt/qtconcurrent
 dev-qt/qtcore
 dev-qt/qtdbus
+dev-qt/qtdeclarative:5
+dev-qt/qtgraphicaleffects
 dev-qt/qtgui
+dev-qt/qtlocation
 dev-qt/qtnetwork
 dev-qt/qtpaths
+dev-qt/qtsensors
 dev-qt/qtserialport
 dev-qt/qtsql
 dev-qt/qttest
 dev-qt/qtwebengine
+dev-qt/qtwebsockets
 dev-qt/qtxml
 dev-qt/qtxmlpatterns
 dev-qt/tqt
