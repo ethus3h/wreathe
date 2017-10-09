@@ -19,7 +19,6 @@ app-emulation/docker
 app-emulation/docker-proxy
 app-emulation/fuse
 app-emulation/fuse-utils
-app-emulation/vagrant
 app-emulation/virtualbox
 app-emulation/virtualbox-modules
 app-eselect/eselect-infinality
@@ -52,7 +51,6 @@ app-text/dvipsk
 app-text/enchant
 app-text/html2text
 app-text/hunspell
-app-text/pandoc
 app-text/stardict
 app-text/texlive
 app-text/tree

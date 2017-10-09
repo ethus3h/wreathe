@@ -8,6 +8,12 @@ dev-ml/lablgtk -examples
 # Requires nonfree dev-tex/tth
 x11-libs/gl2ps -doc
 
+# Requires nonfree app-i18n/man-pages-da
+sys-apps/man-pages -l10n_da
+
+# Requires nonfree media-fonts/kochi-substitute
+app-text/ghostscript-gpl -l10n_ja
+
 # Use cec results in broken build
 media-tv/kodi -cec
 
