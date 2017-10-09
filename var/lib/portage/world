@@ -7,8 +7,7 @@ app-arch/par2cmdline
 app-doc/cldr
 app-doc/doxygen
 app-doc/ember-web-site
-app-doc/emoji
-app-doc/emoji:4.0
+app-doc/emoji:0
 app-doc/ucd
 app-doc/unicode
 app-doc/unicode-docs
