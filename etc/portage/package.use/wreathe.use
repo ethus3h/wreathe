@@ -313,6 +313,7 @@ dev-libs/libconfig abi_x86_32
 dev-libs/libcroco abi_x86_32
 dev-libs/libedit abi_x86_32
 dev-libs/libev abi_x86_32
+dev-libs/libevent abi_x86_32
 dev-libs/libffi abi_x86_32
 dev-libs/libgcrypt abi_x86_32
 dev-libs/libgpg-error abi_x86_32
@@ -346,6 +347,7 @@ gnome-base/librsvg abi_x86_32
 media-gfx/graphite2 abi_x86_32
 media-gfx/sane-backends abi_x86_32
 media-libs/a52dec abi_x86_32
+media-libs/aalib abi_x86_32
 media-libs/alsa-lib abi_x86_32
 media-libs/audiofile abi_x86_32
 media-libs/celt abi_x86_32
@@ -371,6 +373,7 @@ media-libs/ladspa-sdk abi_x86_32
 media-libs/lcms abi_x86_32
 media-libs/libass abi_x86_32
 media-libs/libbluray abi_x86_32
+media-libs/libcaca abi_x86_32
 media-libs/libcuefile abi_x86_32
 media-libs/libdc1394 abi_x86_32
 media-libs/libdca abi_x86_32
@@ -478,6 +481,7 @@ media-video/rtmpdump abi_x86_32
 media-video/simplescreenrecorder abi_x86_32
 net-dns/avahi abi_x86_32
 net-dns/libidn2 abi_x86_32
+net-dns/unbound abi_x86_32
 net-fs/samba abi_x86_32
 net-libs/glib-networking abi_x86_32
 net-libs/gnutls abi_x86_32
@@ -486,13 +490,7 @@ net-libs/libpcap abi_x86_32
 net-libs/libproxy abi_x86_32
 net-libs/libsoup abi_x86_32
 net-libs/libssh abi_x86_32
-dev-libs/libevent abi_x86_32
-net-dns/unbound abi_x86_32
 net-libs/libtirpc abi_x86_32
-sys-devel/flex abi_x86_32
-sys-libs/cracklib abi_x86_32
-sys-libs/pam abi_x86_32
-virtual/pam abi_x86_32
 net-libs/libtirpc abi_x86_32
 net-libs/rest abi_x86_32
 net-libs/socket_wrapper abi_x86_32
@@ -507,9 +505,11 @@ sys-apps/systemd abi_x86_32
 sys-apps/tcp-wrappers abi_x86_32
 sys-apps/util-linux abi_x86_32
 sys-devel/clang abi_x86_32
+sys-devel/flex abi_x86_32
 sys-devel/gettext abi_x86_32
 sys-devel/llvm abi_x86_32
 sys-libs/binutils-libs abi_x86_32
+sys-libs/cracklib abi_x86_32
 sys-libs/db abi_x86_32
 sys-libs/e2fsprogs-libs abi_x86_32
 sys-libs/gdbm abi_x86_32
@@ -521,13 +521,11 @@ sys-libs/libraw1394 abi_x86_32
 sys-libs/ncurses abi_x86_32
 sys-libs/nss_wrapper abi_x86_32
 sys-libs/ntdb abi_x86_32
+sys-libs/pam abi_x86_32
 sys-libs/readline abi_x86_32
 sys-libs/talloc abi_x86_32
 sys-libs/tdb abi_x86_32
 sys-libs/tevent abi_x86_32
-x11-libs/tslib abi_x86_32
-media-libs/aalib abi_x86_32
-media-libs/libcaca abi_x86_32
 sys-libs/uid_wrapper abi_x86_32
 sys-libs/zlib abi_x86_32
 virtual/acl abi_x86_32
@@ -547,6 +545,7 @@ virtual/libusb abi_x86_32
 virtual/mysql abi_x86_32
 virtual/opencl abi_x86_32
 virtual/opengl abi_x86_32
+virtual/pam abi_x86_32
 virtual/pkgconfig abi_x86_32
 x11-libs/cairo abi_x86_32
 x11-libs/gdk-pixbuf abi_x86_32
@@ -583,6 +582,7 @@ x11-libs/libXvMC abi_x86_32
 x11-libs/libXxf86vm abi_x86_32
 x11-libs/pango abi_x86_32
 x11-libs/pixman abi_x86_32
+x11-libs/tslib abi_x86_32
 x11-misc/colord abi_x86_32
 x11-proto/compositeproto abi_x86_32
 x11-proto/damageproto abi_x86_32
