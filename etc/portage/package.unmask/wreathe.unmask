@@ -1,3 +1,6 @@
+# Until Wreathe upgraded to GCC5
+=sys-devel/binutils-2.26.1
+
 # Until it is removed from Gentoo's package.mask
 www-plugins/lightspark
 www-plugins/gnash
