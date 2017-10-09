@@ -51,6 +51,7 @@ dev-haskell/stm ~amd64
 dev-haskell/monad-control ~amd64
 dev-haskell/transformers-base ~amd64
 dev-haskell/aeson ~amd64
+dev-haskell/wai-extra ~amd64
 
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
