@@ -6,5 +6,26 @@
             "/usr/lib64/libhunspell-1.3.so.0.0.0", 
             "/usr/lib64/libhunspell-1.3.so.0"
         ]
+    ], 
+    "dev-haskell/aeson:0": [
+        "dev-haskell/aeson-1.0.2.1", 
+        "15893", 
+        [
+            "/usr/lib64/aeson-0.9.0.1/ghc-7.10.3/libHSaeson-0.9.0.1-CdUwo7y4mCH93hDNCZuk7P-ghc7.10.3.so"
+        ]
+    ], 
+    "dev-haskell/attoparsec:0": [
+        "dev-haskell/attoparsec-0.13.1.0", 
+        "15892", 
+        [
+            "/usr/lib64/attoparsec-0.13.0.1/ghc-7.10.3/libHSattoparsec-0.13.0.1-5OcDi3oNQ7CLJe1LHqPBQm-ghc7.10.3.so"
+        ]
+    ], 
+    "dev-haskell/scientific:0": [
+        "dev-haskell/scientific-0.3.4.9", 
+        "15888", 
+        [
+            "/usr/lib64/scientific-0.3.3.8/ghc-7.10.3/libHSscientific-0.3.3.8-Ac9ewSFZzaiJXTSrehvPMQ-ghc7.10.3.so"
+        ]
     ]
 }

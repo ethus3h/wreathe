@@ -2,6 +2,9 @@ dev-libs/efl -gles
 # Use firmware blobs until I can use wi-fi without it
 sys-kernel/wreathe-kernel compile firmware
 
+# Requires nonfree dev-tex/tth
+x11-libs/gl2ps -doc
+
 # Use cec results in broken build
 media-tv/kodi -cec
 
@@ -61,6 +64,7 @@ dev-java/icu4j -doc
 dev-java/libreadline-java -doc
 dev-java/rxtx -doc
 dev-ml/lwt -doc
+=dev-texlive/texlive-basic-2016 -luajittex
 dev-python/clint -examples
 dev-python/logilab-common -doc
 dev-python/pillow -doc
