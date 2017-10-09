@@ -2,6 +2,9 @@ dev-libs/efl -gles
 # Use firmware blobs until I can use wi-fi without it
 sys-kernel/wreathe-kernel compile firmware
 
+# Examples don't have a normal libre license
+dev-ml/lablgtk -examples
+
 # Requires nonfree dev-tex/tth
 x11-libs/gl2ps -doc
 
