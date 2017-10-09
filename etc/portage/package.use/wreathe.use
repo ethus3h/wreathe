@@ -100,6 +100,7 @@ dev-libs/libcec cubox exynos raspberry-pi
 dev-python/ipython nbconvert notebook
 dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
 media-libs/mesa d3d9 gles1 gles2 xa
+media-libs/xine-lib vdr
 media-tv/kodi webserver
 net-analyzer/nmap nping
 net-misc/plowshare view-captcha
