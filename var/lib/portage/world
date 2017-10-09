@@ -65,9 +65,11 @@ dev-dotnet/googlemaps-locationservices
 dev-dotnet/ilspy
 dev-dotnet/libgdiplus
 dev-haskell/aeson
+dev-haskell/aeson-pretty
 dev-haskell/attoparsec
 dev-haskell/base-compat
 dev-haskell/c2hs
+dev-haskell/conduit-extra
 dev-haskell/connection
 dev-haskell/cpphs
 dev-haskell/fail
@@ -86,6 +88,8 @@ dev-haskell/wai-extra
 dev-haskell/x509
 dev-haskell/x509-store
 dev-haskell/x509-system
+dev-haskell/xml-conduit
+dev-haskell/yaml
 dev-java/ant-javamail
 dev-java/icedtea:8
 dev-java/oracle-javamail
@@ -177,6 +181,7 @@ dev-tex/xmltex
 dev-util/android-tools
 dev-util/cloc
 dev-util/xxdiff
+dev-vcs/darcs
 games-roguelike/behemmoth
 games-simulation/openttd
 kde-apps/dolphin

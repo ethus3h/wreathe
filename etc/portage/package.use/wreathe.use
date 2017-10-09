@@ -64,7 +64,6 @@ dev-java/icu4j -doc
 dev-java/libreadline-java -doc
 dev-java/rxtx -doc
 dev-ml/lwt -doc
-=dev-texlive/texlive-basic-2016 -luajittex
 dev-python/clint -examples
 dev-python/logilab-common -doc
 dev-python/pillow -doc
