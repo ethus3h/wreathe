@@ -1,12 +1,1 @@
-{
-    "media-gfx/imagemagick:0": [
-        "media-gfx/imagemagick-6.9.9.0", 
-        "15756", 
-        [
-            "/usr/lib64/libMagickCore-6.Q16HDRI.so.3.0.0", 
-            "/usr/lib64/libMagickWand-6.Q16HDRI.so.3.0.0", 
-            "/usr/lib64/libMagickCore-6.Q16HDRI.so.3", 
-            "/usr/lib64/libMagickWand-6.Q16HDRI.so.3"
-        ]
-    ]
-}
+{}
