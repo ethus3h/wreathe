@@ -49,7 +49,9 @@ app-shells/looptest
 app-text/aspell
 app-text/convertlit
 app-text/dvipng
+app-text/enchant
 app-text/html2text
+app-text/hunspell
 app-text/jadetex
 app-text/libgxps
 app-text/pandoc
@@ -176,6 +178,7 @@ kde-frameworks/khtml
 kde-frameworks/nepomuk
 kde-frameworks/nepomuk-core
 kde-frameworks/nepomuk-widgets
+kde-frameworks/sonnet
 mail-client/thunderbird
 media-fonts/firacode
 media-fonts/infinality-ultimate-meta
@@ -370,6 +373,7 @@ x11-plugins/moz-ext-wayback-machine
 x11-plugins/moz-ext-zoom-page
 x11-terms/x026
 x11-terms/x3270
+x11-themes/qtstyleplugins
 x11-wm/compiz
 x11-wm/emerald
 x11-wm/openbox
