@@ -255,6 +255,7 @@ sys-apps/portage
 sys-apps/renameutils
 sys-cluster/openmpi
 sys-devel/binutils
+sys-devel/binutils:2.26.1
 sys-devel/crossdev
 sys-devel/gcc:4.9.4
 sys-fs/dosfstools
