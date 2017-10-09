@@ -20,12 +20,5 @@
         [
             "/usr/lib64/scientific-0.3.3.8/ghc-7.10.3/libHSscientific-0.3.3.8-Ac9ewSFZzaiJXTSrehvPMQ-ghc7.10.3.so"
         ]
-    ], 
-    "dev-haskell/streaming-commons:0": [
-        "dev-haskell/streaming-commons-0.1.16", 
-        "15898", 
-        [
-            "/usr/lib64/streaming-commons-0.1.12.1/ghc-7.10.3/libHSstreaming-commons-0.1.12.1-7RC0GNAo0sJDFysEa6fRWj-ghc7.10.3.so"
-        ]
     ]
 }
