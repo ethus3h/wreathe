@@ -51,8 +51,11 @@ app-text/dvipsk
 app-text/enchant
 app-text/html2text
 app-text/hunspell
+app-text/poppler
+app-text/ps2pkm
 app-text/stardict
 app-text/texlive
+app-text/texlive-core
 app-text/tree
 app-text/wgetpaste
 dev-db/postgresql
@@ -79,11 +82,16 @@ dev-python/oct2py
 dev-python/pandas
 dev-python/polyglot
 dev-python/pytables
+dev-python/requests
 dev-python/sabyenc
 dev-python/sympy
 dev-python/xvfbwrapper
 dev-qt/assistant
 dev-qt/designer
+dev-qt/qtcore:4
+dev-qt/qtgui:4
+dev-qt/qtscript:4
+dev-qt/qttranslations:4
 dev-ruby/polyglot
 dev-ruby/treetop
 dev-tex/bibtexu
@@ -98,6 +106,7 @@ kde-apps/dolphin
 kde-apps/dolphin:4
 kde-apps/kfilereplace
 kde-apps/konsole
+kde-apps/kwave
 mail-client/thunderbird
 media-fonts/firacode
 media-fonts/infinality-ultimate-meta
@@ -158,6 +167,7 @@ net-misc/taylor-uucp
 net-misc/yacy
 net-misc/youtube-dl
 net-nntp/sabnzbd
+net-print/cups-filters
 net-wireless/gnuradio
 sci-libs/scipy
 sci-mathematics/form
@@ -177,6 +187,7 @@ sys-kernel/linux-firmware
 sys-kernel/wreathe-kernel
 sys-libs/glibc
 sys-libs/libomp
+sys-libs/zlib
 sys-process/parallel
 trinity-apps/kfouleggs
 trinity-base/amor
