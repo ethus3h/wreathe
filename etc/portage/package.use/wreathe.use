@@ -17,9 +17,10 @@ app-text/ghostscript-gpl -l10n_ja
 # Use cec results in broken build
 media-tv/kodi -cec
 
-# Can only have one of gles2 or opengl.
+# Can only have one of gles2/egl or opengl.
 media-libs/gst-plugins-bad -gles2
 net-libs/webkit-gtk -gles2
+dev-libs/efl -egl
 
 # Install these Mozilla addons for Thunderbird as well as Firefox
 x11-plugins/moz-ext-dom-inspector-plus-dm thunderbird
