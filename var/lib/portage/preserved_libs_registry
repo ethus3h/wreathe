@@ -1,7 +1,7 @@
 {
     "app-text/hunspell:0": [
         "app-text/hunspell-1.6.1-r1", 
-        "15866", 
+        "16154", 
         [
             "/usr/lib64/libhunspell-1.3.so.0.0.0", 
             "/usr/lib64/libhunspell-1.3.so.0"
@@ -27,6 +27,64 @@
         "15888", 
         [
             "/usr/lib64/scientific-0.3.3.8/ghc-7.10.3/libHSscientific-0.3.3.8-Ac9ewSFZzaiJXTSrehvPMQ-ghc7.10.3.so"
+        ]
+    ], 
+    "dev-libs/libzip:0": [
+        "dev-libs/libzip-1.3.0", 
+        "16162", 
+        [
+            "/usr/lib64/libzip.so.4.0.0", 
+            "/usr/lib64/libzip.so.4"
+        ]
+    ], 
+    "media-libs/glew:0": [
+        "media-libs/glew-1.13.0", 
+        "16277", 
+        [
+            "/usr/lib64/libGLEW.so.1.10.0", 
+            "/usr/lib64/libGLEW.so.1.10"
+        ]
+    ], 
+    "media-libs/jasper:0": [
+        "media-libs/jasper-2.0.12", 
+        "16309", 
+        [
+            "/usr/lib64/libjasper.so.1.0.0", 
+            "/usr/lib64/libjasper.so.1"
+        ]
+    ], 
+    "media-libs/x264:0": [
+        "media-libs/x264-0.0.20160712", 
+        "16220", 
+        [
+            "/usr/lib32/libx264.so.142", 
+            "/usr/lib64/libx264.so.142"
+        ]
+    ], 
+    "media-libs/x265:0": [
+        "media-libs/x265-2.2", 
+        "16317", 
+        [
+            "/usr/lib32/libx265.so.68", 
+            "/usr/lib64/libx265.so.68"
+        ]
+    ], 
+    "net-libs/gnutls:0": [
+        "net-libs/gnutls-3.5.13", 
+        "16251", 
+        [
+            "/usr/lib32/libgnutls.so.28.43.0", 
+            "/usr/lib64/libgnutls.so.28.43.0", 
+            "/usr/lib64/libgnutls.so.28", 
+            "/usr/lib32/libgnutls.so.28"
+        ]
+    ], 
+    "sci-geosciences/gpsd:0": [
+        "sci-geosciences/gpsd-3.16", 
+        "16285", 
+        [
+            "/usr/lib64/libgps.so.21.0.0", 
+            "/usr/lib64/libgps.so.21"
         ]
     ], 
     "sys-libs/binutils-libs:0": [
