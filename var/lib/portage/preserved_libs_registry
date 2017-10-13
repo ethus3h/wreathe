@@ -28,5 +28,12 @@
         [
             "/usr/lib64/scientific-0.3.3.8/ghc-7.10.3/libHSscientific-0.3.3.8-Ac9ewSFZzaiJXTSrehvPMQ-ghc7.10.3.so"
         ]
+    ], 
+    "sys-libs/binutils-libs:0": [
+        "sys-libs/binutils-libs-2.28.1", 
+        "16145", 
+        [
+            "/usr/lib64/libbfd-2.27.so"
+        ]
     ]
 }
