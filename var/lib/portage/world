@@ -12,6 +12,7 @@ app-doc/phrack-all
 app-doc/ucd
 app-doc/unicode
 app-doc/unicode-docs
+app-editors/dhex
 app-editors/emacs
 app-editors/ghex
 app-editors/kile
