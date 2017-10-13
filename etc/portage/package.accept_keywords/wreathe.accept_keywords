@@ -465,6 +465,7 @@ sci-mathematics/form ~amd64
 sci-mathematics/freemat ~amd64
 sci-mathematics/octave-epstk ~amd64
 sys-apps/hwloc ~amd64
+sys-apps/init-system-helpers ~amd64
 sys-apps/smartmontools ~amd64
 sys-block/open-isns ~amd64
 sys-cluster/openmpi ~amd64
