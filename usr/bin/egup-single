@@ -3,7 +3,7 @@
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
 
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 # set -x
 
 if [[ "$1" == "--offline" ]]; then
@@ -57,7 +57,7 @@ while [[ "$status" != "completed" ]]; do
     git add -A || die "Error adding tag changes."
     trap - ERR
     git commit -a -m "Update Ember tree" || true
-    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+    trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
     if [[ "$offline" != "true" ]]; then
         git pull --all || die "Error pulling."

@@ -3,7 +3,7 @@
 source ember_bash_setup &> /dev/null
 # set -x
 
-trap 'elex; die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+trap 'elex; die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
 egupCmd="egup"
 if [[ "$1" == "--offline" ]]; then
