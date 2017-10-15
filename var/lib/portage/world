@@ -113,6 +113,7 @@ kde-apps/dolphin
 kde-apps/dolphin:4
 kde-apps/kfilereplace
 kde-apps/konsole
+kde-apps/ktnef
 kde-apps/kwave
 kde-frameworks/knotifications
 kde-frameworks/kwallet
@@ -224,7 +225,6 @@ www-apps/mediawiki
 www-apps/owncloud
 www-apps/wordpress
 www-client/firefox
-www-client/firefox-bin
 www-plugins/adobe-flash
 www-plugins/freshplayerplugin
 www-plugins/gnash
