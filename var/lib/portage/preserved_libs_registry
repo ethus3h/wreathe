@@ -61,14 +61,6 @@
             "/usr/lib64/libx264.so.142"
         ]
     ], 
-    "media-libs/x265:0": [
-        "media-libs/x265-2.2", 
-        "16317", 
-        [
-            "/usr/lib32/libx265.so.68", 
-            "/usr/lib64/libx265.so.68"
-        ]
-    ], 
     "net-libs/gnutls:0": [
         "net-libs/gnutls-3.5.13", 
         "16251", 

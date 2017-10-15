@@ -209,6 +209,7 @@ sys-libs/glibc
 sys-libs/libomp
 sys-libs/zlib
 sys-process/parallel
+sys-process/ts
 trinity-apps/kfouleggs
 trinity-base/amor
 trinity-base/arts
