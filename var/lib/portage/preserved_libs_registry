@@ -37,6 +37,14 @@
             "/usr/lib64/libzip.so.4"
         ]
     ], 
+    "kde-frameworks/kdelibs:4": [
+        "kde-frameworks/kdelibs-4.14.34", 
+        "16491", 
+        [
+            "/usr/lib64/libkdewebkit.so.5.14.34", 
+            "/usr/lib64/libkdewebkit.so.5"
+        ]
+    ], 
     "media-libs/glew:0": [
         "media-libs/glew-1.13.0", 
         "16277", 

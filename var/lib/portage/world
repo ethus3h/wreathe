@@ -190,6 +190,7 @@ net-misc/youtube-dl
 net-nntp/sabnzbd
 net-print/cups-filters
 net-wireless/gnuradio
+net-wireless/wpa_supplicant
 sci-libs/scipy
 sci-mathematics/form
 sys-apps/hwinfo
