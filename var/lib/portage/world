@@ -184,6 +184,7 @@ net-misc/icecast
 net-misc/jdownloader
 net-misc/nitroshare
 net-misc/plowshare
+net-misc/pyload
 net-misc/taylor-uucp
 net-misc/yacy
 net-misc/youtube-dl
@@ -231,12 +232,15 @@ www-plugins/freshplayerplugin
 www-plugins/gnash
 www-plugins/lightspark
 www-plugins/mozplugger
+x11-apps/compiz-boxmenu
+x11-apps/compiz-manager
 x11-apps/xkill
 x11-libs/bamf
 x11-libs/cairo
 x11-libs/gtk+:2
 x11-misc/cairo-dock
 x11-misc/ccsm
+x11-misc/compiz-debug-utils
 x11-misc/gtk3-nocsd
 x11-misc/keynav
 x11-misc/obkey
@@ -247,6 +251,10 @@ x11-misc/xcb
 x11-misc/xcur2png
 x11-misc/xvfb-run
 x11-misc/xvisbell
+x11-plugins/compicc
+x11-plugins/compiz-extra-snowflake-textures
+x11-plugins/compiz-plugins-community
+x11-plugins/compiz-plugins-experimental
 x11-plugins/compiz-plugins-meta
 x11-plugins/moz-ext-2-2-pane-bookmarks
 x11-plugins/moz-ext-abduction-fixed
@@ -312,5 +320,6 @@ x11-terms/x3270
 x11-themes/ethemes
 x11-themes/qtstyleplugins
 x11-wm/compiz
+x11-wm/compiz-meta
 x11-wm/emerald
 x11-wm/openbox
