@@ -86,6 +86,7 @@ dev-python/pytables
 dev-python/requests
 dev-python/sabyenc
 dev-python/sympy
+dev-python/thrift
 dev-python/xvfbwrapper
 dev-qt/assistant
 dev-qt/designer
