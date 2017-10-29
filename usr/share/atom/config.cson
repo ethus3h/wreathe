@@ -2,7 +2,6 @@
   "Sublime-Style-Column-Selection":
     selectKeyTrigger: "Ctrl"
   core:
-    autoHideMenuBar: true
     customFileTypes:
       "source.shell": [
         "ebuild"
