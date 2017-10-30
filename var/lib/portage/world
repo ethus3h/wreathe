@@ -199,6 +199,7 @@ sys-apps/hwinfo
 sys-apps/lshw
 sys-apps/portage
 sys-apps/renameutils
+sys-boot/efibootmgr
 sys-cluster/openmpi
 sys-devel/binutils
 sys-devel/crossdev
