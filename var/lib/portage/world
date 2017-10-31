@@ -74,6 +74,7 @@ dev-perl6/zef
 dev-php/ZendFramework
 dev-python/PyQt4
 dev-python/PyQt5
+dev-python/compizconfig-python
 dev-python/eyeD3
 dev-python/internetarchive
 dev-python/ipython
@@ -240,6 +241,7 @@ x11-apps/fusion-icon
 x11-apps/xkill
 x11-libs/bamf
 x11-libs/cairo
+x11-libs/compiz-bcop
 x11-libs/gtk+:2
 x11-libs/libcompizconfig
 x11-misc/cairo-dock
@@ -251,6 +253,7 @@ x11-misc/obkey
 x11-misc/read-edid
 x11-misc/run-scaled
 x11-misc/sddm
+x11-misc/simple-ccsm
 x11-misc/xcb
 x11-misc/xcur2png
 x11-misc/xvfb-run
