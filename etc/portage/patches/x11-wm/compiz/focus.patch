@@ -1,23 +1,23 @@
 diff --git a/include/compiz-core.h b/include/compiz-core.h
-index 7db648b..146c74e 100644
+index 244be33b..e1d6d81d 100644
 --- a/include/compiz-core.h
 +++ b/include/compiz-core.h
-@@ -1691,9 +1691,10 @@ disableTexture (CompScreen  *screen,
- #define COMP_SCREEN_OPTION_OVERLAPPING_OUTPUTS	  11
- #define COMP_SCREEN_OPTION_FOCUS_PREVENTION_LEVEL 12
- #define COMP_SCREEN_OPTION_FOCUS_PREVENTION_MATCH 13
--#define COMP_SCREEN_OPTION_TEXTURE_COMPRESSION	  14
--#define COMP_SCREEN_OPTION_FORCE_INDEPENDENT      15
--#define COMP_SCREEN_OPTION_NUM		          16
-+#define COMP_SCREEN_OPTION_INVERTED_FOCUS_PREVENTION_LEVEL 14
-+#define COMP_SCREEN_OPTION_TEXTURE_COMPRESSION	  15
-+#define COMP_SCREEN_OPTION_FORCE_INDEPENDENT      16
-+#define COMP_SCREEN_OPTION_NUM		          17
+@@ -1690,9 +1690,10 @@ disableTexture (CompScreen  *screen,
+ #define COMP_SCREEN_OPTION_OVERLAPPING_OUTPUTS	  10
+ #define COMP_SCREEN_OPTION_FOCUS_PREVENTION_LEVEL 11
+ #define COMP_SCREEN_OPTION_FOCUS_PREVENTION_MATCH 12
+-#define COMP_SCREEN_OPTION_TEXTURE_COMPRESSION	  13
+-#define COMP_SCREEN_OPTION_FORCE_INDEPENDENT      14
+-#define COMP_SCREEN_OPTION_NUM		          15
++#define COMP_SCREEN_OPTION_INVERTED_FOCUS_PREVENTION_LEVEL 13
++#define COMP_SCREEN_OPTION_TEXTURE_COMPRESSION	  14
++#define COMP_SCREEN_OPTION_FORCE_INDEPENDENT      15
++#define COMP_SCREEN_OPTION_NUM		          16
  
  #ifndef GLX_EXT_texture_from_pixmap
  #define GLX_BIND_TO_TEXTURE_RGB_EXT        0x20D0
 diff --git a/metadata/core.xml.in.in b/metadata/core.xml.in.in
-index 228fd25..0036845 100644
+index 228fd253..f47a997e 100644
 --- a/metadata/core.xml.in.in
 +++ b/metadata/core.xml.in.in
 @@ -315,6 +315,33 @@
@@ -55,10 +55,10 @@ index 228fd25..0036845 100644
  	    <option name="unredirect_fullscreen_windows" type="bool">
  		<_short>Unredirect Fullscreen Windows</_short>
 diff --git a/src/screen.c b/src/screen.c
-index 5036cc3..6e70115 100644
+index baea4036..cac4d531 100644
 --- a/src/screen.c
 +++ b/src/screen.c
-@@ -705,6 +705,9 @@ const CompMetadataOptionInfo coreScreenOptionInfo[COMP_SCREEN_OPTION_NUM] = {
+@@ -704,6 +704,9 @@ const CompMetadataOptionInfo coreScreenOptionInfo[COMP_SCREEN_OPTION_NUM] = {
      { "focus_prevention_level", "int",
        RESTOSTRING (0, FOCUS_PREVENTION_LEVEL_LAST), 0, 0 },
      { "focus_prevention_match", "match", 0, 0, 0 },
@@ -69,10 +69,10 @@ index 5036cc3..6e70115 100644
      { "force_independent_output_painting", "bool", 0, 0, 0 }
  };
 diff --git a/src/window.c b/src/window.c
-index 47404a3..087a669 100644
+index 487196c9..d628bcb2 100644
 --- a/src/window.c
 +++ b/src/window.c
-@@ -5109,21 +5109,47 @@ isWindowFocusAllowed (CompWindow   *w,
+@@ -5103,21 +5103,47 @@ isWindowFocusAllowed (CompWindow   *w,
      CompDisplay  *d = w->screen->display;
      CompScreen   *s = w->screen;
      CompWindow   *active;
@@ -128,7 +128,7 @@ index 47404a3..087a669 100644
  	return FALSE;
  
      active = findWindowAtDisplay (d, d->activeWindow);
-@@ -5136,7 +5162,7 @@ isWindowFocusAllowed (CompWindow   *w,
+@@ -5130,7 +5156,7 @@ isWindowFocusAllowed (CompWindow   *w,
      if (w->clientLeader == active->clientLeader)
  	return TRUE;
  
@@ -137,7 +137,7 @@ index 47404a3..087a669 100644
  	return FALSE;
  
      /* not in current viewport or desktop */
-@@ -5151,7 +5177,7 @@ isWindowFocusAllowed (CompWindow   *w,
+@@ -5145,7 +5171,7 @@ isWindowFocusAllowed (CompWindow   *w,
      {
  	/* unsure as we have nothing to compare - allow focus in low level,
  	   don't allow in normal level */
