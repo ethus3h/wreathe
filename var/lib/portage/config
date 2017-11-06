@@ -58,20 +58,19 @@
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-staticswitcher.diff c79c36f6cecc3c262b85854bf8e59335
 /etc/ssl/certs/Certum_Trusted_Network_CA_2.pem 4108df4ce109376975b21ab55abcdb87
 /etc/ssl/certs/DigiCert_Assured_ID_Root_G2.pem bdd20553ac49e07e49cb13e9307d1e2e
-/etc/conf.d/xdm d4fb606e98a5fe795687bd3e0c8971e0
 /etc/ssl/certs/ACCVRAIZ1.pem c200f72fe6411559146e7ea1bc3f9d40
 /etc/ssl/certs/Starfield_Class_2_CA.pem 64b0ab09e69fafa74e1d5a8225d2b6e1
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-toggledeco.diff 19e162e14e2560712de0a09d67ae5b28
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-scalefilter.diff f4e33f7da11890680fcde19784f17e78
+/etc/init.d/twistd 6faec3285194aa705dae0dcbfcd8582c
 /etc/ssl/certs/CFCA_EV_ROOT.pem 42a0007979799d082e3fb6109f83118f
 /etc/ssl/certs/Hellenic_Academic_and_Research_Institutions_RootCA_2015.pem c912e18ff042b96985892d1539fb058d
 /etc/ssl/certs/DST_Root_CA_X3.pem 8a7dff7c2afc95124159fd9b73de2fe2
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-shift.diff 7c669de6ea349de8dd68e55fb1a0f2c1
 /etc/ssl/certs/Security_Communication_Root_CA.pem 5b20683c745c3039cfa03f08f912f088
-/usr/local/etc/crystallize.conf f434cc02ea01637b4b0651fa1dc9b508
+/usr/local/etc/crystallize.conf f2c3a83cfb5723bb27578510ba1d0783
 /etc/hosts 4a50bf3f42b9ef0db5c38937d49e7184
 /etc/ssl/certs/TÜRKTRUST_Elektronik_Sertifika_Hizmet_Sağlayıcısı_H5.pem a56de86ef2aaa85de6b551f851faba5c
-/etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25n5 0c2fb0146d4acfc1c62aaf4047301b3b
 /etc/ssl/certs/DigiCert_High_Assurance_EV_Root_CA.pem 592b3d80381c08cdeb9b49dbb6aa8fb5
 /etc/ssl/certs/Chambers_of_Commerce_Root_-_2008.pem d8975fa5b223a12bd53ca4815d1a381d
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-snow.diff e74dc7506b502350010c94f7ef4a0c48
@@ -92,6 +91,7 @@
 /etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Aug28 14f37c401feca7c945866a3c1ee80592
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/defaults-wizard.diff 511f585270bde531b6566b0ab2ccc319
 /etc/portage/repos.conf/layman.conf d2431a882f889a424b55f33703e61b42
+/etc/ssl/certs/Comodo_Secure_Services_root.pem 8746a85722f51fc0a1bb3a0a677d938c
 /etc/portage/patches/net-misc/dahdi/0001-signal_pending-is-now-in-linux-sched-signal.h-includ.patch 1eec83a64c4ed2ac32bd47e2bc2f68b1
 /etc/pulse/daemon.conf 8fbe3a076107b02024bbf66f2f255df3
 /etc/ssl/certs/ISRG_Root_X1.pem d059a617ae92d0a2c81725b110f4794b
@@ -103,7 +103,6 @@
 /etc/fonts/conf.d/10-sub-pixel-rgb.conf e7a61350940a942fd0fa400113ea0afa
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.openweathermap.maps.patch aa16dd8b2eed59abd160d2fa58c9d122
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1wreathe-7.3-2016aug04n2 b45ab8b73640a2c345506fd57c5e385b
-/etc/ssl/certs/Entrust_Root_Certification_Authority_-_G2.pem 4e30fafb7dd97c940b82dcaa380ceb57
 /etc/grub.d/40_custom babe7de352fe18de5a238569cf4b8a11
 /etc/portage/patches/x11-plugins/compiz-plugins-main/revert-kde-integration-removal-2017apr24n3.patch e1c24b7556b0563a10cf6cb62f31010a
 /etc/ssl/certs/SZAFIR_ROOT_CA2.pem 7a26b19a12dfbef24442e045367f732c
@@ -118,7 +117,7 @@
 /etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25 ccb50c962547ab6f45845f4cad3520be
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016june14n3 e6c06b715b32f59e9039ec19f948f8df
 /etc/ssl/certs/CA_Disig_Root_R2.pem c8aa52f9cdcb56d1fd29c95580c316ea
-/etc/ssl/certs/CA_Disig_Root_R1.pem 9aa4a918167594ef2fecebd7e0ee499d
+/etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25n5 0c2fb0146d4acfc1c62aaf4047301b3b
 /etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25n4 0e303fd207834e306bbb0e3f51f2da61
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/include-sample-clouds_2048-jpg.patch 2d2d6052d17cd587debb3be6b4b9d6b8
 /etc/fonts/conf.avail/66-lohit-bengali.conf 1c6683aa49b9efec57b0bd0d518f6a01
@@ -162,7 +161,7 @@
 /etc/ssl/certs/Buypass_Class_3_Root_CA.pem f58e311f1a850eb64d4a7fa1dd6abeeb
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-ezoom.diff a45c3d3d23023a9bddb3121fb94d1d07
 /etc/ssl/certs/OISTE_WISeKey_Global_Root_GB_CA.pem 49f31d30e251f83441efb2f2a74afee0
-/etc/ssl/certs/Comodo_Secure_Services_root.pem 8746a85722f51fc0a1bb3a0a677d938c
+/etc/ssl/certs/Entrust_Root_Certification_Authority_-_G2.pem 4e30fafb7dd97c940b82dcaa380ceb57
 /etc/ssl/certs/Swisscom_Root_CA_2.pem 721cb84bc0d7a0c9a2051dccd3dcc4ae
 /etc/conf.d/keymaps c8fa9256b5a7b70c4dd473c6062b2739
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1wreathe-7.3-2016aug04 34f3b56cb4c0798720e97071ad597987
@@ -172,7 +171,7 @@
 /etc/ssl/certs/QuoVadis_Root_CA_1_G3.pem 398263da0ed4b64203df9aba855f3669
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.module.metahandler.patch 3a9ceab81800fa82077786cb8834df4e
 /etc/fonts/conf.d/49-sansserif.conf c0871822490b68e0b7f87e4abcd08157
-/etc/ssl/certs/AffirmTrust_Commercial.pem 7f8a7f6e7409be1d166e39465832d69e
+/etc/ssl/certs/COMODO_Certification_Authority.pem 0c48822c6ffbb8c5b927d65dee9bcc3c
 /etc/ssl/certs/Secure_Global_CA.pem 574f99a012e042188bb5caefc1313ff7
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-scaleaddon.diff 62d7b0d81650ca278a3a2301f6b865dd
 /etc/ssl/certs/Deutsche_Telekom_Root_CA_2.pem aaa85a416a60d52e1816c983c090b05c
@@ -217,7 +216,7 @@
 /etc/ssl/certs/GeoTrust_Global_CA.pem d7adb1eb339ac5951c7d170252bb041e
 /etc/ssl/certs/XRamp_Global_CA_Root.pem db5fcb521ec254de5178205cda03159c
 /etc/ssl/certs/Entrust_Root_Certification_Authority_-_EC1.pem 26062e4f4e0f81862366c807ed9fe187
-/etc/ssl/certs/COMODO_Certification_Authority.pem 0c48822c6ffbb8c5b927d65dee9bcc3c
+/etc/conf.d/xdm d4fb606e98a5fe795687bd3e0c8971e0
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.common.plugin.cache.patch 5008551b6d2cbff356e43c827abd03f9
 /etc/ssl/certs/Go_Daddy_Class_2_CA.pem 166c4dc708a4bda954909e036147a89a
 /etc/conf.d/pydoc-3.4 ee3859fa958420fa1f435fd6205a6c23
@@ -258,7 +257,7 @@
 /etc/ssl/certs/AffirmTrust_Premium.pem 2ed33587fe11c4fd06b9f4cf61ecc77b
 /etc/fuse.conf c9457cf5b2196da67d5ac816d1c86a4f
 /etc/ssl/certs/VeriSign_Class_3_Public_Primary_Certification_Authority_-_G5.pem 6fdb72fad9f10f396eb6dd2946324037
-/etc/init.d/twistd 6faec3285194aa705dae0dcbfcd8582c
+/etc/ssl/certs/CA_Disig_Root_R1.pem 9aa4a918167594ef2fecebd7e0ee499d
 /etc/ssl/certs/Verisign_Class_1_Public_Primary_Certification_Authority_-_G3.pem 1f4bdb8c426778ae61b2af928c1f1bfa
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.module.urlresolver.patch 98edfa3b2801ae12b157d2dffe33417f
 /etc/kernels/kernel-config-x86_64-4.1.15-gentoo-r1-Wreathe-7.3-2016Aug06 3338ec2897be87b6b2389eebd8636a5b
@@ -266,6 +265,7 @@
 /etc/portage/patches/net-misc/dahdi/0002-atomic_read-refcount_read.patch 0ff8ffe4491b4f5a8e4babb74309dbae
 /etc/portage/patches/x11-plugins/compiz-plugins-extra/defaults-group.diff d8ee5363007aa39ae2154b2f66dedf7c
 /etc/portage/package.accept_keywords/wreathe.accept_keywords d8f47ab5bdad8f0cb0842590a31773f4
+/etc/ssl/certs/AffirmTrust_Commercial.pem 7f8a7f6e7409be1d166e39465832d69e
 /etc/ssh/sshd_config a8b9f550b3e4d5013b27bd60ff1a8454
 /etc/ssl/certs/Verisign_Class_3_Public_Primary_Certification_Authority_-_G3.pem 6f1a5e038bb47c12e91c2cf451456117
 /etc/ssl/certs/AffirmTrust_Networking.pem fac41554c562aa86d4e0ff95c615f645
