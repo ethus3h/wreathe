@@ -109,6 +109,7 @@ dev-util/xxdiff
 dev-vcs/darcs
 dev-vcs/git
 dev-vcs/subversion
+games-board/gnugo
 games-roguelike/behemmoth
 games-simulation/openttd
 kde-apps/dolphin
