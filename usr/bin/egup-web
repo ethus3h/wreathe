@@ -8,7 +8,7 @@ source ember_bash_setup &> /dev/null
     cd "$EmberLibrary"/Ember\ satellite\ projects/futuramerlin-web-toolkit || exit 1
     egup-single .
     cd "$EmberLibrary"/Ember/ember-web-site || exit 1
-    egup-single .
+    eogup-single .
     futuramerlin-web-toolkit-build
     egup-single .
 )
