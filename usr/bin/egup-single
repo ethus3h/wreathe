@@ -60,11 +60,11 @@ while [[ "$status" != "completed" ]]; do
     trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
     if [[ "$offline" != "true" ]]; then
-        git pull --all || die "Error pulling."
-        git submodule update --remote || warn "Error updating submodules. Maybe a remote server is down?"
+        retryUntilSuccess 100 30 5 5 git pull --all || die "Error pulling."
+        retryUntilSuccess 100 30 5 5 git submodule update --remote || warn "Error updating submodules. Maybe a remote server is down?"
         if ! [[ -f .egup.nopush ]]; then
-            git push --verbose --tags -u origin master || die "Error pushing changes."
-            git push --verbose --all -u origin || die "Error pushing changes."
+            retryUntilSuccess 100 30 5 5 git push --verbose --tags -u origin master || die "Error pushing changes."
+            retryUntilSuccess 100 30 5 5 git push --verbose --all -u origin || die "Error pushing changes."
         fi
     fi
     
