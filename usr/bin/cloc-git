@@ -8,7 +8,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 crystalWorkdir="$(crystallize-getconf WorkDirectory)"
 (
     cd "$crystalWorkdir" || exit 1
-    streamId="scache-$(date +%Y-%m-%d-%H-%M-%S-%N)-$(xxd -pu <<< "$(date +%z)")"
+    streamId="cloc-git-$(date +%Y-%m-%d-%H-%M-%S-%N)-$(xxd -pu <<< "$(date +%z)")"
     git clone --depth 1 "$1" "$streamId"
     cloc "$streamId"
     rm -rf "$streamId"
