@@ -36,6 +36,7 @@
 /etc/ssl/certs/Camerfirma_Chambers_of_Commerce_Root.pem 38c8f6fe20a19974348950d1ac28fd56
 /etc/ssl/certs/Entrust.net_Premium_2048_Secure_Server_CA.pem 3316b19f53a6d6bdf6f9004fa7c6547d
 /etc/php/cli-php5.6/php.ini 3d61341164393496855b310e951b4fbc
+/etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016june16 165be497cbab3ba5aeecb147a0fe4738
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016july10n3 e3447ff96606332af3d5b33083c0d829
 /etc/portage/patches/media-tv/kodi/default-enable-addon-script.module.addon.common.patch ee432874b9f1ac187496562ddc80a579
 /etc/ssl/certs/Starfield_Services_Root_Certificate_Authority_-_G2.pem 594ec24d6d10a9a3ec7ebf2c620fb436
@@ -68,7 +69,7 @@
 /etc/ssl/certs/DST_Root_CA_X3.pem 8a7dff7c2afc95124159fd9b73de2fe2
 /etc/portage/patches/x11-plugins/compiz-plugins-main/defaults-shift.diff 7c669de6ea349de8dd68e55fb1a0f2c1
 /etc/ssl/certs/Security_Communication_Root_CA.pem 5b20683c745c3039cfa03f08f912f088
-/usr/local/etc/crystallize.conf eae76738d86f6c5f28c233b954d60eab
+/usr/local/etc/crystallize.conf c13dbd55c00aecfe4d9617e831123160
 /etc/hosts 4a50bf3f42b9ef0db5c38937d49e7184
 /etc/ssl/certs/TÜRKTRUST_Elektronik_Sertifika_Hizmet_Sağlayıcısı_H5.pem a56de86ef2aaa85de6b551f851faba5c
 /etc/ssl/certs/DigiCert_High_Assurance_EV_Root_CA.pem 592b3d80381c08cdeb9b49dbb6aa8fb5
@@ -86,7 +87,6 @@
 /etc/ssl/certs/DigiCert_Trusted_Root_G4.pem f81693df5778d7d6286c6b9cecc75ce1
 /etc/ssl/certs/GlobalSign_Root_CA.pem 353298044724e9936f8937ca8dff1290
 /etc/ssl/certs/QuoVadis_Root_CA_2_G3.pem 81bad1fc3418d2780b53b61441d51907
-/etc/ssl/certs/CA_Disig_Root_R2.pem c8aa52f9cdcb56d1fd29c95580c316ea
 /etc/portage/make.conf c0ea81532b052cf945ae2b965a80a08e
 /etc/portage/package.use 8543086c63a9abe868db1b72f98e156a
 /etc/portage/package.env/wreathe.env 01bec451059d74824302581c4a6f6df7
@@ -119,7 +119,7 @@
 /etc/ssl/certs/CNNIC_ROOT.pem 4b07c437e35ea6d3986012fd910cc6a0
 /etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25 ccb50c962547ab6f45845f4cad3520be
 /etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016june14n3 e6c06b715b32f59e9039ec19f948f8df
-/etc/kernels/kernel-config-x86_64-4.4.6-gentoo-wreathe-7r3-2016june16 165be497cbab3ba5aeecb147a0fe4738
+/etc/ssl/certs/CA_Disig_Root_R2.pem c8aa52f9cdcb56d1fd29c95580c316ea
 /etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25n5 0c2fb0146d4acfc1c62aaf4047301b3b
 /etc/kernels/kernel-config-x86_64-4.7.1-gentoo-Wreathe-7.3-2016Sept25n4 0e303fd207834e306bbb0e3f51f2da61
 /etc/portage/patches/x11-plugins/compiz-plugins-experimental/include-sample-clouds_2048-jpg.patch 2d2d6052d17cd587debb3be6b4b9d6b8
