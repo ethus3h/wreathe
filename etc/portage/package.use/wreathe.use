@@ -302,6 +302,7 @@ app-arch/xz-utils abi_x86_32
 app-crypt/heimdal abi_x86_32
 app-crypt/mit-krb5 abi_x86_32
 app-crypt/p11-kit abi_x86_32
+app-emulation/wine-gecko abi_x86_32
 app-i18n/enca abi_x86_32
 dev-cpp/glibmm abi_x86_32
 dev-cpp/libxmlpp abi_x86_32
