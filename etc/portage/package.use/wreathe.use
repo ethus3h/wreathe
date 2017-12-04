@@ -149,7 +149,7 @@ app-crypt/gcr gtk
 app-crypt/heimdal -ssl
 app-crypt/pinentry gnome-keyring ncurses gtk -qt4 qt5
 app-emulation/qemu fdt glusterfs gtk2 nfs spice usb uuid vde vhost-net virgl virtfs xattr xen xfs
-app-emulation/wine staging
+app-emulation/wine-any capi themes
 app-eselect/eselect-php fpm
 app-i18n/ibus gtk3
 app-laptop/ibam gkrellm
