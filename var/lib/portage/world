@@ -22,7 +22,7 @@ app-emulation/fuse
 app-emulation/fuse-utils
 app-emulation/virtualbox
 app-emulation/virtualbox-modules
-app-emulation/wine
+app-emulation/wine-vanilla
 app-eselect/eselect-infinality
 app-i18n/poedit
 app-misc/binwalk
