@@ -173,6 +173,7 @@ media-sound/jack_capture
 media-sound/jorgan
 media-sound/mp3diags
 media-sound/mumble
+media-sound/projectm-pulseaudio
 media-sound/pulseaudio
 media-sound/supercollider
 media-tv/kodi
