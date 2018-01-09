@@ -188,7 +188,6 @@ net-irc/irssi
 net-libs/serf:1
 net-misc/freerdp
 net-misc/icecast
-net-misc/jdownloader
 net-misc/nitroshare
 net-misc/plowshare
 net-misc/pyload
