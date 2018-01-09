@@ -117,6 +117,7 @@ dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia ne
 media-gfx/asymptote offscreen sigsegv
 media-libs/mesa d3d9 gles1 gles2 xa
 media-libs/xine-lib vdr
+media-libs/speex utils
 media-tv/kodi webserver
 net-analyzer/nmap nping
 net-misc/plowshare view-captcha
