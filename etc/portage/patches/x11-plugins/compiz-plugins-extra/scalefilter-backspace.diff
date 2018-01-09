@@ -1,0 +1,13 @@
+diff --git a/src/scalefilter/scalefilter.c b/src/scalefilter/scalefilter.c
+index 96bf91b..35209b2 100644
+--- a/src/scalefilter/scalefilter.c
++++ b/src/scalefilter/scalefilter.c
+@@ -414,7 +414,7 @@ scalefilterHandleSpecialKeyPress (CompScreen *s,
+     FILTER_SCREEN (s);
+ 
+     info = fs->filterInfo;
+-    ks   = XkbKeycodeToKeysym (s->display->display, event->keycode, 1, 0);
++    ks   = XkbKeycodeToKeysym (s->display->display, event->keycode, 0, 0);
+ 
+     if (ks == XK_Escape)
+{
