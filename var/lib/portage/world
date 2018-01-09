@@ -45,6 +45,7 @@ app-office/libreoffice
 app-office/libreoffice-l10n
 app-officeext/ooofbtools
 app-portage/pfl
+app-portage/repoman
 app-shells/looptest
 app-text/aspell
 app-text/convertlit
@@ -179,6 +180,7 @@ media-sound/supercollider
 media-tv/kodi
 media-video/ffmpeg
 media-video/mjpegtools
+media-video/openshot
 media-video/sswf
 media-video/vlc
 net-dns/dnscrypt-proxy
