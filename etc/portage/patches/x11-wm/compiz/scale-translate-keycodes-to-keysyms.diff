@@ -1,0 +1,37 @@
+diff --git a/plugins/scale.c b/plugins/scale.c
+index 555c9a8..3e0894d 100644
+--- a/plugins/scale.c
++++ b/plugins/scale.c
+@@ -1645,26 +1645,28 @@ scaleHandleEvent (CompDisplay *d,
+ 	s = findScreenAtDisplay (d, event->xkey.root);
+ 	if (s)
+ 	{
++	    KeySym ks;
+ 	    SCALE_SCREEN (s);
+ 
+ 	    if (ss->grabIndex)
+ 	    {
+-		if (event->xkey.keycode == sd->leftKeyCode)
++		ks = XkbKeycodeToKeysym (s->display->display, event->xkey.keycode, 0, 0);
++		if (ks == XK_Left)
+ 		{
+ 		    scaleMoveFocusWindow (s, -1, 0);
+ 		    consumeEvent = TRUE;
+ 		}
+-		else if (event->xkey.keycode == sd->rightKeyCode)
++		else if (ks == XK_Right)
+ 		{
+ 		    scaleMoveFocusWindow (s, 1, 0);
+ 		    consumeEvent = TRUE;
+ 		}
+-		else if (event->xkey.keycode == sd->upKeyCode)
++		else if (ks == XK_Up)
+ 		{
+ 		    scaleMoveFocusWindow (s, 0, -1);
+ 		    consumeEvent = TRUE;
+ 		}
+-		else if (event->xkey.keycode == sd->downKeyCode)
++		else if (ks == XK_Down)
+ 		{
+ 		    scaleMoveFocusWindow (s, 0, 1);
+ 		    consumeEvent = TRUE;
