@@ -10,4 +10,4 @@ index 96bf91b..35209b2 100644
 +    ks   = XkbKeycodeToKeysym (s->display->display, event->keycode, 0, 0);
  
      if (ks == XK_Escape)
-{
+     {
