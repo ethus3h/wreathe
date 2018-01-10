@@ -1,10 +1,11 @@
 # To prevent circular dependencies when updating, uncomment these lines, then recomment and re-update @world to get the packages built.
-# dev-python/Babel -doc
-# dev-python/jinja -doc 
-# dev-python/pandas -doc  
-# dev-python/matplotlib -doc
-# dev-python/pygments -doc
-# dev-python/pyopenssl -doc
+dev-python/Babel -doc
+dev-python/jinja -doc 
+dev-python/pandas -doc  
+dev-python/matplotlib -doc
+dev-python/pygments -doc
+dev-python/pyopenssl -doc
+
 dev-libs/efl -gles
 # Use firmware blobs until I can use wi-fi without it
 sys-kernel/wreathe-kernel compile firmware
