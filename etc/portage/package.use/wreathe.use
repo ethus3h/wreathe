@@ -6,6 +6,7 @@ dev-python/matplotlib -doc
 dev-python/pygments -doc
 dev-python/pyopenssl -doc
 dev-python/urllib3 -doc
+dev-python/cffi -doc
 
 dev-libs/efl -gles
 # Use firmware blobs until I can use wi-fi without it
