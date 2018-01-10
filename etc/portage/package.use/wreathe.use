@@ -506,6 +506,7 @@ net-fs/samba abi_x86_32
 net-libs/glib-networking abi_x86_32
 net-libs/gnutls abi_x86_32
 net-libs/libasyncns abi_x86_32
+net-libs/libcapi abi_x86_32
 net-libs/libpcap abi_x86_32
 net-libs/libproxy abi_x86_32
 net-libs/libsoup abi_x86_32
