@@ -109,24 +109,24 @@ diff -uraN konsole-16.12.3/data/color-schemes/Wreathe.colorscheme konsole-16.12.
 diff -uraN konsole-16.12.3/src/Profile.cpp konsole-16.12.3-b/src/Profile.cpp
 --- konsole-16.12.3/src/Profile.cpp	2017-03-04 05:15:40.000000000 -0500
 +++ konsole-16.12.3-b/src/Profile.cpp	2017-07-10 01:40:04.000000000 -0400
-@@ -159,10 +159,10 @@
-     setProperty(Arguments, QStringList() << qgetenv("SHELL"));
-     setProperty(Icon, "utilities-terminal");
+@@ -158,10 +158,10 @@
+     setProperty(Arguments, QStringList() << QString::fromUtf8(qgetenv("SHELL")));
+     setProperty(Icon, QStringLiteral("utilities-terminal"));
      setProperty(Environment, QStringList() << QStringLiteral("TERM=xterm-256color") << QStringLiteral("COLORTERM=truecolor"));
--    setProperty(LocalTabTitleFormat, "%d : %n");
-+    setProperty(LocalTabTitleFormat, "%n: %d — %w");
-     setProperty(RemoteTabTitleFormat, "(%u) %H");
+-    setProperty(LocalTabTitleFormat, QStringLiteral("%d : %n"));
++    setProperty(LocalTabTitleFormat, QStringLiteral("%n: %d — %w"));
+     setProperty(RemoteTabTitleFormat, QStringLiteral("(%u) %H"));
      setProperty(ShowTerminalSizeHint, true);
 -    setProperty(StartInCurrentSessionDir, true);
 +    setProperty(StartInCurrentSessionDir, false);
-     setProperty(MenuIndex, "0");
+     setProperty(MenuIndex, QStringLiteral("0"));
      setProperty(SilenceSeconds, 10);
      setProperty(TerminalColumns, 80);
-@@ -172,33 +172,33 @@
+@@ -171,30 +171,30 @@
      setProperty(MouseWheelZoomEnabled, true);
  
-     setProperty(KeyBindings, "default");
--    setProperty(ColorScheme, "Linux"); //use DarkPastels when is start support blue ncurses UI properly
+     setProperty(KeyBindings, QStringLiteral("default"));
+-    setProperty(ColorScheme, QStringLiteral("Linux")); //use DarkPastels when is start support blue ncurses UI properly
 +    setProperty(ColorScheme, QStringLiteral("Wreathe")); //use DarkPastels when is start support blue ncurses UI properly
      setProperty(Font, QFontDatabase::systemFont(QFontDatabase::FixedFont));
  
@@ -158,8 +158,4 @@ diff -uraN konsole-16.12.3/src/Profile.cpp konsole-16.12.3-b/src/Profile.cpp
 +    setProperty(BlinkingCursorEnabled, true);
      setProperty(BidiRenderingEnabled, true);
      setProperty(LineSpacing, 0);
--    setProperty(CursorShape, Enum::BlockCursor);
-+    setProperty(CursorShape, Enum::UnderlineCursor);
-     setProperty(UseCustomCursorColor, false);
-     setProperty(CustomCursorColor, QColor(Qt::black));
-     setProperty(BellMode, Enum::NotifyBell);
+     setProperty(CursorShape, Enum::BlockCursor);
