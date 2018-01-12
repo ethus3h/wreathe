@@ -24,6 +24,9 @@ net-misc/plowshare ~amd64
 # Overlays
 */*::compiz-reloaded **
 
+# Dependency of compiz-plugins-community (required for headtracking plugin)
+app-misc/cwiid ~amd64
+
 # Epson scanner driver (depends on gnulib)
 =media-gfx/utsushi-9999 **
 

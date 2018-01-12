@@ -86,6 +86,16 @@
             "/usr/lib32/libgnutls.so.28"
         ]
     ], 
+    "net-misc/freerdp:0": [
+        "net-misc/freerdp-2.0.0_rc0", 
+        "17094", 
+        [
+            "/usr/lib64/libfreerdp.so.1.2.1", 
+            "/usr/lib64/libwinpr.so.1.1.0", 
+            "/usr/lib64/libfreerdp.so.1.2", 
+            "/usr/lib64/libwinpr.so.1.1"
+        ]
+    ], 
     "sci-geosciences/gpsd:0": [
         "sci-geosciences/gpsd-3.16", 
         "16285", 
