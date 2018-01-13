@@ -1,5 +1,6 @@
 # Until BLAKE2B generating is stabilized
 app-portage/repoman ~amd64
+=sys-apps/portage-2.3.14 ~amd64
 
 # Until tar 1.30+ is stabilized
 app-arch/tar ~amd64
