@@ -116,6 +116,7 @@ games-roguelike/behemmoth
 games-simulation/openttd
 kde-apps/dolphin
 kde-apps/dolphin:4
+kde-apps/kde-dev-scripts
 kde-apps/kfilereplace
 kde-apps/konsole
 kde-apps/ktnef

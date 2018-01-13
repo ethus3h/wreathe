@@ -20,16 +20,16 @@
       "lavendersyntax-copied-2016aug14"
     ]
   editor:
+    autoIndentOnPaste: false
     backUpBeforeSaving: true
     fontFamily: "Fira Code"
-    fontSize: 9
+    fontSize: 8
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true
     softWrap: true
     softWrapHangingIndent: 2
     tabLength: 4
-    tabType: "soft"
     useShadowDOM: false
   "exception-reporting":
     userId: "02ceb146-50d9-4403-2188-ab26f78d1bab"

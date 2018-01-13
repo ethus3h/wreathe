@@ -1,3 +1,6 @@
+# Until BLAKE2B generating is stabilized
+app-portage/repoman ~amd64
+
 # Until tar 1.30+ is stabilized
 app-arch/tar ~amd64
 
