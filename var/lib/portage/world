@@ -139,6 +139,7 @@ media-libs/libquicktime
 media-libs/opencolorio
 media-libs/openimageio
 media-libs/openjpeg:2
+media-libs/oyranos
 media-libs/phonon
 media-libs/phonon-gstreamer
 media-plugins/alsa-plugins
