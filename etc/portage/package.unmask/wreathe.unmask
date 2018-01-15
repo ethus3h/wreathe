@@ -1,3 +1,6 @@
+# Otherwise masked by "KDE SC 4.8+ drop miller columns from Dolphin" rule.
+=kde-apps/dolphin-9999::wreathe-overlay
+
 # Until it is removed from Gentoo's package.mask
 www-plugins/lightspark
 www-plugins/gnash

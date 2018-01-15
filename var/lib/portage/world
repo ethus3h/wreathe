@@ -40,6 +40,7 @@ app-misc/sl
 app-misc/strigi
 app-misc/tmux
 app-misc/wreathe-base
+app-misc/wreathe-file-manager
 app-misc/wreathe-overlays-redist
 app-office/libreoffice
 app-office/libreoffice-l10n
@@ -117,10 +118,12 @@ games-simulation/openttd
 kde-apps/dolphin
 kde-apps/dolphin:4
 kde-apps/kde-dev-scripts
+kde-apps/kdebase-kioslaves:4::wreathe-overlay
 kde-apps/kfilereplace
 kde-apps/konsole
 kde-apps/ktnef
 kde-apps/kwave
+kde-frameworks/baloo:4::wreathe-overlay
 kde-frameworks/knotifications
 kde-frameworks/kwallet
 mail-client/thunderbird
@@ -206,6 +209,7 @@ sys-apps/hwinfo
 sys-apps/lshw
 sys-apps/portage
 sys-apps/renameutils
+sys-apps/sandbox
 sys-boot/efibootmgr
 sys-cluster/openmpi
 sys-devel/binutils
