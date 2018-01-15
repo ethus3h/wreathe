@@ -1,5 +1,6 @@
-# Drops QT4. TODO: Need a better solution to this though.
+# Drops / collides with QT4. TODO: Need a better solution to this though.
 =app-text/poppler-0.57.0-r1
+=media-libs/phonon-4.9.1-r1
 
 # Mask overlays
 */*::haskell
