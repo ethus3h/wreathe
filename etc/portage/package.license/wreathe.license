@@ -7,6 +7,7 @@ net-print/adobeps AdobePS
 sci-visualization/gnuplot free-noncomm
 app-text/pstotext PSTT
 sys-kernel/gentoo-sources freedist
+sys-kernel/wreathe-kernel linux-firmware
 sci-libs/szip szip
 app-arch/zoo zoo
 media-gfx/jpeg2ps free-noncomm

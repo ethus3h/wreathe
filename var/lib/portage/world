@@ -28,7 +28,6 @@ app-i18n/poedit
 app-misc/binwalk
 app-misc/cmap-resources
 app-misc/crystallize
-app-misc/ember-dev-environment
 app-misc/ember-shared
 app-misc/futuramerlin-web-toolkit
 app-misc/gentoo-portage-tree
@@ -63,7 +62,6 @@ app-text/texlive-core
 app-text/tree
 app-text/wgetpaste
 dev-db/postgresql
-dev-dotnet/ilspy
 dev-java/ant-javamail
 dev-java/icedtea
 dev-java/oracle-javamail
@@ -119,9 +117,7 @@ kde-apps/dolphin
 kde-apps/dolphin:4
 kde-apps/kde-dev-scripts
 kde-apps/kdebase-kioslaves:4::wreathe-overlay
-kde-apps/kfilereplace
 kde-apps/konsole
-kde-apps/ktnef
 kde-apps/kwave
 kde-frameworks/baloo:4::wreathe-overlay
 kde-frameworks/knotifications
@@ -169,7 +165,6 @@ media-plugins/kodi-skin-confluence
 media-plugins/kodi-visualization-fishbmc
 media-plugins/kodi-visualization-projectm
 media-plugins/kodi-weather-openweathermap-extended
-media-plugins/npapi-vlc
 media-sound/awesfx
 media-sound/carla
 media-sound/darkice
@@ -214,7 +209,6 @@ sys-boot/efibootmgr
 sys-cluster/openmpi
 sys-devel/binutils
 sys-devel/crossdev
-sys-devel/gcc:4.9.4
 sys-fs/dosfstools
 sys-fs/fuse
 sys-fs/squashfs-tools

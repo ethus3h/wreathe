@@ -10,6 +10,10 @@ dev-haskell/stack-bin ~amd64
 
 net-misc/plowshare ~amd64
 
+games-simulation/openttd ~amd64
+www-apps/dokuwiki ~amd64
+app-admin/gentoo-perl-helpers ~amd64
+
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
 =app-doc/ember-web-site-9999::wreathe-overlay **
