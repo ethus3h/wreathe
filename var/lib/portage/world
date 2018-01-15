@@ -120,6 +120,7 @@ kde-apps/kdebase-kioslaves:4::wreathe-overlay
 kde-apps/konsole
 kde-apps/kwave
 kde-frameworks/baloo:4::wreathe-overlay
+kde-frameworks/kfilemetadata
 kde-frameworks/knotifications
 kde-frameworks/kwallet
 mail-client/thunderbird
