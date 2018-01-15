@@ -2,5 +2,6 @@
 =kde-apps/dolphin-9999::wreathe-overlay
 
 # Until it is removed from Gentoo's package.mask
+*/*::compiz-reloaded
 www-plugins/lightspark
 www-plugins/gnash
