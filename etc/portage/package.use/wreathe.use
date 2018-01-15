@@ -142,6 +142,7 @@ media-libs/speex utils
 media-tv/kodi webserver
 net-analyzer/nmap nping
 net-misc/plowshare view-captcha
+media-libs/phonon-gstreamer qt4
 net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
