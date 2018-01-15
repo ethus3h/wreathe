@@ -11,8 +11,8 @@ dev-python/cffi -doc
 # TODO: Doesn't support readline 7 yet
 dev-lisp/clisp -readline
 
-# Collides with kde5 kdegraphics-mobipocket and phonon-gstreamer
-kde-frameworks/kfilemetadata:4 -epub
+# Collides with modern/kde5 kdegraphics-mobipocket, poppler, and phonon-gstreamer
+kde-frameworks/kfilemetadata:4 -epub -pdf
 media-libs/phonon -qt4
 
 # TODO: Not available for Python 3 yet, apparently
