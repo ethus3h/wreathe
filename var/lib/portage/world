@@ -24,6 +24,7 @@ app-emulation/virtualbox
 app-emulation/virtualbox-modules
 app-emulation/wine-vanilla
 app-eselect/eselect-infinality
+app-eselect/eselect-ruby
 app-i18n/poedit
 app-misc/binwalk
 app-misc/cmap-resources
@@ -61,7 +62,9 @@ app-text/texlive
 app-text/texlive-core
 app-text/tree
 app-text/wgetpaste
+dev-cpp/yaml-cpp
 dev-db/postgresql
+dev-haskell/opengl
 dev-java/ant-javamail
 dev-java/icedtea
 dev-java/oracle-javamail
@@ -70,7 +73,10 @@ dev-lang/open-cobol
 dev-lang/perl
 dev-lang/php
 dev-lang/python
+dev-lang/ruby
+dev-lang/ruby:2.1
 dev-lang/snap
+dev-libs/tinyxml
 dev-perl6/zef
 dev-php/ZendFramework
 dev-python/PyQt4
@@ -87,6 +93,7 @@ dev-python/polyglot
 dev-python/pytables
 dev-python/requests
 dev-python/sabyenc
+dev-python/sphinx
 dev-python/sympy
 dev-python/thrift
 dev-python/xvfbwrapper
@@ -106,6 +113,7 @@ dev-tex/bibtexu
 dev-tex/xmltex
 dev-util/android-tools
 dev-util/cloc
+dev-util/pkgconfig
 dev-util/xxdiff
 dev-vcs/darcs
 dev-vcs/git
@@ -135,6 +143,9 @@ media-gfx/krita:5
 media-gfx/utsushi
 media-gfx/xfig
 media-libs/fontconfig-infinality
+media-libs/freeglut
+media-libs/glew
+media-libs/lcms
 media-libs/libquicktime
 media-libs/opencolorio
 media-libs/openimageio

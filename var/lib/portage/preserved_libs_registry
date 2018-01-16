@@ -29,6 +29,16 @@
             "/usr/lib64/scientific-0.3.3.8/ghc-7.10.3/libHSscientific-0.3.3.8-Ac9ewSFZzaiJXTSrehvPMQ-ghc7.10.3.so"
         ]
     ], 
+    "dev-libs/ffcall:0": [
+        "dev-libs/ffcall-2.0", 
+        "17252", 
+        [
+            "/usr/lib64/libavcall.so.0.0.0", 
+            "/usr/lib64/libcallback.so.0.0.0", 
+            "/usr/lib64/libcallback.so.0", 
+            "/usr/lib64/libavcall.so.0"
+        ]
+    ], 
     "dev-libs/libzip:0": [
         "dev-libs/libzip-1.3.0", 
         "16162", 
@@ -59,7 +69,7 @@
     ], 
     "media-libs/glew:0": [
         "media-libs/glew-1.13.0", 
-        "16277", 
+        "17364", 
         [
             "/usr/lib64/libGLEW.so.1.10.0", 
             "/usr/lib64/libGLEW.so.1.10"
@@ -96,6 +106,22 @@
             "/usr/lib64/libgnutls.so.28.43.0", 
             "/usr/lib64/libgnutls.so.28", 
             "/usr/lib32/libgnutls.so.28"
+        ]
+    ], 
+    "net-libs/libkolab:4": [
+        "net-libs/libkolab-0.5.2", 
+        "2994", 
+        [
+            "/usr/lib64/libkolab.so.0.5.2", 
+            "/usr/lib64/libkolab.so.0"
+        ]
+    ], 
+    "net-libs/libkolabxml:4": [
+        "net-libs/libkolabxml-1.0.1", 
+        "2993", 
+        [
+            "/usr/lib64/libkolabxml.so.1.0.1", 
+            "/usr/lib64/libkolabxml.so.1"
         ]
     ], 
     "net-misc/freerdp:0": [
