@@ -76,7 +76,6 @@ dev-lang/python
 dev-lang/ruby
 dev-lang/snap
 dev-libs/tinyxml
-dev-perl6/zef
 dev-php/ZendFramework
 dev-python/PyQt4
 dev-python/PyQt5
@@ -239,7 +238,6 @@ trinity-base/arts
 trinity-base/libtdegames
 trinity-base/tdelibs
 virtual/liblash
-virtual/perl6
 www-apps/bugzilla
 www-apps/cgit
 www-apps/dokuwiki
