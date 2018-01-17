@@ -121,6 +121,13 @@
             "/usr/lib64/fgl-5.5.2.3/ghc-7.10.3/libHSfgl-5.5.2.3-1iOAMqdqOCe3wdpnfiEYu9-ghc7.10.3.so"
         ]
     ], 
+    "dev-haskell/ghc-paths:0": [
+        "dev-haskell/ghc-paths-0.1.0.9", 
+        "17660", 
+        [
+            "/usr/lib64/ghc-paths-0.1.0.9/ghc-7.10.3/libHSghc-paths-0.1.0.9-5rDnX7hezYDKAziKzjDg9e-ghc7.10.3.so"
+        ]
+    ], 
     "dev-haskell/gluraw:0": [
         "dev-haskell/gluraw-1.4.0.1", 
         "17653", 
@@ -367,6 +374,13 @@
             "/usr/lib64/text-1.2.2.1/ghc-7.10.3/libHStext-1.2.2.1-584KZJORJkgEy5N2VuOIlB-ghc7.10.3.so"
         ]
     ], 
+    "dev-haskell/tf-random:0": [
+        "dev-haskell/tf-random-0.5", 
+        "17662", 
+        [
+            "/usr/lib64/tf-random-0.5/ghc-7.10.3/libHStf-random-0.5-9hiCkQ0Ylcu3ASEnLal30D-ghc7.10.3.so"
+        ]
+    ], 
     "dev-haskell/transformers-base:0": [
         "dev-haskell/transformers-base-0.4.4", 
         "17595", 
@@ -420,7 +434,6 @@
         "dev-lang/ghc-8.0.2", 
         "17586", 
         [
-            "/usr/lib64/ghc-7.10.3/Cabal_EAKqFnGO6aaLkb2rijLhrB/libHSCabal-1.22.5.0-EAKqFnGO6aaLkb2rijLhrB-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/array_67iodizgJQIIxYVTp4emlA/libHSarray-0.5.1.0-67iodizgJQIIxYVTp4emlA-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/base_HQfYBxpPvuw8OunzQu6JGM/libHSbase-4.8.2.0-HQfYBxpPvuw8OunzQu6JGM-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/binar_DyoGrBGNDic2wBN4ZIdMKc/libHSbinary-0.7.6.1-DyoGrBGNDic2wBN4ZIdMKc-ghc7.10.3.so", 
@@ -623,9 +636,8 @@
     ], 
     "sys-libs/binutils-libs:0": [
         "sys-libs/binutils-libs-2.29.1-r1", 
-        "17404", 
+        "17674", 
         [
-            "/usr/lib32/libbfd-2.28.1.so", 
             "/usr/lib64/libbfd-2.27.so", 
             "/usr/lib64/libbfd-2.28.1.so"
         ]
