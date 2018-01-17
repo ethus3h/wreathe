@@ -74,7 +74,6 @@ dev-lang/perl
 dev-lang/php
 dev-lang/python
 dev-lang/ruby
-dev-lang/ruby:2.1
 dev-lang/snap
 dev-libs/tinyxml
 dev-perl6/zef
@@ -107,8 +106,12 @@ dev-qt/qtmultimedia:4
 dev-qt/qtscript:4
 dev-qt/qttest:4
 dev-qt/qttranslations:4
+dev-ruby/ffi
+dev-ruby/nokogiri
 dev-ruby/polyglot
+dev-ruby/rb-inotify
 dev-ruby/treetop
+dev-ruby/unf_ext
 dev-tex/bibtexu
 dev-tex/xmltex
 dev-util/android-tools
@@ -127,7 +130,6 @@ kde-apps/kde-dev-scripts
 kde-apps/kdebase-kioslaves:4::wreathe-overlay
 kde-apps/konsole
 kde-apps/kwave
-kde-frameworks/baloo:4::wreathe-overlay
 kde-frameworks/kfilemetadata
 kde-frameworks/knotifications
 kde-frameworks/kwallet
@@ -248,7 +250,6 @@ www-client/firefox
 www-plugins/adobe-flash
 www-plugins/freshplayerplugin
 www-plugins/gnash
-www-plugins/lightspark
 www-plugins/mozplugger
 x11-apps/compiz-boxmenu
 x11-apps/compiz-manager
