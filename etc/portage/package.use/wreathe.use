@@ -87,6 +87,9 @@ app-misc/geoclue -skyhook
 # https://github.com/kirrmann/aur-packages/commit/ff0127ec8f8b7ae004c6590693b971b6601c16eb
 sys-block/open-iscsi -slp
 
+# Causes build failure
+dev-lang/nqp -java
+
 # Cause build failures
 <dev-python/sphinx-1.3 -doc
 app-text/xindy -doc

@@ -55,6 +55,16 @@
             "/usr/lib64/libonig.so.2"
         ]
     ], 
+    "dev-libs/protobuf:0": [
+        "dev-libs/protobuf-3.5.1.1", 
+        "17535", 
+        [
+            "/usr/lib64/libprotobuf.so.11.0.0", 
+            "/usr/lib64/libprotoc.so.11.0.0", 
+            "/usr/lib64/libprotobuf.so.11", 
+            "/usr/lib64/libprotoc.so.11"
+        ]
+    ], 
     "kde-apps/kdepimlibs:4": [
         "kde-apps/kdepimlibs-4.14.11_pre20160211-r3", 
         "12929", 
@@ -124,12 +134,12 @@
             "/usr/lib64/libx264.so.142"
         ]
     ], 
-    "net-firewall/iptables:0": [
-        "net-firewall/iptables-1.6.1-r2", 
-        "17505", 
+    "net-fs/libnfs:0": [
+        "net-fs/libnfs-2.0.0", 
+        "17518", 
         [
-            "/lib64/libxtables.so.10.0.0", 
-            "/lib64/libxtables.so.10"
+            "/usr/lib64/libnfs.so.8.0.0", 
+            "/usr/lib64/libnfs.so.8"
         ]
     ], 
     "net-libs/gnutls:0": [
@@ -158,6 +168,14 @@
             "/usr/lib64/libkolabxml.so.1"
         ]
     ], 
+    "net-libs/libsrtp:0": [
+        "net-libs/libsrtp-1.6.0", 
+        "17515", 
+        [
+            "/usr/lib64/libsrtp.so.0.0", 
+            "/usr/lib64/libsrtp.so.0"
+        ]
+    ], 
     "net-misc/freerdp:0": [
         "net-misc/freerdp-2.0.0_rc0", 
         "17094", 
@@ -174,6 +192,14 @@
         [
             "/usr/lib64/libgps.so.21.0.0", 
             "/usr/lib64/libgps.so.21"
+        ]
+    ], 
+    "sci-mathematics/glpk:0": [
+        "sci-mathematics/glpk-4.63", 
+        "17537", 
+        [
+            "/usr/lib64/libglpk.so.0.30.0", 
+            "/usr/lib64/libglpk.so.0"
         ]
     ], 
     "sys-libs/binutils-libs:0": [
