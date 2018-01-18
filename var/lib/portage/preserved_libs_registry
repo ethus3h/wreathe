@@ -8,11 +8,13 @@
         ]
     ], 
     "app-text/poppler:0": [
-        "app-text/poppler-0.57.0", 
-        "15978", 
+        "app-text/poppler-0.57.0-r1", 
+        "17815", 
         [
+            "/usr/lib64/libpoppler-qt4.so.4.11.0", 
             "/usr/lib64/libpoppler.so.62.0.0", 
-            "/usr/lib64/libpoppler.so.62"
+            "/usr/lib64/libpoppler.so.62", 
+            "/usr/lib64/libpoppler-qt4.so.4"
         ]
     ], 
     "dev-haskell/async:0": [
@@ -436,6 +438,14 @@
             "/usr/lib64/libkdewebkit.so.5"
         ]
     ], 
+    "media-gfx/exiv2:0": [
+        "media-gfx/exiv2-0.26_p20171104", 
+        "17818", 
+        [
+            "/usr/lib64/libexiv2.so.14.0.0", 
+            "/usr/lib64/libexiv2.so.14"
+        ]
+    ], 
     "media-libs/glew:0": [
         "media-libs/glew-1.13.0", 
         "17364", 
@@ -489,10 +499,8 @@
         "net-libs/gnutls-3.5.15", 
         "17498", 
         [
-            "/usr/lib32/libgnutls.so.28.43.0", 
             "/usr/lib64/libgnutls.so.28.43.0", 
-            "/usr/lib64/libgnutls.so.28", 
-            "/usr/lib32/libgnutls.so.28"
+            "/usr/lib64/libgnutls.so.28"
         ]
     ], 
     "net-libs/libkolab:4": [
