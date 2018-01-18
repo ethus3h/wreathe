@@ -26,15 +26,7 @@
         "dev-haskell/attoparsec-0.13.1.0", 
         "17626", 
         [
-            "/usr/lib64/attoparsec-0.13.0.1/ghc-7.10.3/libHSattoparsec-0.13.0.1-5OcDi3oNQ7CLJe1LHqPBQm-ghc7.10.3.so", 
             "/usr/lib64/attoparsec-0.13.1.0/ghc-7.10.3/libHSattoparsec-0.13.1.0-80OoDZmi0X6LvySE2SiNAT-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/base16-bytestring:0": [
-        "dev-haskell/base16-bytestring-0.1.1.6", 
-        "17632", 
-        [
-            "/usr/lib64/base16-bytestring-0.1.1.6/ghc-7.10.3/libHSbase16-bytestring-0.1.1.6-LuxBhYgEONMHJnKTOPc7Oy-ghc7.10.3.so"
         ]
     ], 
     "dev-haskell/byteable:0": [
@@ -49,13 +41,6 @@
         "17587", 
         [
             "/usr/lib64/cabal-1.22.8.0/ghc-7.10.3/libHSCabal-1.22.8.0-KmzJ06PWVSL84It3w0lGJ2-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/colour:0": [
-        "dev-haskell/colour-2.3.3-r1", 
-        "17644", 
-        [
-            "/usr/lib64/colour-2.3.3/ghc-7.10.3/libHScolour-2.3.3-4tkGkumXZDK9tS5HCSa7Y0-ghc7.10.3.so"
         ]
     ], 
     "dev-haskell/conduit:0": [
@@ -79,20 +64,6 @@
             "/usr/lib64/cryptonite-0.21/ghc-7.10.3/libHScryptonite-0.21-EcOchLeSQuiDPJZLSyUH0J-ghc7.10.3.so"
         ]
     ], 
-    "dev-haskell/data-ordlist:0": [
-        "dev-haskell/data-ordlist-0.4.7.0", 
-        "17631", 
-        [
-            "/usr/lib64/data-ordlist-0.4.7.0/ghc-7.10.3/libHSdata-ordlist-0.4.7.0-JDklQnVb39MHNelBNWOZoM-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/digest:0": [
-        "dev-haskell/digest-0.0.1.2", 
-        "17640", 
-        [
-            "/usr/lib64/digest-0.0.1.2/ghc-7.10.3/libHSdigest-0.0.1.2-8570bcl5ORY4CoBhGC3icK-ghc7.10.3.so"
-        ]
-    ], 
     "dev-haskell/dlist:0": [
         "dev-haskell/dlist-0.8.0.2", 
         "17645", 
@@ -114,13 +85,6 @@
             "/usr/lib64/fail-4.9.0.0/ghc-7.10.3/libHSfail-4.9.0.0-2xB1AvdW34sDm9N3JOe33G-ghc7.10.3.so"
         ]
     ], 
-    "dev-haskell/fgl:0": [
-        "dev-haskell/fgl-5.5.3.0", 
-        "17608", 
-        [
-            "/usr/lib64/fgl-5.5.2.3/ghc-7.10.3/libHSfgl-5.5.2.3-1iOAMqdqOCe3wdpnfiEYu9-ghc7.10.3.so"
-        ]
-    ], 
     "dev-haskell/ghc-paths:0": [
         "dev-haskell/ghc-paths-0.1.0.9", 
         "17660", 
@@ -135,25 +99,11 @@
             "/usr/lib64/gluraw-1.4.0.1/ghc-7.10.3/libHSGLURaw-1.4.0.1-3J1cYIrlv5xJRtR9ErVQh7-ghc7.10.3.so"
         ]
     ], 
-    "dev-haskell/graphviz:0": [
-        "dev-haskell/graphviz-2999.18.1.2", 
-        "17646", 
-        [
-            "/usr/lib64/graphviz-2999.18.0.2/ghc-7.10.3/libHSgraphviz-2999.18.0.2-JYsfNa7nkmU7mlnmnUzKeK-ghc7.10.3.so"
-        ]
-    ], 
     "dev-haskell/hashable:0": [
         "dev-haskell/hashable-1.2.4.0", 
         "17598", 
         [
             "/usr/lib64/hashable-1.2.4.0/ghc-7.10.3/libHShashable-1.2.4.0-A6vZOledKVuEA72mcyyWVx-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/html:0": [
-        "dev-haskell/html-1.0.1.2-r1", 
-        "17639", 
-        [
-            "/usr/lib64/html-1.0.1.2/ghc-7.10.3/libHShtml-1.0.1.2-3z3nL6m7IhuGkUl83NkAdQ-ghc7.10.3.so"
         ]
     ], 
     "dev-haskell/http:0": [
@@ -175,13 +125,6 @@
         "17602", 
         [
             "/usr/lib64/memory-0.14.1/ghc-7.10.3/libHSmemory-0.14.1-JV3e3bxzhPl3T9CLo1BZFO-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/mmap:0": [
-        "dev-haskell/mmap-0.5.9", 
-        "17637", 
-        [
-            "/usr/lib64/mmap-0.5.9/ghc-7.10.3/libHSmmap-0.5.9-6LvfzfQJdcNGu8MsaBeEod-ghc7.10.3.so"
         ]
     ], 
     "dev-haskell/mmorph:0": [
@@ -275,25 +218,11 @@
             "/usr/lib64/random-1.0.1.1/ghc-7.10.3/libHSrandom-1.0.1.1-0jtMVVhzmAsLH0DETUUwzJ-ghc7.10.3.so"
         ]
     ], 
-    "dev-haskell/regex-applicative:0": [
-        "dev-haskell/regex-applicative-0.3.3", 
-        "17633", 
-        [
-            "/usr/lib64/regex-applicative-0.3.3/ghc-7.10.3/libHSregex-applicative-0.3.3-4PYunjDTWHgDlEYXXlUiYb-ghc7.10.3.so"
-        ]
-    ], 
     "dev-haskell/regex-base:0": [
         "dev-haskell/regex-base-0.93.2-r1", 
         "17612", 
         [
             "/usr/lib64/regex-base-0.93.2/ghc-7.10.3/libHSregex-base-0.93.2-EKp7K0qnN1S3Yrdy5phGFt-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/regex-compat-tdfa:0": [
-        "dev-haskell/regex-compat-tdfa-0.95.1.4", 
-        "17652", 
-        [
-            "/usr/lib64/regex-compat-tdfa-0.95.1.4/ghc-7.10.3/libHSregex-compat-tdfa-0.95.1.4-Gj50Q2FsFkwAclQeDYQJ4g-ghc7.10.3.so"
         ]
     ], 
     "dev-haskell/regex-tdfa:0": [
@@ -310,18 +239,10 @@
             "/usr/lib64/resourcet-1.1.7.4/ghc-7.10.3/libHSresourcet-1.1.7.4-4DYxWsu6KJIAAB43qwCv0B-ghc7.10.3.so"
         ]
     ], 
-    "dev-haskell/sandi:0": [
-        "dev-haskell/sandi-0.4.0", 
-        "17628", 
-        [
-            "/usr/lib64/sandi-0.4.0/ghc-7.10.3/libHSsandi-0.4.0-JeRVZ3PGtFtCjXG2wmcoEg-ghc7.10.3.so"
-        ]
-    ], 
     "dev-haskell/scientific:0": [
         "dev-haskell/scientific-0.3.4.9", 
         "17616", 
         [
-            "/usr/lib64/scientific-0.3.3.8/ghc-7.10.3/libHSscientific-0.3.3.8-Ac9ewSFZzaiJXTSrehvPMQ-ghc7.10.3.so", 
             "/usr/lib64/scientific-0.3.4.9/ghc-7.10.3/libHSscientific-0.3.4.9-6zAFFHa5eLi7MBSdOqrpzh-ghc7.10.3.so"
         ]
     ], 
@@ -351,20 +272,6 @@
         "17614", 
         [
             "/usr/lib64/tagged-0.8.4/ghc-7.10.3/libHStagged-0.8.4-LPeicl3HxVfGUMMwMEsAE6-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/tar:0": [
-        "dev-haskell/tar-0.5.0.3", 
-        "17649", 
-        [
-            "/usr/lib64/tar-0.4.2.1/ghc-7.10.3/libHStar-0.4.2.1-Bx0jwymwScc3gisJbmN0Lk-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/temporary:0": [
-        "dev-haskell/temporary-1.2.0.4", 
-        "17641", 
-        [
-            "/usr/lib64/temporary-1.2.0.4/ghc-7.10.3/libHStemporary-1.2.0.4-5uED4Offp4oJnDPp1HRNv5-ghc7.10.3.so"
         ]
     ], 
     "dev-haskell/text:0": [
@@ -409,20 +316,6 @@
             "/usr/lib64/vector-0.10.12.3/ghc-7.10.3/libHSvector-0.10.12.3-04t4wsvwr89J61a3Ssf8ay-ghc7.10.3.so"
         ]
     ], 
-    "dev-haskell/wl-pprint-text:0": [
-        "dev-haskell/wl-pprint-text-1.1.0.4", 
-        "17643", 
-        [
-            "/usr/lib64/wl-pprint-text-1.1.0.4/ghc-7.10.3/libHSwl-pprint-text-1.1.0.4-IAnTznUWwhFGQlpfXJRCRN-ghc7.10.3.so"
-        ]
-    ], 
-    "dev-haskell/zip-archive:0": [
-        "dev-haskell/zip-archive-0.2.3.7", 
-        "17650", 
-        [
-            "/usr/lib64/zip-archive-0.2.3.7/ghc-7.10.3/libHSzip-archive-0.2.3.7-KycIAXhqg9OG6B4afotdQe-ghc7.10.3.so"
-        ]
-    ], 
     "dev-haskell/zlib:0": [
         "dev-haskell/zlib-0.5.4.2", 
         "17609", 
@@ -445,7 +338,6 @@
             "/usr/lib64/ghc-7.10.3/filep_Ey7a1in9roBAE8bUFJ5R9m/libHSfilepath-1.4.0.0-Ey7a1in9roBAE8bUFJ5R9m-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/ghc_JQ2WG6oexwDDVprkkcjveL/libHSghc-7.10.3-JQ2WG6oexwDDVprkkcjveL-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/ghcpr_8TmvWUcS1U1IKHT0levwg3/libHSghc-prim-0.4.0.0-8TmvWUcS1U1IKHT0levwg3-ghc7.10.3.so", 
-            "/usr/lib64/ghc-7.10.3/haske_9ivqf5c4Mvb0vB13fv32CU/libHShaskeline-0.7.2.1-9ivqf5c4Mvb0vB13fv32CU-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/hoopl_FAEbWNIwInZGjJy8KwqpsJ/libHShoopl-3.10.2.0-FAEbWNIwInZGjJy8KwqpsJ-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/hpc_FUjQx3d1H3dEEtLFWv7hFw/libHShpc-0.6.0.2-FUjQx3d1H3dEEtLFWv7hFw-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/integ_2aU3IZNMF9a7mQ0OzsZ0dS/libHSinteger-gmp-1.0.0.0-2aU3IZNMF9a7mQ0OzsZ0dS-ghc7.10.3.so", 
@@ -454,11 +346,30 @@
             "/usr/lib64/ghc-7.10.3/rts/libHSrts-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/rts/libHSrts_thr-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/templ_GJPvtLC64aA4c1Jl10o2qt/libHStemplate-haskell-2.10.0.0-GJPvtLC64aA4c1Jl10o2qt-ghc7.10.3.so", 
-            "/usr/lib64/ghc-7.10.3/termi_6iVf4EBnOgfIaaOCLRs8jl/libHSterminfo-0.4.0.1-6iVf4EBnOgfIaaOCLRs8jl-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/time_FTheb6LSxyX1UABIbBXRfn/libHStime-1.5.0.1-FTheb6LSxyX1UABIbBXRfn-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/trans_6cQ9dYX241E73czBLUJDEg/libHStransformers-0.4.3.0-6cQ9dYX241E73czBLUJDEg-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/unix_KZL8h98IqDM57kQSPo1mKx/libHSunix-2.7.1.0-KZL8h98IqDM57kQSPo1mKx-ghc7.10.3.so", 
             "/usr/lib64/ghc-7.10.3/xhtml_0ACfOp3hebWD9jGWE4v4Gh/libHSxhtml-3000.2.1-0ACfOp3hebWD9jGWE4v4Gh-ghc7.10.3.so"
+        ]
+    ], 
+    "dev-libs/boost:0": [
+        "dev-libs/boost-1.63.0", 
+        "17718", 
+        [
+            "/usr/lib64/libboost_atomic.so.1.62.0", 
+            "/usr/lib64/libboost_chrono.so.1.62.0", 
+            "/usr/lib64/libboost_date_time.so.1.62.0", 
+            "/usr/lib64/libboost_filesystem.so.1.62.0", 
+            "/usr/lib64/libboost_iostreams.so.1.62.0", 
+            "/usr/lib64/libboost_locale.so.1.62.0", 
+            "/usr/lib64/libboost_program_options.so.1.62.0", 
+            "/usr/lib64/libboost_python-2.7.so.1.62.0", 
+            "/usr/lib64/libboost_python-3.4.so.1.62.0", 
+            "/usr/lib64/libboost_regex.so.1.62.0", 
+            "/usr/lib64/libboost_serialization.so.1.62.0", 
+            "/usr/lib64/libboost_signals.so.1.62.0", 
+            "/usr/lib64/libboost_system.so.1.62.0", 
+            "/usr/lib64/libboost_thread.so.1.62.0"
         ]
     ], 
     "dev-libs/ffcall:0": [
