@@ -110,6 +110,7 @@ dev-ruby/rest-client -doc
 gnustep-base/gnustep-make -doc
 media-libs/libcaca -doc
 dev-libs/libtommath -doc
+dev-python/pyzmq -doc
 
 # Cause dependency problems
 dev-python/botocore -doc
