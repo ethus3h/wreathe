@@ -538,11 +538,13 @@
         ]
     ], 
     "sci-geosciences/gpsd:0": [
-        "sci-geosciences/gpsd-3.16", 
-        "16285", 
+        "sci-geosciences/gpsd-3.17-r2", 
+        "17883", 
         [
             "/usr/lib64/libgps.so.21.0.0", 
-            "/usr/lib64/libgps.so.21"
+            "/usr/lib64/libgps.so.22.0.0", 
+            "/usr/lib64/libgps.so.21", 
+            "/usr/lib64/libgps.so.22"
         ]
     ], 
     "sci-mathematics/glpk:0": [
@@ -557,8 +559,7 @@
         "sys-libs/binutils-libs-2.29.1-r1", 
         "17674", 
         [
-            "/usr/lib64/libbfd-2.27.so", 
-            "/usr/lib64/libbfd-2.28.1.so"
+            "/usr/lib64/libbfd-2.27.so"
         ]
     ], 
     "sys-libs/readline:0": [

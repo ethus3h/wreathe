@@ -154,6 +154,7 @@ media-libs/openjpeg:2
 media-libs/oyranos
 media-libs/phonon
 media-libs/phonon-gstreamer
+media-libs/taglib
 media-plugins/alsa-plugins
 media-plugins/gst-plugins-libav
 media-plugins/gst-plugins-meta
