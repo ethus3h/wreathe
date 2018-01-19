@@ -37,10 +37,8 @@ app-misc/mapping-resources-pdf
 app-misc/onboard-emoji
 app-misc/rlwrap
 app-misc/sl
-app-misc/strigi
 app-misc/tmux
 app-misc/wreathe-base
-app-misc/wreathe-file-manager
 app-misc/wreathe-overlays-redist
 app-office/libreoffice
 app-office/libreoffice-l10n
@@ -75,6 +73,7 @@ dev-lang/php
 dev-lang/python
 dev-lang/ruby
 dev-lang/snap
+dev-libs/leveldb
 dev-libs/tinyxml
 dev-php/ZendFramework
 dev-python/PyQt4
@@ -123,12 +122,11 @@ dev-vcs/subversion
 games-board/gnugo
 games-roguelike/behemmoth
 games-simulation/openttd
-kde-apps/dolphin
-kde-apps/dolphin:4
 kde-apps/kde-dev-scripts
 kde-apps/kdebase-kioslaves:4::wreathe-overlay
 kde-apps/konsole
 kde-apps/kwave
+kde-frameworks/kdelibs
 kde-frameworks/kfilemetadata
 kde-frameworks/knotifications
 kde-frameworks/kwallet
@@ -146,9 +144,11 @@ media-gfx/xfig
 media-libs/fontconfig-infinality
 media-libs/freeglut
 media-libs/glew
+media-libs/ilmbase
 media-libs/lcms
 media-libs/libquicktime
 media-libs/opencolorio
+media-libs/openexr
 media-libs/openimageio
 media-libs/openjpeg:2
 media-libs/oyranos

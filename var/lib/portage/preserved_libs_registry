@@ -431,8 +431,8 @@
         ]
     ], 
     "kde-frameworks/kdelibs:4": [
-        "kde-frameworks/kdelibs-4.14.34", 
-        "16491", 
+        "kde-frameworks/kdelibs-4.14.37", 
+        "17875", 
         [
             "/usr/lib64/libkdewebkit.so.5.14.34", 
             "/usr/lib64/libkdewebkit.so.5"
