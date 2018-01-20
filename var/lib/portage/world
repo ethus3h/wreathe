@@ -75,6 +75,7 @@ dev-lang/ruby
 dev-lang/snap
 dev-libs/leveldb
 dev-libs/tinyxml
+dev-libs/xapian
 dev-php/ZendFramework
 dev-python/PyQt4
 dev-python/PyQt5
