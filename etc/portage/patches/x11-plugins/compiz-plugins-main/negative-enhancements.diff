@@ -1,5 +1,5 @@
 diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
-index fa7e9ed..aea455c 100644
+index fa7e9ed..8240c21 100644
 --- a/metadata/neg.xml.in
 +++ b/metadata/neg.xml.in
 @@ -17,21 +17,41 @@
@@ -27,7 +27,7 @@ index fa7e9ed..aea455c 100644
 -				<_short>Negative Windows</_short>
 -				<_long>Windows to affect when negating</_long>
 +				<_short>Matched Windows</_short>
-+				<_long>Windows to affect when toggling only matched windows</_long>
++				<_long>Windows to affect when using the &quot;Toggle Matched Windows Negative&quot; keybinding or &quot;Auto-Toggle Matched Windows&quot;</_long>
  				<default>!(type=Desktop)</default>
  			</option>
 +			<option name="toggle_screen_by_default" type="bool">
@@ -42,7 +42,7 @@ index fa7e9ed..aea455c 100644
 +			</option>
 +			<option name="preserve_toggled" type="bool">
 +				<_short>Preserve Toggled Windows</_short>
-+				<_long>When windows have been toggled by themselves or as part of the &quot;Matched Windows&quot; list, preserve their state when toggling the screen</_long>
++				<_long>When windows have been toggled using the &quot;Toggle Windows Negative&quot; keybinding, preserve their state when toggling the screen</_long>
 +				<default>false</default>
 +			</option>
  		</screen>
