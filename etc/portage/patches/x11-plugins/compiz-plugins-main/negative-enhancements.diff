@@ -55,7 +55,7 @@ index fa7e9ed..0756174 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..f63e570 100644
+index 1ed10c0..abbd629 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -269,7 +269,7 @@ index 1ed10c0..f63e570 100644
  }
  
  static void
-@@ -568,48 +675,59 @@ NEGScreenOptionChanged (CompScreen       *s,
+@@ -568,48 +675,60 @@ NEGScreenOptionChanged (CompScreen       *s,
      switch (num)
      {
      case NegScreenOptionToggleByDefault:
@@ -319,6 +319,7 @@ index 1ed10c0..f63e570 100644
 +    case NegScreenOptionToggleScreenByDefault:
 +	{
  	    NEG_SCREEN (s);
++	    CompWindow *w;
  
 -	    for (w = s->windows; w; w = w->next)
 -	    {
@@ -358,7 +359,7 @@ index 1ed10c0..f63e570 100644
  	}
  	break;
      default:
-@@ -694,8 +812,9 @@ NEGInitDisplay (CompPlugin  *p,
+@@ -694,8 +813,9 @@ NEGInitDisplay (CompPlugin  *p,
  	return FALSE;
      }
  
@@ -370,7 +371,7 @@ index 1ed10c0..f63e570 100644
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
-@@ -735,13 +854,23 @@ NEGInitScreen (CompPlugin *p,
+@@ -735,13 +855,23 @@ NEGInitScreen (CompPlugin *p,
      /* initialize the screen variables
       * you know what happens if you don't
       */
@@ -395,7 +396,7 @@ index 1ed10c0..f63e570 100644
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -781,8 +910,9 @@ NEGInitWindow (CompPlugin *p,
+@@ -781,8 +911,9 @@ NEGInitWindow (CompPlugin *p,
      if (!nw)
  	return FALSE;
  
@@ -407,7 +408,7 @@ index 1ed10c0..f63e570 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -858,4 +988,3 @@ getCompPluginInfo(void)
+@@ -858,4 +989,3 @@ getCompPluginInfo(void)
  {
      return &NEGVTable;
  }
