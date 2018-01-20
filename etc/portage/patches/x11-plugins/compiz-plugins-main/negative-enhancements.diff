@@ -55,7 +55,7 @@ index fa7e9ed..ea5e71e 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..3a85d15 100644
+index 1ed10c0..933b3d4 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -408,12 +408,12 @@ index 1ed10c0..3a85d15 100644
       * you know what happens if you don't
       */
 -    ns->isNeg = FALSE;
-+    ns->isNeg           = FALSE; /* Keep in sync with default
++    ns->isNeg           = FALSE; /* This must be kept in sync with default
 +                                    toggle_screen_by_default value from
-+                                    neg.xml.in */
++                                    neg.xml.in. */
 +    ns->keyNegToggled   = FALSE;
-+    ns->matchNeg        = FALSE; /* Keep in sync with default toggle_by_default
-+                                    value from neg.xml.in */
++    ns->matchNeg        = FALSE; /* This must be kept in sync with default
++                                    toggle_by_default value from neg.xml.in. */
 +    ns->keyMatchToggled = FALSE;
  
      ns->negFunction      = 0;
