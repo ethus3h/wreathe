@@ -114,6 +114,7 @@ dev-tex/bibtexu
 dev-tex/xmltex
 dev-util/android-tools
 dev-util/cloc
+dev-util/cppunit
 dev-util/pkgconfig
 dev-util/xxdiff
 dev-vcs/darcs
