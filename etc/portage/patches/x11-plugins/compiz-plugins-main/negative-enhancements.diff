@@ -1,5 +1,5 @@
 diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
-index fa7e9ed..ea5e71e 100644
+index fa7e9ed..315e135 100644
 --- a/metadata/neg.xml.in
 +++ b/metadata/neg.xml.in
 @@ -17,21 +17,46 @@
@@ -20,9 +20,8 @@ index fa7e9ed..ea5e71e 100644
  			<option name="toggle_by_default" type="bool">
  				<_short>Auto-Toggle Matched Windows</_short>
 -				<_long>Automatically toggle windows in the match list by default</_long>
--				<default>false</default>
 +				<_long>Automatically toggle windows in the &quot;Matched Windows&quot; list by default</_long>
-+				<default>false</default><!-- This default must be kept in sync with the initialization of ns->matchNeg in neg.c. -->
+ 				<default>false</default>
  			</option>
  			<option name="neg_match" type="match">
 -				<_short>Negative Windows</_short>
@@ -34,7 +33,7 @@ index fa7e9ed..ea5e71e 100644
 +			<option name="toggle_screen_by_default" type="bool">
 +				<_short>Auto-Toggle Screen</_short>
 +				<_long>Automatically toggle all windows by default, except for those in the &quot;Screen Exclusions&quot; list</_long>
-+				<default>false</default><!-- This default must be kept in sync with the initialization of ns->isNeg in neg.c. -->
++				<default>false</default>
 +			</option>
 +			<option name="exclude_match" type="match">
 +				<_short>Screen Exclusions</_short>
@@ -55,7 +54,7 @@ index fa7e9ed..ea5e71e 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..89fead0 100644
+index 1ed10c0..b5a74ef 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -109,7 +108,7 @@ index 1ed10c0..89fead0 100644
 +    /* Decide whether the given window should be negative or not, depending on
 +       the various parameters that can affect this, and set windowState thus */
 +
-+	windowState = FALSE;
++    windowState = FALSE;
 +
 +    /* Whole screen toggle state */
 +    if (! matchEval (negGetExcludeMatch (w->screen), w)) {
@@ -403,17 +402,14 @@ index 1ed10c0..89fead0 100644
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
-@@ -735,13 +884,22 @@ NEGInitScreen (CompPlugin *p,
+@@ -735,13 +884,19 @@ NEGInitScreen (CompPlugin *p,
      /* initialize the screen variables
       * you know what happens if you don't
       */
 -    ns->isNeg = FALSE;
-+    ns->isNeg           = FALSE; /* This must be kept in sync with default
-+                                    toggle_screen_by_default value from
-+                                    neg.xml.in. */
++    ns->isNeg           = negGetToggleScreenByDefault (s);
 +    ns->keyNegToggled   = FALSE;
-+    ns->matchNeg        = FALSE; /* This must be kept in sync with default
-+                                    toggle_by_default value from neg.xml.in. */
++    ns->matchNeg        = negGetToggleByDefault (s);
 +    ns->keyMatchToggled = FALSE;
  
      ns->negFunction      = 0;
@@ -427,7 +423,7 @@ index 1ed10c0..89fead0 100644
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -781,8 +939,9 @@ NEGInitWindow (CompPlugin *p,
+@@ -781,8 +936,9 @@ NEGInitWindow (CompPlugin *p,
      if (!nw)
  	return FALSE;
  
@@ -439,7 +435,7 @@ index 1ed10c0..89fead0 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -858,4 +1017,3 @@ getCompPluginInfo(void)
+@@ -858,4 +1014,3 @@ getCompPluginInfo(void)
  {
      return &NEGVTable;
  }
