@@ -49,7 +49,7 @@ index fa7e9ed..aea455c 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..5323046 100644
+index 1ed10c0..0297df5 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,12 @@ typedef struct _NEGScreen
@@ -100,7 +100,7 @@ index 1ed10c0..5323046 100644
 +    if ((! matchEval (negGetExcludeMatch (w->screen), w)) && ns->isNeg)
 +	windowState = !windowState;
 +
-+    if (matchEval (negGetNegMatch (w->screen), w) && ! ns->matchNeg)
++    if (matchEval (negGetNegMatch (w->screen), w) && ns->matchNeg)
 +	windowState = !windowState;
 +
 +    if (nw->keyNegToggled)
