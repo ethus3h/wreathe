@@ -1,8 +1,8 @@
 diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
-index fa7e9ed..081fc47 100644
+index fa7e9ed..aea455c 100644
 --- a/metadata/neg.xml.in
 +++ b/metadata/neg.xml.in
-@@ -17,20 +17,40 @@
+@@ -17,21 +17,41 @@
  			</option>
  			<option name="screen_toggle_key" type="key">
  				<_short>Toggle Screen Negative</_short>
@@ -26,11 +26,10 @@ index fa7e9ed..081fc47 100644
  			<option name="neg_match" type="match">
 -				<_short>Negative Windows</_short>
 -				<_long>Windows to affect when negating</_long>
--				<default>!(type=Desktop)</default>
 +				<_short>Matched Windows</_short>
 +				<_long>Windows to affect when toggling only matched windows</_long>
-+				<default>!(type=Desktop | type=Dock)</default>
-+			</option>
+ 				<default>!(type=Desktop)</default>
+ 			</option>
 +			<option name="toggle_screen_by_default" type="bool">
 +				<_short>Auto-Toggle Screen</_short>
 +				<_long>Automatically toggle all windows by default, except for those in the &quot;Screen Exclusions&quot; list</_long>
@@ -45,9 +44,10 @@ index fa7e9ed..081fc47 100644
 +				<_short>Preserve Toggled Windows</_short>
 +				<_long>When windows have been toggled by themselves or as part of the &quot;Matched Windows&quot; list, preserve their state when toggling the screen</_long>
 +				<default>false</default>
- 			</option>
++			</option>
  		</screen>
  	</plugin>
+ </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
 index 1ed10c0..5323046 100644
 --- a/src/neg/neg.c
