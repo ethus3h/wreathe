@@ -88,7 +88,7 @@ index 1ed10c0..6380159 100644
  static void
  NEGUpdateState (CompWindow *w)
  {
-+    NEG_SCREEN (s);
++    NEG_SCREEN (w->screen);
      NEG_WINDOW (w);
  
 -    /* check include list */
