@@ -50,7 +50,7 @@ index fa7e9ed..ec9be8f 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..49e6f2a 100644
+index 1ed10c0..7a0ddf0 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -87,7 +87,7 @@ index 1ed10c0..49e6f2a 100644
  } NEGWindow;
  
  #define GET_NEG_CORE(c) \
-@@ -81,32 +95,110 @@ typedef struct _NEGWindow
+@@ -81,32 +95,113 @@ typedef struct _NEGWindow
  static void
  NEGUpdateState (CompWindow *w)
  {
@@ -150,9 +150,12 @@ index 1ed10c0..49e6f2a 100644
 +{
 +    NEG_WINDOW (w);
 +
-+    if (negGetPreserveToggled (w->screen) && nw->keyNegToggled)
++    if (!negGetPreserveToggled (w->screen))
++	return;
++
++    if (nw->keyNegToggled)
 +	nw->keyNegToggled = FALSE;
-+    else if (negGetPreserveToggled (w->screen) && nw->keyNegPreserved)
++    else if (nw->keyNegPreserved)
 +	nw->keyNegToggled = TRUE;
 +}
 +
@@ -183,11 +186,11 @@ index 1ed10c0..49e6f2a 100644
      /* toggle screen negative flag */
 -    ns->isNeg = !ns->isNeg;
 +    ns->keyNegToggled = !ns->keyNegToggled;
-+
-+    NEGUpdateScreen (s);
-+}
  
 -    /* toggle every window */
++    NEGUpdateScreen (s);
++}
++
 +static void
 +NEGToggleMatches (CompScreen *s)
 +{
@@ -208,7 +211,7 @@ index 1ed10c0..49e6f2a 100644
  }
  
  static Bool
-@@ -123,7 +215,7 @@ negToggle (CompDisplay     *d,
+@@ -123,7 +218,7 @@ negToggle (CompDisplay     *d,
      w = findWindowAtDisplay (d, xid);
  
      if (w)
@@ -217,7 +220,7 @@ index 1ed10c0..49e6f2a 100644
  
      return TRUE;
  }
-@@ -147,6 +239,25 @@ negToggleAll (CompDisplay     *d,
+@@ -147,6 +242,25 @@ negToggleAll (CompDisplay     *d,
      return TRUE;
  }
  
@@ -243,7 +246,7 @@ index 1ed10c0..49e6f2a 100644
  static int
  getNegFragmentFunction (CompScreen  *s,
  			CompTexture *texture,
-@@ -549,15 +660,8 @@ static void
+@@ -549,15 +663,8 @@ static void
  NEGWindowAdd (CompScreen *s,
  	      CompWindow *w)
  {
@@ -261,7 +264,7 @@ index 1ed10c0..49e6f2a 100644
  }
  
  static void
-@@ -568,48 +672,43 @@ NEGScreenOptionChanged (CompScreen       *s,
+@@ -568,48 +675,36 @@ NEGScreenOptionChanged (CompScreen       *s,
      switch (num)
      {
      case NegScreenOptionToggleByDefault:
@@ -303,17 +306,12 @@ index 1ed10c0..49e6f2a 100644
 +	{
  	    NEG_SCREEN (s);
  
-+	    CompWindow *w;
-+
-+	    /* update toggle state for relevant windows */
- 	    for (w = s->windows; w; w = w->next)
+-	    for (w = s->windows; w; w = w->next)
 -	    {
 -			NEG_WINDOW (w);
-+		if (w && negGetPreserveToggled (s) && ! matchEval (negGetExcludeMatch (s), w))
-+		    NEGWindowUpdateKeyToggle (w);
- 
+-
 -			nw->matched = matchEval (negGetNegMatch (w->screen), w);
-+	    ns->isNeg = opt[NegScreenOptionToggleScreenByDefault].value.b;
++	    ns->isNeg = !ns->isNeg;
  
 -			if (nw->matched)
 -			{
@@ -337,7 +335,7 @@ index 1ed10c0..49e6f2a 100644
  	}
  	break;
      default:
-@@ -694,8 +793,9 @@ NEGInitDisplay (CompPlugin  *p,
+@@ -694,8 +789,9 @@ NEGInitDisplay (CompPlugin  *p,
  	return FALSE;
      }
  
@@ -349,7 +347,7 @@ index 1ed10c0..49e6f2a 100644
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
-@@ -735,13 +835,22 @@ NEGInitScreen (CompPlugin *p,
+@@ -735,13 +831,22 @@ NEGInitScreen (CompPlugin *p,
      /* initialize the screen variables
       * you know what happens if you don't
       */
@@ -373,7 +371,7 @@ index 1ed10c0..49e6f2a 100644
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -781,8 +890,9 @@ NEGInitWindow (CompPlugin *p,
+@@ -781,8 +886,9 @@ NEGInitWindow (CompPlugin *p,
      if (!nw)
  	return FALSE;
  
@@ -385,7 +383,7 @@ index 1ed10c0..49e6f2a 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -858,4 +968,3 @@ getCompPluginInfo(void)
+@@ -858,4 +964,3 @@ getCompPluginInfo(void)
  {
      return &NEGVTable;
  }
