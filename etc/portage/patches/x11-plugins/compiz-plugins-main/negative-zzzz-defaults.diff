@@ -31,3 +31,9 @@ index ea5e71e..72090cc 100644
  			</option>
  			<option name="neg_match" type="match">
  				<_short>Matched Windows</_short>
+ 				<_long>Windows to affect when using the &quot;Toggle Matched Windows Negative&quot; keybinding or &quot;Auto-Toggle Matched Windows&quot;</_long>
+-				<default>!(type=Desktop)</default>
++				<default></default>
+ 			</option>
+ 			<option name="toggle_screen_by_default" type="bool">
+ 				<_short>Auto-Toggle Screen</_short>
