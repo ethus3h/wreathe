@@ -49,7 +49,7 @@ index fa7e9ed..aea455c 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..62d8e33 100644
+index 1ed10c0..5625440 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,12 @@ typedef struct _NEGScreen
@@ -66,7 +66,7 @@ index 1ed10c0..62d8e33 100644
  
      int negFunction;
      int negAlphaFunction;
-@@ -54,8 +59,9 @@ typedef struct _NEGScreen
+@@ -54,8 +59,12 @@ typedef struct _NEGScreen
  
  typedef struct _NEGWindow
  {
@@ -75,10 +75,13 @@ index 1ed10c0..62d8e33 100644
 +    Bool isNeg; /* negative window flag: controlled by NEGUpdateState function */
 +    Bool keyNegToggled; /* window has been individually toggled using the
 +                           "Toggle Window Negative" keybinding */
++    Bool keyNegPreserved; /* window has been individually toggled using the
++                           "Toggle Window Negative" keybinding, but it is not
++                           active at the moment */
  } NEGWindow;
  
  #define GET_NEG_CORE(c) \
-@@ -81,32 +87,96 @@ typedef struct _NEGWindow
+@@ -81,32 +90,100 @@ typedef struct _NEGWindow
  static void
  NEGUpdateState (CompWindow *w)
  {
@@ -132,6 +135,10 @@ index 1ed10c0..62d8e33 100644
 +
 +    if (negGetPreserveToggled (w->screen) && nw->keyNegToggled)
 +	nw->keyNegToggled = FALSE;
++	nw->keyNegPreserved = TRUE;
++    if (negGetPreserveToggled (w->screen) && nw->keyNegPreserved)
++	nw->keyNegToggled = TRUE;
++    nw->keyNegPreserved = FALSE;
 +}
 +
 +static void
@@ -184,7 +191,7 @@ index 1ed10c0..62d8e33 100644
  }
  
  static Bool
-@@ -123,7 +193,7 @@ negToggle (CompDisplay     *d,
+@@ -123,7 +200,7 @@ negToggle (CompDisplay     *d,
      w = findWindowAtDisplay (d, xid);
  
      if (w)
@@ -193,7 +200,7 @@ index 1ed10c0..62d8e33 100644
  
      return TRUE;
  }
-@@ -147,6 +217,25 @@ negToggleAll (CompDisplay     *d,
+@@ -147,6 +224,25 @@ negToggleAll (CompDisplay     *d,
      return TRUE;
  }
  
@@ -219,7 +226,7 @@ index 1ed10c0..62d8e33 100644
  static int
  getNegFragmentFunction (CompScreen  *s,
  			CompTexture *texture,
-@@ -549,15 +638,8 @@ static void
+@@ -549,15 +645,8 @@ static void
  NEGWindowAdd (CompScreen *s,
  	      CompWindow *w)
  {
@@ -237,7 +244,7 @@ index 1ed10c0..62d8e33 100644
  }
  
  static void
-@@ -568,48 +650,36 @@ NEGScreenOptionChanged (CompScreen       *s,
+@@ -568,48 +657,36 @@ NEGScreenOptionChanged (CompScreen       *s,
      switch (num)
      {
      case NegScreenOptionToggleByDefault:
@@ -308,7 +315,7 @@ index 1ed10c0..62d8e33 100644
  	}
  	break;
      default:
-@@ -694,8 +764,9 @@ NEGInitDisplay (CompPlugin  *p,
+@@ -694,8 +771,9 @@ NEGInitDisplay (CompPlugin  *p,
  	return FALSE;
      }
  
@@ -320,7 +327,7 @@ index 1ed10c0..62d8e33 100644
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
-@@ -735,13 +806,17 @@ NEGInitScreen (CompPlugin *p,
+@@ -735,13 +813,17 @@ NEGInitScreen (CompPlugin *p,
      /* initialize the screen variables
       * you know what happens if you don't
       */
@@ -339,14 +346,20 @@ index 1ed10c0..62d8e33 100644
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -781,8 +856,8 @@ NEGInitWindow (CompPlugin *p,
+@@ -781,8 +863,9 @@ NEGInitWindow (CompPlugin *p,
      if (!nw)
  	return FALSE;
  
 -    nw->isNeg       = FALSE;
 -    nw->matched     = FALSE;
-+    nw->isNeg         = FALSE;
-+    nw->keyNegToggled = FALSE;
++    nw->isNeg           = FALSE;
++    nw->keyNegToggled   = FALSE;
++    nw->keyNegPreserved = FALSE;
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
+@@ -858,4 +941,3 @@ getCompPluginInfo(void)
+ {
+     return &NEGVTable;
+ }
+-
