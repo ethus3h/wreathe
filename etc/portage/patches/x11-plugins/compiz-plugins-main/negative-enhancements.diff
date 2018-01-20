@@ -55,7 +55,7 @@ index fa7e9ed..ea5e71e 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..ebcb56d 100644
+index 1ed10c0..f22d6d7 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -86,9 +86,9 @@ index 1ed10c0..ebcb56d 100644
 +                           when Preserve Toggled Windows means the window
 +                           should be using its previous state) */
 +    Bool keyNegPreserved; /* window has been individually toggled using the
-+                           "Toggle Window Negative" keybinding. This preserves
-+                           the window state between screen toggles for Preserve
-+                           Toggled Windows. */
++                             "Toggle Window Negative" keybinding. This preserves
++                             the window state between screen toggles for Preserve
++                             Toggled Windows. */
  } NEGWindow;
  
  #define GET_NEG_CORE(c) \
