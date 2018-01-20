@@ -52,16 +52,3 @@ index ea5e71e..72090cc 100644
  			</option>
  		</screen>
  	</plugin>
-diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 89fead0..7553a46 100644
---- a/src/neg/neg.c
-+++ b/src/neg/neg.c
-@@ -884,7 +884,7 @@ NEGInitScreen (CompPlugin *p,
-     /* initialize the screen variables
-      * you know what happens if you don't
-      */
--    ns->isNeg           = FALSE; /* This must be kept in sync with default
-+    ns->isNeg           = TRUE;  /* This must be kept in sync with default
-                                     toggle_screen_by_default value from
-                                     neg.xml.in. */
-     ns->keyNegToggled   = FALSE;

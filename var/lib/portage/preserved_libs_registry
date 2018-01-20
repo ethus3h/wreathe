@@ -85,6 +85,14 @@
             "/usr/lib64/libprotoc.so.11"
         ]
     ], 
+    "kde-apps/kdegraphics-mobipocket:4": [
+        "kde-apps/kdegraphics-mobipocket-16.08.3", 
+        "12631", 
+        [
+            "/usr/lib64/libqmobipocket.so.1.0.0", 
+            "/usr/lib64/libqmobipocket.so.1"
+        ]
+    ], 
     "kde-apps/kdepimlibs:4": [
         "kde-apps/kdepimlibs-4.14.11_pre20160211-r3", 
         "12929", 
@@ -236,6 +244,14 @@
         [
             "/lib64/libreadline.so.6.3", 
             "/lib64/libreadline.so.6"
+        ]
+    ], 
+    "x11-libs/qscintilla:0": [
+        "x11-libs/qscintilla-2.10.1", 
+        "18072", 
+        [
+            "/usr/lib64/libqscintilla2.so.12.0.2", 
+            "/usr/lib64/libqscintilla2.so.12"
         ]
     ]
 }
