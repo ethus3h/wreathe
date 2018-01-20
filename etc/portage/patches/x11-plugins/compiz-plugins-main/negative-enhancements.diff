@@ -51,7 +51,7 @@ index fa7e9ed..224de1f 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..6511d67 100644
+index 1ed10c0..2f7bba9 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -47,6 +47,8 @@ typedef struct _NEGScreen
@@ -151,7 +151,7 @@ index 1ed10c0..6511d67 100644
 -    NEG_SCREEN(s);
 +    /* update toggle state for relevant windows */
 +    for (w = s->windows; w; w = w->next)
-+	if (w && negGetPreserveToggled (s) && ! matchEval (negGetExcludeMatch (s)))
++	if (w && negGetPreserveToggled (s) && ! matchEval (negGetExcludeMatch (s), w))
 +	    NEGWindowUpdateKeyToggle (w);
  
      /* toggle screen negative flag */
@@ -172,7 +172,7 @@ index 1ed10c0..6511d67 100644
      for (w = s->windows; w; w = w->next)
 -	if (w)
 -	    NEGUpdateState (w);
-+	if (w && negGetPreserveToggled (s) && matchEval (negGetNegMatch (s)))
++	if (w && negGetPreserveToggled (s) && matchEval (negGetNegMatch (s), w))
 +	    NEGWindowUpdateKeyToggle (w);
 +
 +    /* toggle match negative flag */
