@@ -1,8 +1,8 @@
 diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
-index fa7e9ed..ec9be8f 100644
+index fa7e9ed..9932e8b 100644
 --- a/metadata/neg.xml.in
 +++ b/metadata/neg.xml.in
-@@ -17,21 +17,41 @@
+@@ -17,21 +17,46 @@
  			</option>
  			<option name="screen_toggle_key" type="key">
  				<_short>Toggle Screen Negative</_short>
@@ -46,11 +46,16 @@ index fa7e9ed..ec9be8f 100644
 +				<_long>When windows have been toggled using the &quot;Toggle Windows Negative&quot; keybinding, preserve their state when toggling the screen. Note that toggled windows' state will not be preserved between Compiz restarts.</_long>
 +				<default>false</default>
 +			</option>
++			<option name="clear_toggled" type="bool">
++				<_short>Auto-Clear Toggled Window State</_short>
++				<_long>A window that has been toggled using the &quot;Toggle Windows Negative&quot; keybinding will have its state discarded when toggling a match group that includes that window.</_long>
++				<default>false</default>
++			</option>
  		</screen>
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..7a0ddf0 100644
+index 1ed10c0..38f1ff0 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -276,7 +281,7 @@ index 1ed10c0..7a0ddf0 100644
 +	    NEG_SCREEN (s);
  
 -		ns->isNeg = opt[NegScreenOptionToggleByDefault].value.b;
-+	    ns->matchNeg = opt[NegScreenOptionToggleByDefault].value.b;
++	    ns->matchNeg = negGetToggleByDefault (s);
  
 -		for (w = s->windows; w; w = w->next)
 -		{
@@ -311,7 +316,7 @@ index 1ed10c0..7a0ddf0 100644
 -			NEG_WINDOW (w);
 -
 -			nw->matched = matchEval (negGetNegMatch (w->screen), w);
-+	    ns->isNeg = !ns->isNeg;
++	    ns->isNeg = negGetToggleScreenByDefault (s);
  
 -			if (nw->matched)
 -			{
@@ -347,7 +352,7 @@ index 1ed10c0..7a0ddf0 100644
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
-@@ -735,13 +831,22 @@ NEGInitScreen (CompPlugin *p,
+@@ -735,13 +831,23 @@ NEGInitScreen (CompPlugin *p,
      /* initialize the screen variables
       * you know what happens if you don't
       */
@@ -368,10 +373,11 @@ index 1ed10c0..7a0ddf0 100644
 +    negSetToggleScreenByDefaultNotify (s, NEGScreenOptionChanged);
 +    negSetExcludeMatchNotify (s, NEGScreenOptionChanged);
 +    negSetPreserveToggledNotify (s, NEGScreenOptionChanged);
++    negSetClearToggledNotify (s, NEGScreenOptionChanged);
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -781,8 +886,9 @@ NEGInitWindow (CompPlugin *p,
+@@ -781,8 +887,9 @@ NEGInitWindow (CompPlugin *p,
      if (!nw)
  	return FALSE;
  
@@ -383,7 +389,7 @@ index 1ed10c0..7a0ddf0 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -858,4 +964,3 @@ getCompPluginInfo(void)
+@@ -858,4 +965,3 @@ getCompPluginInfo(void)
  {
      return &NEGVTable;
  }
