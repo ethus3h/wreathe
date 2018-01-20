@@ -1,5 +1,5 @@
 diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
-index fa7e9ed..4ad7c31 100644
+index fa7e9ed..081fc47 100644
 --- a/metadata/neg.xml.in
 +++ b/metadata/neg.xml.in
 @@ -17,20 +17,40 @@
@@ -20,17 +20,16 @@ index fa7e9ed..4ad7c31 100644
  			<option name="toggle_by_default" type="bool">
  				<_short>Auto-Toggle Matched Windows</_short>
 -				<_long>Automatically toggle windows in the match list by default</_long>
--				<default>false</default>
 +				<_long>Automatically toggle windows in the &quot;Matched Windows&quot; list by default</_long>
-+				<default>true</default>
+ 				<default>false</default>
  			</option>
  			<option name="neg_match" type="match">
 -				<_short>Negative Windows</_short>
 -				<_long>Windows to affect when negating</_long>
 -				<default>!(type=Desktop)</default>
 +				<_short>Matched Windows</_short>
-+				<_long>Windows to affect when negating only matched windows</_long>
-+				<default></default>
++				<_long>Windows to affect when toggling only matched windows</_long>
++				<default>!(type=Desktop | type=Dock)</default>
 +			</option>
 +			<option name="toggle_screen_by_default" type="bool">
 +				<_short>Auto-Toggle Screen</_short>
@@ -45,7 +44,7 @@ index fa7e9ed..4ad7c31 100644
 +			<option name="preserve_toggled" type="bool">
 +				<_short>Preserve Toggled Windows</_short>
 +				<_long>When windows have been toggled by themselves or as part of the &quot;Matched Windows&quot; list, preserve their state when toggling the screen</_long>
-+				<default>true</default>
++				<default>false</default>
  			</option>
  		</screen>
  	</plugin>
