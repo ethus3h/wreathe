@@ -50,7 +50,7 @@ index fa7e9ed..ec9be8f 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..cadfb33 100644
+index 1ed10c0..49e6f2a 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -69,7 +69,7 @@ index 1ed10c0..cadfb33 100644
  
      int negFunction;
      int negAlphaFunction;
-@@ -54,8 +61,12 @@ typedef struct _NEGScreen
+@@ -54,8 +61,15 @@ typedef struct _NEGScreen
  
  typedef struct _NEGWindow
  {
@@ -77,14 +77,17 @@ index 1ed10c0..cadfb33 100644
 -    Bool matched;
 +    Bool isNeg; /* negative window flag: controlled by NEGUpdateState function */
 +    Bool keyNegToggled; /* window has been individually toggled using the
-+                           "Toggle Window Negative" keybinding */
++                           "Toggle Window Negative" keybinding (will be unset
++                           when Preserve Toggled Windows means the window
++                           should be using its previous state) */
 +    Bool keyNegPreserved; /* window has been individually toggled using the
-+                           "Toggle Window Negative" keybinding, but it is not
-+                           active at the moment */
++                           "Toggle Window Negative" keybinding. This preserves
++                           the window state between screen toggles for Preserve
++                           Toggled Windows. */
  } NEGWindow;
  
  #define GET_NEG_CORE(c) \
-@@ -81,32 +92,110 @@ typedef struct _NEGWindow
+@@ -81,32 +95,110 @@ typedef struct _NEGWindow
  static void
  NEGUpdateState (CompWindow *w)
  {
@@ -183,14 +186,14 @@ index 1ed10c0..cadfb33 100644
 +
 +    NEGUpdateScreen (s);
 +}
-+
+ 
+-    /* toggle every window */
 +static void
 +NEGToggleMatches (CompScreen *s)
 +{
 +    NEG_SCREEN (s);
 +    CompWindow *w;
- 
--    /* toggle every window */
++
 +    /* update toggle state for relevant windows */
      for (w = s->windows; w; w = w->next)
 -	if (w)
@@ -205,7 +208,7 @@ index 1ed10c0..cadfb33 100644
  }
  
  static Bool
-@@ -123,7 +212,7 @@ negToggle (CompDisplay     *d,
+@@ -123,7 +215,7 @@ negToggle (CompDisplay     *d,
      w = findWindowAtDisplay (d, xid);
  
      if (w)
@@ -214,7 +217,7 @@ index 1ed10c0..cadfb33 100644
  
      return TRUE;
  }
-@@ -147,6 +236,25 @@ negToggleAll (CompDisplay     *d,
+@@ -147,6 +239,25 @@ negToggleAll (CompDisplay     *d,
      return TRUE;
  }
  
@@ -240,7 +243,7 @@ index 1ed10c0..cadfb33 100644
  static int
  getNegFragmentFunction (CompScreen  *s,
  			CompTexture *texture,
-@@ -549,15 +657,8 @@ static void
+@@ -549,15 +660,8 @@ static void
  NEGWindowAdd (CompScreen *s,
  	      CompWindow *w)
  {
@@ -258,7 +261,7 @@ index 1ed10c0..cadfb33 100644
  }
  
  static void
-@@ -568,48 +669,41 @@ NEGScreenOptionChanged (CompScreen       *s,
+@@ -568,48 +672,43 @@ NEGScreenOptionChanged (CompScreen       *s,
      switch (num)
      {
      case NegScreenOptionToggleByDefault:
@@ -300,6 +303,8 @@ index 1ed10c0..cadfb33 100644
 +	{
  	    NEG_SCREEN (s);
  
++	    CompWindow *w;
++
 +	    /* update toggle state for relevant windows */
  	    for (w = s->windows; w; w = w->next)
 -	    {
@@ -332,7 +337,7 @@ index 1ed10c0..cadfb33 100644
  	}
  	break;
      default:
-@@ -694,8 +788,9 @@ NEGInitDisplay (CompPlugin  *p,
+@@ -694,8 +793,9 @@ NEGInitDisplay (CompPlugin  *p,
  	return FALSE;
      }
  
@@ -344,7 +349,7 @@ index 1ed10c0..cadfb33 100644
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
-@@ -735,13 +830,22 @@ NEGInitScreen (CompPlugin *p,
+@@ -735,13 +835,22 @@ NEGInitScreen (CompPlugin *p,
      /* initialize the screen variables
       * you know what happens if you don't
       */
@@ -368,7 +373,7 @@ index 1ed10c0..cadfb33 100644
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -781,8 +885,9 @@ NEGInitWindow (CompPlugin *p,
+@@ -781,8 +890,9 @@ NEGInitWindow (CompPlugin *p,
      if (!nw)
  	return FALSE;
  
@@ -380,7 +385,7 @@ index 1ed10c0..cadfb33 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -858,4 +963,3 @@ getCompPluginInfo(void)
+@@ -858,4 +968,3 @@ getCompPluginInfo(void)
  {
      return &NEGVTable;
  }
