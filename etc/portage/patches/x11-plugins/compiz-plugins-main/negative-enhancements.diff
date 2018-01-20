@@ -49,7 +49,7 @@ index fa7e9ed..aea455c 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..5625440 100644
+index 1ed10c0..58343e5 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,12 @@ typedef struct _NEGScreen
@@ -135,10 +135,9 @@ index 1ed10c0..5625440 100644
 +
 +    if (negGetPreserveToggled (w->screen) && nw->keyNegToggled)
 +	nw->keyNegToggled = FALSE;
-+	nw->keyNegPreserved = TRUE;
-+    if (negGetPreserveToggled (w->screen) && nw->keyNegPreserved)
++    else if (negGetPreserveToggled (w->screen) && nw->keyNegPreserved)
 +	nw->keyNegToggled = TRUE;
-+    nw->keyNegPreserved = FALSE;
++	nw->keyNegPreserved = FALSE;
 +}
 +
 +static void
@@ -147,6 +146,7 @@ index 1ed10c0..5625440 100644
 +    NEG_WINDOW (w);
 +
 +    nw->keyNegToggled = !nw->keyNegToggled;
++    nw->keyNegPreserved = !nw->keyNegPreserved;
 +
 +    /* cause repainting */
 +    NEGUpdateState (w);
