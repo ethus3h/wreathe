@@ -51,7 +51,7 @@ index fa7e9ed..58e8714 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..f00446f 100644
+index 1ed10c0..805b816 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,12 @@ typedef struct _NEGScreen
@@ -253,7 +253,7 @@ index 1ed10c0..f00446f 100644
 +	    NEG_SCREEN (s);
  
 -		ns->isNeg = opt[NegScreenOptionToggleByDefault].value.b;
-+	    ns->matchNeg = opt[NegScreenOptionToggleMatchByDefault].value.b;
++	    ns->matchNeg = !ns->matchNeg;
  
 -		for (w = s->windows; w; w = w->next)
 -		{
@@ -288,7 +288,7 @@ index 1ed10c0..f00446f 100644
 -			NEG_WINDOW (w);
 -
 -			nw->matched = matchEval (negGetNegMatch (w->screen), w);
-+	    ns->isNeg = opt[NegScreenOptionToggleByDefault].value.b;
++	    ns->isNeg = !ns->isNeg;
  
 -			if (nw->matched)
 -			{
