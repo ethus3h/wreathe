@@ -51,7 +51,7 @@ index fa7e9ed..e322f8a 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..9d5f3dc 100644
+index 1ed10c0..9ca4796 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -47,6 +47,7 @@ typedef struct _NEGScreen
@@ -122,13 +122,13 @@ index 1ed10c0..9d5f3dc 100644
 +    /* cause repainting */
 +    NEGUpdateState (w);
 +}
- 
--    /* toggle every window */
++
 +static void
 +NEGUpdateScreen (CompScreen *s)
 +{
 +    CompWindow *w;
-+
+ 
+-    /* toggle every window */
 +    /* update every window */
      for (w = s->windows; w; w = w->next)
  	if (w)
@@ -195,25 +195,25 @@ index 1ed10c0..9d5f3dc 100644
  static int
  getNegFragmentFunction (CompScreen  *s,
  			CompTexture *texture,
-@@ -549,15 +612,10 @@ static void
+@@ -549,15 +612,8 @@ static void
  NEGWindowAdd (CompScreen *s,
  	      CompWindow *w)
  {
 -	NEG_SCREEN (s);
- 	NEG_WINDOW (w);
- 
+-	NEG_WINDOW (w);
+-
 -	nw->matched = matchEval (negGetNegMatch (s), w);
 -
 -	/* nw->isNeg is initialized to FALSE in InitWindow, so we only
 -	have to toggle it to TRUE if necessary */
 -	if (ns->isNeg && nw->matched)
 -		NEGUpdateState (w);
-+	/* Run matching logic on this window */
++	/* Run matching logic on the new window */
 +	NEGUpdateState (w);
  }
  
  static void
-@@ -567,49 +625,37 @@ NEGScreenOptionChanged (CompScreen       *s,
+@@ -567,49 +623,37 @@ NEGScreenOptionChanged (CompScreen       *s,
  {
      switch (num)
      {
@@ -286,7 +286,7 @@ index 1ed10c0..9d5f3dc 100644
  	}
  	break;
      default:
-@@ -696,6 +742,7 @@ NEGInitDisplay (CompPlugin  *p,
+@@ -696,6 +740,7 @@ NEGInitDisplay (CompPlugin  *p,
  
      negSetWindowToggleKeyInitiate (d, negToggle);
      negSetScreenToggleKeyInitiate (d, negToggleAll);
@@ -294,7 +294,7 @@ index 1ed10c0..9d5f3dc 100644
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
-@@ -735,13 +782,17 @@ NEGInitScreen (CompPlugin *p,
+@@ -735,13 +780,17 @@ NEGInitScreen (CompPlugin *p,
      /* initialize the screen variables
       * you know what happens if you don't
       */
@@ -314,7 +314,7 @@ index 1ed10c0..9d5f3dc 100644
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -782,7 +833,7 @@ NEGInitWindow (CompPlugin *p,
+@@ -782,7 +831,7 @@ NEGInitWindow (CompPlugin *p,
  	return FALSE;
  
      nw->isNeg       = FALSE;
@@ -323,7 +323,7 @@ index 1ed10c0..9d5f3dc 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -858,4 +909,3 @@ getCompPluginInfo(void)
+@@ -858,4 +907,3 @@ getCompPluginInfo(void)
  {
      return &NEGVTable;
  }
