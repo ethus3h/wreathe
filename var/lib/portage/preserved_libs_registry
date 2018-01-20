@@ -55,8 +55,8 @@
             "/usr/lib64/libicalss.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1", 
-            "/usr/lib64/libicalss.so.1", 
-            "/usr/lib64/libical.so.1"
+            "/usr/lib64/libical.so.1", 
+            "/usr/lib64/libicalss.so.1"
         ]
     ], 
     "dev-libs/libzip:0": [
