@@ -51,7 +51,7 @@ index fa7e9ed..58e8714 100644
  		</screen>
  	</plugin>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..a999a4f 100644
+index 1ed10c0..6371933 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,12 @@ typedef struct _NEGScreen
@@ -351,8 +351,3 @@ index 1ed10c0..a999a4f 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -858,4 +933,3 @@ getCompPluginInfo(void)
- {
-     return &NEGVTable;
- }
--
