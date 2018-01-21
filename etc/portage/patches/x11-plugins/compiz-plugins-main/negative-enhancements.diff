@@ -1,5 +1,5 @@
 diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
-index fa7e9ed..315e135 100644
+index fa7e9ed..669b1eb 100644
 --- a/metadata/neg.xml.in
 +++ b/metadata/neg.xml.in
 @@ -17,21 +17,46 @@
@@ -12,7 +12,7 @@ index fa7e9ed..315e135 100644
  			</option>
 +			<option name="matched_toggle_key" type="key">
 +				<_short>Toggle Matched Windows Negative</_short>
-+				<_long>Toggles the windows negative matched by the &quot;Negative Windows&quot; list</_long>
++				<_long>Toggles the windows negative matched by the &quot;Matched Windows&quot; list</_long>
 +				<default></default>
 +			</option>
  		</display>
