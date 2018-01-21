@@ -54,7 +54,7 @@ index fa7e9ed..315e135 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..b3e705a 100644
+index 1ed10c0..6b345ce 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -207,7 +207,7 @@ index 1ed10c0..b3e705a 100644
 -    NEG_SCREEN(s);
 +    /* update toggle state for relevant windows */
 +    for (w = s->windows; w; w = w->next)
-+	if (w && negGetPreserveToggled (s) && ! matchEval (negGetExcludeMatch (s), w))
++	if (negGetPreserveToggled (s) && ! matchEval (negGetExcludeMatch (s), w))
 +	    NEGWindowUpdateKeyToggle (w);
 +
 +    /* Clear toggled window state if the Auto-Clear config option is set */
@@ -248,7 +248,7 @@ index 1ed10c0..b3e705a 100644
      for (w = s->windows; w; w = w->next)
 -	if (w)
 -	    NEGUpdateState (w);
-+	if (w && negGetPreserveToggled (s) && matchEval (negGetNegMatch (s), w))
++	if (negGetPreserveToggled (s) && matchEval (negGetNegMatch (s), w))
 +	    NEGWindowUpdateKeyToggle (w);
 +
 +    /* Clear toggled window state if the Auto-Clear config option is set */
