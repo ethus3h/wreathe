@@ -1,16 +1,19 @@
 diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
-index fa7e9ed..315e135 100644
+index fa7e9ed..6cd4a24 100644
 --- a/metadata/neg.xml.in
 +++ b/metadata/neg.xml.in
-@@ -17,21 +17,46 @@
+@@ -15,23 +15,48 @@
+ 				<_long>Toggle active window negative</_long>
+ 				<default>&lt;Super&gt;n</default>
  			</option>
- 			<option name="screen_toggle_key" type="key">
+-			<option name="screen_toggle_key" type="key">
++			<option name="new_screen_toggle_key" type="key">
  				<_short>Toggle Screen Negative</_short>
 -				<_long>Toggle screen negative</_long>
 +				<_long>Toggle all windows negative, except for windows in the &quot;Screen Exclusions&quot; list</_long>
  				<default>&lt;Super&gt;m</default>
  			</option>
-+			<option name="matched_toggle_key" type="key">
++			<option name="screen_toggle_key" type="key"><!-- This option inherits the previous "Toggle Screen Negative"'s behavior when updating from previous configurations, so the name "screen_toggle_key" is used to inherit the keybinding correctly. -->
 +				<_short>Toggle Matched Windows Negative</_short>
 +				<_long>Toggles the windows negative matched by the &quot;Negative Windows&quot; list</_long>
 +				<default></default>
@@ -54,7 +57,7 @@ index fa7e9ed..315e135 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..6b345ce 100644
+index 1ed10c0..15fc184 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -472,8 +475,8 @@ index 1ed10c0..6b345ce 100644
 -    negSetWindowToggleKeyInitiate (d, negToggle);
 -    negSetScreenToggleKeyInitiate (d, negToggleAll);
 +    negSetWindowToggleKeyInitiate  (d, negToggle);
-+    negSetScreenToggleKeyInitiate  (d, negToggleAll);
-+    negSetMatchedToggleKeyInitiate (d, negToggleMatched);
++    negSetNewScreenToggleKeyInitiate  (d, negToggleAll); /* "Toggle Screen Negative" in CCSM */
++    negSetScreenToggleKeyInitiate (d, negToggleMatched); /* "Toggle Matched Windows Negative" in CCSM */
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
