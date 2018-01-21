@@ -54,7 +54,7 @@ index fa7e9ed..315e135 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..b5a74ef 100644
+index 1ed10c0..96786cc 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -225,8 +225,7 @@ index 1ed10c0..b5a74ef 100644
 +NEGMatchClearToggled (CompScreen *s)
 +{
 +    CompWindow *w;
- 
--    /* toggle every window */
++
 +    if (negGetClearToggled (s)) {
 +	for (w = s->windows; w; w = w->next)
 +	{
@@ -244,7 +243,8 @@ index 1ed10c0..b5a74ef 100644
 +{
 +    NEG_SCREEN (s);
 +    CompWindow *w;
-+
+ 
+-    /* toggle every window */
 +    /* update toggle state for relevant windows */
      for (w = s->windows; w; w = w->next)
 -	if (w)
@@ -297,6 +297,82 @@ index 1ed10c0..b5a74ef 100644
  static int
  getNegFragmentFunction (CompScreen  *s,
  			CompTexture *texture,
+@@ -310,20 +471,20 @@ NEGDrawWindowTexture (CompWindow           *w,
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE0_ALPHA, GL_PREVIOUS);
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_OPERAND0_ALPHA, GL_SRC_ALPHA);
+ 
+-    		    constant[0] = 0.5f + 0.5f * RED_SATURATION_WEIGHT;
++		    constant[0] = 0.5f + 0.5f * RED_SATURATION_WEIGHT;
+ 		    constant[1] = 0.5f + 0.5f * GREEN_SATURATION_WEIGHT;
+ 		    constant[2] = 0.5f + 0.5f * BLUE_SATURATION_WEIGHT;
+ 		    constant[3] = 1.0;
+ 
+ 		    glTexEnvfv (GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, constant);
+ 
+-    		    /* mark another texture active */
++		    /* mark another texture active */
+ 		    (*w->screen->activeTexture) (GL_TEXTURE2_ARB);
+ 
+ 		    /* enable that texture */
+-    		    enableTexture (w->screen, texture, filter);
++		    enableTexture (w->screen, texture, filter);
+ 
+-	    	    glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
++		    glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE);
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_TEXTURE0);
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_PREVIOUS);
+@@ -410,7 +571,7 @@ NEGDrawWindowTexture (CompWindow           *w,
+ 		    /* disable the current texture */
+ 		    disableTexture (w->screen, texture);
+ 
+-	    	    /* set the texture mode back to replace */
++		    /* set the texture mode back to replace */
+ 		    glTexEnvi (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+ 
+ 		    /* re-activate last texture */
+@@ -421,12 +582,12 @@ NEGDrawWindowTexture (CompWindow           *w,
+ 		    /* fully saturated or fully unsaturated */
+ 
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_COMBINE_ALPHA, GL_MODULATE);
+-    		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE0_ALPHA, GL_PREVIOUS);
++		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE0_ALPHA, GL_PREVIOUS);
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE1_ALPHA, GL_CONSTANT);
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_OPERAND0_ALPHA, GL_SRC_ALPHA);
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_OPERAND1_ALPHA, GL_SRC_ALPHA);
+ 
+-    		    /* color constant */
++		    /* color constant */
+ 		    constant[3] = attrib->opacity / 65535.0f;
+ 		    constant[0] = constant[1] = constant[2] =
+ 				  constant[3] * attrib->brightness / 65535.0f;
+@@ -440,7 +601,7 @@ NEGDrawWindowTexture (CompWindow           *w,
+ 
+ 		    glTexEnvfv (GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, constant);
+ 
+-    		    /* draw the window geometry */
++		    /* draw the window geometry */
+ 		    (*w->drawWindowGeometry) (w);
+ 		}
+ 
+@@ -490,7 +651,7 @@ NEGDrawWindowTexture (CompWindow           *w,
+ 		    /* enable blending */
+ 		    glEnable (GL_BLEND);
+ 
+-    		    /* color constant */
++		    /* color constant */
+ 		    constant[3] = attrib->opacity / 65535.0f;
+ 		    constant[0] = constant[3] * attrib->brightness / 65535.0f;
+ 		    constant[1] = constant[3] * attrib->brightness / 65535.0f;
+@@ -514,7 +675,7 @@ NEGDrawWindowTexture (CompWindow           *w,
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_OPERAND0_ALPHA, GL_SRC_ALPHA);
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_OPERAND1_ALPHA, GL_SRC_ALPHA);
+ 
+-    		    /* draw the window geometry */
++		    /* draw the window geometry */
+ 		    (*w->drawWindowGeometry) (w);
+ 
+ 		    /* disable blending */
 @@ -549,15 +710,8 @@ static void
  NEGWindowAdd (CompScreen *s,
  	      CompWindow *w)
