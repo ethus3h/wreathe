@@ -150,6 +150,7 @@ media-libs/freeglut
 media-libs/glew
 media-libs/ilmbase
 media-libs/lcms
+media-libs/libgltf
 media-libs/libquicktime
 media-libs/opencolorio
 media-libs/openexr
