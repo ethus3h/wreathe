@@ -1,3 +1,6 @@
+# Until >=clisp-2.49.60 stabilized
+dev-lisp/clisp ~amd64
+
 # Until tar 1.30+ is stabilized
 app-arch/tar ~amd64
 
@@ -16,8 +19,6 @@ app-admin/gentoo-perl-helpers ~amd64
 
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
-=app-doc/ember-web-site-9999::wreathe-overlay **
-=app-misc/crystallize-9999::wreathe-overlay **
 =app-misc/ember-information-technology-environment-9999::wreathe-overlay **
 =app-misc/wreathe-base-9999::wreathe-overlay **
 =app-misc/wreathe-overlays-redist-9999::wreathe-overlay **
@@ -34,10 +35,10 @@ app-misc/cwiid ~amd64
 # Epson scanner driver (depends on gnulib)
 =media-gfx/utsushi-9999 **
 
-# Use git oyranos
+# Use git oyranos: needed for git CompICC
 =media-libs/oyranos-9999 **
 
-# Only live (~amd64) ebuilds are available for these
+# Only live (-9999) ebuilds are available for these
 =net-im/hangups-9999 **
 
 # Use GRUB from git for now, since it's needed for nvme
