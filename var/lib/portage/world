@@ -39,6 +39,7 @@ app-misc/rlwrap
 app-misc/sl
 app-misc/tmux
 app-misc/wreathe-base
+app-misc/wreathe-file-manager
 app-misc/wreathe-overlays-redist
 app-office/libreoffice
 app-office/libreoffice-l10n
@@ -60,6 +61,7 @@ app-text/texlive
 app-text/texlive-core
 app-text/tree
 app-text/wgetpaste
+dev-cpp/clucene
 dev-cpp/yaml-cpp
 dev-db/postgresql
 dev-haskell/opengl
