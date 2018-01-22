@@ -54,7 +54,7 @@ index fa7e9ed..669b1eb 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..54c62d8 100644
+index 1ed10c0..5c985b6 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -489,8 +489,8 @@ index 1ed10c0..54c62d8 100644
 -    negSetWindowToggleKeyInitiate (d, negToggle);
 -    negSetScreenToggleKeyInitiate (d, negToggleAll);
 +    negSetWindowToggleKeyInitiate  (d, negToggle);
-+    negSetNewScreenToggleKeyInitiate  (d, negToggleAll);
-+    negSetScreenToggleKeyInitiate (d, negToggleMatched);
++    negSetScreenToggleKeyInitiate  (d, negToggleAll);
++    negSetMatchedToggleKeyInitiate (d, negToggleMatched);
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
