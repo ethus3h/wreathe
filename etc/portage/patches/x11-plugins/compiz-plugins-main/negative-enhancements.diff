@@ -54,7 +54,7 @@ index fa7e9ed..669b1eb 100644
  	</plugin>
  </compiz>
 diff --git a/src/neg/neg.c b/src/neg/neg.c
-index 1ed10c0..b7f3691 100644
+index 1ed10c0..54c62d8 100644
 --- a/src/neg/neg.c
 +++ b/src/neg/neg.c
 @@ -46,7 +46,14 @@ typedef struct _NEGScreen
@@ -91,7 +91,7 @@ index 1ed10c0..b7f3691 100644
  } NEGWindow;
  
  #define GET_NEG_CORE(c) \
-@@ -81,32 +95,160 @@ typedef struct _NEGWindow
+@@ -81,32 +95,161 @@ typedef struct _NEGWindow
  static void
  NEGUpdateState (CompWindow *w)
  {
@@ -184,17 +184,17 @@ index 1ed10c0..b7f3691 100644
 +       (not matched by Screen Exclusions) if the Auto-Clear config option is
 +       set. */
 +
++    CompWindow *w;
++
 +    if (!negGetClearToggled (s))
 +	return;
-+
-+    CompWindow *w;
 +
 +    for (w = s->windows; w; w = w->next)
 +    {
 +	if (! matchEval (negGetExcludeMatch (w->screen), w)) {
-+    	NEG_WINDOW (w);
-+    	nw->keyNegToggled = FALSE;
-+    	nw->keyNegPreserved = FALSE;
++	    NEG_WINDOW (w);
++	    nw->keyNegToggled = FALSE;
++	    nw->keyNegPreserved = FALSE;
 +	}
 +    }
 +}
@@ -226,19 +226,22 @@ index 1ed10c0..b7f3691 100644
 +{
 +    CompWindow *w;
 +
-+    if (negGetClearToggled (s)) {
-+	for (w = s->windows; w; w = w->next)
-+	{
-+	    if (matchEval (negGetNegMatch (w->screen), w)) {
-+		NEG_WINDOW (w);
-+		nw->keyNegToggled = FALSE;
-+		nw->keyNegPreserved = FALSE;
-+	    }
++    if (!negGetClearToggled (s))
++	return;
+ 
+-    /* toggle every window */
+     for (w = s->windows; w; w = w->next)
+-	if (w)
+-	    NEGUpdateState (w);
++    {
++	if (matchEval (negGetNegMatch (w->screen), w)) {
++	    NEG_WINDOW (w);
++	    nw->keyNegToggled = FALSE;
++	    nw->keyNegPreserved = FALSE;
 +	}
 +    }
 +}
- 
--    /* toggle every window */
++
 +static void
 +NEGToggleMatches (CompScreen *s)
 +{
@@ -246,9 +249,7 @@ index 1ed10c0..b7f3691 100644
 +    CompWindow *w;
 +
 +    /* update toggle state for relevant windows */
-     for (w = s->windows; w; w = w->next)
--	if (w)
--	    NEGUpdateState (w);
++    for (w = s->windows; w; w = w->next)
 +	if (negGetPreserveToggled (s) && matchEval (negGetNegMatch (s), w))
 +	    NEGWindowUpdateKeyToggle (w);
 +
@@ -262,7 +263,7 @@ index 1ed10c0..b7f3691 100644
  }
  
  static Bool
-@@ -123,7 +265,7 @@ negToggle (CompDisplay     *d,
+@@ -123,7 +266,7 @@ negToggle (CompDisplay     *d,
      w = findWindowAtDisplay (d, xid);
  
      if (w)
@@ -271,7 +272,7 @@ index 1ed10c0..b7f3691 100644
  
      return TRUE;
  }
-@@ -147,6 +289,25 @@ negToggleAll (CompDisplay     *d,
+@@ -147,6 +290,25 @@ negToggleAll (CompDisplay     *d,
      return TRUE;
  }
  
@@ -297,7 +298,7 @@ index 1ed10c0..b7f3691 100644
  static int
  getNegFragmentFunction (CompScreen  *s,
  			CompTexture *texture,
-@@ -310,20 +471,20 @@ NEGDrawWindowTexture (CompWindow           *w,
+@@ -310,20 +472,20 @@ NEGDrawWindowTexture (CompWindow           *w,
  		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE0_ALPHA, GL_PREVIOUS);
  		    glTexEnvf (GL_TEXTURE_ENV, GL_OPERAND0_ALPHA, GL_SRC_ALPHA);
  
@@ -322,7 +323,22 @@ index 1ed10c0..b7f3691 100644
  		    glTexEnvf (GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE);
  		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_TEXTURE0);
  		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_PREVIOUS);
-@@ -410,7 +571,7 @@ NEGDrawWindowTexture (CompWindow           *w,
+@@ -340,12 +502,12 @@ NEGDrawWindowTexture (CompWindow           *w,
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_SOURCE0_ALPHA, GL_PREVIOUS);
+ 		    glTexEnvf (GL_TEXTURE_ENV, GL_OPERAND0_ALPHA, GL_SRC_ALPHA);
+ 
+-    		    /* color constant */
++		    /* color constant */
+ 		    constant[3] = attrib->saturation / 65535.0f;
+ 
+ 		    glTexEnvfv (GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, constant);
+ 
+-    		    /* if we are not opaque or not fully bright */
++		    /* if we are not opaque or not fully bright */
+ 		    if (attrib->opacity < OPAQUE ||
+ 			attrib->brightness != BRIGHT)
+ 		    {
+@@ -410,7 +572,7 @@ NEGDrawWindowTexture (CompWindow           *w,
  		    /* disable the current texture */
  		    disableTexture (w->screen, texture);
  
@@ -331,7 +347,7 @@ index 1ed10c0..b7f3691 100644
  		    glTexEnvi (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
  
  		    /* re-activate last texture */
-@@ -421,12 +582,12 @@ NEGDrawWindowTexture (CompWindow           *w,
+@@ -421,12 +583,12 @@ NEGDrawWindowTexture (CompWindow           *w,
  		    /* fully saturated or fully unsaturated */
  
  		    glTexEnvf (GL_TEXTURE_ENV, GL_COMBINE_ALPHA, GL_MODULATE);
@@ -346,7 +362,7 @@ index 1ed10c0..b7f3691 100644
  		    constant[3] = attrib->opacity / 65535.0f;
  		    constant[0] = constant[1] = constant[2] =
  				  constant[3] * attrib->brightness / 65535.0f;
-@@ -440,7 +601,7 @@ NEGDrawWindowTexture (CompWindow           *w,
+@@ -440,7 +602,7 @@ NEGDrawWindowTexture (CompWindow           *w,
  
  		    glTexEnvfv (GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, constant);
  
@@ -355,7 +371,7 @@ index 1ed10c0..b7f3691 100644
  		    (*w->drawWindowGeometry) (w);
  		}
  
-@@ -490,7 +651,7 @@ NEGDrawWindowTexture (CompWindow           *w,
+@@ -490,7 +652,7 @@ NEGDrawWindowTexture (CompWindow           *w,
  		    /* enable blending */
  		    glEnable (GL_BLEND);
  
@@ -364,7 +380,7 @@ index 1ed10c0..b7f3691 100644
  		    constant[3] = attrib->opacity / 65535.0f;
  		    constant[0] = constant[3] * attrib->brightness / 65535.0f;
  		    constant[1] = constant[3] * attrib->brightness / 65535.0f;
-@@ -514,7 +675,7 @@ NEGDrawWindowTexture (CompWindow           *w,
+@@ -514,7 +676,7 @@ NEGDrawWindowTexture (CompWindow           *w,
  		    glTexEnvf (GL_TEXTURE_ENV, GL_OPERAND0_ALPHA, GL_SRC_ALPHA);
  		    glTexEnvf (GL_TEXTURE_ENV, GL_OPERAND1_ALPHA, GL_SRC_ALPHA);
  
@@ -373,7 +389,7 @@ index 1ed10c0..b7f3691 100644
  		    (*w->drawWindowGeometry) (w);
  
  		    /* disable blending */
-@@ -549,15 +710,8 @@ static void
+@@ -549,15 +711,8 @@ static void
  NEGWindowAdd (CompScreen *s,
  	      CompWindow *w)
  {
@@ -391,7 +407,7 @@ index 1ed10c0..b7f3691 100644
  }
  
  static void
-@@ -568,48 +722,42 @@ NEGScreenOptionChanged (CompScreen       *s,
+@@ -568,48 +723,42 @@ NEGScreenOptionChanged (CompScreen       *s,
      switch (num)
      {
      case NegScreenOptionToggleByDefault:
@@ -466,7 +482,7 @@ index 1ed10c0..b7f3691 100644
  	}
  	break;
      default:
-@@ -694,8 +842,9 @@ NEGInitDisplay (CompPlugin  *p,
+@@ -694,8 +843,9 @@ NEGInitDisplay (CompPlugin  *p,
  	return FALSE;
      }
  
@@ -478,7 +494,7 @@ index 1ed10c0..b7f3691 100644
  
      d->base.privates[displayPrivateIndex].ptr = nd;
  
-@@ -735,13 +884,19 @@ NEGInitScreen (CompPlugin *p,
+@@ -735,13 +885,19 @@ NEGInitScreen (CompPlugin *p,
      /* initialize the screen variables
       * you know what happens if you don't
       */
@@ -499,7 +515,7 @@ index 1ed10c0..b7f3691 100644
  
      /* wrap overloaded functions */
      WRAP (ns, s, drawWindowTexture, NEGDrawWindowTexture);
-@@ -781,8 +936,9 @@ NEGInitWindow (CompPlugin *p,
+@@ -781,8 +937,9 @@ NEGInitWindow (CompPlugin *p,
      if (!nw)
  	return FALSE;
  
@@ -511,7 +527,7 @@ index 1ed10c0..b7f3691 100644
  
      w->base.privates[ns->windowPrivateIndex].ptr = nw;
  
-@@ -858,4 +1014,3 @@ getCompPluginInfo(void)
+@@ -858,4 +1015,3 @@ getCompPluginInfo(void)
  {
      return &NEGVTable;
  }
