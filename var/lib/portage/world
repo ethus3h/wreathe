@@ -123,6 +123,7 @@ dev-util/cloc
 dev-util/cppunit
 dev-util/pkgconfig
 dev-util/xxdiff
+dev-vcs/cssc
 dev-vcs/darcs
 dev-vcs/git
 dev-vcs/subversion
