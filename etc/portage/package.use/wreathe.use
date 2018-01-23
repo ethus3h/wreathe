@@ -19,6 +19,9 @@ kde-frameworks/nepomuk-core:4 -pdf
 app-text/asciidoc python_single_target_python2_7
 gnome-base/libglade python_single_target_python2_7
 
+# TODO: Not available for Python 3.6 yet, apparently
+kde-apps/lokalize python_single_target_python3_5
+
 dev-libs/efl -gles
 # Use firmware blobs until I can use wi-fi without it
 sys-kernel/wreathe-kernel compile firmware
