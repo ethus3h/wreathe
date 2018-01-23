@@ -5,6 +5,7 @@ app-arch/cfv
 app-arch/lha
 app-arch/lziprecover
 app-arch/par2cmdline
+app-cdr/cdrtools
 app-doc/cldr
 app-doc/doxygen
 app-doc/ember-web-site
@@ -77,6 +78,7 @@ dev-lang/python
 dev-lang/ruby
 dev-lang/snap
 dev-libs/leveldb
+dev-libs/libburn
 dev-libs/tinyxml
 dev-libs/xapian
 dev-php/ZendFramework
@@ -244,6 +246,7 @@ trinity-base/amor
 trinity-base/arts
 trinity-base/libtdegames
 trinity-base/tdelibs
+virtual/cdrtools
 virtual/liblash
 www-apps/bugzilla
 www-apps/cgit
