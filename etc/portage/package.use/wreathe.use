@@ -11,7 +11,7 @@ dev-python/cffi -doc
 # TODO: Doesn't support readline 7 yet
 dev-lisp/clisp -readline
 
-# Collides with modern/kde5 kdegraphics-mobipocket & poppler
+# TODO: Collides with modern/kde5 kdegraphics-mobipocket & poppler
 kde-frameworks/kfilemetadata:4 -mobi -pdf
 kde-frameworks/nepomuk-core:4 -pdf
 
@@ -51,6 +51,9 @@ x11-plugins/moz-ext-inspectorwidget thunderbird
 
 # Required by Portage. I'm not sure why.
 dev-python/warcprox -python_targets_python3_4
+
+# Required for vala support
+net-libs/gtk-vnc gtk3
 
 # Build from source
 dev-lang/ghc -binary
