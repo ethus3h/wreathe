@@ -24,6 +24,7 @@ kde-apps/lokalize python_single_target_python3_5 python_targets_python3_5
 dev-python/translate-toolkit python_targets_python3_5 # required by Lokalize
 dev-python/six python_targets_python3_5 # required by Lokalize
 dev-python/utidylib python_targets_python3_5 # required by Lokalize
+dev-python/diff-match-patch python_targets_python3_5 # required by Lokalize
 sys-devel/gdb python_single_target_python3_5 python_targets_python3_5
 
 dev-libs/efl -gles
