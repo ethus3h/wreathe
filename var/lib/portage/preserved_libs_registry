@@ -54,8 +54,8 @@
             "/usr/lib64/libicalss.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1", 
-            "/usr/lib64/libicalss.so.1", 
-            "/usr/lib64/libical.so.1"
+            "/usr/lib64/libical.so.1", 
+            "/usr/lib64/libicalss.so.1"
         ]
     ], 
     "dev-libs/libzip:0": [
@@ -97,19 +97,7 @@
         "12929", 
         [
             "/usr/lib64/libgpgme++-pthread.so.2.8.0", 
-            "/usr/lib64/libqgpgme.so.1.0.1", 
-            "/usr/lib64/libgpgme++.so.2.8.0", 
-            "/usr/lib64/libgpgme++-pthread.so.2", 
-            "/usr/lib64/libgpgme++.so.2", 
-            "/usr/lib64/libqgpgme.so.1"
-        ]
-    ], 
-    "kde-frameworks/kdelibs:4": [
-        "kde-frameworks/kdelibs-4.14.37", 
-        "17875", 
-        [
-            "/usr/lib64/libkdewebkit.so.5.14.34", 
-            "/usr/lib64/libkdewebkit.so.5"
+            "/usr/lib64/libgpgme++-pthread.so.2"
         ]
     ], 
     "media-gfx/exiv2:0": [
@@ -176,22 +164,6 @@
         [
             "/usr/lib64/libgnutls.so.28.43.0", 
             "/usr/lib64/libgnutls.so.28"
-        ]
-    ], 
-    "net-libs/libkolab:4": [
-        "net-libs/libkolab-0.5.2", 
-        "2994", 
-        [
-            "/usr/lib64/libkolab.so.0.5.2", 
-            "/usr/lib64/libkolab.so.0"
-        ]
-    ], 
-    "net-libs/libkolabxml:4": [
-        "net-libs/libkolabxml-1.0.1", 
-        "2993", 
-        [
-            "/usr/lib64/libkolabxml.so.1.0.1", 
-            "/usr/lib64/libkolabxml.so.1"
         ]
     ], 
     "net-libs/libsrtp:0": [
@@ -348,9 +320,9 @@
             "/usr/lib64/libclangARCMigrate.so.39.1", 
             "/usr/lib64/libLLVMSparcAsmParser.so.39.1", 
             "/usr/lib64/libclangEdit.so.39", 
-            "/usr/lib64/libLLVMTarget.so.39", 
+            "/usr/lib64/libclangLex.so.39", 
             "/usr/lib64/libLLVMAMDGPUCodeGen.so.39", 
-            "/usr/lib64/libLLVMMSP430CodeGen.so.39", 
+            "/usr/lib64/libLLVMXCoreAsmPrinter.so.39", 
             "/usr/lib64/libLLVMARMCodeGen.so.39", 
             "/usr/lib64/libclangFormat.so.39", 
             "/usr/lib64/libLLVMAsmParser.so.39", 
@@ -358,16 +330,16 @@
             "/usr/lib64/libclangAST.so.39", 
             "/usr/lib64/libLLVMInstrumentation.so.39", 
             "/usr/lib64/libLLVMX86AsmParser.so.39", 
-            "/usr/lib64/libLLVMNVPTXCodeGen.so.39", 
+            "/usr/lib64/libclangTidyCERTModule.so.39", 
             "/usr/lib64/libclangTidyPlugin.so.39", 
             "/usr/lib64/libclangAnalysis.so.39", 
             "/usr/lib64/libLLVMDebugInfoCodeView.so.39", 
             "/usr/lib64/libLLVMXCoreInfo.so.39", 
             "/usr/lib64/libLLVMNVPTXDesc.so.39", 
-            "/usr/lib64/libLLVMBPFAsmPrinter.so.39", 
+            "/usr/lib64/libLLVMSparcCodeGen.so.39", 
             "/usr/lib64/libclangTidyLLVMModule.so.39", 
             "/usr/lib64/libLLVMSupport.so.39", 
-            "/usr/lib64/libLLVMVectorize.so.39", 
+            "/usr/lib64/libLLVMARMAsmPrinter.so.39", 
             "/usr/lib64/libLLVMAsmPrinter.so.39", 
             "/usr/lib64/libLLVMXCoreDesc.so.39", 
             "/usr/lib64/libclangFrontend.so.39", 
@@ -376,10 +348,10 @@
             "/usr/lib64/libclangSema.so.39", 
             "/usr/lib64/libLLVMMipsAsmParser.so.39", 
             "/usr/lib64/libLLVMHexagonDesc.so.39", 
-            "/usr/lib64/libLLVMARMAsmPrinter.so.39", 
+            "/usr/lib64/libLLVMVectorize.so.39", 
             "/usr/lib64/libclangRewrite.so.39", 
             "/usr/lib64/libclang.so.39", 
-            "/usr/lib64/libLLVMX86Info.so.39", 
+            "/usr/lib64/libLLVMSparcDesc.so.39", 
             "/usr/lib64/libLLVMMipsAsmPrinter.so.39", 
             "/usr/lib64/libLLVMAMDGPUAsmParser.so.39", 
             "/usr/lib64/libLLVMOption.so.39", 
@@ -388,7 +360,7 @@
             "/usr/lib64/libLLVMMSP430Info.so.39", 
             "/usr/lib64/libLLVMSelectionDAG.so.39", 
             "/usr/lib64/libLLVMARMInfo.so.39", 
-            "/usr/lib64/libclangTidyCERTModule.so.39", 
+            "/usr/lib64/libLLVMNVPTXCodeGen.so.39", 
             "/usr/lib64/libLLVMMC.so.39", 
             "/usr/lib64/libLLVMCodeGen.so.39", 
             "/usr/lib64/libclangTidyMiscModule.so.39", 
@@ -397,7 +369,7 @@
             "/usr/lib64/libLLVMBPFCodeGen.so.39", 
             "/usr/lib64/libLLVMSystemZDesc.so.39", 
             "/usr/lib64/libLLVMAArch64Info.so.39", 
-            "/usr/lib64/libclangTidyUtils.so.39", 
+            "/usr/lib64/libLLVMHexagonInfo.so.39", 
             "/usr/lib64/libLLVMX86CodeGen.so.39", 
             "/usr/lib64/libLLVMAMDGPUInfo.so.39", 
             "/usr/lib64/libclangASTMatchers.so.39", 
@@ -405,7 +377,7 @@
             "/usr/lib64/libLLVMTransformUtils.so.39", 
             "/usr/lib64/libLLVMARMDesc.so.39", 
             "/usr/lib64/libLLVMSparcAsmParser.so.39", 
-            "/usr/lib64/libclangLex.so.39", 
+            "/usr/lib64/libLLVMTarget.so.39", 
             "/usr/lib64/libLLVMObject.so.39", 
             "/usr/lib64/libLLVMipo.so.39", 
             "/usr/lib64/libclangTidy.so.39", 
@@ -414,7 +386,7 @@
             "/usr/lib64/libLLVMX86Utils.so.39", 
             "/usr/lib64/libLLVMCore.so.39", 
             "/usr/lib64/libclangTidyPerformanceModule.so.39", 
-            "/usr/lib64/libLLVMHexagonInfo.so.39", 
+            "/usr/lib64/libclangTidyUtils.so.39", 
             "/usr/lib64/libLLVMPowerPCDesc.so.39", 
             "/usr/lib64/libLLVMMCParser.so.39", 
             "/usr/lib64/libLLVMAnalysis.so.39", 
@@ -433,19 +405,19 @@
             "/usr/lib64/libLLVMLinker.so.39", 
             "/usr/lib64/libLLVMMCDisassembler.so.39", 
             "/usr/lib64/libclangTooling.so.39", 
-            "/usr/lib64/libLLVMSystemZAsmPrinter.so.39", 
+            "/usr/lib64/libLLVMHexagonCodeGen.so.39", 
             "/usr/lib64/libLLVMX86Desc.so.39", 
-            "/usr/lib64/libLLVMSparcDesc.so.39", 
+            "/usr/lib64/libLLVMX86Info.so.39", 
             "/usr/lib64/libLLVMInstCombine.so.39", 
             "/usr/lib64/libLLVMX86AsmPrinter.so.39", 
             "/usr/lib64/libLLVMSystemZAsmParser.so.39", 
             "/usr/lib64/libclangSerialization.so.39", 
             "/usr/lib64/libLLVMMSP430AsmPrinter.so.39", 
-            "/usr/lib64/libLLVMXCoreAsmPrinter.so.39", 
+            "/usr/lib64/libLLVMMSP430CodeGen.so.39", 
             "/usr/lib64/libclangBasic.so.39", 
             "/usr/lib64/libLLVMSystemZInfo.so.39", 
             "/usr/lib64/libLLVMBitReader.so.39", 
-            "/usr/lib64/libLLVMSparcCodeGen.so.39", 
+            "/usr/lib64/libLLVMBPFAsmPrinter.so.39", 
             "/usr/lib64/libclangStaticAnalyzerCore.so.39", 
             "/usr/lib64/libclangTidyGoogleModule.so.39", 
             "/usr/lib64/libLLVMAMDGPUDesc.so.39", 
@@ -459,7 +431,7 @@
             "/usr/lib64/libclangStaticAnalyzerCheckers.so.39", 
             "/usr/lib64/libclangTidyReadabilityModule.so.39", 
             "/usr/lib64/libLLVMProfileData.so.39", 
-            "/usr/lib64/libLLVMHexagonCodeGen.so.39", 
+            "/usr/lib64/libLLVMSystemZAsmPrinter.so.39", 
             "/usr/lib64/libLLVMAArch64AsmPrinter.so.39", 
             "/usr/lib64/libLLVMPowerPCAsmParser.so.39", 
             "/usr/lib64/libLLVMSparcInfo.so.39", 
