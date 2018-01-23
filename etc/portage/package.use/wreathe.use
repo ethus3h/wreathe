@@ -21,6 +21,7 @@ gnome-base/libglade python_single_target_python2_7
 
 # TODO: Not available for Python 3.6 yet, apparently
 kde-apps/lokalize python_single_target_python3_5 python_targets_python3_5
+dev-python/translate-toolkit python_targets_python3_5 # required by Lokalize
 sys-devel/gdb python_single_target_python3_5 python_targets_python3_5
 
 dev-libs/efl -gles
