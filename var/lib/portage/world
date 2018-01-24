@@ -80,7 +80,6 @@ dev-lang/snap
 dev-libs/leveldb
 dev-libs/libburn
 dev-libs/tinyxml
-dev-libs/xapian
 dev-php/ZendFramework
 dev-python/PyQt4
 dev-python/PyQt5
@@ -142,6 +141,7 @@ mail-client/thunderbird
 media-fonts/firacode
 media-fonts/infinality-ultimate-meta
 media-gfx/asymptote
+media-gfx/exiv2
 media-gfx/gphoto2
 media-gfx/gphotofs
 media-gfx/imagemagick
@@ -156,6 +156,7 @@ media-libs/ilmbase
 media-libs/lcms
 media-libs/libgltf
 media-libs/libquicktime
+media-libs/libraw
 media-libs/opencolorio
 media-libs/openexr
 media-libs/openimageio
