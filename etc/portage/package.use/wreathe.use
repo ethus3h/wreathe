@@ -154,6 +154,7 @@ net-analyzer/nmap nping
 net-misc/plowshare view-captcha
 media-libs/phonon-gstreamer qt4
 net-misc/youtube-dl offensive
+sys-apps/dbus user-session
 sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
 www-plugins/gnash agg cygnal dump gtk gnome ffmpeg
