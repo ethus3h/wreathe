@@ -156,6 +156,7 @@ media-libs/glew
 media-libs/ilmbase
 media-libs/lcms
 media-libs/libgltf
+media-libs/libprojectm
 media-libs/libquicktime
 media-libs/libraw
 media-libs/opencolorio
@@ -260,6 +261,7 @@ www-client/firefox
 www-plugins/adobe-flash
 www-plugins/freshplayerplugin
 www-plugins/gnash
+www-plugins/lightspark
 www-plugins/mozplugger
 x11-apps/compiz-boxmenu
 x11-apps/compiz-manager

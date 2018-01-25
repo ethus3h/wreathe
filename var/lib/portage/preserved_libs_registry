@@ -54,8 +54,8 @@
             "/usr/lib64/libicalss.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1", 
-            "/usr/lib64/libical.so.1", 
-            "/usr/lib64/libicalss.so.1"
+            "/usr/lib64/libicalss.so.1", 
+            "/usr/lib64/libical.so.1"
         ]
     ], 
     "dev-libs/libzip:0": [
@@ -82,14 +82,6 @@
             "/usr/lib64/libprotoc.so.11.0.0", 
             "/usr/lib64/libprotobuf.so.11", 
             "/usr/lib64/libprotoc.so.11"
-        ]
-    ], 
-    "dev-libs/xapian:0": [
-        "dev-libs/xapian-1.2.24", 
-        "18076", 
-        [
-            "/usr/lib64/libxapian.so.22.7.2", 
-            "/usr/lib64/libxapian.so.22"
         ]
     ], 
     "kde-apps/kdegraphics-mobipocket:4": [
