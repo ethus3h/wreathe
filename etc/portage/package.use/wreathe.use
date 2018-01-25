@@ -7,6 +7,7 @@ dev-python/pygments -doc
 dev-python/pyopenssl -doc
 dev-python/urllib3 -doc
 dev-python/cffi -doc
+dev-ruby/json -doc
 
 # TODO: Doesn't support readline 7 yet
 dev-lisp/clisp -readline
@@ -154,7 +155,6 @@ net-analyzer/nmap nping
 net-misc/plowshare view-captcha
 media-libs/phonon-gstreamer qt4
 net-misc/youtube-dl offensive
-sys-apps/dbus user-session
 sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
 www-plugins/gnash agg cygnal dump gtk gnome ffmpeg

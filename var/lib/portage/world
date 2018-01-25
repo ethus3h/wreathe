@@ -92,6 +92,7 @@ dev-python/numpy
 dev-python/oct2py
 dev-python/pandas
 dev-python/polyglot
+dev-python/pymssql
 dev-python/pytables
 dev-python/requests
 dev-python/sabyenc
