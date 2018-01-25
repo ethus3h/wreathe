@@ -391,6 +391,7 @@ dev-util/shellcheck ~amd64
 games-action/minetest ~amd64
 games-kids/scratch ~amd64
 gnome-extra/gnome-color-chooser ~amd64
+games-util/nml ~amd64
 kde-misc/kdeconnect ~amd64
 kde-misc/kolor-manager ~amd64
 lxqt-base/liblxqt ~amd64
