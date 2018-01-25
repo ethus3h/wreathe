@@ -8,6 +8,7 @@ dev-python/pyopenssl -doc
 dev-python/urllib3 -doc
 dev-python/cffi -doc
 dev-ruby/json -doc
+dev-ruby/racc -doc
 
 # TODO: Doesn't support readline 7 yet
 dev-lisp/clisp -readline
