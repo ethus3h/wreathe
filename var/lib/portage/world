@@ -66,6 +66,7 @@ app-text/wgetpaste
 dev-cpp/clucene
 dev-cpp/yaml-cpp
 dev-db/postgresql
+dev-games/tiled
 dev-haskell/opengl
 dev-java/ant-javamail
 dev-java/icedtea
@@ -127,6 +128,7 @@ dev-vcs/cssc
 dev-vcs/darcs
 dev-vcs/git
 dev-vcs/subversion
+games-arcade/gunmetal-grey
 games-board/gnugo
 games-roguelike/behemmoth
 games-simulation/openttd

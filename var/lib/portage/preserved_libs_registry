@@ -19,7 +19,7 @@
     ], 
     "dev-libs/boost:0": [
         "dev-libs/boost-1.63.0", 
-        "17718", 
+        "18501", 
         [
             "/usr/lib64/libboost_atomic.so.1.62.0", 
             "/usr/lib64/libboost_chrono.so.1.62.0", 
@@ -54,8 +54,8 @@
             "/usr/lib64/libicalss.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1", 
-            "/usr/lib64/libicalss.so.1", 
-            "/usr/lib64/libical.so.1"
+            "/usr/lib64/libical.so.1", 
+            "/usr/lib64/libicalss.so.1"
         ]
     ], 
     "dev-libs/libzip:0": [
@@ -100,22 +100,6 @@
             "/usr/lib64/libgpgme++-pthread.so.2"
         ]
     ], 
-    "kde-apps/libkdcraw:4": [
-        "kde-apps/libkdcraw-15.08.3", 
-        "12629", 
-        [
-            "/usr/lib64/libkdcraw.so.23.0.0", 
-            "/usr/lib64/libkdcraw.so.23"
-        ]
-    ], 
-    "kde-apps/libkexiv2:4": [
-        "kde-apps/libkexiv2-15.08.3", 
-        "12843", 
-        [
-            "/usr/lib64/libkexiv2.so.11.3.0", 
-            "/usr/lib64/libkexiv2.so.11"
-        ]
-    ], 
     "media-gfx/exiv2:0": [
         "media-gfx/exiv2-0.26_p20171104", 
         "18175", 
@@ -138,14 +122,6 @@
         [
             "/usr/lib64/libjasper.so.1.0.0", 
             "/usr/lib64/libjasper.so.1"
-        ]
-    ], 
-    "media-libs/libcanberra:0": [
-        "media-libs/libcanberra-0.30-r5", 
-        "18053", 
-        [
-            "/usr/lib64/libcanberra-gtk3.so.0.1.9", 
-            "/usr/lib64/libcanberra-gtk3.so.0"
         ]
     ], 
     "media-libs/libraw:0": [
