@@ -46,6 +46,14 @@
             "/usr/lib64/libavcall.so.0"
         ]
     ], 
+    "dev-libs/libgit2:0": [
+        "dev-libs/libgit2-0.26.0", 
+        "18517", 
+        [
+            "/usr/lib64/libgit2.so.0.24.6", 
+            "/usr/lib64/libgit2.so.24"
+        ]
+    ], 
     "dev-libs/libical:0": [
         "dev-libs/libical-2.0.0-r3", 
         "18056", 
