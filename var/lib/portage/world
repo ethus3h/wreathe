@@ -104,10 +104,12 @@ dev-python/xvfbwrapper
 dev-qt/assistant
 dev-qt/designer
 dev-qt/qt3support:4
+dev-qt/qtcore
 dev-qt/qtcore:4
 dev-qt/qtgui:4
 dev-qt/qthelp:4
 dev-qt/qtmultimedia:4
+dev-qt/qtnetwork
 dev-qt/qtscript:4
 dev-qt/qttest:4
 dev-qt/qttranslations:4
@@ -212,6 +214,7 @@ media-video/vlc
 net-dns/dnscrypt-proxy
 net-irc/irssi
 net-libs/serf:1
+net-mail/mailbase
 net-misc/freerdp
 net-misc/icecast
 net-misc/nitroshare

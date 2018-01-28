@@ -1,3 +1,4 @@
+dev-util/idea-community ~amd64
 # Until >=clisp-2.49.60 stabilized
 dev-lisp/clisp ~amd64
 
