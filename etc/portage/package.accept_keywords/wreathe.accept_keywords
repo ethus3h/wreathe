@@ -2,6 +2,7 @@ dev-util/idea-community ~amd64
 dev-ada/gps ~amd64
 dev-ada/gnatcoll ~amd64
 dev-ada/gtkada ~amd64
+dev-ada/libadalang ~amd64
 # Until >=clisp-2.49.60 stabilized
 dev-lisp/clisp ~amd64
 
