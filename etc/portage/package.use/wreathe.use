@@ -1,5 +1,3 @@
-# For first build (IMO, should not be necessary)
-dev-lang/gnat-gpl bootstrap
 # To prevent circular dependencies when updating, uncomment these lines, then recomment and re-update @world to get the packages built.
 dev-python/Babel -doc
 dev-python/jinja -doc 
@@ -12,6 +10,9 @@ dev-python/cffi -doc
 dev-ruby/json -doc
 dev-ruby/racc -doc
 dev-ruby/rake -doc
+
+# FIXME: Trying to fix a build failure ("mv: cannot stat 'go': No such file or directory")
+dev-lang/gnat-gpl -go
 
 # TODO: Doesn't support readline 7 yet
 dev-lisp/clisp -readline
