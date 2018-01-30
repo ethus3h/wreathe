@@ -11,8 +11,9 @@ dev-ruby/json -doc
 dev-ruby/racc -doc
 dev-ruby/rake -doc
 
-# FIXME: Trying to fix a build failure ("mv: cannot stat 'go': No such file or directory")
-dev-lang/gnat-gpl -go
+# FIXME: -go is trying to fix a build failure ("mv: cannot stat 'go': No such file or directory")
+# FIXME: bootstrap shouldn't be necessary, especially after gnat-gpl is already installed!
+dev-lang/gnat-gpl -go bootstrap
 
 # TODO: Doesn't support readline 7 yet
 dev-lisp/clisp -readline
