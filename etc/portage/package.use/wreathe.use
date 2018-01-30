@@ -36,6 +36,7 @@ dev-ml/lablgtk -examples
 
 # Required for dev-ada/gps
 dev-ada/libgpr static
+dev-ada/xmlada static-libs
 
 # Requires nonfree dev-tex/tth
 x11-libs/gl2ps -doc
