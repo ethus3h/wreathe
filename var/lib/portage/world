@@ -72,6 +72,7 @@ dev-java/ant-javamail
 dev-java/icedtea
 dev-java/oracle-javamail
 dev-lang/R
+dev-lang/gnat-gpl
 dev-lang/open-cobol
 dev-lang/perl
 dev-lang/php
@@ -257,6 +258,7 @@ trinity-base/libtdegames
 trinity-base/tdelibs
 virtual/cdrtools
 virtual/liblash
+virtual/perl6
 www-apps/bugzilla
 www-apps/cgit
 www-apps/dokuwiki
