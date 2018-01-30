@@ -1,5 +1,5 @@
 # For first build (IMO, should not be necessary)
-dev-ada/gnat-gpl bootstrap
+dev-lang/gnat-gpl bootstrap
 # To prevent circular dependencies when updating, uncomment these lines, then recomment and re-update @world to get the packages built.
 dev-python/Babel -doc
 dev-python/jinja -doc 
