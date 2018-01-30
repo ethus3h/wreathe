@@ -12,7 +12,7 @@ dev-ruby/racc -doc
 dev-ruby/rake -doc
 
 # FIXME: Trying to fix a build failure ("mv: cannot stat 'go': No such file or directory")
-dev-lang/gnat-gpl -go
+dev-lang/gnat-gpl -go bootstrap
 
 # TODO: Doesn't support readline 7 yet
 dev-lisp/clisp -readline
