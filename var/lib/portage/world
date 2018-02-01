@@ -229,6 +229,7 @@ net-nntp/sabnzbd
 net-print/cups-filters
 net-wireless/gnuradio
 net-wireless/wpa_supplicant
+sci-calculators/qalculate-gtk
 sci-libs/scipy
 sci-mathematics/form
 sys-apps/hwinfo
