@@ -63,6 +63,7 @@ app-text/texlive
 app-text/texlive-core
 app-text/tree
 app-text/wgetpaste
+app-text/xmlstarlet
 dev-cpp/clucene
 dev-cpp/yaml-cpp
 dev-db/postgresql

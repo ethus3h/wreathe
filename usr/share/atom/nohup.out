@@ -1,12 +1,2 @@
 /usr/share/themes/MurrinaCandy/gtk-2.0/gtkrc:46: Murrine configuration option "scrollbar_color" is no longer supported and will be ignored.
 /usr/share/themes/MurrinaCandy/gtk-2.0/gtkrc:46: Murrine configuration option "scrollbar_color" is no longer supported and will be ignored.
-
-(electron:12757): GVFS-RemoteVolumeMonitor-WARNING **: Owner of volume monitor org.gtk.vfs.UDisks2VolumeMonitor disconnected from the bus; removing drives/volumes/mounts
-
-(electron:12757): GVFS-RemoteVolumeMonitor-WARNING **: Owner of volume monitor org.gtk.vfs.MTPVolumeMonitor disconnected from the bus; removing drives/volumes/mounts
-
-(electron:12757): GVFS-RemoteVolumeMonitor-WARNING **: Owner of volume monitor org.gtk.vfs.AfcVolumeMonitor disconnected from the bus; removing drives/volumes/mounts
-
-(electron:12757): GVFS-RemoteVolumeMonitor-WARNING **: Owner of volume monitor org.gtk.vfs.GoaVolumeMonitor disconnected from the bus; removing drives/volumes/mounts
-
-(electron:12757): GVFS-RemoteVolumeMonitor-WARNING **: Owner of volume monitor org.gtk.vfs.GPhoto2VolumeMonitor disconnected from the bus; removing drives/volumes/mounts
