@@ -50,6 +50,8 @@
     showOnStartup: false
   whitespace:
     removeTrailingWhitespace: false
+  wordcount:
+    noextension: true
 ".modelica.source":
   editor:
     softWrapHangingIndent: 2

@@ -137,14 +137,17 @@ games-arcade/gunmetal-grey
 games-board/gnugo
 games-roguelike/behemmoth
 games-simulation/openttd
+kde-apps/baloo-widgets
 kde-apps/kde-dev-scripts
 kde-apps/kdebase-kioslaves:4::wreathe-overlay
 kde-apps/konsole
 kde-apps/kwave
+kde-frameworks/baloo
 kde-frameworks/kdelibs
 kde-frameworks/kfilemetadata
 kde-frameworks/knotifications
 kde-frameworks/kwallet
+kde-plasma/systemsettings
 mail-client/thunderbird
 media-fonts/firacode
 media-fonts/infinality-ultimate-meta
