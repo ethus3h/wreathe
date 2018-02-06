@@ -160,6 +160,7 @@ media-gfx/krita
 media-gfx/krita:5
 media-gfx/utsushi
 media-gfx/xfig
+media-libs/flac
 media-libs/fontconfig-infinality
 media-libs/freeglut
 media-libs/glew
@@ -201,6 +202,7 @@ media-plugins/kodi-skin-confluence
 media-plugins/kodi-visualization-fishbmc
 media-plugins/kodi-visualization-projectm
 media-plugins/kodi-weather-openweathermap-extended
+media-sound/audacity
 media-sound/awesfx
 media-sound/darkice
 media-sound/gmusicbrowser
@@ -218,6 +220,7 @@ media-video/openshot
 media-video/sswf
 media-video/vlc
 net-dns/dnscrypt-proxy
+net-ftp/filezilla
 net-irc/irssi
 net-libs/serf:1
 net-mail/mailbase
