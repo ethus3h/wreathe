@@ -224,6 +224,7 @@ net-ftp/filezilla
 net-irc/irssi
 net-libs/serf:1
 net-mail/mailbase
+net-misc/dagr
 net-misc/freerdp
 net-misc/icecast
 net-misc/nitroshare
