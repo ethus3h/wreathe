@@ -130,6 +130,7 @@ dev-util/idea-community
 dev-util/pkgconfig
 dev-util/xxdiff
 dev-vcs/bzr
+dev-vcs/bzr-fastimport
 dev-vcs/cssc
 dev-vcs/darcs
 dev-vcs/git
