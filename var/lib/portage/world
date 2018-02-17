@@ -237,6 +237,7 @@ net-misc/taylor-uucp
 net-misc/yacy
 net-misc/youtube-dl
 net-nntp/sabnzbd
+net-p2p/tribler
 net-print/cups-filters
 net-wireless/gnuradio
 net-wireless/wpa_supplicant
