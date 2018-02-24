@@ -23,7 +23,7 @@
     autoIndentOnPaste: false
     backUpBeforeSaving: true
     fontFamily: "Fira Code"
-    fontSize: 13
+    fontSize: 10
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true
@@ -38,6 +38,7 @@
     showErrorPanel: false
   "linter-ui-default":
     panelHeight: 1172
+    showPanel: true
   minimap: {}
   "nav-panel-plus": {}
   "one-light-ui":
