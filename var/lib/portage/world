@@ -253,8 +253,10 @@ sys-boot/efibootmgr
 sys-cluster/openmpi
 sys-devel/binutils
 sys-devel/crossdev
+sys-fs/ddrescue
 sys-fs/dosfstools
 sys-fs/fuse
+sys-fs/safecopy
 sys-fs/squashfs-tools
 sys-kernel/genkernel-next
 sys-kernel/linux-firmware
