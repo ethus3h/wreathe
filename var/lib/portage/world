@@ -72,6 +72,7 @@ dev-haskell/opengl
 dev-java/ant-javamail
 dev-java/icedtea
 dev-java/oracle-javamail
+dev-javascript/PapaParse
 dev-lang/R
 dev-lang/gnat-gpl
 dev-lang/open-cobol
