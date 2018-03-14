@@ -96,42 +96,6 @@ sci-libs/netcdf -mpi
 # Conflicts with fortran cxx and hl
 sci-libs/hdf5 -threads
 
-# doc USE flag that cause build failures
-<dev-python/sphinx-1.3 -doc
-app-text/xindy -doc
-dev-java/hamcrest-core -doc
-dev-java/icu4j -doc
-dev-java/libreadline-java -doc
-dev-java/rxtx -doc
-dev-ml/lwt -doc
-dev-python/logilab-common -doc
-dev-python/pillow -doc
-dev-python/pymongo -doc
-dev-python/statsmodels -doc
-dev-python/sympy -doc
-dev-python/whoosh -doc
-dev-ruby/net-ssh -doc
-dev-ruby/rest-client -doc
-gnustep-base/gnustep-make -doc
-media-libs/libcaca -doc
-dev-libs/libtommath -doc
-dev-python/pyzmq -doc
-
-# Other USE flags that cause build failures
-dev-python/clint -examples
-dev-lang/nqp -java
-media-video/minitube -l10n_jv
-
-# Causes build failure
-# https://github.com/kirrmann/aur-packages/commit/ff0127ec8f8b7ae004c6590693b971b6601c16eb
-sys-block/open-iscsi -slp
-
-# Causes build failure:
-# checking for GPSD... yes
-# checking for SKYHOOK... no
-# configure: error: Couldn't find gpsd dependencies.
-app-misc/geoclue -skyhook
-
 # Cause dependency problems
 dev-python/botocore -doc
 x11-libs/qwt:5 -doc
@@ -152,34 +116,6 @@ dev-libs/redland-bindings -ruby
 # https://bugs.gentoo.org/show_bug.cgi?id=444470
 media-video/ffmpeg -libilbc
 
-# Various extra capabilities
-app-doc/doxygen clang dot doxysearch
-app-office/libreoffice binfilter gnome gtk odk quickstarter vlc libreoffice_extensions_nlpsolver libreoffice_extensions_scripting-beanshell libreoffice_extensions_scripting-javascript libreoffice_extensions_wiki-publisher java
-app-text/pandoc https network-uri trypandoc
-dev-java/miglayout swt
-dev-libs/libcec cubox exynos raspberry-pi
-dev-python/ipython nbconvert notebook
-dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
-media-gfx/asymptote offscreen sigsegv
-media-fonts/culmus ancient fancy taamey
-media-libs/mesa d3d9 gles1 gles2 xa
-media-libs/xine-lib vdr
-media-libs/libcanberra gtk3 tdb
-media-libs/speex utils
-media-tv/kodi webserver
-net-analyzer/nmap nping
-net-misc/plowshare view-captcha
-media-libs/phonon-gstreamer qt4
-media-video/minitube download
-net-misc/youtube-dl offensive
-sys-apps/smartmontools update_drivedb
-sys-libs/libomp ompt
-www-plugins/gnash agg cygnal dump gtk gnome ffmpeg
-x11-libs/gtk+ broadway
-dev-libs/xmlsec nss
-x11-misc/colord extra-print-profiles
-x11-wm/xpra client clipboard csc dec_avcodec2 enc_ffmpeg enc_264 enc_x265 lz4 pillow server
-
 # Only install lightspark's nsplugin
 www-plugins/gnash -nsplugin
 
@@ -194,6 +130,70 @@ media-sound/pulseaudio -libsamplerate
 
 # Required for IPython
 >=dev-lang/python-3.4.5 readline
+
+# Other USE flags that cause build failures
+dev-lang/nqp -java
+dev-python/clint -examples
+media-video/minitube -l10n_jv
+
+# Causes build failure
+# https://github.com/kirrmann/aur-packages/commit/ff0127ec8f8b7ae004c6590693b971b6601c16eb
+sys-block/open-iscsi -slp
+
+# Causes build failure:
+# checking for GPSD... yes
+# checking for SKYHOOK... no
+# configure: error: Couldn't find gpsd dependencies.
+app-misc/geoclue -skyhook
+
+# doc USE flag that cause build failures
+<dev-python/sphinx-1.3 -doc
+app-text/xindy -doc
+dev-java/hamcrest-core -doc
+dev-java/icu4j -doc
+dev-java/libreadline-java -doc
+dev-java/rxtx -doc
+dev-libs/libtommath -doc
+dev-ml/lwt -doc
+dev-python/logilab-common -doc
+dev-python/pillow -doc
+dev-python/pymongo -doc
+dev-python/pyzmq -doc
+dev-python/statsmodels -doc
+dev-python/sympy -doc
+dev-python/whoosh -doc
+dev-ruby/net-ssh -doc
+dev-ruby/rest-client -doc
+gnustep-base/gnustep-make -doc
+media-libs/libcaca -doc
+
+# Various extra capabilities
+app-doc/doxygen clang dot doxysearch
+app-office/libreoffice binfilter gnome gtk odk quickstarter vlc libreoffice_extensions_nlpsolver libreoffice_extensions_scripting-beanshell libreoffice_extensions_scripting-javascript libreoffice_extensions_wiki-publisher java
+app-text/pandoc https network-uri trypandoc
+dev-java/miglayout swt
+dev-libs/libcec cubox exynos raspberry-pi
+dev-libs/xmlsec nss
+dev-python/ipython nbconvert notebook
+dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
+media-fonts/culmus ancient fancy taamey
+media-gfx/asymptote offscreen sigsegv
+media-libs/libcanberra gtk3 tdb
+media-libs/mesa d3d9 gles1 gles2 xa
+media-libs/phonon-gstreamer qt4
+media-libs/speex utils
+media-libs/xine-lib vdr
+media-tv/kodi webserver
+media-video/minitube download
+net-analyzer/nmap nping
+net-misc/plowshare view-captcha
+net-misc/youtube-dl offensive
+sys-apps/smartmontools update_drivedb
+sys-libs/libomp ompt
+www-plugins/gnash agg cygnal dump gtk gnome ffmpeg
+x11-libs/gtk+ broadway
+x11-misc/colord extra-print-profiles
+x11-wm/xpra client clipboard csc dec_avcodec2 enc_ffmpeg enc_264 enc_x265 lz4 pillow server
 
 # FIXME: Figure out what of this bunch is needed, and if anything's breaking anything.
 app-admin/gkrellm hddtemp lm_sensors ntlm ssl
