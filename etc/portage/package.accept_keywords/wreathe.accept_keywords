@@ -1,4 +1,5 @@
 net-p2p/tribler ~amd64
+app-text/getxbook ~amd64
 dev-vcs/bzr ~amd64
 media-plugins/calf ~amd64
 media-sound/lmms ~amd64
