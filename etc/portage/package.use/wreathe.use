@@ -96,20 +96,7 @@ sci-libs/netcdf -mpi
 # Conflicts with fortran cxx and hl
 sci-libs/hdf5 -threads
 
-# Causes build failure:
-# checking for GPSD... yes
-# checking for SKYHOOK... no
-# configure: error: Couldn't find gpsd dependencies.
-app-misc/geoclue -skyhook
-
-# Causes build failure
-# https://github.com/kirrmann/aur-packages/commit/ff0127ec8f8b7ae004c6590693b971b6601c16eb
-sys-block/open-iscsi -slp
-
-# Causes build failure
-dev-lang/nqp -java
-
-# Cause build failures
+# doc USE flag that cause build failures
 <dev-python/sphinx-1.3 -doc
 app-text/xindy -doc
 dev-java/hamcrest-core -doc
@@ -117,7 +104,6 @@ dev-java/icu4j -doc
 dev-java/libreadline-java -doc
 dev-java/rxtx -doc
 dev-ml/lwt -doc
-dev-python/clint -examples
 dev-python/logilab-common -doc
 dev-python/pillow -doc
 dev-python/pymongo -doc
@@ -130,6 +116,21 @@ gnustep-base/gnustep-make -doc
 media-libs/libcaca -doc
 dev-libs/libtommath -doc
 dev-python/pyzmq -doc
+
+# Other USE flags that cause build failures
+dev-python/clint -examples
+dev-lang/nqp -java
+media-video/minitube -l10n_jv
+
+# Causes build failure
+# https://github.com/kirrmann/aur-packages/commit/ff0127ec8f8b7ae004c6590693b971b6601c16eb
+sys-block/open-iscsi -slp
+
+# Causes build failure:
+# checking for GPSD... yes
+# checking for SKYHOOK... no
+# configure: error: Couldn't find gpsd dependencies.
+app-misc/geoclue -skyhook
 
 # Cause dependency problems
 dev-python/botocore -doc

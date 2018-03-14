@@ -55,6 +55,7 @@ app-text/convertlit
 app-text/dvipng
 app-text/dvipsk
 app-text/enchant
+app-text/getxbook
 app-text/html2text
 app-text/hunspell
 app-text/poppler
