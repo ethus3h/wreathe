@@ -170,6 +170,7 @@ media-tv/kodi webserver
 net-analyzer/nmap nping
 net-misc/plowshare view-captcha
 media-libs/phonon-gstreamer qt4
+media-video/minitube download
 net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb
 sys-libs/libomp ompt
