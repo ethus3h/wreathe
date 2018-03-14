@@ -4,6 +4,7 @@ app-admin/systemdgenie
 app-arch/cfv
 app-arch/lha
 app-arch/lziprecover
+app-arch/p7zip
 app-arch/par2cmdline
 app-cdr/cdrtools
 app-doc/cldr
@@ -129,6 +130,7 @@ dev-util/cloc
 dev-util/cppunit
 dev-util/idea-community
 dev-util/pkgconfig
+dev-util/weka
 dev-util/xxdiff
 dev-vcs/bzr
 dev-vcs/bzr-fastimport
