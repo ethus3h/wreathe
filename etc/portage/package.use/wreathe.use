@@ -134,7 +134,6 @@ media-sound/pulseaudio -libsamplerate
 # Other USE flags that cause build failures
 dev-lang/nqp -java
 dev-python/clint -examples
-media-video/minitube -linguas_jv
 
 # Causes build failure
 # https://github.com/kirrmann/aur-packages/commit/ff0127ec8f8b7ae004c6590693b971b6601c16eb

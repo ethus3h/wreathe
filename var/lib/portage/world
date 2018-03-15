@@ -86,7 +86,6 @@ dev-lang/snap
 dev-libs/leveldb
 dev-libs/libburn
 dev-libs/tinyxml
-dev-php/ZendFramework
 dev-python/PyQt4
 dev-python/PyQt5
 dev-python/compizconfig-python
