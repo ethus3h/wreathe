@@ -55,8 +55,8 @@
             "/usr/lib64/libicalss.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1", 
-            "/usr/lib64/libical.so.1", 
-            "/usr/lib64/libicalss.so.1"
+            "/usr/lib64/libicalss.so.1", 
+            "/usr/lib64/libical.so.1"
         ]
     ], 
     "dev-libs/oniguruma:0": [
@@ -72,9 +72,7 @@
         "17535", 
         [
             "/usr/lib64/libprotobuf.so.11.0.0", 
-            "/usr/lib64/libprotoc.so.11.0.0", 
-            "/usr/lib64/libprotobuf.so.11", 
-            "/usr/lib64/libprotoc.so.11"
+            "/usr/lib64/libprotobuf.so.11"
         ]
     ], 
     "kde-apps/kdegraphics-mobipocket:4": [
@@ -83,6 +81,14 @@
         [
             "/usr/lib64/libqmobipocket.so.1.0.0", 
             "/usr/lib64/libqmobipocket.so.1"
+        ]
+    ], 
+    "kde-apps/libkipi:5": [
+        "kde-apps/libkipi-17.08.3", 
+        "19582", 
+        [
+            "/usr/lib64/libKF5Kipi.so.5.1.0", 
+            "/usr/lib64/libKF5Kipi.so.31.0.0"
         ]
     ], 
     "media-gfx/exiv2:0": [
