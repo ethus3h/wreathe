@@ -43,10 +43,15 @@ app-misc/sl
 app-misc/tmux
 app-misc/wreathe-base
 app-misc/wreathe-file-manager
+app-misc/wreathe-meta
 app-misc/wreathe-overlays-redist
+app-office/kmymoney
 app-office/libreoffice
 app-office/libreoffice-l10n
+app-office/lyx
+app-office/texmaker
 app-officeext/ooofbtools
+app-pda/ideviceinstaller
 app-portage/pfl
 app-portage/repoman
 app-shells/looptest
@@ -56,6 +61,7 @@ app-text/dvipng
 app-text/dvipsk
 app-text/enchant
 app-text/getxbook
+app-text/goldendict
 app-text/html2text
 app-text/hunspell
 app-text/poppler
@@ -83,6 +89,7 @@ dev-lang/php
 dev-lang/python
 dev-lang/ruby
 dev-lang/snap
+dev-libs/crossguid
 dev-libs/leveldb
 dev-libs/libburn
 dev-libs/tinyxml
@@ -147,6 +154,7 @@ kde-apps/kde-dev-scripts
 kde-apps/kdebase-kioslaves:4::wreathe-overlay
 kde-apps/konsole
 kde-apps/kwave
+kde-apps/lokalize
 kde-frameworks/baloo
 kde-frameworks/kdelibs
 kde-frameworks/kfilemetadata
@@ -225,6 +233,7 @@ media-video/mjpegtools
 media-video/openshot
 media-video/sswf
 media-video/vlc
+net-analyzer/mtr
 net-dns/dnscrypt-proxy
 net-ftp/filezilla
 net-irc/irssi
@@ -245,6 +254,7 @@ net-print/cups-filters
 net-wireless/gnuradio
 net-wireless/wpa_supplicant
 sci-calculators/qalculate-gtk
+sci-electronics/kicad
 sci-libs/scipy
 sci-mathematics/form
 sys-apps/hwinfo
