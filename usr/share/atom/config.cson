@@ -23,7 +23,7 @@
     autoIndentOnPaste: false
     backUpBeforeSaving: true
     fontFamily: "Fira Code"
-    fontSize: 9
+    fontSize: 6
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true

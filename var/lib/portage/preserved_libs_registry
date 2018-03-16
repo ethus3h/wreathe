@@ -55,8 +55,8 @@
             "/usr/lib64/libicalss.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1.0.1", 
             "/usr/lib64/libicalvcal.so.1", 
-            "/usr/lib64/libicalss.so.1", 
-            "/usr/lib64/libical.so.1"
+            "/usr/lib64/libical.so.1", 
+            "/usr/lib64/libicalss.so.1"
         ]
     ], 
     "dev-libs/oniguruma:0": [
@@ -119,9 +119,7 @@
         "media-libs/libraw-0.18.4", 
         "18177", 
         [
-            "/usr/lib64/libraw.so.15.0.0", 
             "/usr/lib64/libraw_r.so.15.0.0", 
-            "/usr/lib64/libraw.so.15", 
             "/usr/lib64/libraw_r.so.15"
         ]
     ], 

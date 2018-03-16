@@ -81,6 +81,8 @@ dev-haskell/opengl
 dev-java/ant-javamail
 dev-java/icedtea
 dev-java/oracle-javamail
+dev-java/swt
+dev-java/swt:3.7
 dev-javascript/PapaParse
 dev-lang/R
 dev-lang/gnat-gpl
@@ -239,7 +241,10 @@ net-analyzer/mtr
 net-dns/dnscrypt-proxy
 net-ftp/filezilla
 net-irc/irssi
+net-libs/gnome-online-accounts
 net-libs/serf:1
+net-libs/webkit-gtk:2
+net-libs/webkit-gtk:3
 net-mail/mailbase
 net-misc/dagr
 net-misc/freerdp
