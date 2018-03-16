@@ -73,6 +73,7 @@ app-text/tree
 app-text/wgetpaste
 app-text/xmlstarlet
 dev-cpp/clucene
+dev-cpp/gtkmm
 dev-cpp/yaml-cpp
 dev-db/postgresql
 dev-games/tiled
@@ -90,6 +91,7 @@ dev-lang/python
 dev-lang/ruby
 dev-lang/snap
 dev-libs/crossguid
+dev-libs/glib
 dev-libs/leveldb
 dev-libs/libburn
 dev-libs/tinyxml
@@ -306,6 +308,7 @@ x11-apps/xkill
 x11-libs/bamf
 x11-libs/cairo
 x11-libs/compiz-bcop
+x11-libs/gtk+
 x11-libs/gtk+:2
 x11-libs/libcompizconfig
 x11-misc/cairo-dock
