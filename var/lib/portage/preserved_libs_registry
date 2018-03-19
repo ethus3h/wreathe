@@ -52,11 +52,7 @@
         "18056", 
         [
             "/usr/lib64/libical.so.1.0.1", 
-            "/usr/lib64/libicalss.so.1.0.1", 
-            "/usr/lib64/libicalvcal.so.1.0.1", 
-            "/usr/lib64/libicalvcal.so.1", 
-            "/usr/lib64/libical.so.1", 
-            "/usr/lib64/libicalss.so.1"
+            "/usr/lib64/libical.so.1"
         ]
     ], 
     "dev-libs/oniguruma:0": [
@@ -73,6 +69,18 @@
         [
             "/usr/lib64/libprotobuf.so.11.0.0", 
             "/usr/lib64/libprotobuf.so.11"
+        ]
+    ], 
+    "gnome-extra/evolution-data-server:0": [
+        "gnome-extra/evolution-data-server-3.24.7", 
+        "19603", 
+        [
+            "/usr/lib64/libcamel-1.2.so.57.0.0", 
+            "/usr/lib64/libebook-1.2.so.16.3.1", 
+            "/usr/lib64/libedataserver-1.2.so.21.0.0", 
+            "/usr/lib64/libedataserver-1.2.so.21", 
+            "/usr/lib64/libcamel-1.2.so.57", 
+            "/usr/lib64/libebook-1.2.so.16"
         ]
     ], 
     "kde-apps/kdegraphics-mobipocket:4": [

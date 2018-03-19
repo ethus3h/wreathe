@@ -153,6 +153,7 @@ games-arcade/gunmetal-grey
 games-board/gnugo
 games-roguelike/behemmoth
 games-simulation/openttd
+gnome-extra/evolution-data-server
 kde-apps/baloo-widgets
 kde-apps/kde-dev-scripts
 kde-apps/kdebase-kioslaves:4::wreathe-overlay
@@ -243,6 +244,7 @@ net-ftp/filezilla
 net-irc/irssi
 net-libs/gnome-online-accounts
 net-libs/serf:1
+net-libs/webkit-gtk
 net-libs/webkit-gtk:2
 net-libs/webkit-gtk:3
 net-mail/mailbase
