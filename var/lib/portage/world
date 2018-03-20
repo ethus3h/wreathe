@@ -80,6 +80,7 @@ dev-games/tiled
 dev-haskell/opengl
 dev-java/ant-javamail
 dev-java/icedtea
+dev-java/maven-bin
 dev-java/oracle-javamail
 dev-java/swt
 dev-java/swt:3.7
