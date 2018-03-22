@@ -72,8 +72,11 @@ app-text/texlive-core
 app-text/tree
 app-text/wgetpaste
 app-text/xmlstarlet
+dev-cpp/atkmm
 dev-cpp/clucene
+dev-cpp/glibmm
 dev-cpp/gtkmm
+dev-cpp/libglademm
 dev-cpp/yaml-cpp
 dev-db/postgresql
 dev-games/tiled
@@ -150,10 +153,11 @@ dev-vcs/cssc
 dev-vcs/darcs
 dev-vcs/git
 dev-vcs/subversion
-games-arcade/gunmetal-grey
 games-board/gnugo
 games-roguelike/behemmoth
 games-simulation/openttd
+gnome-base/libgnome
+gnome-base/libgnomeui
 gnome-extra/evolution-data-server
 kde-apps/baloo-widgets
 kde-apps/kde-dev-scripts
@@ -246,8 +250,6 @@ net-irc/irssi
 net-libs/gnome-online-accounts
 net-libs/serf:1
 net-libs/webkit-gtk
-net-libs/webkit-gtk:2
-net-libs/webkit-gtk:3
 net-mail/mailbase
 net-misc/dagr
 net-misc/freerdp
@@ -259,7 +261,6 @@ net-misc/taylor-uucp
 net-misc/yacy
 net-misc/youtube-dl
 net-nntp/sabnzbd
-net-p2p/tribler
 net-print/cups-filters
 net-wireless/gnuradio
 net-wireless/wpa_supplicant

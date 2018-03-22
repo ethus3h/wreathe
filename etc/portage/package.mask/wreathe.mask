@@ -1,3 +1,6 @@
+# USE=threads, required by virtual/mpi, can't be used with openmpi-3 (since it doesn't provide that USE flag)
+>sys-cluster/openmpi-3
+
 # Mask overlays
 */*::haskell
 =dev-libs/libplatform-9999::wreathe-overlay
