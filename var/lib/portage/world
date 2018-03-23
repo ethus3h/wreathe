@@ -274,7 +274,6 @@ sys-apps/portage
 sys-apps/renameutils
 sys-apps/sandbox
 sys-boot/efibootmgr
-sys-cluster/openmpi
 sys-devel/binutils
 sys-devel/crossdev
 sys-fs/ddrescue
