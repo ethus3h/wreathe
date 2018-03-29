@@ -1,0 +1,122 @@
+diff --git a/include/compiz-core.h b/include/compiz-core.h
+index 244be33..2667221 100644
+--- a/include/compiz-core.h
++++ b/include/compiz-core.h
+@@ -2652,6 +2652,9 @@ struct _CompWindow {
+     XWindowChanges saveWc;
+     int		   saveMask;
+ 
++    XWindowChanges saveFFWc;
++    int		   saveFFMask;
++
+     XSyncCounter  syncCounter;
+     XSyncValue	  syncValue;
+     XSyncAlarm	  syncAlarm;
+diff --git a/src/window.c b/src/window.c
+index 92fafd0..67e7cbd 100644
+--- a/src/window.c
++++ b/src/window.c
+@@ -2208,6 +2208,7 @@ addWindow (CompScreen *screen,
+     w->syncBorderWidth = w->attrib.border_width;
+ 
+     w->saveMask = 0;
++    w->saveFFMask = 0;
+ 
+     XSelectInput (d->display, id,
+ 		  PropertyChangeMask |
+@@ -3543,6 +3544,61 @@ validSiblingBelow (CompWindow *w,
+ }
+ 
+ static void
++saveWindowGeometryFF (CompWindow *w,
++		    int	       mask)
++{
++    int m = mask & ~w->saveFFMask;
++
++    /* only save geometry if window has been placed */
++    if (!w->placed)
++	return;
++
++    if (m & CWX)
++	w->saveFFWc.x = w->serverX;
++
++    if (m & CWY)
++	w->saveFFWc.y = w->serverY;
++
++    if (m & CWWidth)
++	w->saveFFWc.width = w->serverWidth;
++
++    if (m & CWHeight)
++	w->saveFFWc.height = w->serverHeight;
++
++    if (m & CWBorderWidth)
++	w->saveFFWc.border_width = w->serverBorderWidth;
++
++    w->saveFFMask |= m;
++}
++
++static int
++restoreWindowGeometryFF (CompWindow     *w,
++		       XWindowChanges *xwc,
++		       int	      mask)
++{
++    int m = mask & w->saveFFMask;
++
++    if (m & CWX)
++	xwc->x = w->saveFFWc.x;
++
++    if (m & CWY)
++	xwc->y = w->saveFFWc.y;
++
++    if (m & CWWidth)
++	xwc->width = w->saveFFWc.width;
++
++    if (m & CWHeight)
++	xwc->height = w->saveFFWc.height;
++
++    if (m & CWBorderWidth)
++	xwc->border_width = w->saveFFWc.border_width;
++
++    w->saveFFMask &= ~mask;
++
++    return m;
++}
++
++static void
+ saveWindowGeometry (CompWindow *w,
+ 		    int	       mask)
+ {
+@@ -3779,7 +3835,7 @@ addWindowSizeChanges (CompWindow     *w,
+ 
+     if (w->type & CompWindowTypeFullscreenMask)
+     {
+-	saveWindowGeometry (w, CWX | CWY | CWWidth | CWHeight | CWBorderWidth);
++	saveWindowGeometryFF (w, CWX | CWY | CWWidth | CWHeight | CWBorderWidth);
+ 
+ 	if (w->fullscreenMonitorsSet)
+ 	{
+@@ -3802,10 +3858,10 @@ addWindowSizeChanges (CompWindow     *w,
+     }
+     else
+     {
+-	mask |= restoreWindowGeometry (w, xwc, CWBorderWidth);
+-
+ 	int lastState = w->state >> 16;
+ 
++	mask |= restoreWindowGeometry (w, xwc, CWBorderWidth);
++
+ 	if (w->state & CompWindowStateMaximizedVertMask)
+ 	{
+ 	    saveWindowGeometry (w, CWX | CWY | CWWidth | CWHeight);
+@@ -3843,6 +3899,11 @@ addWindowSizeChanges (CompWindow     *w,
+ 	    mask |= restoreWindowGeometry (w, xwc, CWX | CWY | CWWidth | CWHeight);
+ 	}
+ 
++	if (lastState & CompWindowStateFullscreenMask)
++	{
++		mask |= restoreWindowGeometryFF (w, xwc, CWX | CWY | CWWidth | CWHeight);
++	}
++
+ 	/* constrain window width if smaller than minimum width */
+ 	if (!(mask & CWWidth) && oldWidth < w->sizeHints.min_width)
+ 	{
