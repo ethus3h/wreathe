@@ -1,3 +1,4 @@
+net-misc/rclone ~amd64
 net-p2p/tribler ~amd64
 app-text/getxbook ~amd64
 dev-vcs/bzr ~amd64
