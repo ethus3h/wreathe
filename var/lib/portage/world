@@ -257,6 +257,7 @@ net-misc/icecast
 net-misc/nitroshare
 net-misc/plowshare
 net-misc/pyload
+net-misc/rclone
 net-misc/taylor-uucp
 net-misc/yacy
 net-misc/youtube-dl
