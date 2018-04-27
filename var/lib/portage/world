@@ -96,6 +96,7 @@ dev-lang/php
 dev-lang/python
 dev-lang/ruby
 dev-lang/snap
+dev-libs/boost
 dev-libs/crossguid
 dev-libs/glib
 dev-libs/leveldb
@@ -138,13 +139,16 @@ dev-ruby/polyglot
 dev-ruby/rb-inotify
 dev-ruby/treetop
 dev-ruby/unf_ext
+dev-scheme/guile
 dev-tex/bibtexu
 dev-tex/xmltex
 dev-util/android-tools
+dev-util/boost-build
 dev-util/cloc
 dev-util/cppunit
 dev-util/idea-community
 dev-util/pkgconfig
+dev-util/source-highlight
 dev-util/weka
 dev-util/xxdiff
 dev-vcs/bzr
@@ -159,9 +163,11 @@ games-simulation/openttd
 gnome-base/libgnome
 gnome-base/libgnomeui
 gnome-extra/evolution-data-server
+kde-apps/akonadi
 kde-apps/baloo-widgets
 kde-apps/kde-dev-scripts
 kde-apps/kdebase-kioslaves:4::wreathe-overlay
+kde-apps/kdepimlibs
 kde-apps/konsole
 kde-apps/kwave
 kde-apps/lokalize

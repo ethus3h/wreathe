@@ -18,15 +18,22 @@
         ]
     ], 
     "dev-libs/boost:0": [
-        "dev-libs/boost-1.63.0", 
-        "18501", 
+        "dev-libs/boost-1.65.0", 
+        "19692", 
         [
+            "/usr/lib64/libboost_chrono.so.1.63.0", 
             "/usr/lib64/libboost_filesystem.so.1.62.0", 
             "/usr/lib64/libboost_program_options.so.1.62.0", 
             "/usr/lib64/libboost_python-2.7.so.1.62.0", 
+            "/usr/lib64/libboost_python-2.7.so.1.63.0", 
+            "/usr/lib64/libboost_python-3.5.so.1.63.0", 
+            "/usr/lib64/libboost_python-3.6.so.1.63.0", 
+            "/usr/lib64/libboost_random.so.1.63.0", 
             "/usr/lib64/libboost_regex.so.1.62.0", 
             "/usr/lib64/libboost_system.so.1.62.0", 
-            "/usr/lib64/libboost_thread.so.1.62.0"
+            "/usr/lib64/libboost_system.so.1.63.0", 
+            "/usr/lib64/libboost_thread.so.1.62.0", 
+            "/usr/lib64/libboost_thread.so.1.63.0"
         ]
     ], 
     "dev-libs/ffcall:0": [
@@ -71,6 +78,14 @@
             "/usr/lib64/libprotobuf.so.11"
         ]
     ], 
+    "dev-scheme/guile:12": [
+        "dev-scheme/guile-2.0.14-r3", 
+        "19689", 
+        [
+            "/usr/lib64/libguile.so.17.4.0", 
+            "/usr/lib64/libguile.so.17"
+        ]
+    ], 
     "gnome-extra/evolution-data-server:0": [
         "gnome-extra/evolution-data-server-3.24.7", 
         "19603", 
@@ -108,10 +123,12 @@
         ]
     ], 
     "media-libs/glew:0": [
-        "media-libs/glew-1.13.0", 
-        "17364", 
+        "media-libs/glew-2.1.0", 
+        "19712", 
         [
             "/usr/lib64/libGLEW.so.1.10.0", 
+            "/usr/lib64/libGLEW.so.1.13.0", 
+            "/usr/lib64/libGLEW.so.1.13", 
             "/usr/lib64/libGLEW.so.1.10"
         ]
     ], 
@@ -147,8 +164,8 @@
         ]
     ], 
     "net-libs/gnutls:0": [
-        "net-libs/gnutls-3.5.15", 
-        "17498", 
+        "net-libs/gnutls-3.5.18", 
+        "19699", 
         [
             "/usr/lib64/libgnutls.so.28.43.0", 
             "/usr/lib64/libgnutls.so.28"
