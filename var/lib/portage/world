@@ -246,6 +246,7 @@ media-sound/supercollider
 media-tv/kodi
 media-video/ffmpeg
 media-video/mjpegtools
+media-video/obs-studio
 media-video/openshot
 media-video/sswf
 media-video/vlc
