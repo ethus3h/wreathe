@@ -67,6 +67,7 @@ app-text/hunspell
 app-text/poppler
 app-text/ps2pkm
 app-text/stardict
+app-text/texi2html
 app-text/texlive
 app-text/texlive-core
 app-text/tree
