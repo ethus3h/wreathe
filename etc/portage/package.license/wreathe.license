@@ -36,6 +36,7 @@ app-misc/sl freedist
 
 # Free (copyleft) license, but not in @FREE because it is only used by the Wreathe overlay
 dev-java/svnkit tmate
+app-text/noweb noweb
 
 # Contains freely redistributable but non-modifiable text
 app-text/dictd ISOC-rfc
