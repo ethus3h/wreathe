@@ -1,3 +1,6 @@
+# Nepomuk ftbfs due to picking qt5 moc instead of qt4
+kde-apps/dolphin -semantic-desktop
+
 # To prevent circular dependencies when updating, uncomment these lines, then recomment and re-update @world to get the packages built.
 dev-python/Babel -doc
 dev-python/jinja -doc 
