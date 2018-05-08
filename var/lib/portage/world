@@ -147,7 +147,6 @@ dev-util/android-tools
 dev-util/boost-build
 dev-util/cloc
 dev-util/cppunit
-dev-util/idea-community
 dev-util/pkgconfig
 dev-util/source-highlight
 dev-util/weka
@@ -166,13 +165,12 @@ gnome-base/libgnomeui
 gnome-extra/evolution-data-server
 kde-apps/akonadi
 kde-apps/baloo-widgets
+kde-apps/dolphin
 kde-apps/kde-dev-scripts
 kde-apps/kdebase-kioslaves:4::wreathe-overlay
-kde-apps/kdepimlibs
 kde-apps/konsole
 kde-apps/kwave
 kde-apps/lokalize
-kde-apps/wreathe-file-manager
 kde-frameworks/baloo
 kde-frameworks/kdelibs
 kde-frameworks/kfilemetadata
