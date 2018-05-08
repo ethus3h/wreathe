@@ -43,7 +43,6 @@ app-misc/rlwrap
 app-misc/sl
 app-misc/tmux
 app-misc/wreathe-base
-app-misc/wreathe-file-manager
 app-misc/wreathe-meta
 app-misc/wreathe-overlays-redist
 app-office/kmymoney
@@ -173,6 +172,7 @@ kde-apps/kdepimlibs
 kde-apps/konsole
 kde-apps/kwave
 kde-apps/lokalize
+kde-apps/wreathe-file-manager
 kde-frameworks/baloo
 kde-frameworks/kdelibs
 kde-frameworks/kfilemetadata
