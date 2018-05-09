@@ -166,6 +166,7 @@ gnome-extra/evolution-data-server
 kde-apps/akonadi
 kde-apps/baloo-widgets
 kde-apps/dolphin
+kde-apps/dolphin:4
 kde-apps/kde-dev-scripts
 kde-apps/kdebase-kioslaves:4::wreathe-overlay
 kde-apps/konsole

@@ -38,7 +38,7 @@
     ], 
     "dev-libs/ffcall:0": [
         "dev-libs/ffcall-2.0", 
-        "19956", 
+        "20087", 
         [
             "/usr/lib64/libavcall.so.0.0.0", 
             "/usr/lib64/libcallback.so.0.0.0", 
@@ -64,7 +64,7 @@
     ], 
     "dev-libs/oniguruma:0": [
         "dev-libs/oniguruma-6.7.1", 
-        "19900", 
+        "20031", 
         [
             "/usr/lib64/libonig.so.2.0.0", 
             "/usr/lib64/libonig.so.2"
@@ -199,6 +199,13 @@
         [
             "/usr/lib64/libgnutls.so.28.43.0", 
             "/usr/lib64/libgnutls.so.28"
+        ]
+    ], 
+    "net-libs/http-parser:0": [
+        "net-libs/http-parser-2.8.1", 
+        "20034", 
+        [
+            "/usr/lib64/libhttp_parser.so.2.6.2"
         ]
     ], 
     "net-libs/libsrtp:0": [
