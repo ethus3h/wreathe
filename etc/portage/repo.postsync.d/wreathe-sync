@@ -51,7 +51,7 @@ if [ -n "${repository_name}" ]; then
 		currentDir="$PWD"
 		cd "$gwsRepo" || exit 1
 		gitTargetDir="$(cat .git)" || exit 1
-		rsync -av --delete --checksum --progress --no-i-r --exclude '.git' --exclude 'distfiles' --exclude 'packages' "$repository_path/portage/" "$gwsRepo" || exit 1
+		rsync -av --delete --checksum --progress --no-i-r --exclude '.git' --exclude 'distfiles' --exclude 'packages' "$repository_path/" "$gwsRepo"portage/ || exit 1
 		mv .gitignore .gitignore.wreathe-sync-disabled || exit 1
 		egup-single || exit 1
 		cd "$gitTargetDir" || exit 1
