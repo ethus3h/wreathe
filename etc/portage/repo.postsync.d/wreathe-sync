@@ -45,6 +45,15 @@ if [ -n "${repository_name}" ]; then
 			ret=1
 		fi
 	fi
+
+	gwsRepo="/Ember Library/Ember satellite projects/gentoo-wreathe-state/"
+	if [ "${repository_name}" == "gentoo" ] && [ -e "$gwsRepo" ]; then
+		pushd "$gwsRepo"
+		rm -r ./*
+		rsync -av --checksum --progress --exclude '.git' "$repository_path/" "$gwsRepo"
+		egup-single
+		popd
+	fi
 fi
 
 # Return explicit status.
