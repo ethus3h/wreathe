@@ -50,7 +50,7 @@ if [ -n "${repository_name}" ]; then
 	if [ "${repository_name}" == "gentoo" ] && [ -e "$gwsRepo" ]; then
 		pushd "$gwsRepo"
 		rm -r ./*
-		rsync -av --checksum --progress --exclude '.git' --exclude 'distfiles' --exclude 'packages' "$repository_path/" "$gwsRepo"
+		rsync -av --checksum --progress --no-i-r --exclude '.git' --exclude 'distfiles' --exclude 'packages' "$repository_path/" "$gwsRepo"
 		egup-single
 		popd
 	fi
