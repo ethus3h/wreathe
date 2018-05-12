@@ -106,36 +106,6 @@
             "/usr/lib64/libqmobipocket.so.1"
         ]
     ], 
-    "kde-apps/kdepimlibs:4": [
-        "kde-apps/kdepimlibs-4.14.10_p20160611", 
-        "19705", 
-        [
-            "/usr/lib64/libktnef.so.4.14.37", 
-            "/usr/lib64/libkpimidentities.so.4.14.37", 
-            "/usr/lib64/libkabc.so.4.14.37", 
-            "/usr/lib64/libkcalcore.so.4.14.37", 
-            "/usr/lib64/libkpimutils.so.4.14.37", 
-            "/usr/lib64/libakonadi-kde.so.4.14.37", 
-            "/usr/lib64/libkresources.so.4.14.37", 
-            "/usr/lib64/libkpimtextedit.so.4.14.37", 
-            "/usr/lib64/libkcalutils.so.4.14.37", 
-            "/usr/lib64/libkcal.so.4.14.37", 
-            "/usr/lib64/libakonadi-kmime.so.4.14.37", 
-            "/usr/lib64/libkmime.so.4.14.37", 
-            "/usr/lib64/libkcal.so.4", 
-            "/usr/lib64/libkpimtextedit.so.4", 
-            "/usr/lib64/libkcalutils.so.4", 
-            "/usr/lib64/libakonadi-kde.so.4", 
-            "/usr/lib64/libkresources.so.4", 
-            "/usr/lib64/libkabc.so.4", 
-            "/usr/lib64/libkmime.so.4", 
-            "/usr/lib64/libktnef.so.4", 
-            "/usr/lib64/libkpimidentities.so.4", 
-            "/usr/lib64/libkpimutils.so.4", 
-            "/usr/lib64/libkcalcore.so.4", 
-            "/usr/lib64/libakonadi-kmime.so.4"
-        ]
-    ], 
     "kde-apps/libkipi:5": [
         "kde-apps/libkipi-17.08.3", 
         "19582", 
