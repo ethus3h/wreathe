@@ -65,13 +65,13 @@ app-misc/cwiid ~amd64
 =sys-boot/grub-9999 **
 
 #Use live zfs ebuilds to allow newer kernel version
-=sys-fs/zfs-9999 **
-=sys-kernel/spl-9999 **
-=sys-fs/zfs-kmod-9999 **
+#=sys-fs/zfs-9999 **
+#=sys-kernel/spl-9999 **
+#=sys-fs/zfs-kmod-9999 **
 
 # zfsonlinux
-sys-fs/zfs-kmod ~amd64
-sys-kernel/spl ~amd64
+#sys-fs/zfs-kmod ~amd64
+#sys-kernel/spl ~amd64
 
 # Not yet stabilised, used by Ring
 =net-libs/opendht-9999 **
