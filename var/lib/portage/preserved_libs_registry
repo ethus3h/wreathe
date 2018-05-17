@@ -8,18 +8,20 @@
         ]
     ], 
     "app-text/poppler:0": [
-        "app-text/poppler-0.57.0-r1", 
-        "17815", 
+        "app-text/poppler-0.62.0-r1", 
+        "22091", 
         [
             "/usr/lib64/libpoppler-qt4.so.4.11.0", 
             "/usr/lib64/libpoppler.so.62.0.0", 
+            "/usr/lib64/libpoppler.so.68.0.0", 
+            "/usr/lib64/libpoppler.so.68", 
             "/usr/lib64/libpoppler.so.62", 
             "/usr/lib64/libpoppler-qt4.so.4"
         ]
     ], 
     "dev-libs/boost:0": [
         "dev-libs/boost-1.65.0", 
-        "19692", 
+        "21697", 
         [
             "/usr/lib64/libboost_chrono.so.1.63.0", 
             "/usr/lib64/libboost_filesystem.so.1.62.0", 
@@ -38,7 +40,7 @@
     ], 
     "dev-libs/ffcall:0": [
         "dev-libs/ffcall-2.1", 
-        "20773", 
+        "21186", 
         [
             "/usr/lib64/libavcall.so.0.0.0", 
             "/usr/lib64/libcallback.so.0.0.0", 
@@ -46,9 +48,29 @@
             "/usr/lib64/libavcall.so.0"
         ]
     ], 
+    "dev-libs/icu:0": [
+        "dev-libs/icu-60.2", 
+        "21694", 
+        [
+            "/usr/lib32/libicudata.so.58.2", 
+            "/usr/lib32/libicui18n.so.58.2", 
+            "/usr/lib32/libicuuc.so.58.2", 
+            "/usr/lib64/libicudata.so.58.2", 
+            "/usr/lib64/libicui18n.so.58.2", 
+            "/usr/lib64/libicuio.so.58.2", 
+            "/usr/lib64/libicuuc.so.58.2", 
+            "/usr/lib64/libicuuc.so.58", 
+            "/usr/lib32/libicuuc.so.58", 
+            "/usr/lib32/libicui18n.so.58", 
+            "/usr/lib64/libicui18n.so.58", 
+            "/usr/lib32/libicudata.so.58", 
+            "/usr/lib64/libicudata.so.58", 
+            "/usr/lib64/libicuio.so.58"
+        ]
+    ], 
     "dev-libs/libgit2:0": [
-        "dev-libs/libgit2-0.26.0", 
-        "18517", 
+        "dev-libs/libgit2-0.26.3", 
+        "22427", 
         [
             "/usr/lib64/libgit2.so.0.24.6", 
             "/usr/lib64/libgit2.so.24"
@@ -56,7 +78,7 @@
     ], 
     "dev-libs/libical:0": [
         "dev-libs/libical-2.0.0-r3", 
-        "18056", 
+        "22242", 
         [
             "/usr/lib64/libical.so.1.0.1", 
             "/usr/lib64/libical.so.1"
@@ -64,15 +86,15 @@
     ], 
     "dev-libs/oniguruma:0": [
         "dev-libs/oniguruma-6.7.1", 
-        "21053", 
+        "21129", 
         [
             "/usr/lib64/libonig.so.2.0.0", 
             "/usr/lib64/libonig.so.2"
         ]
     ], 
     "dev-libs/protobuf:0": [
-        "dev-libs/protobuf-3.5.1.1", 
-        "17535", 
+        "dev-libs/protobuf-3.5.2", 
+        "21580", 
         [
             "/usr/lib64/libprotobuf.so.11.0.0", 
             "/usr/lib64/libprotobuf.so.11"
@@ -115,65 +137,84 @@
         ]
     ], 
     "media-gfx/exiv2:0": [
-        "media-gfx/exiv2-0.26_p20171104", 
-        "20004", 
+        "media-gfx/exiv2-0.26_p20180319", 
+        "22064", 
         [
             "/usr/lib64/libexiv2.so.14.0.0", 
             "/usr/lib64/libexiv2.so.14"
         ]
     ], 
+    "media-gfx/qrencode:0": [
+        "media-gfx/qrencode-4.0.0", 
+        "21574", 
+        [
+            "/usr/lib64/libqrencode.so.3.4.4", 
+            "/usr/lib64/libqrencode.so.3"
+        ]
+    ], 
     "media-libs/glew:0": [
         "media-libs/glew-2.1.0", 
-        "19712", 
+        "22169", 
         [
             "/usr/lib64/libGLEW.so.1.10.0", 
-            "/usr/lib64/libGLEW.so.1.13.0", 
-            "/usr/lib64/libGLEW.so.1.13", 
             "/usr/lib64/libGLEW.so.1.10"
         ]
     ], 
     "media-libs/ilmbase:0": [
         "media-libs/ilmbase-2.2.0-r1", 
-        "20890", 
+        "21302", 
         [
             "/usr/lib64/libHalf.so.11.0.0", 
             "/usr/lib64/libIex-2_1.so.11.0.0", 
-            "/usr/lib64/libIexMath-2_1.so.11.0.0", 
             "/usr/lib64/libIlmThread-2_1.so.11.0.0", 
-            "/usr/lib64/libImath-2_1.so.11.0.0", 
-            "/usr/lib64/libIexMath-2_1.so.11", 
             "/usr/lib64/libIex-2_1.so.11", 
-            "/usr/lib64/libImath-2_1.so.11", 
             "/usr/lib64/libHalf.so.11", 
             "/usr/lib64/libIlmThread-2_1.so.11"
         ]
     ], 
-    "media-libs/jasper:0": [
-        "media-libs/jasper-2.0.12", 
-        "16309", 
-        [
-            "/usr/lib64/libjasper.so.1.0.0", 
-            "/usr/lib64/libjasper.so.1"
-        ]
-    ], 
     "media-libs/libraw:0": [
-        "media-libs/libraw-0.18.4", 
-        "18177", 
+        "media-libs/libraw-0.18.8", 
+        "22070", 
         [
             "/usr/lib64/libraw_r.so.15.0.0", 
             "/usr/lib64/libraw_r.so.15"
         ]
     ], 
-    "media-libs/x264:0": [
-        "media-libs/x264-0.0.20160712", 
-        "16220", 
+    "media-libs/openexr:0": [
+        "media-libs/openexr-2.2.0-r2", 
+        "21515", 
         [
-            "/usr/lib64/libx264.so.142"
+            "/usr/lib64/libIlmImf-Imf_2_1.so.21.0.0", 
+            "/usr/lib64/libIlmImf-Imf_2_1.so.21"
+        ]
+    ], 
+    "media-libs/x264:0": [
+        "media-libs/x264-0.0.20170701", 
+        "22554", 
+        [
+            "/usr/lib32/libx264.so.148", 
+            "/usr/lib64/libx264.so.142", 
+            "/usr/lib64/libx264.so.148"
+        ]
+    ], 
+    "media-libs/x265:0": [
+        "media-libs/x265-2.6", 
+        "22265", 
+        [
+            "/usr/lib64/libx265.so.102"
+        ]
+    ], 
+    "net-dns/libidn:0": [
+        "net-dns/libidn-1.35", 
+        "22131", 
+        [
+            "/usr/lib64/libidn.so.11.6.16", 
+            "/usr/lib64/libidn.so.11"
         ]
     ], 
     "net-fs/libnfs:0": [
         "net-fs/libnfs-2.0.0", 
-        "17518", 
+        "21585", 
         [
             "/usr/lib64/libnfs.so.8.0.0", 
             "/usr/lib64/libnfs.so.8"
@@ -189,14 +230,14 @@
     ], 
     "net-libs/http-parser:0": [
         "net-libs/http-parser-2.8.1", 
-        "21056", 
+        "21132", 
         [
             "/usr/lib64/libhttp_parser.so.2.6.2"
         ]
     ], 
     "net-libs/libsrtp:0": [
         "net-libs/libsrtp-1.6.0", 
-        "17515", 
+        "21591", 
         [
             "/usr/lib64/libsrtp.so.0.0", 
             "/usr/lib64/libsrtp.so.0"
