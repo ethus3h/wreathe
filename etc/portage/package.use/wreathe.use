@@ -169,6 +169,7 @@ dev-ruby/net-ssh -doc
 dev-ruby/rest-client -doc
 gnustep-base/gnustep-make -doc
 media-libs/libcaca -doc
+media-libs/openimageio -doc
 
 # Various extra capabilities
 app-doc/doxygen clang dot doxysearch
