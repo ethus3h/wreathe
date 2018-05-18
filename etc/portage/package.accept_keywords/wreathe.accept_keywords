@@ -1,3 +1,4 @@
+sys-apps/nix ~amd64
 media-video/obs-studio ~amd64
 net-misc/rclone ~amd64
 net-p2p/tribler ~amd64
