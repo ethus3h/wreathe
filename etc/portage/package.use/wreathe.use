@@ -173,6 +173,7 @@ dev-python/statsmodels -doc
 dev-python/sympy -doc
 dev-python/whoosh -doc
 dev-ruby/net-ssh -doc
+dev-ruby/rdiscount -doc
 dev-ruby/rest-client -doc
 gnustep-base/gnustep-make -doc
 media-libs/libcaca -doc
