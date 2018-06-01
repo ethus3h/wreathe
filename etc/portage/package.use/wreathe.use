@@ -172,6 +172,7 @@ dev-python/pyzmq -doc
 dev-python/statsmodels -doc
 dev-python/sympy -doc
 dev-python/whoosh -doc
+dev-ruby/fast_xs -doc
 dev-ruby/net-ssh -doc
 dev-ruby/rdiscount -doc
 dev-ruby/rest-client -doc
