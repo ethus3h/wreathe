@@ -161,6 +161,7 @@ app-editors/atom ~amd64
 app-emulation/bochs ~amd64
 app-emulation/vagrant ~amd64
 app-eselect/eselect-electron ~amd64
+dev-vcs/git-lfs ~amd64
 app-eselect/eselect-opencascade ~amd64
 app-forensics/afl ~amd64
 app-misc/ddate ~amd64
