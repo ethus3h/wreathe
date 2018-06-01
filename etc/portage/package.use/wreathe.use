@@ -17,6 +17,7 @@ dev-python/pyopenssl -doc
 dev-python/urllib3 -doc
 dev-python/cffi -doc
 dev-ruby/json -doc
+dev-ruby/mustache -doc
 dev-ruby/racc -doc
 dev-ruby/rake -doc
 media-libs/openimageio -colorio
