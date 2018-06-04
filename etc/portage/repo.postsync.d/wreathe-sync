@@ -46,7 +46,9 @@ if [ -n "${repository_name}" ]; then
 		fi
 	fi
 
-	echo "Repo postsync hook running as $USER."
+	echo "Repo postsync hook running as:"
+	id
+	( cd ~; pwd )
 	gwsRepo="/Ember Library/Ember satellite projects/gentoo-wreathe-state/"
 	if [ "${repository_name}" = "gentoo" ] && [ -e "$gwsRepo" ]; then
 		currentDir="$PWD"
@@ -54,7 +56,8 @@ if [ -n "${repository_name}" ]; then
 		gitTargetDir="$(awk '{print $2;}' < .git)" || exit 1
 		rsync -av --delete --checksum --progress --no-i-r --exclude '.git' --exclude 'distfiles' --exclude 'packages' "$repository_path/" "$gwsRepo"portage/ || exit 1
 		mv portage/.gitignore portage/.gitignore.wreathe-sync-disabled || exit 1
-		egup-single || exit 1
+		git add -A . || exit 1
+		git commit -m "Committing using repo.postsync.d hook" || true
 		cd "$gitTargetDir" || exit 1
 		find . -type d -exec chmod 777 {} \;
 		find . -type f -exec chmod 666 {} \;
