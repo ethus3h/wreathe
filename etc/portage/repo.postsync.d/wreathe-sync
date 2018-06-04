@@ -46,7 +46,7 @@ if [ -n "${repository_name}" ]; then
 		fi
 	fi
 
-	echo "Repo postsync hook running"
+	echo "Repo postsync hook running as $USER."
 	gwsRepo="/Ember Library/Ember satellite projects/gentoo-wreathe-state/"
 	if [ "${repository_name}" = "gentoo" ] && [ -e "$gwsRepo" ]; then
 		currentDir="$PWD"
