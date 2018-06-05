@@ -39,8 +39,6 @@ gnome-base/libglade python_single_target_python2_7
 # Needed for ibus which has target 3.4
 dev-python/pygobject python_targets_python3_4
 dev-python/pycairo python_targets_python3_4
-# Needed for portage which has target 3.4
-dev-python/pyblake2 python_targets_python3_4
 
 dev-libs/efl -gles
 # Use firmware blobs until I can use wi-fi without it
