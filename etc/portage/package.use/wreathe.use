@@ -20,9 +20,6 @@ dev-ruby/racc -doc
 dev-ruby/rake -doc
 media-libs/openimageio -colorio
 
-# TODO: Figure out why this USE flag is being set in the first place
-dev-db/mariadb -embedded
-
 # FIXME: -go is trying to fix a build failure ("mv: cannot stat 'go': No such file or directory")
 # FIXME: bootstrap shouldn't be necessary, especially after gnat-gpl is already installed!
 dev-lang/gnat-gpl -go bootstrap
