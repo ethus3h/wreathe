@@ -5,3 +5,7 @@
 */*::compiz-reloaded
 www-plugins/lightspark
 www-plugins/gnash
+=kde-frameworks/kdelibs-4.14.37::wreathe-overlay
+=kde-frameworks/kdelibs-env-4.14.3::wreathe-overlay
+=dev-libs/libattica-0.4.2::wreathe-overlay
+=dev-util/automoc-0.9.88-r1::wreathe-overlay
