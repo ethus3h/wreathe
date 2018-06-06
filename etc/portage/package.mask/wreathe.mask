@@ -1,12 +1,8 @@
-# USE=threads, required by virtual/mpi, can't be used with openmpi-3 (since it doesn't provide that USE flag)
->sys-cluster/openmpi-3
-
 # Mask overlays
 =dev-libs/libplatform-9999::wreathe-overlay
 
 # Misc. nonlibre software
 net-wireless/broadcom-sta
-x11-drivers/ati-drivers
 x11-drivers/nvidia-drivers
 
 # Fake source packages that are actually binaries (WTF?!) Seriously, what the fuck?
@@ -24,6 +20,3 @@ dev-util/pycharm-community
 
 # Use imagemagick instead
 media-gfx/graphicsmagick
-
-# Getting pulled in by something.
-<dev-python/pyxattr-0.5.5

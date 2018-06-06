@@ -1,29 +1,23 @@
 sys-apps/nix ~amd64
 app-text/getxbook ~amd64
-dev-vcs/bzr ~amd64
 media-plugins/calf ~amd64
-www-client/firefox-bin ~amd64
-dev-util/idea-community ~amd64
-dev-ada/gps ~amd64
-dev-ada/gnatcoll ~amd64
-dev-ada/gtkada ~amd64
-dev-ada/libadalang ~amd64
-dev-ada/libgpr ~amd64
-dev-ada/xmlada ~amd64
-dev-ada/langkit ~amd64
-dev-python/funcy ~amd64
-dev-python/quex ~amd64
 
-media-gfx/scour ~amd64
+# Use the latest versions of these apps
+app-text/calibre ~amd64
+media-sound/gmusicbrowser ~amd64
+net-p2p/ktorrent ~amd64
+www-client/firefox-bin ~amd64
+
+# Apps with no stable version
 net-misc/plowshare ~amd64
 games-simulation/openttd ~amd64
 www-apps/dokuwiki ~amd64
-app-admin/gentoo-perl-helpers ~amd64
 sci-electronics/fritzing ~amd64
 media-video/obs-studio ~amd64
 net-misc/rclone ~amd64
 net-p2p/tribler ~amd64
 media-sound/lmms ~amd64
+games-action/extreme-tuxracer ~amd64
 
 # Until >=clisp-2.49.60 stabilized
 dev-lisp/clisp ~amd64
@@ -48,9 +42,6 @@ media-libs/xine-lib ~amd64
 # Overlays
 */*::compiz-reloaded **
 
-# Dependency of compiz-plugins-community (required for headtracking plugin)
-app-misc/cwiid ~amd64
-
 # Epson scanner driver (depends on gnulib)
 =media-gfx/utsushi-9999 **
 
@@ -62,15 +53,6 @@ app-misc/cwiid ~amd64
 
 # Use GRUB from git for now, since it's needed for nvme
 =sys-boot/grub-9999 **
-
-#Use live zfs ebuilds to allow newer kernel version
-#=sys-fs/zfs-9999 **
-#=sys-kernel/spl-9999 **
-#=sys-fs/zfs-kmod-9999 **
-
-# zfsonlinux
-#sys-fs/zfs-kmod ~amd64
-#sys-kernel/spl ~amd64
 
 # Not yet stabilised, used by Ring
 =net-libs/opendht-9999 **
@@ -86,22 +68,8 @@ cross-avr/gcc ~amd64
 cross-avr/avr-libc ~amd64
 cross-avr/gdb ~amd64
 
-# Trying to get moonlight to build
-dev-lang/mono ~amd64
-
 # build failure with stable
 =app-antivirus/clamav-0.99.2-r1 ~amd64
-
-# Allow patching
-=games-action/extreme-tuxracer-0.7.2-r1 ~amd64
-
-# Update blocked by ffmpeg 3 dependency (may not still be relevant?)
-<media-sound/ardour-5 ~amd64
-
-# Use the latest versions of these apps
-app-text/calibre ~amd64
-media-sound/gmusicbrowser ~amd64
-net-p2p/ktorrent ~amd64
 
 # Not yet stabilized, used by hangups
 dev-python/multidict ~amd64
@@ -116,17 +84,6 @@ dev-python/configargparse ~amd64
 dev-python/async_timeout ~amd64
 dev-python/ReParser ~amd64
 dev-python/aiohttp ~amd64
-
-# Not yet stabilised, used by MonoDevelop
-x11-misc/obkey ~amd64
-dev-util/monodevelop ~amd64
-dev-dotnet/gtk-sharp ~amd64
-www-servers/xsp ~amd64
-dev-dotnet/referenceassemblies-pcl ~amd64
-dev-dotnet/xdt-for-monodevelop ~amd64
-dev-dotnet/nuget ~amd64
-dev-libs/gmime ~amd64
-dev-python/pytest-catchlog ~amd64
 
 # Not yet stabilised, used by infinality
 media-fonts/infinality-ultimate-meta ~amd64
@@ -151,237 +108,3 @@ x11-misc/touchegg ~amd64
 x11-misc/touchegg-gui ~amd64
 x11-libs/geis ~amd64
 dev-libs/grail ~amd64
-
-# Apps with no stable version
-app-accessibility/onboard ~amd64
-app-admin/elektra ~amd64
-app-admin/systemdgenie ~amd64
-app-doc/devmanual ~amd64
-app-editors/atom ~amd64
-app-emulation/bochs ~amd64
-app-emulation/vagrant ~amd64
-app-eselect/eselect-electron ~amd64
-dev-vcs/git-lfs ~amd64
-app-eselect/eselect-opencascade ~amd64
-app-forensics/afl ~amd64
-app-misc/ddate ~amd64
-app-misc/freeplane ~amd64
-app-pda/libplist ~amd64
-dev-cpp/ETL ~amd64
-dev-db/sqlitestudio ~amd64
-dev-dotnet/dotnet-cli ~amd64
-dev-dotnet/log4net ~amd64
-dev-java/icedtea ~amd64
-dev-java/jackson ~amd64
-dev-java/jackson-annotations ~amd64
-dev-java/jackson-databind ~amd64
-dev-java/jna ~amd64
-dev-lang/gforth ~amd64
-dev-lang/moarvm ~amd64
-dev-lang/nqp ~amd64
-dev-lang/open-cobol ~amd64
-dev-lang/rakudo ~amd64
-dev-libs/appstream
-dev-libs/capstone
-dev-libs/crossguid ~amd64
-dev-libs/dbus-c++ ~amd64
-dev-libs/libevent ~amd64
-dev-libs/quazip ~amd64
-dev-libs/vala-common ~amd64
-dev-ml/camlbz2 ~amd64
-dev-ml/cmdliner ~amd64
-dev-ml/csv ~amd64
-dev-ml/cudf ~amd64
-dev-ml/dose3 ~amd64
-dev-ml/jbuilder ~amd64
-dev-ml/jsonm ~amd64
-dev-ml/lwt ~amd64
-dev-ml/oasis ~amd64
-dev-ml/ocaml-data-notation ~amd64
-dev-ml/ocaml-expat ~amd64
-dev-ml/ocaml-migrate-parsetree ~amd64
-dev-ml/ocaml-re ~amd64
-dev-ml/ocamlgraph ~amd64
-dev-ml/ocamlify ~amd64
-dev-ml/ocamlmod ~amd64
-dev-ml/ocamlweb ~amd64
-dev-ml/opam ~amd64
-dev-ml/ppx_tools ~amd64
-dev-ml/ppx_tools_versioned ~amd64
-dev-ml/result ~amd64
-dev-ml/topkg ~amd64
-dev-ml/type-conv ~amd64
-dev-ml/uchar ~amd64
-dev-ml/uutf ~amd64
-dev-perl/Glib-Object-Introspection ~amd64
-dev-perl/glib-perl ~amd64
-dev-python/args ~amd64
-dev-python/awscli ~amd64
-dev-python/botocore ~amd64
-dev-python/certauth ~amd64
-dev-python/clint ~amd64
-dev-python/doublethink ~amd64
-dev-python/fusepy ~amd64
-dev-python/gntp ~amd64
-dev-python/guzzle_sphinx_theme ~amd64
-dev-python/internetarchive ~amd64
-dev-python/jmespath ~amd64
-dev-python/kafka-python ~amd64
-dev-python/llfuse ~amd64
-dev-python/lxml ~amd64
-dev-python/pivy ~amd64
-dev-python/pydb ~amd64
-dev-python/python-rethinkdb ~amd64
-dev-python/pythonutils ~amd64
-dev-python/requests-file ~amd64
-dev-python/rethinkstuff ~amd64
-dev-python/s3transfer ~amd64
-dev-python/sabyenc ~amd64
-dev-python/schema ~amd64
-dev-python/surt ~amd64
-dev-python/tldextract ~amd64
-dev-python/warcprox ~amd64
-dev-python/warctools ~amd64
-dev-python/yenc ~amd64
-dev-ruby/childprocess ~amd64
-dev-ruby/hashicorp-checkpoint ~amd64
-dev-ruby/i18n ~amd64
-dev-ruby/listen ~amd64
-dev-ruby/net-scp ~amd64
-dev-ruby/net-ssh ~amd64
-dev-ruby/nokogiri ~amd64
-dev-ruby/polyglot ~amd64
-dev-ruby/rake ~amd64
-dev-ruby/rb-inotify ~amd64
-dev-ruby/ruby_dep ~amd64
-dev-ruby/treetop ~amd64
-dev-tex/metapost ~amd64
-dev-util/electron ~amd64
-dev-util/lttng-ust ~amd64
-dev-util/shellcheck ~amd64
-games-action/minetest ~amd64
-games-kids/scratch ~amd64
-gnome-extra/gnome-color-chooser ~amd64
-games-util/nml ~amd64
-kde-misc/kdeconnect ~amd64
-kde-misc/kolor-manager ~amd64
-lxqt-base/liblxqt ~amd64
-lxqt-base/lxqt-config ~amd64
-mail-client/nmh ~amd64
-media-fonts/koruri ~amd64
-media-fonts/lohit-assamese ~amd64
-media-fonts/lohit-bengali ~amd64
-media-fonts/lohit-devanagari ~amd64
-media-fonts/lohit-gujarati ~amd64
-media-fonts/lohit-gurmukhi ~amd64
-media-fonts/lohit-kannada ~amd64
-media-fonts/lohit-malayalam ~amd64
-media-fonts/lohit-marathi ~amd64
-media-fonts/lohit-nepali ~amd64
-media-fonts/lohit-odia ~amd64
-media-fonts/lohit-tamil ~amd64
-media-fonts/lohit-tamil-classical ~amd64
-media-fonts/lohit-telugu ~amd64
-media-fonts/nanum ~amd64
-media-fonts/paratype ~amd64
-media-gfx/displaycal ~amd64
-media-gfx/freecad ~amd64
-media-gfx/inkscape ~amd64
-media-gfx/synfig ~amd64
-media-libs/fidlib ~amd64
-media-libs/kodi-platform ~amd64
-media-libs/libbluray ~amd64
-media-libs/libffado ~amd64
-media-libs/libilbc ~amd64
-media-libs/libXcm ~amd64
-media-libs/lv2 ~amd64
-media-libs/openicc ~amd64
-media-libs/SoQt ~amd64
-media-libs/suil ~amd64
-media-libs/volpack ~amd64
-media-plugins/kipi-plugins ~amd64
-media-plugins/kodi-visualization-fishbmc ~amd64
-media-plugins/kodi-visualization-projectm ~amd64
-media-sound/dcadec ~amd64
-media-sound/jack_capture ~amd64
-media-sound/jack-audio-connection-kit ~amd64
-media-sound/jack2 ~amd64
-media-sound/jackmix ~amd64
-media-sound/ladish ~amd64
-media-sound/musescore ~amd64
-media-sound/supercollider ~amd64
-media-video/ffmpeg ~amd64
-media-video/simplescreenrecorder ~amd64
-media-video/sswf ~amd64
-net-dns/dnscrypt-proxy ~amd64
-net-fs/s3backer ~amd64
-net-fs/s3ql ~amd64
-net-libs/libktorrent ~amd64
-net-libs/tox ~amd64
-net-nntp/sabnzbd ~amd64
-net-wireless/gnuradio ~amd64
-sci-geosciences/opencpn
-sci-geosciences/opencpn-plugin-br24radar
-sci-geosciences/opencpn-plugin-dr
-sci-geosciences/opencpn-plugin-findit
-sci-geosciences/opencpn-plugin-gxradar
-sci-geosciences/opencpn-plugin-iacfleet
-sci-geosciences/opencpn-plugin-launcher
-sci-geosciences/opencpn-plugin-logbookkonni
-sci-geosciences/opencpn-plugin-objsearch
-sci-geosciences/opencpn-plugin-ocpn_draw
-sci-geosciences/opencpn-plugin-ocpndebugger
-sci-geosciences/opencpn-plugin-otcurrent ~amd64
-sci-geosciences/opencpn-plugin-polar
-sci-geosciences/opencpn-plugin-radar
-sci-geosciences/opencpn-plugin-route
-sci-geosciences/opencpn-plugin-squiddio
-sci-geosciences/opencpn-plugin-watchdog
-sci-geosciences/opencpn-plugin-weather_routing
-sci-geosciences/opencpn-plugins-meta
-sci-geosciences/routino ~amd64
-sci-libs/matio ~amd64
-sci-libs/opencascade ~amd64
-sci-mathematics/form ~amd64
-sci-mathematics/freemat ~amd64
-sci-mathematics/octave-epstk ~amd64
-sys-apps/hwloc ~amd64
-sys-apps/init-system-helpers ~amd64
-sys-apps/smartmontools ~amd64
-sys-block/open-isns ~amd64
-sys-cluster/openmpi ~amd64
-sys-fabric/dapl ~amd64
-sys-fabric/ibacm ~amd64
-sys-fabric/infiniband-diags ~amd64
-sys-fabric/infinipath-psm ~amd64
-sys-fabric/libcxgb3 ~amd64
-sys-fabric/libcxgb4 ~amd64
-sys-fabric/libibcm ~amd64
-sys-fabric/libibmad ~amd64
-sys-fabric/libibumad ~amd64
-sys-fabric/libipathverbs ~amd64
-sys-fabric/libmlx4 ~amd64
-sys-fabric/libmlx5 ~amd64
-sys-fabric/libmthca ~amd64
-sys-fabric/libnes ~amd64
-sys-fabric/libocrdma ~amd64
-sys-fabric/mstflint ~amd64
-sys-fabric/ofed ~amd64
-sys-fabric/opensm ~amd64
-sys-fabric/perftest ~amd64
-sys-fabric/qperf ~amd64
-sys-fabric/rds-tools ~amd64
-sys-fabric/srptools ~amd64
-sys-libs/libomp ~amd64
-virtual/liblash ~amd64
-virtual/perl6 ~amd64
-www-apps/owncloud ~amd64
-www-apps/wordpress ~amd64
-www-plugins/lightspark ~amd64
-www-plugins/mozplugger ~amd64
-x11-libs/libdrm ~amd64
-x11-misc/appmenu-qt ~amd64
-x11-misc/cairo-dock ~amd64
-x11-misc/keynav ~amd64
-x11-misc/xvfb-run ~amd64
-x11-themes/arc-theme ~amd64
