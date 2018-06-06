@@ -2,7 +2,6 @@
 >sys-cluster/openmpi-3
 
 # Mask overlays
-*/*::haskell
 =dev-libs/libplatform-9999::wreathe-overlay
 
 # Misc. nonlibre software
@@ -12,7 +11,7 @@ x11-drivers/nvidia-drivers
 
 # Fake source packages that are actually binaries (WTF?!) Seriously, what the fuck?
 dev-util/android-studio
-#dev-util/idea-community
+dev-util/idea-community
 dev-util/pycharm-community
 
 # KDE SC 4.8+ drop miller columns from Dolphin
