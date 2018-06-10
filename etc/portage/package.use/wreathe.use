@@ -428,6 +428,7 @@ media-gfx/sane-backends abi_x86_32
 media-libs/a52dec abi_x86_32
 media-libs/aalib abi_x86_32
 media-libs/alsa-lib abi_x86_32
+media-libs/libbs2b abi_x86_32
 media-libs/audiofile abi_x86_32
 media-libs/celt abi_x86_32
 media-libs/chromaprint abi_x86_32
