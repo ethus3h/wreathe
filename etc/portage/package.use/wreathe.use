@@ -3,7 +3,8 @@ x11-misc/simple-ccsm -python_targets_python3_5 -python_targets_python3_6
 dev-python/compizconfig-python -python_targets_python3_5 -python_targets_python3_6
 x11-apps/fusion-icon -python_targets_python3_5 -python_targets_python3_6
 
-media-video/ffmpeg vpx
+# FIXME: Until mpich builds
+media-video/ffmpeg -rubberband
 
 # To prevent circular dependencies when updating, uncomment these lines, then recomment and re-update @world to get the packages built.
 dev-python/Babel -doc
@@ -602,7 +603,7 @@ sys-apps/systemd abi_x86_32
 sys-apps/tcp-wrappers abi_x86_32
 sys-apps/util-linux abi_x86_32
 sys-cluster/mpich abi_x86_32
-#sys-cluster/openmpi abi_x86_32
+sys-cluster/openmpi abi_x86_32
 sys-devel/clang abi_x86_32
 sys-devel/flex abi_x86_32
 sys-devel/gettext abi_x86_32
