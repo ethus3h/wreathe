@@ -354,6 +354,7 @@ x11-wm/compiz-meta boxmenu
 x11-plugins/compiz-plugins-meta experimental
 
 # abi_x86_32
+app-accessibility/flite abi_x86_32
 app-accessibility/at-spi2-atk abi_x86_32
 app-accessibility/at-spi2-core abi_x86_32
 app-arch/bzip2 abi_x86_32
