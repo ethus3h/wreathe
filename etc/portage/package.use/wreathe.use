@@ -596,6 +596,7 @@ sys-apps/attr abi_x86_32
 sys-apps/dbus abi_x86_32
 sys-apps/hwloc abi_x86_32
 sys-apps/keyutils abi_x86_32
+sys-apps/pciutils abi_x86_32
 sys-apps/systemd abi_x86_32
 sys-apps/tcp-wrappers abi_x86_32
 sys-apps/util-linux abi_x86_32
