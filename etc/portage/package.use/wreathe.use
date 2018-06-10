@@ -23,6 +23,13 @@ dev-ruby/racc -doc
 dev-ruby/rake -doc
 media-libs/openimageio -colorio
 
+# Wreathe overlay
+media-libs/phonon qt4
+media-libs/phonon-gstreamer qt4
+media-libs/phonon-vlc qt4
+app-crypt/qca qt4
+sys-auth/polkit-qt qt4
+
 # FIXME: -go is trying to fix a build failure ("mv: cannot stat 'go': No such file or directory")
 # FIXME: bootstrap shouldn't be necessary, especially after gnat-gpl is already installed!
 dev-lang/gnat-gpl -go bootstrap
@@ -192,9 +199,6 @@ media-fonts/culmus ancient fancy taamey
 media-gfx/asymptote offscreen sigsegv
 media-libs/libcanberra gtk3 tdb
 media-libs/mesa d3d9 gles1 gles2 xa
-media-libs/phonon qt4
-media-libs/phonon-gstreamer qt4
-media-libs/phonon-vlc qt4
 media-libs/speex utils
 media-libs/xine-lib vdr
 media-tv/kodi webserver
