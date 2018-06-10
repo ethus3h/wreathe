@@ -507,6 +507,7 @@ media-libs/speex abi_x86_32
 media-libs/speexdsp abi_x86_32
 media-libs/taglib abi_x86_32
 media-libs/tiff abi_x86_32
+media-libs/vamp-plugin-sdk abi_x86_32
 media-libs/vo-aacenc abi_x86_32
 media-libs/vo-amrwbenc abi_x86_32
 media-libs/x264 abi_x86_32
