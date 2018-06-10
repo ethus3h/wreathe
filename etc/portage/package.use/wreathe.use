@@ -388,6 +388,7 @@ dev-libs/json-c abi_x86_32
 dev-libs/json-glib abi_x86_32
 dev-libs/libaio abi_x86_32
 dev-libs/libbsd abi_x86_32
+dev-libs/libcdio-paranoia abi_x86_32
 dev-libs/libconfig abi_x86_32
 dev-libs/libcroco abi_x86_32
 dev-libs/libedit abi_x86_32
