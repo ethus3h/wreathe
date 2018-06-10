@@ -10,6 +10,9 @@ dev-util/android-studio
 dev-util/idea-community
 dev-util/pycharm-community
 
+# And plain old binary packages
+dev-java/icedtea-bin
+
 # KDE SC 4.8+ drop miller columns from Dolphin
 >=kde-apps/dolphin-4.7.90
 >kde-apps/dolphin-plugins-4.14.3
