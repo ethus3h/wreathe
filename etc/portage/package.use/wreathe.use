@@ -493,6 +493,7 @@ media-libs/libwebp abi_x86_32
 media-libs/mesa abi_x86_32
 media-libs/nas abi_x86_32
 media-libs/openal abi_x86_32
+media-libs/openh264 abi_x86_32
 media-libs/openjpeg abi_x86_32
 media-libs/opus abi_x86_32
 media-libs/schroedinger abi_x86_32
