@@ -201,6 +201,7 @@ dev-python/ipython nbconvert notebook
 dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
 media-fonts/culmus ancient fancy taamey
 media-gfx/asymptote offscreen sigsegv
+media-gfx/imagemagick fpx hdri lqr
 media-libs/libcanberra gtk3 tdb
 media-libs/mesa d3d9 gles1 gles2 xa
 media-libs/speex utils
