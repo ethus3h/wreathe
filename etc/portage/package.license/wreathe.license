@@ -17,7 +17,6 @@ net-misc/hylafaxplus hylafaxplus
 app-dicts/myspell-ru myspell-ru_RU-AlexanderLebedev
 app-text/mpage freedist
 www-plugins/adobe-flash AdobeFlash-11.x
-app-arch/unrar unRAR
 app-text/calibre unRAR
 games-fps/sauerbraten freedist
 app-arch/p7zip unRAR

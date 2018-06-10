@@ -2,7 +2,9 @@
 =dev-libs/libplatform-9999::wreathe-overlay
 
 # Misc. nonlibre software
+app-arch/unrar unRAR
 net-wireless/broadcom-sta
+x11-drivers/ati-drivers
 x11-drivers/nvidia-drivers
 
 # Fake source packages that are actually binaries (WTF?!) Seriously, what the fuck?
