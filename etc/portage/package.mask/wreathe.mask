@@ -6,6 +6,7 @@ app-arch/unrar
 net-wireless/broadcom-sta
 x11-drivers/ati-drivers
 x11-drivers/nvidia-drivers
+www-plugins/adobe-flash
 
 # Fake source packages that are actually binaries (WTF?!) Seriously, what the fuck?
 dev-util/android-studio
