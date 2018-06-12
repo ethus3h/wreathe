@@ -188,6 +188,7 @@ dev-ruby/net-ssh -doc
 dev-ruby/rdiscount -doc
 dev-ruby/rest-client -doc
 gnustep-base/gnustep-make -doc
+media-gfx/sane-backends -doc
 media-libs/libcaca -doc
 media-libs/openimageio -doc
 
