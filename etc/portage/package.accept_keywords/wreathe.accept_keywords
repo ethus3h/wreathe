@@ -46,8 +46,9 @@ media-libs/xine-lib ~amd64
 # Epson scanner driver (depends on gnulib)
 =media-gfx/utsushi-9999 **
 
-# Use git oyranos: needed for git CompICC
+# Use git oyranos, and ~amd64 elektra dependency: needed for git CompICC
 =media-libs/oyranos-9999 **
+app-admin/elektra ~amd64
 
 # Only live (-9999) ebuilds are available for these
 =net-im/hangups-9999 **
