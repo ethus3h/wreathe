@@ -16,6 +16,7 @@ sci-electronics/fritzing ~amd64
 media-video/obs-studio ~amd64
 net-misc/rclone ~amd64
 net-p2p/tribler ~amd64
+media-sound/ardour ~amd64
 media-sound/lmms ~amd64
 games-action/extreme-tuxracer ~amd64
 dev-util/shellcheck ~amd64
