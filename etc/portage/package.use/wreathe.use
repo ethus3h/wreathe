@@ -190,6 +190,7 @@ dev-ruby/rest-client -doc
 gnustep-base/gnustep-make -doc
 media-gfx/sane-backends -doc
 media-libs/libcaca -doc
+media-libs/lv2 -doc
 media-libs/openimageio -doc
 
 # Various extra capabilities
