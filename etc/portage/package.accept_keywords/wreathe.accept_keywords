@@ -81,6 +81,9 @@ cross-avr/gdb ~amd64
 dev-libs/nss ~amd64
 dev-libs/nspr ~amd64
 
+# Not yet stabilized, used by Atom
+dev-util/electron ~amd64
+
 # Not yet stabilized, used by hangups
 dev-python/multidict ~amd64
 dev-java/protobuf-java ~amd64
