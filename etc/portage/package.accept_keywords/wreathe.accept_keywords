@@ -6,6 +6,7 @@ media-plugins/calf ~amd64
 app-text/calibre ~amd64
 media-sound/gmusicbrowser ~amd64
 net-p2p/ktorrent ~amd64
+www-client/firefox ~amd64
 www-client/firefox-bin ~amd64
 
 # Apps with no stable version
