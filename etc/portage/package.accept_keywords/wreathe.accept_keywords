@@ -75,6 +75,9 @@ cross-avr/gdb ~amd64
 # build failure with stable
 =app-antivirus/clamav-0.99.2-r1 ~amd64
 
+# Not yet stabilized, used by recent Firefox
+dev-libs/nss ~amd64
+
 # Not yet stabilized, used by hangups
 dev-python/multidict ~amd64
 dev-java/protobuf-java ~amd64
