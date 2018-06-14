@@ -6,6 +6,7 @@ StatusIcon = require './status-icon'
 
 os = require 'os'
 path = require 'path'
+_ = require 'underscore'
 
 module.exports =
 class StatusBar extends View
@@ -23,7 +24,7 @@ class StatusBar extends View
     @subscriptions = new CompositeDisposable()
 
     @subscriptions.add atom.commands.add 'atom-workspace',
-      'platformio-ide-terminal:focus': => @activeTerminal.focusTerminal()
+      'platformio-ide-terminal:focus': => @focusTerminal()
       'platformio-ide-terminal:new': => @newTerminalView()
       'platformio-ide-terminal:toggle': => @toggle()
       'platformio-ide-terminal:next': =>
@@ -34,6 +35,7 @@ class StatusBar extends View
         return unless @activeTerminal
         return if @activeTerminal.isAnimating()
         @activeTerminal.open() if @activePrevTerminalView()
+      'platformio-ide-terminal:clear': => @clear()
       'platformio-ide-terminal:close': => @destroyActiveTerm()
       'platformio-ide-terminal:close-all': => @closeAll()
       'platformio-ide-terminal:rename': => @runInActiveView (i) -> i.rename()
@@ -61,6 +63,7 @@ class StatusBar extends View
       else if item.constructor.name is "TextEditor"
         mapping = atom.config.get('platformio-ide-terminal.core.mapTerminalsTo')
         return if mapping is 'None'
+        return unless item.getPath()
 
         switch mapping
           when 'File'
@@ -71,9 +74,8 @@ class StatusBar extends View
         prevTerminal = @getActiveTerminalView()
         if prevTerminal != nextTerminal
           if not nextTerminal?
-            if item.getTitle() isnt 'untitled'
-              if atom.config.get('platformio-ide-terminal.core.mapTerminalsToAutoOpen')
-                nextTerminal = @createTerminalView()
+            if atom.config.get('platformio-ide-terminal.core.mapTerminalsToAutoOpen')
+              nextTerminal = @createTerminalView()
           else
             @setActiveTerminalView(nextTerminal)
             nextTerminal.toggle() if prevTerminal?.panel.isVisible()
@@ -100,7 +102,7 @@ class StatusBar extends View
     handleFocus = =>
       if @returnFocus
         setTimeout =>
-          @returnFocus?.focus()
+          @returnFocus?.focus(true)
           @returnFocus = null
         , 100
 
@@ -146,6 +148,20 @@ class StatusBar extends View
       pane.onDidDestroy -> tabBar.off 'drop', @onDropTabBar
 
   createTerminalView: (autoRun) ->
+    shell = atom.config.get 'platformio-ide-terminal.core.shell'
+    shellArguments = atom.config.get 'platformio-ide-terminal.core.shellArguments'
+    args = shellArguments.split(/\s+/g).filter (arg) -> arg
+    shellEnv = atom.config.get 'platformio-ide-terminal.core.shellEnv'
+    env = {}
+    shellEnv.split(' ').forEach((element) =>
+      configVar = element.split('=')
+      envVar = {}
+      envVar[configVar[0]] = configVar[1]
+      env = _.extend(env, envVar)
+    )
+    @createEmptyTerminalView autoRun, shell, args, env
+
+  createEmptyTerminalView: (autoRun=[], shell = null, args = [], env= {}) ->
     @registerPaneSubscription() unless @paneSubscription?
 
     projectFolder = atom.project.getPaths()[0]
@@ -169,12 +185,8 @@ class StatusBar extends View
     id = editorPath or projectFolder or home
     id = filePath: id, folderPath: path.dirname(id)
 
-    shell = atom.config.get 'platformio-ide-terminal.core.shell'
-    shellArguments = atom.config.get 'platformio-ide-terminal.core.shellArguments'
-    args = shellArguments.split(/\s+/g).filter (arg) -> arg
-
     statusIcon = new StatusIcon()
-    platformIOTerminalView = new PlatformIOTerminalView(id, pwd, statusIcon, this, shell, args, autoRun)
+    platformIOTerminalView = new PlatformIOTerminalView(id, pwd, statusIcon, this, shell, args, env, autoRun)
     statusIcon.initialize(platformIOTerminalView)
 
     platformIOTerminalView.attach()
@@ -210,6 +222,14 @@ class StatusBar extends View
   getActiveTerminalView: ->
     return @activeTerminal
 
+  focusTerminal: ->
+    return unless @activeTerminal?
+
+    if terminal = PlatformIOTerminalView.getFocusedTerminal()
+        @activeTerminal.blur()
+    else
+        @activeTerminal.focusTerminal()
+
   getTerminalById: (target, selector) ->
     selector ?= (terminal) -> terminal.id
 
@@ -233,6 +253,11 @@ class StatusBar extends View
     if view?
       return callback(view)
     return null
+
+  runNewTerminal: () ->
+    @activeTerminal = @createEmptyTerminalView()
+    @activeTerminal.toggle()
+    return @activeTerminal
 
   runCommandInNewTerminal: (commands) ->
     @activeTerminal = @createTerminalView(commands)
@@ -300,6 +325,10 @@ class StatusBar extends View
     else if @activeTerminal == null
       @activeTerminal = @terminalViews[0]
     @activeTerminal.toggle()
+
+  clear: ->
+    @destroyActiveTerm()
+    @newTerminalView()
 
   setStatusColor: (event) ->
     color = event.type.match(/\w+$/)[0]

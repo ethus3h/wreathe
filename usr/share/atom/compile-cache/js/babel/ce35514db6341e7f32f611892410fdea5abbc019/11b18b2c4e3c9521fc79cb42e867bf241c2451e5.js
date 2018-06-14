@@ -1,0 +1,25 @@
+'use babel';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+exports.activate = activate;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function activate() {
+	console.time('activate js-refactor');
+	if (!atom.packages.isPackageLoaded('refactor')) {
+		atom.notifications.addWarning('js-refactor package requires refactor package', {
+			detail: 'You can install and activate refactor package using the preference pane.'
+		});
+	}
+	console.timeEnd('activate js-refactor');
+}
+
+var _ripper = require('./ripper');
+
+var _ripper2 = _interopRequireDefault(_ripper);
+
+exports.Ripper = _ripper2['default'];
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9saWJyYXJ5L0VtYmVyIHNhdGVsbGl0ZSBwcm9qZWN0cy93cmVhdGhlLWJhc2UvdXNyL3NoYXJlL2F0b20vcGFja2FnZXMvanMtcmVmYWN0b3IvbGliL2pzX3JlZmFjdG9yLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLFdBQVcsQ0FBQTs7Ozs7Ozs7O0FBRUosU0FBUyxRQUFRLEdBQUc7QUFDMUIsUUFBTyxDQUFDLElBQUksQ0FBQyxzQkFBc0IsQ0FBQyxDQUFBO0FBQ3BDLEtBQUksQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLGVBQWUsQ0FBQyxVQUFVLENBQUMsRUFBRTtBQUMvQyxNQUFJLENBQUMsYUFBYSxDQUFDLFVBQVUsQ0FDNUIsK0NBQStDLEVBQy9DO0FBQ0MsU0FBTSxFQUFFLDBFQUEwRTtHQUNsRixDQUNELENBQUE7RUFDRDtBQUNELFFBQU8sQ0FBQyxPQUFPLENBQUMsc0JBQXNCLENBQUMsQ0FBQTtDQUN2Qzs7c0JBRWtCLFVBQVU7Ozs7UUFBdEIsTUFBTSIsImZpbGUiOiIvbGlicmFyeS9FbWJlciBzYXRlbGxpdGUgcHJvamVjdHMvd3JlYXRoZS1iYXNlL3Vzci9zaGFyZS9hdG9tL3BhY2thZ2VzL2pzLXJlZmFjdG9yL2xpYi9qc19yZWZhY3Rvci5qcyIsInNvdXJjZXNDb250ZW50IjpbIid1c2UgYmFiZWwnXG5cbmV4cG9ydCBmdW5jdGlvbiBhY3RpdmF0ZSgpIHtcblx0Y29uc29sZS50aW1lKCdhY3RpdmF0ZSBqcy1yZWZhY3RvcicpXG5cdGlmICghYXRvbS5wYWNrYWdlcy5pc1BhY2thZ2VMb2FkZWQoJ3JlZmFjdG9yJykpIHtcblx0XHRhdG9tLm5vdGlmaWNhdGlvbnMuYWRkV2FybmluZyhcblx0XHRcdCdqcy1yZWZhY3RvciBwYWNrYWdlIHJlcXVpcmVzIHJlZmFjdG9yIHBhY2thZ2UnLFxuXHRcdFx0e1xuXHRcdFx0XHRkZXRhaWw6ICdZb3UgY2FuIGluc3RhbGwgYW5kIGFjdGl2YXRlIHJlZmFjdG9yIHBhY2thZ2UgdXNpbmcgdGhlIHByZWZlcmVuY2UgcGFuZS4nXG5cdFx0XHR9XG5cdFx0KVxuXHR9XG5cdGNvbnNvbGUudGltZUVuZCgnYWN0aXZhdGUganMtcmVmYWN0b3InKVxufVxuXG5leHBvcnQgUmlwcGVyIGZyb20gJy4vcmlwcGVyJ1xuIl19

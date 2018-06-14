@@ -1,0 +1,20 @@
+diff --git a/convert.c b/convert.c
+index 64d0d30e08de4..4e6d8460deea8 100644
+--- a/convert.c
++++ b/convert.c
+@@ -506,6 +506,7 @@ static int crlf_to_git(const struct index_state *istate,
+ 		       struct strbuf *buf,
+ 		       enum crlf_action crlf_action, int conv_flags)
+ {
++	return 0;
+ 	struct text_stat stats;
+ 	char *dst;
+ 	int convert_crlf_into_lf;
+@@ -593,6 +594,7 @@ static int crlf_to_git(const struct index_state *istate,
+ static int crlf_to_worktree(const char *path, const char *src, size_t len,
+ 			    struct strbuf *buf, enum crlf_action crlf_action)
+ {
++	return 0;
+ 	char *to_free = NULL;
+ 	struct text_stat stats;
+ 

@@ -2,40 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-117211-30287-gu6gwf.jwr23gnwmi/package.tgz",
+        "raw": "/tmp/d-118513-1682-1ktxirb.wbui110pb9/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-117211-30287-gu6gwf.jwr23gnwmi/package.tgz",
-        "spec": "/tmp/d-117211-30287-gu6gwf.jwr23gnwmi/package.tgz",
+        "rawSpec": "/tmp/d-118513-1682-1ktxirb.wbui110pb9/package.tgz",
+        "spec": "/tmp/d-118513-1682-1ktxirb.wbui110pb9/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-117211-30287-1vyprze.l8kyet57b9"
+      "/tmp/apm-install-dir-118513-1682-srvkuf.ebrcat6gvi"
     ]
   ],
-  "_from": "../d-117211-30287-gu6gwf.jwr23gnwmi/package.tgz",
-  "_id": "minimal-syntax-dark@0.6.0",
+  "_from": "../d-118513-1682-1ktxirb.wbui110pb9/package.tgz",
+  "_id": "minimal-syntax-dark@0.12.4",
   "_inCache": true,
-  "_installable": true,
   "_location": "/minimal-syntax-dark",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117211-30287-gu6gwf.jwr23gnwmi/package.tgz",
+    "raw": "/tmp/d-118513-1682-1ktxirb.wbui110pb9/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-117211-30287-gu6gwf.jwr23gnwmi/package.tgz",
-    "spec": "/tmp/d-117211-30287-gu6gwf.jwr23gnwmi/package.tgz",
+    "rawSpec": "/tmp/d-118513-1682-1ktxirb.wbui110pb9/package.tgz",
+    "spec": "/tmp/d-118513-1682-1ktxirb.wbui110pb9/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-117211-30287-gu6gwf.jwr23gnwmi/package.tgz",
-  "_shasum": "cc9b8d6d94875e57439dea0fce01f2de51836780",
+  "_resolved": "file:../d-118513-1682-1ktxirb.wbui110pb9/package.tgz",
+  "_shasum": "c28911f7b3dce56da792a9d71afe8a646d388b34",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-117211-30287-gu6gwf.jwr23gnwmi/package.tgz",
-  "_where": "/tmp/apm-install-dir-117211-30287-1vyprze.l8kyet57b9",
+  "_spec": "/tmp/d-118513-1682-1ktxirb.wbui110pb9/package.tgz",
+  "_where": "/tmp/apm-install-dir-118513-1682-srvkuf.ebrcat6gvi",
   "author": {
     "name": "David van Gemeren",
     "email": "david@burodepeper.nl"
@@ -83,5 +82,5 @@
     "url": "git+https://github.com/burodepeper/minimal-syntax-dark.git"
   },
   "theme": "syntax",
-  "version": "0.6.0"
+  "version": "0.12.4"
 }

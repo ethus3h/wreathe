@@ -48,6 +48,11 @@ var registerOpener = function () {
     var pathname = parsedUrl.pathname;
 
     if (pathname) {
+      //HACK Check if pathname contains '%' character
+      if (pathname.indexOf('%') != -1) {
+        // Replace the '%' character with encoded value
+        pathname = pathname.replace('%', encodeURIComponent('%'));
+      }
       pathname = decodeURI(pathname);
     }
     if (protocol !== 'compare-files:') {
@@ -78,7 +83,7 @@ var compare = function () {
 
       atom.workspace.
           open(uri, { searchAllPanes : true }).
-          done(function (compareFilesView) {
+          then(function (compareFilesView) {
             if (compareFilesView instanceof CompareFilesView) {
               _.delay(function () {
                 compareFilesView.renderDiffContent();

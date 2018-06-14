@@ -2,46 +2,52 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-1161131-5538-1domi47.gke1cyp66r/package.tgz",
+        "raw": "/tmp/d-118513-939-50i4gn.b4g1cbx1or/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-1161131-5538-1domi47.gke1cyp66r/package.tgz",
-        "spec": "/tmp/d-1161131-5538-1domi47.gke1cyp66r/package.tgz",
+        "rawSpec": "/tmp/d-118513-939-50i4gn.b4g1cbx1or/package.tgz",
+        "spec": "/tmp/d-118513-939-50i4gn.b4g1cbx1or/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-1161131-5538-1lgfyr2.t9kwukgldi"
+      "/tmp/apm-install-dir-118513-939-1422hh.mdxu2chaor"
     ]
   ],
-  "_from": "../d-1161131-5538-1domi47.gke1cyp66r/package.tgz",
-  "_id": "console-panel@0.2.1",
+  "_from": "../d-118513-939-50i4gn.b4g1cbx1or/package.tgz",
+  "_id": "console-panel@0.3.0",
   "_inCache": true,
-  "_installable": true,
   "_location": "/console-panel",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-1161131-5538-1domi47.gke1cyp66r/package.tgz",
+    "raw": "/tmp/d-118513-939-50i4gn.b4g1cbx1or/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-1161131-5538-1domi47.gke1cyp66r/package.tgz",
-    "spec": "/tmp/d-1161131-5538-1domi47.gke1cyp66r/package.tgz",
+    "rawSpec": "/tmp/d-118513-939-50i4gn.b4g1cbx1or/package.tgz",
+    "spec": "/tmp/d-118513-939-50i4gn.b4g1cbx1or/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-1161131-5538-1domi47.gke1cyp66r/package.tgz",
-  "_shasum": "56ea248721dcbd7b6776f4219a281728edc8f0cc",
+  "_resolved": "file:../d-118513-939-50i4gn.b4g1cbx1or/package.tgz",
+  "_shasum": "31d7f2e7bdd7cb9ad86016302eb738009af63564",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-1161131-5538-1domi47.gke1cyp66r/package.tgz",
-  "_where": "/tmp/apm-install-dir-1161131-5538-1lgfyr2.t9kwukgldi",
+  "_spec": "/tmp/d-118513-939-50i4gn.b4g1cbx1or/package.tgz",
+  "_where": "/tmp/apm-install-dir-118513-939-1422hh.mdxu2chaor",
   "bugs": {
     "url": "https://github.com/spark/console-panel/issues"
   },
+  "consumedServices": {
+    "tool-bar": {
+      "versions": {
+        "^0 || ^1": "consumeToolBar"
+      }
+    }
+  },
   "dependencies": {
-    "atom-space-pen-views": "^2.0.3",
-    "event-kit": "^1.0.0"
+    "atom-space-pen-views": "^2.2.0",
+    "event-kit": "^2.2.0"
   },
   "description": "Read only log console panel",
   "devDependencies": {},
@@ -68,5 +74,5 @@
     "type": "git",
     "url": "git+https://github.com/spark/console-panel.git"
   },
-  "version": "0.2.1"
+  "version": "0.3.0"
 }

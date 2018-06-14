@@ -5,6 +5,7 @@
   .syntax--type {
     // font-style: normal;
 
+    &.syntax--bug,
     &.syntax--changed,
     &.syntax--fixme,
     &.syntax--idea,
@@ -16,8 +17,16 @@
     &.syntax--todo,
     &.syntax--review,
     &.syntax--hack {
-      color: @constant;
+      color: mix(@comment, @text, 75%);
       font-weight: bold;
     }
+  }
+}
+
+.syntax--text.syntax--plain,
+.syntax--text.syntax--md,
+.syntax--source.syntax--gfm {
+  > .syntax--type {
+    color: @text-alt !important;
   }
 }

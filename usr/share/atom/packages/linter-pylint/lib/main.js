@@ -7,6 +7,7 @@
  */
 // eslint-disable-next-line import/no-extraneous-dependencies, import/extensions
 import { CompositeDisposable } from 'atom';
+import path from 'path';
 
 const lazyReq = require('lazy-req')(require);
 
@@ -17,6 +18,7 @@ const os = lazyReq('os');
 // Some local variables
 const errorWhitelist = [
   /^No config file found, using default configuration$/,
+  /^Using config file /,
 ];
 
 const getProjectDir = (filePath) => {
@@ -33,15 +35,15 @@ const filterWhitelistedErrors = (stderr) => {
   const lines = stderr.split(os().EOL).filter(line => !!line);
   const filteredLines = lines.filter(line =>
     // Only keep the line if it is not ignored
-    !errorWhitelist.some(errorRegex => errorRegex.test(line)),
-  );
+    !errorWhitelist.some(errorRegex => errorRegex.test(line)));
   return filteredLines.join(os().EOL);
 };
 
 const fixPathString = (pathString, fileDir, projectDir) => {
   const string = pathString;
   const fRstring = string.replace(/%f/g, fileDir);
-  const pRstring = fRstring.replace(/%p/g, projectDir);
+  const hRstring = fRstring.replace(/%h/g, path.basename(projectDir));
+  const pRstring = hRstring.replace(/%p/g, projectDir);
   return pRstring;
 };
 
@@ -123,7 +125,7 @@ export default {
         const env = Object.create(process.env, {
           PYTHONPATH: {
             value: [
-              process.env.PYTHONPATH, fileDir, projectDir,
+              process.env.PYTHONPATH,
               fixPathString(this.pythonPath, fileDir, projectDir),
             ].filter(x => !!x).join(delimiter),
             enumerable: true,

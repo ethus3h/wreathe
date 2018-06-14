@@ -1,7 +1,9 @@
 .syntax--js {
   .syntax--variable {
     &.syntax--language {
-      color: @syntax; // this
+      // color: @syntax-alt; // this
+      // color: @highlight;
+      color: @variable-alt;
     }
   }
 
@@ -9,6 +11,10 @@
     // &:not(.numeric) {
     //   color: @syntax-alt;
     // }
+
+    &.syntax--other {
+      font-weight: normal;
+    }
 
     &.syntax--support, // x, y, prototype :(
     &.syntax--dom { // width, height
@@ -27,10 +33,39 @@
     &.syntax--constant {
       color: @variable;
     }
+
+    &.syntax--dom.syntax--variable {
+      color: @variable;
+    }
+
+    &.syntax--class {
+      color: @text;
+      font-weight: bold;
+    }
   }
 
+  &.syntax--keyword.syntax--operator.syntax--typeof,
+  &.syntax--keyword.syntax--operator.syntax--instanceof,
+  &.syntax--function:not(.syntax--parameter):not(.syntax--arrow):not(.syntax--punctuation) {
+    font-weight: bold;
+  }
+
+  // &.syntax--keyword.syntax--operator.syntax--new,
+  &.syntax--keyword.syntax--operator.syntax--typeof,
+  &.syntax--keyword.syntax--operator.syntax--instanceof,
+  &.syntax--dom {
+    color: @syntax;
+  }
+
+  &.syntax--keyword.syntax--operator.syntax--new,
+  &.syntax--meta.syntax--parameters {
+    font-weight: normal;
+  }
+
+  &.syntax--keyword.syntax--operator.syntax--new,
   &.syntax--instance {
     color: @syntax-alt;
+    // color: @text;
   }
 
   &.syntax--constant.syntax--boolean {
@@ -43,36 +78,43 @@
     }
   }
 
-  &.syntax--support.syntax--class, // event, window
-  {
-    font-weight: normal;
-    color: @syntax;
-  }
+  // &.syntax--support.syntax--class, // event, window
+  // {
+  //   font-weight: normal;
+  //   color: @syntax;
+  // }
 
   &.syntax--keyword {
     &.syntax--operator { // :, =, +, -
       // color: @text;
       color: @syntax-alt;
 
-      &.syntax--new { // new
-        color: @syntax;
-        font-weight: normal;
-      }
-
       &.syntax--comparison, // ==
       &.syntax--increment, // ++
       &.syntax--decrement, // --
       &.syntax--logical { // &&
+        // color: @syntax-alt;
+        // color: @text;
         color: @syntax;
       }
     }
 
     &.syntax--control { // from, if, return
-
+      color: @text;
     }
   }
 
   &.syntax--meta {
+    &.syntax--export {
+      .syntax--control.syntax--keyword {
+        color: @syntax-alt;
+      }
+    }
+    // &.syntax--class {
+    //   .syntax--class.syntax--name {
+    //     color: @text-alt;
+    //   }
+    // }
     &.syntax--comma {
       color: @text;
     }
@@ -93,5 +135,34 @@
 
   &.syntax--entity.syntax--name.syntax--type.syntax--instance { // new {ClassName}
     // font-weight: normal;
+    color: @text;
+  }
+
+  &.syntax--string {
+    & > .syntax--embedded.syntax--js {
+      // background: fade(@variable, 10%);
+      color: @syntax;
+
+      & > .syntax--punctuation {
+        color: @variable;
+      }
+    }
+  }
+
+  &.syntax--arguments {
+    color: @text;
+  }
+
+  &.syntax--meta {
+    &.syntax--brace {
+      color: @syntax;
+    }
+  }
+
+  &.syntax--function {
+    &.syntax--bracket {
+      color: @syntax;
+      font-weight: normal;
+    }
   }
 }

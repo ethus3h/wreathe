@@ -2,40 +2,39 @@
   "_args": [
     [
       {
-        "raw": "/tmp/d-11739-11546-5jdf4n.utctksatt9/package.tgz",
+        "raw": "/tmp/d-118513-1445-1x1o2bp.lazepzaor/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/tmp/d-11739-11546-5jdf4n.utctksatt9/package.tgz",
-        "spec": "/tmp/d-11739-11546-5jdf4n.utctksatt9/package.tgz",
+        "rawSpec": "/tmp/d-118513-1445-1x1o2bp.lazepzaor/package.tgz",
+        "spec": "/tmp/d-118513-1445-1x1o2bp.lazepzaor/package.tgz",
         "type": "local"
       },
-      "/tmp/apm-install-dir-11739-11546-i5pjfc.ii25ljtt9"
+      "/tmp/apm-install-dir-118513-1445-wikbdv.2cd5pwg66r"
     ]
   ],
-  "_from": "../d-11739-11546-5jdf4n.utctksatt9/package.tgz",
-  "_id": "linter-pylint@2.0.1",
+  "_from": "../d-118513-1445-1x1o2bp.lazepzaor/package.tgz",
+  "_id": "linter-pylint@2.1.1",
   "_inCache": true,
-  "_installable": true,
   "_location": "/linter-pylint",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-11739-11546-5jdf4n.utctksatt9/package.tgz",
+    "raw": "/tmp/d-118513-1445-1x1o2bp.lazepzaor/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/tmp/d-11739-11546-5jdf4n.utctksatt9/package.tgz",
-    "spec": "/tmp/d-11739-11546-5jdf4n.utctksatt9/package.tgz",
+    "rawSpec": "/tmp/d-118513-1445-1x1o2bp.lazepzaor/package.tgz",
+    "spec": "/tmp/d-118513-1445-1x1o2bp.lazepzaor/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-11739-11546-5jdf4n.utctksatt9/package.tgz",
-  "_shasum": "d393479038d3b811370ef28d6556d0b581f39180",
+  "_resolved": "file:../d-118513-1445-1x1o2bp.lazepzaor/package.tgz",
+  "_shasum": "1e3f493022033b23e1c1938f83b0e6c932066644",
   "_shrinkwrap": null,
-  "_spec": "/tmp/d-11739-11546-5jdf4n.utctksatt9/package.tgz",
-  "_where": "/tmp/apm-install-dir-11739-11546-i5pjfc.ii25ljtt9",
+  "_spec": "/tmp/d-118513-1445-1x1o2bp.lazepzaor/package.tgz",
+  "_where": "/tmp/apm-install-dir-118513-1445-wikbdv.2cd5pwg66r",
   "bugs": {
     "url": "https://github.com/AtomLinter/linter-pylint/issues"
   },
@@ -43,7 +42,7 @@
     "executablePath": {
       "type": "string",
       "default": "pylint",
-      "description": "Command or full path to pylint. Use %p for current project directory (no trailing /).",
+      "description": "Command or full path to pylint. Use %p for current project directory (no trailing /) or %h for current project name.",
       "order": 1
     },
     "pythonPath": {
@@ -79,15 +78,16 @@
     }
   },
   "dependencies": {
-    "atom-linter": "^9.0.0",
+    "atom-linter": "^10.0.0",
     "atom-package-deps": "^4.5.0",
     "lazy-req": "^2.0.0"
   },
   "description": "Lint python on the fly, using pylint",
   "devDependencies": {
-    "eslint": "^3.13.0",
-    "eslint-config-airbnb-base": "^11.1.1",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint": "^4.6.0",
+    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "jasmine-fix": "^1.3.1"
   },
   "engines": {
     "atom": ">=1.4.0 <2.0.0"
@@ -138,5 +138,5 @@
     "lint": "eslint .",
     "test": "apm test"
   },
-  "version": "2.0.1"
+  "version": "2.1.1"
 }

@@ -9,11 +9,23 @@
     color: @syntax-alt;
   }
 
-  &.syntax--attribute-name {
-    color: @syntax;
+  &.syntax--meta.syntax--id .syntax--string,
+  &.syntax--meta.syntax--id.syntax--toc-list {
+    // font-weight: bold;
+    color: @variable-alt;
   }
 
-  &.syntax--meta.syntax--id.syntax--toc-list {
+  &.syntax--tag.syntax--inline {
+    font-weight: normal;
+    color: @syntax-alt;
+  }
+
+  &.syntax--class.syntax--attribute-name,
+  &.syntax--attribute-with-value {
+    font-weight: normal;
+  }
+
+  &.syntax--id.syntax--attribute-with-value {
     font-weight: bold;
   }
 }

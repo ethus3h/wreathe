@@ -26,21 +26,20 @@ class PlatformIOTerminalView extends View
   @content: ->
     @div class: 'platformio-ide-terminal terminal-view', outlet: 'platformIOTerminalView', =>
       @div class: 'panel-divider', outlet: 'panelDivider'
-      @div class: 'btn-toolbar', outlet:'toolbar', =>
-        @button outlet: 'closeBtn', class: 'btn inline-block-tight right', click: 'destroy', =>
-          @span class: 'icon icon-x'
-        @button outlet: 'hideBtn', class: 'btn inline-block-tight right', click: 'hide', =>
-          @span class: 'icon icon-chevron-down'
-        @button outlet: 'maximizeBtn', class: 'btn inline-block-tight right', click: 'maximize', =>
-          @span class: 'icon icon-screen-full'
-        @button outlet: 'inputBtn', class: 'btn inline-block-tight left', click: 'inputDialog', =>
-          @span class: 'icon icon-keyboard'
+      @section class: 'input-block', =>
+        @div class: 'btn-toolbar', =>
+          @div class: 'btn-group', =>
+            @button outlet: 'inputBtn', class: 'btn icon icon-keyboard', click: 'inputDialog'
+          @div class: 'btn-group right', =>
+            @button outlet: 'hideBtn', class: 'btn icon icon-chevron-down', click: 'hide'
+            @button outlet: 'maximizeBtn', class: 'btn icon icon-screen-full', click: 'maximize'
+            @button outlet: 'closeBtn', class: 'btn icon icon-x', click: 'destroy'
       @div class: 'xterm', outlet: 'xterm'
 
   @getFocusedTerminal: ->
     return Terminal.Terminal.focus
 
-  initialize: (@id, @pwd, @statusIcon, @statusBar, @shell, @args=[], @autoRun=[]) ->
+  initialize: (@id, @pwd, @statusIcon, @statusBar, @shell, @args=[], @env={}, @autoRun=[]) ->
     @subscriptions = new CompositeDisposable
     @emitter = new Emitter
 
@@ -71,7 +70,12 @@ class PlatformIOTerminalView extends View
     @xterm.on 'mouseup', (event) =>
       if event.which != 3
         text = window.getSelection().toString()
-        atom.clipboard.write(text) if atom.config.get('platformio-ide-terminal.toggles.selectToCopy') and text
+        if atom.config.get('platformio-ide-terminal.toggles.selectToCopy') and text
+          rawLines = text.split(/\r?\n/g)
+          lines = rawLines.map (line) ->
+            line.replace(/\s/g, " ").trimRight()
+          text = lines.join("\n")
+          atom.clipboard.write(text)
         unless text
           @focus()
     @xterm.on 'dragenter', override
@@ -81,6 +85,9 @@ class PlatformIOTerminalView extends View
     @on 'focus', @focus
     @subscriptions.add dispose: =>
       @off 'focus', @focus
+
+    if /zsh|bash/.test(@shell) and @args.indexOf('--login') == -1 and Pty.platform isnt 'win32' and atom.config.get('platformio-ide-terminal.toggles.loginShell')
+      @args.unshift '--login'
 
   attach: ->
     return if @panel?
@@ -107,7 +114,7 @@ class PlatformIOTerminalView extends View
         @input "#{file.path} "
 
   forkPtyProcess: ->
-    Task.once Pty, path.resolve(@pwd), @shell, @args, =>
+    Task.once Pty, path.resolve(@pwd), @shell, @args, @env, =>
       @input = ->
       @resize = ->
 
@@ -178,7 +185,7 @@ class PlatformIOTerminalView extends View
     @subscriptions.remove @maximizeBtn.tooltip
     @maximizeBtn.tooltip.dispose()
 
-    @maxHeight = @prevHeight + $('.item-views').height()
+    @maxHeight = @prevHeight + atom.workspace.getCenter().paneContainer.element.offsetHeight
     btn = @maximizeBtn.children('span')
     @onTransitionEnd => @focus()
 
@@ -224,6 +231,7 @@ class PlatformIOTerminalView extends View
         @displayTerminal()
         @prevHeight = @nearestRow(@xterm.height())
         @xterm.height(@prevHeight)
+        @emit "platformio-ide-terminal:terminal-open"
       else
         @focus()
 
@@ -266,6 +274,28 @@ class PlatformIOTerminalView extends View
     return unless @ptyProcess.childProcess?
 
     @ptyProcess.send {event: 'resize', rows, cols}
+
+  pty: () ->
+    if not @opened
+      wait = new Promise (resolve, reject) =>
+        @emitter.on "platformio-ide-terminal:terminal-open", () =>
+          resolve()
+        setTimeout reject, 1000
+
+      wait.then () =>
+        @ptyPromise()
+    else
+      @ptyPromise()
+
+  ptyPromise: () ->
+    new Promise (resolve, reject) =>
+      if @ptyProcess?
+        @ptyProcess.on "platformio-ide-terminal:pty", (pty) =>
+          resolve(pty)
+        @ptyProcess.send {event: 'pty'}
+        setTimeout reject, 1000
+      else
+        reject()
 
   applyStyle: ->
     config = atom.config.get 'platformio-ide-terminal'
@@ -379,7 +409,7 @@ class PlatformIOTerminalView extends View
     return @resizeStopped() unless event.which is 1
 
     mouseY = $(window).height() - event.pageY
-    delta = mouseY - $('atom-panel-container.bottom').height()
+    delta = mouseY - $('atom-panel-container.bottom').height() - $('atom-panel-container.footer').height()
     return unless Math.abs(delta) > (@rowHeight * 5 / 6)
 
     clamped = Math.max(@nearestRow(@prevHeight + delta), @rowHeight)
@@ -426,14 +456,14 @@ class PlatformIOTerminalView extends View
       editor.moveDown(1);
     @input "#{customText.
       replace(/\$L/, "#{editor.getCursorBufferPosition().row + 1}").
-      replace(/\$F/, path.basename(editor?.buffer?.file?.path)).
-      replace(/\$D/, path.dirname(editor?.buffer?.file?.path)).
+      replace(/\$F/, path.basename(if editor.buffer.getPath() then editor.buffer.getPath() else '.')).
+      replace(/\$D/, path.dirname(if editor.buffer.getPath() then editor.buffer.getPath() else '.')).
       replace(/\$S/, selectionText).
       replace(/\$\$/, '$')}#{if runCommand then os.EOL else ''}"
 
-  focus: =>
+  focus: (fromWindowEvent) =>
     @resizeTerminalToView()
-    @focusTerminal()
+    @focusTerminal(fromWindowEvent)
     @statusBar.setActiveTerminalView(this)
     super()
 
@@ -441,8 +471,11 @@ class PlatformIOTerminalView extends View
     @blurTerminal()
     super()
 
-  focusTerminal: =>
+  focusTerminal: (fromWindowEvent) =>
     return unless @terminal
+
+    lastActiveElement = $(document.activeElement)
+    return if fromWindowEvent and not (lastActiveElement.is('div.terminal') or lastActiveElement.parents('div.terminal').length)
 
     @terminal.focus()
     if @terminal._textarea
@@ -455,6 +488,9 @@ class PlatformIOTerminalView extends View
 
     @terminal.blur()
     @terminal.element.blur()
+
+    if lastActiveElement?
+      lastActiveElement.focus()
 
   resizeTerminalToView: ->
     return unless @panel.isVisible() or @tabView
