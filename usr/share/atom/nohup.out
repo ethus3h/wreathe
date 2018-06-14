@@ -2,3 +2,7 @@
 /usr/share/themes/MurrinaCandy/gtk-2.0/gtkrc:46: Murrine configuration option "scrollbar_color" is no longer supported and will be ignored.
 (node:29891) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): ReferenceError: atom is not defined
 (node:29891) DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+/usr/bin/xdg-open: line 571: 30279 Aborted                 kde-open${KDE_SESSION_VERSION} "$1"
+/usr/bin/xdg-open: line 571: 32160 Aborted                 kde-open${KDE_SESSION_VERSION} "$1"
+/usr/bin/xdg-open: line 571: 32305 Aborted                 kde-open${KDE_SESSION_VERSION} "$1"
+/usr/bin/xdg-open: line 571: 20160 Aborted                 kde-open${KDE_SESSION_VERSION} "$1"

@@ -34,6 +34,7 @@
   "exception-reporting":
     userId: "02ceb146-50d9-4403-2188-ab26f78d1bab"
   linter: {}
+  "linter-eslint": {}
   "linter-ui-default":
     panelHeight: 1172
   minimap: {}
