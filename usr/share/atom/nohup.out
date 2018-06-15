@@ -6,3 +6,6 @@
 /usr/bin/xdg-open: line 571: 32160 Aborted                 kde-open${KDE_SESSION_VERSION} "$1"
 /usr/bin/xdg-open: line 571: 32305 Aborted                 kde-open${KDE_SESSION_VERSION} "$1"
 /usr/bin/xdg-open: line 571: 20160 Aborted                 kde-open${KDE_SESSION_VERSION} "$1"
+Attempting to call a function in a renderer window that has been closed or released.
+Function provided here: worker-manager.js:365:26
+Remote event names: destroyed, crashed

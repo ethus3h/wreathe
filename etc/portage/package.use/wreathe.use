@@ -167,8 +167,11 @@ sys-block/open-iscsi -slp
 # configure: error: Couldn't find gpsd dependencies.
 app-misc/geoclue -skyhook
 
+# Cause build failures
+media-sound/mixxx -shout
+
 # doc USE flag that cause build failures
-<dev-python/sphinx-1.3 -doc
+dev-python/sphinx-1.3 -doc
 app-text/xindy -doc
 dev-java/hamcrest-core -doc
 dev-java/icu4j -doc
