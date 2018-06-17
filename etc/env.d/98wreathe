@@ -1,0 +1,2 @@
+LDPATH="/usr/kde4/lib64:/usr/kde4/lib32:/usr/kde4/lib"
+PATH="/usr/kde4/bin"
