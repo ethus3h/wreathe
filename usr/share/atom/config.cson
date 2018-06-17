@@ -45,6 +45,8 @@
     applications: "gunzip"
   "tree-view":
     squashDirectoryNames: true
+  "vertical-tabs":
+    setToRightSide: true
   welcome:
     showOnStartup: false
   whitespace:
