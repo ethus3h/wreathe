@@ -4,3 +4,5 @@ x11-misc/run-scaled
 x11-misc/xcur2png
 x11-misc/xvisbell
 media-gfx/xfig
+x11-misc/read-edid
+x11-misc/xvfb-run

@@ -15,7 +15,10 @@ net-misc/rclone
 media-video/obs-studio
 media-video/vlc
 media-sound/audacity
+sci-mathematics/form
 media-sound/jack_capture
+net-misc/freerdp
+net-misc/icecast
 media-sound/gmusicbrowser
 media-sound/jorgan
 media-sound/lmms

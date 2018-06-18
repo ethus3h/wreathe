@@ -7,3 +7,4 @@ app-misc/jq
 app-misc/rlwrap
 app-misc/gnuit
 app-misc/binwalk
+sys-apps/renameutils

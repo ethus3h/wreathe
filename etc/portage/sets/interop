@@ -11,6 +11,10 @@ dev-vcs/cssc
 dev-vcs/darcs
 dev-vcs/subversion
 app-pda/ideviceinstaller
+media-video/mjpegtools
+media-video/sswf
+net-misc/dagr
+virtual/cdrtools
 app-arch/lha
 app-arch/lziprecover
 app-arch/p7zip

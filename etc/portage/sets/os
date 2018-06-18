@@ -5,3 +5,7 @@ sys-fs/fuse
 sys-apps/portage
 sys-devel/crossdev
 media-video/ffmpeg
+media-plugins/alsa-plugins
+media-plugins/gst-plugins-meta
+x11-misc/sddm
+net-wireless/wpa_supplicant

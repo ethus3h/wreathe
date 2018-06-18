@@ -12,3 +12,5 @@ app-office/texmaker
 app-officeext/ooofbtools
 app-text/hunspell
 app-text/enchant
+net-print/cups-filters
+net-mail/mailbase
