@@ -17,6 +17,8 @@ app-i18n/freewnn
 x11-misc/sddm
 app-portage/eix
 app-portage/genlop
+net-wireless/iw
+net-wireless/wireless-tools
 app-portage/layman
 app-portage/porthole
 app-portage/smart-live-rebuild
