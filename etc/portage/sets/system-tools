@@ -1,9 +1,9 @@
 app-emulation/docker
 app-emulation/docker-proxy
-sys-fs/ddrescue
-sys-fs/dosfstools
-sys-fs/squashfs-tools
-sys-fs/safecopy
 sys-apps/hwinfo
 sys-apps/lshw
 sys-boot/efibootmgr
+sys-fs/ddrescue
+sys-fs/dosfstools
+sys-fs/safecopy
+sys-fs/squashfs-tools

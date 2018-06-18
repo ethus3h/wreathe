@@ -1,10 +1,10 @@
-sys-process/ts
-sys-process/parallel
-dev-util/cloc
-app-text/tree
 app-editors/dhex
+app-misc/binwalk
+app-misc/gnuit
 app-misc/jq
 app-misc/rlwrap
-app-misc/gnuit
-app-misc/binwalk
+app-text/tree
+dev-util/cloc
 sys-apps/renameutils
+sys-process/parallel
+sys-process/ts
