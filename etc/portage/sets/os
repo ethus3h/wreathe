@@ -1,0 +1,7 @@
+sys-kernel/genkernel-next
+sys-kernel/linux-firmware
+sys-kernel/wreathe-kernel
+sys-fs/fuse
+sys-apps/portage
+sys-devel/crossdev
+media-video/ffmpeg

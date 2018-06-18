@@ -1,0 +1,7 @@
+sys-fs/ddrescue
+sys-fs/dosfstools
+sys-fs/squashfs-tools
+sys-fs/safecopy
+sys-apps/hwinfo
+sys-apps/lshw
+sys-boot/efibootmgr

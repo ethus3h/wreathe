@@ -20,3 +20,6 @@ x11-misc/cairo-dock
 x11-misc/ccsm
 x11-misc/compiz-debug-utils
 x11-apps/fusion-icon
+x11-misc/obkey
+x11-misc/simple-ccsm
+dev-python/compizconfig-python
