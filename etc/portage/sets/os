@@ -1,3 +1,6 @@
+app-accessibility/brltty
+app-accessibility/caribou
+app-accessibility/orca
 media-plugins/alsa-plugins
 media-plugins/gst-plugins-meta
 media-video/ffmpeg
@@ -8,12 +11,18 @@ sys-fs/fuse
 sys-kernel/genkernel-next
 sys-kernel/linux-firmware
 sys-kernel/wreathe-kernel
+app-i18n/anthy
+app-i18n/canna
+app-i18n/freewnn
 x11-misc/sddm
 app-portage/eix
 app-portage/genlop
 app-portage/layman
 app-portage/porthole
 app-portage/smart-live-rebuild
+app-laptop/configure-trackpoint
+app-admin/sudo
+app-laptop/tp_smapi
 app-shells/bash-completion
 app-shells/gentoo-bashcomp
 sys-apps/cpuid

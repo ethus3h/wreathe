@@ -24,6 +24,10 @@ media-sound/clementine
 net-analyzer/wireshark
 net-analyzer/linkchecker
 media-sound/soundconverter
+app-antivirus/clamav
+net-vpn/openvpn
+gnome-extra/gucharmap
+kde-misc/kdiff3
 net-fs/sshfs
 net-im/hangups
 virtual/jdk

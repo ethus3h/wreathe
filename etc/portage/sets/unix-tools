@@ -12,6 +12,7 @@ app-editors/emacs
 app-editors/nano
 app-editors/okteta
 app-forensics/afl
+app-i18n/uchardet
 app-misc/banner
 app-misc/ddate
 net-analyzer/net-snmp
@@ -28,3 +29,4 @@ sys-process/htop
 sys-process/lsof
 sys-apps/mlocate
 sys-apps/moreutils
+app-admin/hddtemp
