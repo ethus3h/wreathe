@@ -11,3 +11,12 @@ x11-wm/compiz
 x11-wm/compiz-meta
 x11-wm/emerald
 x11-wm/openbox
+x11-apps/compiz-boxmenu
+x11-apps/compiz-manager
+x11-libs/compiz-bcop
+x11-libs/gtk+:2
+x11-libs/libcompizconfig
+x11-misc/cairo-dock
+x11-misc/ccsm
+x11-misc/compiz-debug-utils
+x11-apps/fusion-icon
