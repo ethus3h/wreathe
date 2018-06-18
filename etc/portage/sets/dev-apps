@@ -1,10 +1,7 @@
 app-i18n/poedit
-dev-vcs/git
-dev-games/tiled
 app-portage/repoman
-kde-apps/kde-dev-scripts
-kde-apps/lokalize
 dev-db/phpmyadmin
+dev-games/tiled
 dev-qt/assistant
 dev-qt/qdoc
 dev-qt/qt-creator
@@ -18,3 +15,6 @@ dev-util/valgrind
 dev-util/vmtouch
 dev-util/xdelta
 dev-util/xxdi
+dev-vcs/git
+kde-apps/kde-dev-scripts
+kde-apps/lokalize

@@ -1,13 +1,9 @@
-games-board/gnugo
-kde-apps/tomoyo-kde-amor
-trinity-apps/kfouleggs
-x11-terms/cool-retro-term
-x11-terms/x026
 games-action/extreme-tuxracer
-games-action/minetest_game
 games-action/minetest
+games-action/minetest_game
 games-action/supertuxkart
 games-board/gnuchess
+games-board/gnugo
 games-board/pouetchess
 games-board/pychess
 games-board/scid
@@ -15,3 +11,7 @@ games-board/sjeng
 games-board/stockfish
 games-board/xboard
 games-fps/sauerbraten
+kde-apps/tomoyo-kde-amor
+trinity-apps/kfouleggs
+x11-terms/cool-retro-term
+x11-terms/x026

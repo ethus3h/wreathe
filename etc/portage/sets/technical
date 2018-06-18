@@ -1,3 +1,4 @@
+dev-embedded/arduino
 sci-chemistry/chemical-mime-data
 sci-geosciences/opencpn
 sci-geosciences/opencpn-plugin-dr
@@ -18,7 +19,6 @@ sci-misc/xmedcon
 sys-fabric/dapl
 sys-fabric/ibacm
 sys-fabric/infiniband-diags
-dev-embedded/arduino
 sys-fabric/infinipath-psm
 sys-fabric/libcxgb3
 sys-fabric/libcxgb4

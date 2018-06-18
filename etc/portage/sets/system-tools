@@ -1,5 +1,7 @@
+app-admin/testdisk
 app-emulation/docker
 app-emulation/docker-proxy
+app-shells/bashdb
 sys-apps/hwinfo
 sys-apps/lshw
 sys-boot/efibootmgr
@@ -7,5 +9,3 @@ sys-fs/ddrescue
 sys-fs/dosfstools
 sys-fs/safecopy
 sys-fs/squashfs-tools
-app-shells/bashdb
-app-admin/testdisk
