@@ -75,8 +75,15 @@ net-misc/vino
 gnustep-base/gnustep-base
 net-dialup/freeradius-client
 sys-fs/jfsutils
+media-gfx/jpeg2ps
+media-gfx/pdf2svg
+media-gfx/svg2rlg
 sys-fs/dmg2img
+media-sound/toolame
+media-sound/vorbis-tools
 sys-fs/avfs
+media-sound/abcm2ps
+media-sound/abcmidi
 sys-fs/ntfs3g
 sys-fs/progsreiserfs
 sys-fs/reiserfsprogs

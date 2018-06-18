@@ -18,8 +18,12 @@ dev-db/sqlitebrowser
 dev-python/warcprox
 dev-python/warctools
 media-video/obs-studio
+media-video/cheese
+media-video/plasma-mediacenter
+media-sound/clementine
 net-analyzer/wireshark
 net-analyzer/linkchecker
+media-sound/soundconverter
 net-fs/sshfs
 net-im/hangups
 virtual/jdk

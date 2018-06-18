@@ -23,6 +23,14 @@ sys-apps/memtest86+
 sys-apps/pcmciautils
 sys-apps/preload
 sys-apps/smartmontools
+sys-fs/diskdev_cmds
+media-sound/alsamixer-app
+media-sound/alsamixergui
+sys-fs/lsscsi
+sys-fs/multipath-tools
+sys-fs/mdadm
+sys-fs/sysfsutils
+sys-power/acpitool
 sys-apps/usbutils
 sys-block/open-iscsi
 sys-block/open-isns

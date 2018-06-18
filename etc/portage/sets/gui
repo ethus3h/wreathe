@@ -21,6 +21,7 @@ x11-misc/redshift
 x11-misc/skippy
 x11-misc/skippy-xd
 x11-themes/gtk-chtheme
+kde-apps/kde-meta
 x11-themes/gtk-engines-murrine
 x11-themes/gtk-theme-switch
 x11-themes/murrine-themes
