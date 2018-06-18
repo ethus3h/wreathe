@@ -10,3 +10,4 @@ dev-vcs/bzr-fastimport
 dev-vcs/cssc
 dev-vcs/darcs
 dev-vcs/subversion
+app-pda/ideviceinstaller
