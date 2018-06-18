@@ -1,0 +1,114 @@
+{
+    "app-text/hunspell:0": [
+        "app-text/hunspell-1.6.1-r1", 
+        "17492", 
+        [
+            "/usr/lib64/libhunspell-1.3.so.0.0.0", 
+            "/usr/lib64/libhunspell-1.3.so.0"
+        ]
+    ], 
+    "app-text/podofo:0": [
+        "app-text/podofo-0.9.6_pre20170508-r1", 
+        "25622", 
+        [
+            "/usr/lib64/libpodofo.so.0.9.1"
+        ]
+    ], 
+    "app-text/poppler:0": [
+        "app-text/poppler-0.62.0-r1", 
+        "23967", 
+        [
+            "/usr/lib64/libpoppler.so.62.0.0", 
+            "/usr/lib64/libpoppler.so.62"
+        ]
+    ], 
+    "dev-libs/boost:0": [
+        "dev-libs/boost-1.65.0", 
+        "25582", 
+        [
+            "/usr/lib64/libboost_filesystem.so.1.62.0", 
+            "/usr/lib64/libboost_program_options.so.1.62.0", 
+            "/usr/lib64/libboost_system.so.1.62.0"
+        ]
+    ], 
+    "dev-libs/icu:0": [
+        "dev-libs/icu-60.2", 
+        "23530", 
+        [
+            "/usr/lib64/libicudata.so.58.2", 
+            "/usr/lib64/libicui18n.so.58.2", 
+            "/usr/lib64/libicuuc.so.58.2", 
+            "/usr/lib64/libicui18n.so.58", 
+            "/usr/lib64/libicudata.so.58", 
+            "/usr/lib64/libicuuc.so.58"
+        ]
+    ], 
+    "kde-apps/kdegraphics-mobipocket:4": [
+        "kde-apps/kdegraphics-mobipocket-16.08.3", 
+        "12631", 
+        [
+            "/usr/lib64/libqmobipocket.so.1.0.0", 
+            "/usr/lib64/libqmobipocket.so.1"
+        ]
+    ], 
+    "media-libs/phonon:4": [
+        "media-libs/phonon-4.9.1-r1", 
+        "24819", 
+        [
+            "/usr/lib64/libphonon.so.4.9.1", 
+            "/usr/lib64/libphonon.so.4"
+        ]
+    ], 
+    "net-dns/libidn:0": [
+        "net-dns/libidn-1.35", 
+        "23999", 
+        [
+            "/usr/lib64/libidn.so.11.6.16", 
+            "/usr/lib64/libidn.so.11"
+        ]
+    ], 
+    "net-fs/libnfs:0": [
+        "net-fs/libnfs-2.0.0", 
+        "23351", 
+        [
+            "/usr/lib64/libnfs.so.8.0.0", 
+            "/usr/lib64/libnfs.so.8"
+        ]
+    ], 
+    "net-libs/gnutls:0": [
+        "net-libs/gnutls-3.5.18", 
+        "25184", 
+        [
+            "/usr/lib64/libgnutls.so.28.43.0", 
+            "/usr/lib64/libgnutls.so.28"
+        ]
+    ], 
+    "sci-geosciences/gpsd:0": [
+        "sci-geosciences/gpsd-3.17-r2", 
+        "17883", 
+        [
+            "/usr/lib64/libgps.so.21.0.0", 
+            "/usr/lib64/libgps.so.21"
+        ]
+    ], 
+    "sys-cluster/openmpi:0": [
+        "sys-cluster/openmpi-2.1.3", 
+        "24193", 
+        [
+            "/usr/lib64/libopen-rte.so.20.10.3", 
+            "/usr/lib64/libmpi.so.20.10.2", 
+            "/usr/lib64/libopen-pal.so.20.10.3", 
+            "/usr/lib64/libmpi.so.20", 
+            "/usr/lib64/libopen-rte.so.20", 
+            "/usr/lib64/libopen-pal.so.20"
+        ]
+    ], 
+    "sys-libs/readline:0": [
+        "sys-libs/readline-7.0_p3", 
+        "19325", 
+        [
+            "/lib64/libreadline.so.6.3", 
+            "/lib64/libreadline.so.6"
+        ]
+    ]
+}
