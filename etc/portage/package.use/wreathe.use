@@ -200,6 +200,7 @@ media-libs/openimageio -doc
 # Various extra capabilities
 app-doc/doxygen clang dot doxysearch
 app-office/libreoffice binfilter -gtk odk quickstarter vlc libreoffice_extensions_nlpsolver libreoffice_extensions_scripting-beanshell libreoffice_extensions_scripting-javascript libreoffice_extensions_wiki-publisher java
+app-office/scribus scripts
 app-text/pandoc https network-uri trypandoc
 dev-java/miglayout swt
 dev-libs/libcec cubox exynos raspberry-pi
