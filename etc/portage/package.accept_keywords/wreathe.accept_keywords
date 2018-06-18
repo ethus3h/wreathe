@@ -95,6 +95,8 @@ dev-libs/protobuf ~amd64
 dev-python/MechanicalSoup ~amd64
 dev-python/yarl ~amd64
 dev-python/readlike ~amd64
+dev-python/idna-ssl ~amd64
+dev-python/sphinxcontrib-newsfeed ~amd64
 dev-python/urwid ~amd64
 dev-python/configargparse ~amd64
 dev-python/async_timeout ~amd64
