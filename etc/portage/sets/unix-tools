@@ -23,5 +23,8 @@ net-misc/whois
 net-misc/sshpass
 net-misc/telnet-bsd
 sys-apps/miscfiles
+sys-process/at
+sys-process/htop
+sys-process/lsof
 sys-apps/mlocate
 sys-apps/moreutils

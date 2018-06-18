@@ -6,3 +6,13 @@ x11-misc/run-scaled
 x11-misc/xcur2png
 x11-misc/xvfb-run
 x11-misc/xvisbell
+x11-misc/accessx
+x11-misc/icon-naming-utils
+x11-misc/numlockx
+x11-misc/wmctrl
+x11-misc/xautomation
+x11-misc/xbindkeys
+x11-misc/xclip
+x11-misc/xkeycaps
+x11-misc/xvkbd
+x11-misc/zim
