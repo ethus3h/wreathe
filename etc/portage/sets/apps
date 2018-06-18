@@ -18,6 +18,16 @@ dev-db/sqlitebrowser
 dev-python/warcprox
 dev-python/warctools
 media-video/obs-studio
+net-analyzer/wireshark
+net-analyzer/linkchecker
+net-fs/sshfs
+net-im/hangups
+net-irc/hexchat
+net-p2p/ktorrent
+net-p2p/tribler
+sci-astronomy/kstars
+sci-geosciences/qmapshack
+sci-geosciences/routino
 media-video/vlc
 net-ftp/filezilla
 net-irc/irssi

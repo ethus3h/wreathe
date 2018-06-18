@@ -16,3 +16,17 @@ app-portage/porthole
 app-portage/smart-live-rebuild
 app-shells/bash-completion
 app-shells/gentoo-bashcomp
+sys-apps/cpuid
+sys-apps/dmidecode
+sys-apps/fakeroot
+sys-apps/memtest86+
+sys-apps/pcmciautils
+sys-apps/preload
+sys-apps/smartmontools
+sys-apps/usbutils
+sys-block/open-iscsi
+sys-block/open-isns
+sys-block/partitionmanager
+sys-boot/gnu-efi
+sys-boot/os-prober
+sys-boot/refind

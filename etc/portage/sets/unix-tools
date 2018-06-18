@@ -14,3 +14,14 @@ app-editors/okteta
 app-forensics/afl
 app-misc/banner
 app-misc/ddate
+net-analyzer/net-snmp
+net-analyzer/netcat
+net-analyzer/nettop
+net-analyzer/nmap
+net-analyzer/traceroute
+net-misc/whois
+net-misc/sshpass
+net-misc/telnet-bsd
+sys-apps/miscfiles
+sys-apps/mlocate
+sys-apps/moreutils
