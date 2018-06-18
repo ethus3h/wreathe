@@ -1,0 +1,9 @@
+sys-process/ts
+sys-process/parallel
+dev-util/cloc
+app-text/tree
+app-editors/dhex
+app-misc/jq
+app-misc/rlwrap
+app-misc/gnuit
+app-misc/binwalk

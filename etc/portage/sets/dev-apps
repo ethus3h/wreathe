@@ -1,2 +1,6 @@
+app-i18n/poedit
 dev-vcs/git
 dev-games/tiled
+app-portage/repoman
+kde-apps/kde-dev-scripts
+kde-apps/lokalize

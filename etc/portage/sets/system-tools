@@ -1,3 +1,5 @@
+app-emulation/docker
+app-emulation/docker-proxy
 sys-fs/ddrescue
 sys-fs/dosfstools
 sys-fs/squashfs-tools
