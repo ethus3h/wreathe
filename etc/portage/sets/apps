@@ -8,10 +8,15 @@ media-sound/audacity
 media-sound/gmusicbrowser
 media-sound/jack_capture
 media-sound/jorgan
+app-text/calibre
+app-text/sword
 media-sound/lmms
 media-sound/mumble
 media-sound/supercollider
 media-tv/kodi
+dev-db/sqlitebrowser
+dev-python/warcprox
+dev-python/warctools
 media-video/obs-studio
 media-video/vlc
 net-ftp/filezilla

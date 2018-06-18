@@ -161,3 +161,11 @@ app-dicts/sword-wulfila
 app-dicts/sword-wycliffe
 app-dicts/sword-xhosa
 app-dicts/sword-ylt
+app-doc/autobook
+app-doc/devmanual
+app-doc/elisp-manual
+app-doc/jargon
+app-doc/kicad-doc
+app-doc/motif-reference-manual
+app-doc/phrack
+app-doc/pms

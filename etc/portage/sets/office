@@ -58,3 +58,8 @@ app-dicts/stardict-xdict-en-zh-big5
 app-dicts/stardict-xdict-en-zh-gb
 app-dicts/stardict-xdict-zh-en-big5
 app-dicts/stardict-xdict-zh-en-gb
+app-office/dia
+app-office/mdbtools
+app-office/orage
+app-office/scribus
+app-office/unoconv

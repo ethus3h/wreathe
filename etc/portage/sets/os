@@ -9,3 +9,10 @@ sys-kernel/genkernel-next
 sys-kernel/linux-firmware
 sys-kernel/wreathe-kernel
 x11-misc/sddm
+app-portage/eix
+app-portage/genlop
+app-portage/layman
+app-portage/porthole
+app-portage/smart-live-rebuild
+app-shells/bash-completion
+app-shells/gentoo-bashcomp

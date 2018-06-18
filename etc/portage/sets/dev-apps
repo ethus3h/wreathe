@@ -4,3 +4,17 @@ dev-games/tiled
 app-portage/repoman
 kde-apps/kde-dev-scripts
 kde-apps/lokalize
+dev-db/phpmyadmin
+dev-qt/assistant
+dev-qt/qdoc
+dev-qt/qt-creator
+dev-util/debhelper
+dev-util/diffstat
+dev-util/quilt
+dev-util/regexxer
+dev-util/shellcheck
+dev-util/strace
+dev-util/valgrind
+dev-util/vmtouch
+dev-util/xdelta
+dev-util/xxdi
