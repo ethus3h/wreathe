@@ -3,3 +3,8 @@ x11-misc/keynav
 x11-misc/run-scaled
 x11-misc/xcur2png
 x11-misc/xvisbell
+sys-process/ts
+sys-process/parallel
+dev-util/cloc
+app-text/tree
+app-editors/dhex
