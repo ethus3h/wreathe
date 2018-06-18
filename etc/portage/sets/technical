@@ -18,6 +18,7 @@ sci-misc/xmedcon
 sys-fabric/dapl
 sys-fabric/ibacm
 sys-fabric/infiniband-diags
+dev-embedded/arduino
 sys-fabric/infinipath-psm
 sys-fabric/libcxgb3
 sys-fabric/libcxgb4

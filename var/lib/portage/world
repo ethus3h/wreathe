@@ -19,7 +19,6 @@ app-laptop/tp_smapi
 app-misc/solaar
 app-misc/spacenavd
 app-misc/tracker
-dev-embedded/arduino
 dev-php/ming-php
 gnome-extra/gucharmap
 kde-misc/kdiff3
