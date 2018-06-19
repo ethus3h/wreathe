@@ -1,4 +1,20 @@
 {
+    "dev-db/spatialite:0": [
+        "dev-db/spatialite-4.3.0-r1", 
+        "26126", 
+        [
+            "/usr/lib64/libspatialite.so.2.0.4", 
+            "/usr/lib64/libspatialite.so.2"
+        ]
+    ], 
+    "dev-libs/crypto++:0": [
+        "dev-libs/crypto++-5.6.5-r1", 
+        "25999", 
+        [
+            "/usr/lib64/libcrypto++.so.0.0.0", 
+            "/usr/lib64/libcrypto++.so.0"
+        ]
+    ], 
     "dev-libs/oniguruma:0": [
         "dev-libs/oniguruma-6.8.2", 
         "25751", 
@@ -7,12 +23,40 @@
             "/usr/lib64/libonig.so.4"
         ]
     ], 
+    "dev-scheme/guile:12": [
+        "dev-scheme/guile-2.0.14-r3", 
+        "26013", 
+        [
+            "/usr/lib64/libguile.so.17.4.0", 
+            "/usr/lib64/libguile.so.17"
+        ]
+    ], 
+    "media-gfx/imagemagick:0": [
+        "media-gfx/imagemagick-7.0.7.28", 
+        "26198", 
+        [
+            "/usr/lib64/libMagick++-6.Q16HDRI.so.8.0.0", 
+            "/usr/lib64/libMagickCore-6.Q16HDRI.so.5.0.0", 
+            "/usr/lib64/libMagickWand-6.Q16HDRI.so.5.0.0", 
+            "/usr/lib64/libMagickCore-6.Q16HDRI.so.5", 
+            "/usr/lib64/libMagickWand-6.Q16HDRI.so.5", 
+            "/usr/lib64/libMagick++-6.Q16HDRI.so.8"
+        ]
+    ], 
     "media-libs/aubio:0": [
         "media-libs/aubio-0.4.1-r1", 
         "25800", 
         [
             "/usr/lib64/libaubio.so.5.0.4", 
             "/usr/lib64/libaubio.so.5"
+        ]
+    ], 
+    "sci-libs/proj:0": [
+        "sci-libs/proj-4.9.2", 
+        "26035", 
+        [
+            "/usr/lib64/libproj.so.0.7.0", 
+            "/usr/lib64/libproj.so.0"
         ]
     ], 
     "sci-physics/bullet:0": [
