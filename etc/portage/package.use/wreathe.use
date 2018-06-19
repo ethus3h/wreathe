@@ -75,6 +75,9 @@ app-text/ghostscript-gpl -l10n_ja
 # Use cec results in broken build
 media-tv/kodi -cec
 
+# Can only have one gui toolkit
+media-sound/audacious -gtk
+
 # Can only have one of gles2/egl or opengl.
 media-libs/gst-plugins-bad -gles2
 net-libs/webkit-gtk -gles2
