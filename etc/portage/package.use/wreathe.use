@@ -83,6 +83,9 @@ dev-libs/efl -egl
 # Can only have one of gcrypt or openssl.
 sys-fs/cryptsetup -gcrypt
 
+# Can only have one of cdda or cdio.
+media-sound/cantata -cdio
+
 # Install these Mozilla addons for Thunderbird as well as Firefox
 x11-plugins/moz-ext-dom-inspector-plus-dm thunderbird
 x11-plugins/moz-ext-element-inspector thunderbird
