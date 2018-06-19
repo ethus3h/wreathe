@@ -57,9 +57,6 @@ media-libs/xine-lib ~amd64
 =media-libs/oyranos-9999 **
 app-admin/elektra ~amd64
 
-# Only live (-9999) ebuilds are available for these
-=net-im/hangups-9999 **
-
 # Use GRUB from git for now, since it's needed for nvme
 =sys-boot/grub-9999 **
 
@@ -86,23 +83,6 @@ dev-libs/nspr ~amd64
 
 # Not yet stabilized, used by Atom
 dev-util/electron ~amd64
-
-# Not yet stabilized, used by hangups
-dev-python/multidict ~amd64
-dev-java/protobuf-java ~amd64
-dev-python/protobuf-python ~amd64
-dev-libs/protobuf ~amd64
-dev-python/MechanicalSoup ~amd64
-dev-python/yarl ~amd64
-dev-python/readlike ~amd64
-dev-python/idna-ssl ~amd64
-dev-python/sphinxcontrib-newsfeed ~amd64
-dev-python/sphinxcontrib-asyncio ~amd64
-dev-python/urwid ~amd64
-dev-python/configargparse ~amd64
-dev-python/async_timeout ~amd64
-dev-python/ReParser ~amd64
-dev-python/aiohttp ~amd64
 
 # Not yet stabilised, used by infinality
 media-fonts/infinality-ultimate-meta ~amd64
