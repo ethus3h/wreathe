@@ -17,6 +17,8 @@ games-action/extreme-tuxracer ~amd64
 games-board/knights ~amd64
 games-simulation/openttd ~amd64
 media-sound/ardour ~amd64
+media-sound/audacious ~amd64
+media-sound/elisa ~amd64
 media-sound/lmms ~amd64
 media-video/obs-studio ~amd64
 net-misc/plowshare ~amd64
