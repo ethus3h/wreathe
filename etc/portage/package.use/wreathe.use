@@ -79,6 +79,7 @@ media-tv/kodi -cec
 media-plugins/audacious-plugins -libnotify
 
 # Can only have one gui toolkit
+media-plugins/audacious-plugins -gtk
 media-sound/audacious -gtk
 
 # Can only have one of gles2/egl or opengl.
