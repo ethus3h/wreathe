@@ -17,6 +17,7 @@ net-misc/hylafaxplus hylafaxplus
 app-dicts/myspell-ru myspell-ru_RU-AlexanderLebedev
 app-text/mpage freedist
 app-text/calibre unRAR
+net-print/brother-genml1-bin brother-eula
 games-fps/sauerbraten freedist
 app-arch/p7zip unRAR
 
