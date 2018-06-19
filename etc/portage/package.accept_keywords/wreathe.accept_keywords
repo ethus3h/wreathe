@@ -16,6 +16,7 @@ dev-util/shellcheck ~amd64
 games-action/extreme-tuxracer ~amd64
 games-board/knights ~amd64
 games-simulation/openttd ~amd64
+media-plugins/audacious-plugins ~amd64
 media-sound/ardour ~amd64
 media-sound/audacious ~amd64
 media-sound/elisa ~amd64
