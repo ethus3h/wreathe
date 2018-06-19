@@ -75,6 +75,9 @@ app-text/ghostscript-gpl -l10n_ja
 # Use cec results in broken build
 media-tv/kodi -cec
 
+# libktorrent cannot be installed with botan[gmp]
+dev-libs/botan -gmp
+
 # Can't use qt5 with libnotify
 media-plugins/audacious-plugins -libnotify
 
