@@ -60,7 +60,10 @@ app-admin/elektra ~amd64
 # Use GRUB from git for now, since it's needed for nvme
 =sys-boot/grub-9999 **
 
-# Not yet stabilised, used by Ring
+# Not yet stabilized, used by warcprox
+dev-python/python-rethinkdb ~amd64
+
+# Not yet stabilized, used by Ring
 =net-libs/opendht-9999 **
 =net-voip/ring-daemon-9999 **
 =net-libs/libringclient-9999 **
