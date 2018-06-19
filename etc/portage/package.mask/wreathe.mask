@@ -1,9 +1,6 @@
 # Mask overlays
 =dev-libs/libplatform-9999::wreathe-overlay
 
-# Keeps getting dragged in for some random reason
-sys-apps/openrc
-
 # Misc. nonlibre software
 app-arch/unrar
 net-wireless/broadcom-sta
