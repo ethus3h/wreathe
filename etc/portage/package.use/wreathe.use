@@ -75,6 +75,9 @@ app-text/ghostscript-gpl -l10n_ja
 # Use cec results in broken build
 media-tv/kodi -cec
 
+# Can't use qt5 with libnotify
+media-plugins/audacious-plugins -libnotify
+
 # Can only have one gui toolkit
 media-sound/audacious -gtk
 
