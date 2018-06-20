@@ -14,8 +14,6 @@ media-gfx/imagemagick
 media-gfx/krita
 media-sound/audacious
 media-sound/audacity
-media-sound/clementine
-media-sound/gmusicbrowser
 media-sound/jack_capture
 media-sound/jorgan
 media-sound/lmms
@@ -56,6 +54,7 @@ virtual/jdk
 virtual/jre
 virtual/mailx
 virtual/ooo
+www-client/firefox
 www-client/links
 www-client/lynx
 www-misc/htdig
