@@ -28,7 +28,7 @@ media-sound/cadence
 media-sound/drumstick
 media-sound/gnome-music
 media-sound/jack-rack
-media-sound/lilypond
+#media-sound/lilypond requires guile < 2 so skip for now
 media-sound/mixxx
 media-sound/mpd
 media-sound/musescore
