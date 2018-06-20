@@ -56,5 +56,6 @@ virtual/jdk
 virtual/jre
 virtual/mailx
 virtual/ooo
+www-client/links
 www-client/lynx
 www-misc/htdig

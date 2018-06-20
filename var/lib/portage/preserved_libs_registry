@@ -1,12 +1,4 @@
 {
-    "dev-db/spatialite:0": [
-        "dev-db/spatialite-4.3.0-r1", 
-        "26126", 
-        [
-            "/usr/lib64/libspatialite.so.2.0.4", 
-            "/usr/lib64/libspatialite.so.2"
-        ]
-    ], 
     "dev-libs/crypto++:0": [
         "dev-libs/crypto++-5.6.5-r1", 
         "25999", 
