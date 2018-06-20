@@ -211,6 +211,7 @@ media-libs/aubio -doc
 media-libs/libcaca -doc
 media-libs/lv2 -doc
 media-libs/openimageio -doc
+net-mail/mailutils -doc # only required with guile < 2, I think
 
 # Various extra capabilities
 app-doc/doxygen clang dot doxysearch
