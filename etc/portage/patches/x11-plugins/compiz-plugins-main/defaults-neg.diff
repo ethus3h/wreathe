@@ -11,9 +11,9 @@ index fa52dc2..97adb24 100644
  			</option>
  			<option name="screen_toggle_key" type="key">
  				<_short>Toggle Screen Negative</_short>
- 				<_long>Toggle screen negative</_long>
+ 				<_long>Toggle all windows negative, except for windows in the &quot;Screen Exclusions&quot; list</_long>
 -				<default>&lt;Super&gt;m</default>
 +				<default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;o</default>
  			</option>
- 		</display>
- 		<screen>
+ 			<option name="matched_toggle_key" type="key">
+ 				<_short>Toggle Matched Windows Negative</_short>
