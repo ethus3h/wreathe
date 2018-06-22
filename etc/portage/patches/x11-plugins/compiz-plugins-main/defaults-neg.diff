@@ -1,19 +1,54 @@
 diff --git a/metadata/neg.xml.in b/metadata/neg.xml.in
-index fa52dc2..97adb24 100644
+index ea5e71e..72090cc 100644
 --- a/metadata/neg.xml.in
 +++ b/metadata/neg.xml.in
-@@ -13,12 +13,12 @@
+@@ -13,29 +13,29 @@
  			<option name="window_toggle_key" type="key">
  				<_short>Toggle Window Negative</_short>
  				<_long>Toggle active window negative</_long>
 -				<default>&lt;Super&gt;n</default>
-+				<default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;f</default>
++				<default>&lt;Control&gt;&lt;Shift&gt;&lt;Alt&gt;f</default>
  			</option>
  			<option name="screen_toggle_key" type="key">
  				<_short>Toggle Screen Negative</_short>
  				<_long>Toggle all windows negative, except for windows in the &quot;Screen Exclusions&quot; list</_long>
 -				<default>&lt;Super&gt;m</default>
-+				<default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;o</default>
++				<default>&lt;Control&gt;&lt;Shift&gt;&lt;Alt&gt;o</default>
  			</option>
  			<option name="matched_toggle_key" type="key">
  				<_short>Toggle Matched Windows Negative</_short>
+ 				<_long>Toggles the windows negative matched by the &quot;Matched Windows&quot; list</_long>
+-				<default></default>
++				<default>&lt;Control&gt;&lt;Shift&gt;&lt;Alt&gt;e</default>
+ 			</option>
+ 		</display>
+ 		<screen>
+ 			<option name="toggle_by_default" type="bool">
+ 				<_short>Auto-Toggle Matched Windows</_short>
+ 				<_long>Automatically toggle windows in the &quot;Matched Windows&quot; list by default</_long>
+-				<default>false</default>
++				<default>true</default>
+ 			</option>
+ 			<option name="neg_match" type="match">
+ 				<_short>Matched Windows</_short>
+ 				<_long>Windows to affect when using the &quot;Toggle Matched Windows Negative&quot; keybinding or &quot;Auto-Toggle Matched Windows&quot;</_long>
+-				<default>!(type=Desktop)</default>
++				<default></default>
+ 			</option>
+ 			<option name="toggle_screen_by_default" type="bool">
+ 				<_short>Auto-Toggle Screen</_short>
+@@ -50,12 +50,12 @@
+ 			<option name="preserve_toggled" type="bool">
+ 				<_short>Preserve Toggled Windows</_short>
+ 				<_long>When windows have been toggled using the &quot;Toggle Windows Negative&quot; keybinding, preserve their state when toggling the screen. Note that toggled windows' state will not be preserved between Compiz restarts. To use this option, disable &quot;Auto-Clear Toggled Window State&quot;.</_long>
+-				<default>false</default>
++				<default>true</default>
+ 			</option>
+ 			<option name="clear_toggled" type="bool">
+ 				<_short>Auto-Clear Toggled Window State</_short>
+ 				<_long>A window that has been toggled using the &quot;Toggle Windows Negative&quot; keybinding will have its state discarded when toggling a match group that includes that window. This will clear window states even if &quot;Preserve Toggled Windows&quot; is selected.</_long>
+-				<default>true</default>
++				<default>false</default>
+ 			</option>
+ 		</screen>
+ 	</plugin>
