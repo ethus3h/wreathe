@@ -97,6 +97,8 @@ net-misc/taylor-uucp
 net-misc/vino
 sys-fs/avfs
 sys-fs/dmg2img
+sys-fs/exfat-utils
+sys-fs/fuse-exfat
 sys-fs/jfsutils
 sys-fs/ntfs3g
 sys-fs/progsreiserfs
