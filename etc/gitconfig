@@ -7,3 +7,5 @@
 [filter "smallify"]
 	clean = smallify-stream
 	smudge = biggify-stream
+[transfer]
+	fsckObjects = true
