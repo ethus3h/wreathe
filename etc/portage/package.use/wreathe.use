@@ -420,6 +420,7 @@ dev-libs/icu abi_x86_32
 dev-libs/json-c abi_x86_32
 dev-libs/json-glib abi_x86_32
 dev-libs/libaio abi_x86_32
+dev-libs/libatomic_ops abi_x86_32
 dev-libs/libbsd abi_x86_32
 dev-libs/libcdio abi_x86_32
 dev-libs/libcdio-paranoia abi_x86_32
