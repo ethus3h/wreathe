@@ -10,6 +10,7 @@ dev-python/warctools
 gnome-extra/gucharmap
 kde-apps/kwave
 kde-misc/kdiff3
+kde-misc/tellico
 mail-client/thunderbird
 media-gfx/imagemagick
 media-gfx/krita
