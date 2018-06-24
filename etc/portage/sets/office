@@ -61,6 +61,7 @@ app-text/hunspell
 app-text/poppler
 app-text/stardict
 app-text/texlive
+kde-misc/tellico
 net-mail/mailbase
 net-print/adobeps
 net-print/apsfilter
