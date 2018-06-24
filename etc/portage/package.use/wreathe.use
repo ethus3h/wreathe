@@ -206,6 +206,7 @@ media-libs/aubio -doc
 media-libs/libcaca -doc
 media-libs/lv2 -doc
 media-libs/openimageio -doc
+x11-themes/oxygen-gtk -doc
 
 # Various extra capabilities
 app-doc/doxygen clang dot doxysearch
