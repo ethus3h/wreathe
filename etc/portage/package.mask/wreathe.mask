@@ -17,8 +17,8 @@ dev-util/pycharm-community
 dev-java/icedtea-bin
 
 # KDE SC 4.8+ drop miller columns from Dolphin
->=kde-apps/dolphin-4.7.90
->kde-apps/dolphin-plugins-4.14.3
+#>=kde-apps/dolphin-4.7.90
+#>kde-apps/dolphin-plugins-4.14.3
 #>kde-apps/kfind-4.14.3
 
 # Use tdelibs instead
