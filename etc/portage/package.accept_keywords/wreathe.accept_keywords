@@ -45,6 +45,8 @@ media-libs/xine-lib ~amd64
 =app-misc/wreathe-base-9999::wreathe-overlay **
 =app-misc/wreathe-overlays-redist-9999::wreathe-overlay **
 =games-arcade/gunmetal-grey-9999::wreathe-overlay **
+=kde-apps/dolphin-9999::wreathe-overlay **
+=kde-apps/dolphin-plugins-9999::wreathe-overlay **
 =kde-apps/wreathe-charselect-9999::wreathe-overlay **
 =kde-apps/wreathe-file-manager-9999::wreathe-overlay **
 =media-sound/cadence-9999::wreathe-overlay **
