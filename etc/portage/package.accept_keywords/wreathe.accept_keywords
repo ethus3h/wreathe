@@ -1,3 +1,6 @@
+# for dumpgenerator.py
+dev-python/kitchen ~amd64
+
 sys-apps/nix ~amd64
 app-text/getxbook ~amd64
 media-plugins/calf ~amd64
