@@ -1,3 +1,6 @@
+# Required for dev-python/numpy, but not in package deps. See https://bugs.gentoo.org/645864
+dev-python/scimath
+
 dev-embedded/arduino
 sci-chemistry/chemical-mime-data
 sci-geosciences/opencpn
