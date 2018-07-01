@@ -4,12 +4,3 @@ media-gfx/utsushi::sirjaren
 # Otherwise masked by "KDE SC 4.8+ drop miller columns from Dolphin" rule.
 =kde-apps/dolphin-9999::wreathe-overlay
 =kde-apps/dolphin-plugins-9999::wreathe-overlay
-
-# Until it is removed from Gentoo's package.mask
-*/*::compiz-reloaded
-www-plugins/lightspark
-www-plugins/gnash
-=kde-frameworks/kdelibs-4.14.37::wreathe-overlay
-=kde-frameworks/kdelibs-env-4.14.3::wreathe-overlay
-=dev-libs/libattica-0.4.2::wreathe-overlay
-=dev-util/automoc-0.9.88-r1::wreathe-overlay
