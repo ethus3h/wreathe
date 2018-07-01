@@ -60,7 +60,6 @@ dev-vcs/bzr-fastimport
 dev-vcs/cssc
 dev-vcs/darcs
 dev-vcs/subversion
-games-emulation/advancemame
 gnustep-base/gnustep-base
 media-gfx/jpeg2ps
 media-gfx/pdf2svg
