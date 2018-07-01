@@ -1,4 +1,10 @@
 # Mask overlays
+*/*::brother-overlay
+*/*::dotnet
+*/*::imaging
+*/*::R_Overlay
+*/*::sirjaren
+*/*::stintel
 =dev-libs/libplatform-9999::wreathe-overlay
 
 # Misc. nonlibre software
