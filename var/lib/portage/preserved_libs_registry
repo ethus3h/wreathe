@@ -1,11 +1,4 @@
 {
-    "dev-libs/boost:0": [
-        "dev-libs/boost-1.65.0", 
-        "26692", 
-        [
-            "/usr/lib64/libboost_python-3.6.so.1.65.0"
-        ]
-    ], 
     "media-gfx/imagemagick:0": [
         "media-gfx/imagemagick-7.0.7.28", 
         "26198", 
@@ -18,12 +11,14 @@
             "/usr/lib64/libMagick++-6.Q16HDRI.so.8"
         ]
     ], 
-    "sys-fs/ntfs3g:0": [
-        "sys-fs/ntfs3g-2017.3.23", 
-        "26415", 
+    "sys-cluster/mpich:0": [
+        "sys-cluster/mpich-3.2-r1", 
+        "24838", 
         [
-            "/usr/lib64/libntfs-3g.so.87.0.0", 
-            "/usr/lib64/libntfs-3g.so.87"
+            "/usr/lib64/libmpifort.so.12.1.0", 
+            "/usr/lib64/libmpi.so.12.1.0", 
+            "/usr/lib64/libmpifort.so.12", 
+            "/usr/lib64/libmpi.so.12"
         ]
     ]
 }
