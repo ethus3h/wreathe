@@ -9,6 +9,8 @@ dev-python/warcprox
 dev-python/warctools
 gnome-extra/gucharmap
 kde-apps/kwave
+kde-apps/thumbnailers:5
+kde-apps/ffmpegthumbs:5
 kde-misc/kdiff3
 kde-misc/krusader
 kde-misc/tellico
