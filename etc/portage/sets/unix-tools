@@ -18,6 +18,7 @@ net-analyzer/netcat
 net-analyzer/nettop
 net-analyzer/nmap
 net-analyzer/traceroute
+net-misc/aria2
 net-misc/sshpass
 net-misc/telnet-bsd
 net-misc/whois
