@@ -26,6 +26,7 @@ media-sound/aeolus
 media-sound/aylet
 media-sound/cadence
 media-sound/drumstick
+media-sound/frescobaldi
 media-sound/gnome-music
 media-sound/jack-rack
 #media-sound/lilypond requires guile < 2 so skip for now
