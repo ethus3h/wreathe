@@ -24,6 +24,7 @@ media-sound/ardour ~amd64
 media-sound/audacious ~amd64
 media-sound/elisa ~amd64
 media-sound/lmms ~amd64
+media-sound/musescore ~amd64
 media-video/obs-studio ~amd64
 net-misc/plowshare ~amd64
 net-misc/rclone ~amd64
