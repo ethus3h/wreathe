@@ -74,6 +74,7 @@ app-admin/elektra ~amd64
 
 # Not yet stabilized, used by frescobaldi
 dev-python/python-ly ~amd64
+dev-python/python-poppler-qt5 ~amd64
 
 # Not yet stabilized, used by warcprox
 dev-python/python-rethinkdb ~amd64
