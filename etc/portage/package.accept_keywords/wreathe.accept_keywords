@@ -25,7 +25,6 @@ games-simulation/openttd ~amd64
 media-plugins/audacious-plugins ~amd64
 media-sound/ardour ~amd64
 media-sound/audacious ~amd64
-media-sound/denemo ~amd64
 media-sound/elisa ~amd64
 media-sound/frescobaldi ~amd64
 media-sound/lmms ~amd64
