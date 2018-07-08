@@ -1,1 +1,10 @@
-{}
+{
+    "dev-scheme/guile:12": [
+        "dev-scheme/guile-1.8.8-r3", 
+        "26787", 
+        [
+            "/usr/lib64/libguile-2.0.so.22.8.1", 
+            "/usr/lib64/libguile-2.0.so.22"
+        ]
+    ]
+}
