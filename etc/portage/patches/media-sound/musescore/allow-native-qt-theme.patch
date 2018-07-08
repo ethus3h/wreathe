@@ -1,116 +1,78 @@
-From fa2a6727deb505ff2fa461e59f1828a5ce7c48d8 Mon Sep 17 00:00:00 2001
-From: Yichao Yu <yyc1992@gmail.com>
-Date: Thu, 18 Jul 2013 06:45:59 -0400
-Subject: [PATCH] add back native style
+From 401acf741f146d59bc1aa7551c26a6d3f43f3207 Mon Sep 17 00:00:00 2001
+From: Elliot Chandler <elliot@futuramerlin.com>
+Date: Sat, 7 Jul 2018 20:31:36 -0400
+Subject: [PATCH 1/3] Update preferences.h
 
 ---
- mscore/miconengine.cpp |  6 ++++--
- mscore/musescore.cpp   |  2 +-
- mscore/preferences.cpp | 13 ++++++++++---
- mscore/preferences.h   |  3 ++-
- mscore/prefsdialog.ui  |  5 +++++
- 5 files changed, 22 insertions(+), 7 deletions(-)
+ mscore/preferences.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mscore/miconengine.cpp b/mscore/miconengine.cpp
-index a47d483980..22b832ea1c 100644
---- a/mscore/miconengine.cpp
-+++ b/mscore/miconengine.cpp
-@@ -119,7 +119,8 @@ void MIconEnginePrivate::loadDataForModeAndState(QSvgRenderer* renderer, QIcon::
-                   f.open(QIODevice::ReadOnly);
-                   QByteArray ba = f.readAll();
-                   if (mode == QIcon::Disabled) {
--                        if (Ms::preferences.globalStyle == Ms::STYLE_LIGHT) {
-+                        if (Ms::preferences.globalStyle == Ms::STYLE_LIGHT ||
-+                            Ms::preferences.globalStyle == Ms::STYLE_NATIVE) {
-                               if (state == QIcon::On)
-                                     ba.replace("fill:#ffffff", "fill:#2463aa");
-                               else
-@@ -133,7 +134,8 @@ void MIconEnginePrivate::loadDataForModeAndState(QSvgRenderer* renderer, QIcon::
-                               }
-                         }
-                   else {
--                        if (Ms::preferences.globalStyle == Ms::STYLE_LIGHT) {
-+                        if (Ms::preferences.globalStyle == Ms::STYLE_LIGHT ||
-+                            Ms::preferences.globalStyle == Ms::STYLE_NATIVE) {
-                               if (state == QIcon::On)
-                                     ba.replace("fill:#ffffff", "fill:#2463aa");
-                               else
-diff --git a/mscore/musescore.cpp b/mscore/musescore.cpp
-index 1bcbeb81d4..062eaacf3a 100644
---- a/mscore/musescore.cpp
-+++ b/mscore/musescore.cpp
-@@ -4710,7 +4710,7 @@ int main(int argc, char* av[])
-                         QToolTip::setPalette(palette);
- 
-                         break;
--                  }
-+                }
-             qApp->setStyleSheet(
-                   "*:disabled {\n"
-                   "   color: gray\n"
-diff --git a/mscore/preferences.cpp b/mscore/preferences.cpp
-index dfc6dff9a8..711894910c 100644
---- a/mscore/preferences.cpp
-+++ b/mscore/preferences.cpp
-@@ -457,10 +457,13 @@ void Preferences::read()
-       useOsc                 = s.value("useOsc", useOsc).toBool();
-       oscPort                = s.value("oscPort", oscPort).toInt();
-       styleName              = s.value("style", styleName).toString();
--      if (styleName == "dark")
-+      if (styleName == "dark") {
-             globalStyle  = STYLE_DARK;
--      else
-+      } else if (styleName == "light") {
-             globalStyle  = STYLE_LIGHT;
-+      } else {
-+            globalStyle  = STYLE_NATIVE;
-+      }
- 
-       singlePalette    = s.value("singlePalette",    singlePalette).toBool();
- 
-@@ -1381,10 +1384,14 @@ void PreferenceDialog::apply()
-             prefs.styleName = "dark";
-             prefs.globalStyle = STYLE_DARK;
-             }
--      else {
-+      else if (styleName->currentIndex() == STYLE_LIGHT) {
-             prefs.styleName = "light";
-             prefs.globalStyle = STYLE_LIGHT;
-             }
-+      else {
-+            prefs.styleName = "native";
-+            prefs.globalStyle = STYLE_NATIVE;
-+            }
- 
-       if (languageChanged) {
-             setMscoreLocale(prefs.language);
 diff --git a/mscore/preferences.h b/mscore/preferences.h
-index 2f26d5cbc3..004069a574 100644
+index 0432cbe129..0bffd37961 100644
 --- a/mscore/preferences.h
 +++ b/mscore/preferences.h
-@@ -54,7 +54,8 @@ enum {
+@@ -65,7 +65,8 @@ enum {
  
- enum MuseScoreStyleType {
-       STYLE_DARK,
--      STYLE_LIGHT
-+      STYLE_LIGHT,
+ enum class MuseScoreStyleType : char {
+       DARK_FUSION = 0,
+-      LIGHT_FUSION
++      LIGHT_FUSION,
++      NATIVE
+       };
+ 
+ // MusicXML export break values
+
+From ef30d7b8e60ca89e7fabaeacef958f3d819462aa Mon Sep 17 00:00:00 2001
+From: Elliot Chandler <elliot@futuramerlin.com>
+Date: Sat, 7 Jul 2018 20:31:58 -0400
+Subject: [PATCH 2/3] Update preferences.h
+
+---
+ mscore/preferences.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mscore/preferences.h b/mscore/preferences.h
+index 0bffd37961..0fae37c479 100644
+--- a/mscore/preferences.h
++++ b/mscore/preferences.h
+@@ -66,7 +66,7 @@ enum {
+ enum class MuseScoreStyleType : char {
+       DARK_FUSION = 0,
+       LIGHT_FUSION,
+-      NATIVE
 +      STYLE_NATIVE
        };
  
  // MusicXML export break values
-diff --git a/mscore/prefsdialog.ui b/mscore/prefsdialog.ui
-index c36f68bd9f..6237a7816b 100644
---- a/mscore/prefsdialog.ui
-+++ b/mscore/prefsdialog.ui
-@@ -401,6 +401,11 @@
-               <string>light</string>
-              </property>
-             </item>
-+            <item>
-+             <property name="text">
-+              <string>native</string>
-+             </property>
-+            </item>
-            </widget>
-           </item>
-           <item row="2" column="2">
+
+From 19df2dd69185cfa1c76577013f632f16483d3f31 Mon Sep 17 00:00:00 2001
+From: Elliot Chandler <elliot@futuramerlin.com>
+Date: Sat, 7 Jul 2018 20:35:05 -0400
+Subject: [PATCH 3/3] Update preferences.cpp
+
+---
+ mscore/preferences.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mscore/preferences.cpp b/mscore/preferences.cpp
+index 0970ec65cd..1599e28e18 100644
+--- a/mscore/preferences.cpp
++++ b/mscore/preferences.cpp
+@@ -49,7 +49,7 @@ void Preferences::init(bool storeInMemoryOnly)
+       // Qt file dialog is very slow on Windows and Mac
+       bool nativeDialogs           = true;
+ #else
+-      bool nativeDialogs           = false;    // don't use system native file dialogs
++      bool nativeDialogs           = true;    // don't use system native file dialogs
+ #endif
+ 
+       bool defaultUsePortAudio = false;
+@@ -154,7 +154,7 @@ void Preferences::init(bool storeInMemoryOnly)
+             {PREF_UI_APP_STARTUP_SHOWPLAYPANEL,                    new BoolPreference(false, false)},
+             {PREF_UI_APP_STARTUP_SHOWSPLASHSCREEN,                 new BoolPreference(true, false)},
+             {PREF_UI_APP_STARTUP_SHOWSTARTCENTER,                  new BoolPreference(true, false)},
+-            {PREF_UI_APP_GLOBALSTYLE,                              new EnumPreference(QVariant::fromValue(MuseScoreStyleType::LIGHT_FUSION), false)},
++            {PREF_UI_APP_GLOBALSTYLE,                              new EnumPreference(QVariant::fromValue(MuseScoreStyleType::STYLE_NATIVE), false)},
+             {PREF_UI_APP_LANGUAGE,                                 new StringPreference("system", false)},
+             {PREF_UI_APP_RASTER_HORIZONTAL,                        new IntPreference(2)},
+             {PREF_UI_APP_RASTER_VERTICAL,                          new IntPreference(2)},
