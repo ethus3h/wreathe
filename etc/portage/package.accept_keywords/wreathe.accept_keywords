@@ -72,6 +72,9 @@ app-admin/elektra ~amd64
 # Use GRUB from git for now, since it's needed for nvme
 =sys-boot/grub-9999 **
 
+# Not yet stabilized, used by frescobaldi
+dev-python/python-ly ~amd64
+
 # Not yet stabilized, used by warcprox
 dev-python/python-rethinkdb ~amd64
 
