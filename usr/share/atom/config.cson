@@ -11,8 +11,10 @@
       "column-select"
       "linter-pylint"
       "linter-csslint"
+      "atomatigit"
     ]
     excludeVcsIgnoredPaths: false
+    fileSystemWatcher: "atom"
     followSymlinks: false
     telemetryConsent: "limited"
     themes: [
