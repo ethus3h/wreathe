@@ -1,6 +1,5 @@
 app-antivirus/clamav
-#app-editors/atom
-app-editors/atom-bin
+app-editors/atom
 app-misc/tmux
 app-text/calibre
 app-text/sword
