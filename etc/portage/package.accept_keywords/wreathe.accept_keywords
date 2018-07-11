@@ -17,6 +17,7 @@ www-client/firefox-bin ~amd64
 
 # Apps with no stable version
 app-editors/atom ~amd64
+app-editors/atom-bin ~amd64
 dev-lang/gforth ~amd64
 dev-util/shellcheck ~amd64
 games-action/extreme-tuxracer ~amd64
