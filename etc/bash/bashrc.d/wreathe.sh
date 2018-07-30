@@ -6,6 +6,7 @@ if ! ((EUID)); then
         cp ~/.bash_history ~/.bash_history.public-mirror
         chmod +r ~/.bash_history.public-mirror
         emdate > ~/.bash_history.emdate
+	chmod +r ~/.bash_history.emdate
     fi
 fi
 
