@@ -8,6 +8,7 @@ app-i18n/uchardet
 app-misc/banner
 app-misc/binwalk
 app-misc/ddate
+app-misc/fpart
 app-misc/gnuit
 app-misc/jq
 app-misc/rlwrap
