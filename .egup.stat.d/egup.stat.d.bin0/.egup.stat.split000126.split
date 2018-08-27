@@ -1,0 +1,5 @@
+:
+d:755:1000:kyan:1000:kyan:2017:07:08:01:54:31.4673043920:EDT:2017:07:08:01:54:31.4673043920:EDT
+
+./etc/portage/patches/media-plugins/kodi-script-module-urlresolver/fix-settings-xml-path.diff
+:

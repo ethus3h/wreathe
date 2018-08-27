@@ -1,0 +1,5 @@
+./usr/share/atom/packages/linter-eslint/node_modules/.bin/babylon
+../babylon/bin/babylon.js:
+l:777:1000:kyan:1000:kyan:2018:06:13:23:25:04.2173273790:EDT:2018:06:13:23:25:04.2173273790:EDT
+
+./usr/share/atom/packages/linter-eslint/node_modules/.bin/loose-envify

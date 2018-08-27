@@ -1,0 +1,5 @@
+./etc/portage/patches/media-tv/kodi
+:
+d:755:1000:kyan:1000:kyan:2017:09:15:20:12:05.3783286560:EDT:2017:09:15:20:12:05.3783286560:EDT
+
+./etc/portage/patches/media-tv/kodi/default-enable-addon-script.covenant.artwork.patch

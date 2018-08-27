@@ -1,0 +1,5 @@
+./etc/portage/patches/disabled-firefox/disable-branding-2016aug07n6.patch
+:
+f:644:1000:kyan:1000:kyan:2017:02:01:01:03:03.8905801250:EST:2017:06:15:22:54:50.0410550820:EDT
+
+./etc/portage/patches/disabled-firefox/remove-clicktoplay-flash-from-navigator-plugins-21d15da870e8.patch

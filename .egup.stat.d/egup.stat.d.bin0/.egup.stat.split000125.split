@@ -1,0 +1,5 @@
+./etc/portage/patches/media-plugins
+:
+d:755:1000:kyan:1000:kyan:2017:07:08:01:54:12.8372172530:EDT:2017:07:08:01:54:12.8372172530:EDT
+
+./etc/portage/patches/media-plugins/kodi-script-module-urlresolver
