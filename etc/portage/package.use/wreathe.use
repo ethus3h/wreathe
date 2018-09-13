@@ -187,6 +187,7 @@ media-libs/aubio -examples
 # doc USE flag that cause build failures
 =dev-python/sphinx-1.3 -doc
 app-text/xindy -doc
+dev-java/glassfish-jms-api -doc
 dev-java/hamcrest-core -doc
 dev-java/icu4j -doc
 dev-java/libreadline-java -doc
