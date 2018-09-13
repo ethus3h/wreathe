@@ -46,6 +46,9 @@ app-arch/tar ~amd64
 # xine-lib-1.2.6-r2 failed to build
 media-libs/xine-lib ~amd64
 
+# For freemind (the stable alternative is non-libre)
+dev-java/glassfish-jms-api ~amd64
+
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
 =app-misc/ember-information-technology-environment-9999::wreathe-overlay **
