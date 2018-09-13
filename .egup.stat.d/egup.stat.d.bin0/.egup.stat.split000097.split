@@ -1,5 +1,0 @@
-./etc/portage/patches/x11-wm
-:
-d:755:1000:kyan:1000:kyan:2017:06:27:08:42:27.9136647160:EDT:2017:06:27:08:42:27.9136647160:EDT
-
-./etc/portage/patches/x11-wm/compiz

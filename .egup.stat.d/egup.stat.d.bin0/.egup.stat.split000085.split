@@ -1,5 +1,0 @@
-./etc/portage/patches/kde-apps/konsole
-:
-d:755:0:root:0:root:2017:07:09:20:21:35.4894338620:EDT:2017:07:09:20:21:35.4894338620:EDT
-
-./etc/portage/patches/kde-apps/konsole/defaults.patch

@@ -1,5 +1,0 @@
-./etc/portage/patches
-:
-d:755:1000:kyan:1000:kyan:2018:06:23:02:33:41.0327180650:EDT:2018:06:23:02:33:41.0327180650:EDT
-
-./etc/portage/patches/net-misc

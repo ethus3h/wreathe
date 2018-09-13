@@ -1,5 +1,0 @@
-./etc/portage/patches/net-misc/dahdi/0002-atomic_read-refcount_read.patch
-:
-f:644:1000:kyan:1000:kyan:2017:08:20:23:36:43.9987029020:EDT:2017:08:20:23:36:43.9987029020:EDT
-
-./etc/portage/patches/net-misc/dahdi/0001-signal_pending-is-now-in-linux-sched-signal.h-includ.patch

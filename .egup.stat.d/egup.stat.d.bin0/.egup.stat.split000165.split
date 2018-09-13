@@ -1,5 +1,0 @@
-./etc/portage/patches/dev-python/internetarchive
-:
-d:755:1000:kyan:1000:kyan:2018:01:26:18:03:23.9633653310:EST:2018:01:26:18:03:23.9633653310:EST
-
-./etc/portage/patches/dev-python/internetarchive/eb44365282bd610dfe341db1d1d2d81f7ab79426.diff

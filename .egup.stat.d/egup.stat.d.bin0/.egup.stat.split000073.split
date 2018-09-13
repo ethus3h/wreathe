@@ -1,5 +1,0 @@
-./etc/portage/package.use
-:
-d:755:1000:kyan:1000:kyan:2017:04:03:03:34:14.2042075920:EDT:2017:04:03:03:34:14.2042075920:EDT
-
-./etc/portage/package.use/wreathe.use
