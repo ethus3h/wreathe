@@ -23,6 +23,7 @@ net-misc/aria2
 net-misc/sshpass
 net-misc/telnet-bsd
 net-misc/whois
+sys-apps/miller
 sys-apps/miscfiles
 sys-apps/mlocate
 sys-apps/moreutils
