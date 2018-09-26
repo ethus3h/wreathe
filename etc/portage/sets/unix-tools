@@ -12,6 +12,7 @@ app-misc/fpart
 app-misc/gnuit
 app-misc/jq
 app-misc/rlwrap
+app-text/csvfix
 app-text/tree
 dev-util/cloc
 net-analyzer/net-snmp
