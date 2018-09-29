@@ -492,7 +492,6 @@ media-libs/gd abi_x86_32
 media-libs/glu abi_x86_32
 media-libs/gst-plugins-bad abi_x86_32
 media-libs/gst-plugins-base abi_x86_32
-media-libs/gst-plugins-gtk abi_x86_32
 media-libs/gst-plugins-good abi_x86_32
 media-libs/gst-plugins-ugly abi_x86_32
 media-libs/gstreamer abi_x86_32
@@ -575,6 +574,7 @@ media-plugins/gst-plugins-dvdread abi_x86_32
 media-plugins/gst-plugins-faad abi_x86_32
 media-plugins/gst-plugins-ffmpeg abi_x86_32
 media-plugins/gst-plugins-flac abi_x86_32
+media-plugins/gst-plugins-gtk abi_x86_32
 media-plugins/gst-plugins-jack abi_x86_32
 media-plugins/gst-plugins-lame abi_x86_32
 media-plugins/gst-plugins-libav abi_x86_32
