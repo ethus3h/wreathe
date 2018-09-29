@@ -416,6 +416,7 @@ dev-cpp/glibmm abi_x86_32
 dev-cpp/libxmlpp abi_x86_32
 dev-db/libiodbc abi_x86_32
 dev-db/mariadb abi_x86_32
+dev-db/mysql-connector-c abi_x86_32
 dev-db/oracle-instantclient-basic abi_x86_32
 dev-db/sqlite abi_x86_32
 dev-db/unixODBC abi_x86_32
