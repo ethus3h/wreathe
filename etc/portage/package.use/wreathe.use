@@ -1,3 +1,6 @@
+# FIXME: Until it doesn't cause problems (see https://github.com/git-lfs/git-lfs/issues/3044)
+dev-python/github-backup -git-lfs
+
 # FIXME: Until mpich builds
 media-video/ffmpeg -rubberband
 
