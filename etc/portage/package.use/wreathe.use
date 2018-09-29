@@ -86,6 +86,9 @@ media-plugins/audacious-plugins -libnotify
 media-plugins/audacious-plugins -gtk
 media-sound/audacious -gtk
 
+# Can only have one of alsa or openal.
+media-sound/wildmidi -openal
+
 # Can only have one of gles2/egl or opengl.
 media-libs/gst-plugins-bad -gles2
 net-libs/webkit-gtk -gles2
