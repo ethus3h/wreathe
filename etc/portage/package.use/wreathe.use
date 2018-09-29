@@ -100,6 +100,9 @@ sys-fs/cryptsetup -gcrypt
 # Can only have one of cdda or cdio.
 media-sound/cantata -cdio
 
+# Docs can only be in one language
+app-doc/kicad-doc l10n_en -l10n_fr -l10n_it -l10n_ja -l10n_nl -l10n_pl
+
 # Install these Mozilla addons for Thunderbird as well as Firefox
 x11-plugins/moz-ext-dom-inspector-plus-dm thunderbird
 x11-plugins/moz-ext-element-inspector thunderbird
