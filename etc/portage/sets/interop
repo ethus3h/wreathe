@@ -55,6 +55,7 @@ app-text/ronn
 app-text/scrollkeeper
 app-text/wdiff
 app-text/wv
+dev-python/github-backup
 dev-vcs/bzr
 dev-vcs/bzr-fastimport
 dev-vcs/cssc
