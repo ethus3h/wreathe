@@ -1,5 +1,5 @@
 # Until removed from package.mask
-dev-libs/icu-58.2-r1::wreathe-overlay
+=dev-libs/icu-58.2-r1::wreathe-overlay
 
 # Unmask packages from overlays (masked by wreathe.mask)
 media-gfx/utsushi::sirjaren
