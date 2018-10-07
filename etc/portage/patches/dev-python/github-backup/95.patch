@@ -1,0 +1,26 @@
+From 0acbfb6b9e81587c8d4eec94123a011686e64a1e Mon Sep 17 00:00:00 2001
+From: Elliot Chandler <elliot@futuramerlin.com>
+Date: Fri, 5 Oct 2018 10:49:57 -0400
+Subject: [PATCH] Changed to /users/{1}/repos for selectable user
+
+I have not tested this, but maybe it would be correct.
+---
+ bin/github-backup | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/bin/github-backup b/bin/github-backup
+index 973456e..4cb1032 100755
+--- a/bin/github-backup
++++ b/bin/github-backup
+@@ -513,8 +513,9 @@ def check_git_lfs_install():
+ def retrieve_repositories(args):
+     log_info('Retrieving repositories')
+     single_request = False
+-    template = 'https://{0}/user/repos'.format(
+-        get_github_api_host(args))
++    template = 'https://{0}/users/{1}/repos'.format(
++        get_github_api_host(args),
++            args.user)
+     if args.organization:
+         template = 'https://{0}/orgs/{1}/repos'.format(
+             get_github_api_host(args),
