@@ -37,6 +37,7 @@ net-wireless/gnuradio ~amd64
 sci-electronics/fritzing ~amd64
 sci-mathematics/form ~amd64
 www-apps/dokuwiki ~amd64
+dev-vcs/bfg ~amd64
 
 # Until >=clisp-2.49.60 stabilized
 dev-lisp/clisp ~amd64

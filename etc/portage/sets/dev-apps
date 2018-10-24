@@ -18,3 +18,4 @@ dev-util/xxdi
 dev-vcs/git
 kde-apps/kde-dev-scripts
 kde-apps/lokalize
+dev-vcs/bfg
