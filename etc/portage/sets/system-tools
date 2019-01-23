@@ -1,6 +1,7 @@
 app-admin/testdisk
 app-emulation/docker
 app-emulation/docker-proxy
+app-misc/rdfind
 app-shells/bashdb
 sys-apps/hwinfo
 sys-apps/lshw
