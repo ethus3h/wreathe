@@ -42,8 +42,7 @@ sys-fs/lsscsi
 sys-fs/mdadm
 sys-fs/multipath-tools
 sys-fs/sysfsutils
-sys-kernel/genkernel-next
+sys-kernel/genkernel
 sys-kernel/linux-firmware
-sys-kernel/wreathe-kernel
 sys-power/acpitool
 x11-misc/sddm
