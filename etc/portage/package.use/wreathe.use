@@ -112,6 +112,9 @@ x11-plugins/moz-ext-inspectorwidget thunderbird
 # Required by Portage. I'm not sure why.
 dev-python/warcprox -python_targets_python3_4
 
+# Required for genkernel
+sys-apps/util-linux static-libs
+
 # Required for vala support
 net-libs/gtk-vnc gtk3
 
