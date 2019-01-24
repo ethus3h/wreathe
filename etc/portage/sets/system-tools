@@ -3,6 +3,7 @@ app-emulation/docker
 app-emulation/docker-proxy
 app-misc/rdfind
 app-shells/bashdb
+net-analyzer/nethogs
 sys-apps/hwinfo
 sys-apps/lshw
 sys-boot/efibootmgr
