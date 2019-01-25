@@ -29,6 +29,7 @@ sys-fs/dmg2img ~amd64
 www-servers/xsp ~amd64
 x11-misc/xvfb-run ~amd64
 x11-misc/accessx ~amd64
+x11-misc/xcalib ~amd64
 games-board/pychess ~amd64
 app-dicts/sword-ylt ~amd64
 games-action/minetest_game ~amd64
