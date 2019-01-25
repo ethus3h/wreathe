@@ -146,6 +146,9 @@ sci-libs/netcdf -mpi
 # Conflicts with fortran cxx and hl
 sci-libs/hdf5 -threads
 
+# Only one of iodbc or odbc
+dev-db/freetds -iodbc
+
 # Cause dependency problems
 dev-python/botocore -doc
 x11-libs/qwt:5 -doc
