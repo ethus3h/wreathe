@@ -32,6 +32,9 @@ app-crypt/qca qt4
 sys-auth/polkit-qt qt4
 media-sound/denemo -evince
 
+# Prevent webkit-gtk
+x11-libs/wxGTK -webkit
+
 # FIXME: -go is trying to fix a build failure ("mv: cannot stat 'go': No such file or directory")
 # FIXME: bootstrap shouldn't be necessary, especially after gnat-gpl is already installed!
 dev-lang/gnat-gpl -go bootstrap
