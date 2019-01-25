@@ -1,1 +1,0 @@
-{"source":"atom-text-editor .syntax--diff.syntax--inserted {\n  color: #a8ff60;\n}\natom-text-editor .syntax--diff.syntax--changed {\n  color: #e9c062;\n}\natom-text-editor .syntax--diff.syntax--deleted {\n  color: #cc6666;\n}\natom-text-editor .syntax--diff.syntax--only-in {\n  color: #61aeef;\n  font-weight: bold;\n}\n"}

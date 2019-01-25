@@ -1,1 +1,0 @@
-{"context-menu":{"atom-text-editor":[{"label":"Toggle guess-indent","command":"guess-indent:toggle"}]},"menu":[{"label":"Packages","submenu":[{"label":"guess-indent","submenu":[{"label":"Toggle","command":"guess-indent:toggle"}]}]}]}

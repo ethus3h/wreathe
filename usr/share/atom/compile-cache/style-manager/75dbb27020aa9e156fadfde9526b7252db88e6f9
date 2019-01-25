@@ -1,1 +1,0 @@
-{"source":".wordcount-select {\n  color: #131019;\n}\n.word-count span:nth-child(n+2):before {\n  content: \" | \";\n  font-weight: normal;\n}\n.word-count .wordcount-time {\n  font-weight: bold;\n}\n"}

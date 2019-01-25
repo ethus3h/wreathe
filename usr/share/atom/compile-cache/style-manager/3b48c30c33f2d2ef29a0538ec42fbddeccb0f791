@@ -1,1 +1,0 @@
-{"source":"atom-text-editor.editor .syntax--markup--syntax,\natom-text-editor.editor .syntax--entity.syntax--name.syntax--section,\natom-text-editor.editor .syntax--comment,\natom-text-editor.editor .syntax--string.syntax--quoted,\natom-text-editor.editor .syntax--string.syntax--regexp {\n  -webkit-font-feature-settings: \"liga\" off, \"calt\" off;\n}\n"}
