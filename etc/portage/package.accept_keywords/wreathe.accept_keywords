@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/sword-pnt ~amd64
 app-dicts/sword-korean ~amd64
 app-dicts/sword-fresegond ~amd64
+app-dicts/sword-farsiopv ~amd64
 app-dicts/sword-gersch ~amd64
 app-dicts/sword-umgreek ~amd64
 app-dicts/sword-finpr ~amd64
