@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/sword-dbd ~amd64
 app-dicts/sword-klviklingon_en ~amd64
 app-dicts/sword-afr1953 ~amd64
+app-dicts/sword-finney ~amd64
 app-dicts/sword-bashautin ~amd64
 app-dicts/sword-rkjnt ~amd64
 app-dicts/sword-jfb ~amd64
