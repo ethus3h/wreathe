@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/sword-klviklingon_en ~amd64
 app-dicts/sword-afr1953 ~amd64
 app-dicts/sword-pnt ~amd64
+app-dicts/sword-pilgrim ~amd64
 app-dicts/sword-norsk ~amd64
 app-dicts/sword-tisch ~amd64
 app-dicts/sword-dutkant ~amd64
