@@ -37,6 +37,7 @@ app-dicts/sword-lightfoot ~amd64
 app-dicts/sword-spasev ~amd64
 app-dicts/sword-manxgaelic ~amd64
 app-dicts/sword-geneva ~amd64
+app-dicts/sword-whnu ~amd64
 app-dicts/sword-tyndale ~amd64
 app-dicts/sword-orthodoxy ~amd64
 app-dicts/sword-peshitta ~amd64
