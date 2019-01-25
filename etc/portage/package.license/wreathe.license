@@ -1,5 +1,3 @@
-dev-util/idea-community IDEA IDEA_OpenSource
-
 # For now
 app-arch/lha lha
 media-libs/faac MPEG-4
@@ -12,6 +10,7 @@ sys-kernel/gentoo-sources freedist linux-firmware
 sys-kernel/wreathe-kernel linux-firmware
 sci-libs/szip szip
 app-arch/zoo zoo
+app-arch/unrar unRAR
 media-gfx/jpeg2ps free-noncomm
 net-misc/hylafaxplus hylafaxplus
 app-dicts/myspell-ru myspell-ru_RU-AlexanderLebedev
