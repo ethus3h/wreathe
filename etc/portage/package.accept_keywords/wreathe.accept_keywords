@@ -21,6 +21,7 @@ app-dicts/stardict-quick-jpn-eng ~amd64
 app-dicts/freedict-deu-eng ~amd64
 net-print/c2esp ~amd64
 #app-editors/atom ~amd64
+app-dicts/stardict-xdict-zh-en-gb ~amd64
 app-forensics/afl ~amd64
 app-text/csvfix ~amd64
 dev-lang/gforth ~amd64
