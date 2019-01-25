@@ -72,7 +72,7 @@ media-sound/dcadec
 media-sound/toolame
 media-sound/vorbis-tools
 media-video/mjpegtools
-media-video/sswf
+#media-video/sswf
 net-dialup/freeradius-client
 net-dialup/mgetty
 net-dialup/rp-pppoe

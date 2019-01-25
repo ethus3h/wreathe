@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 games-board/xboard ~amd64
 app-dicts/sword-tsk ~amd64
 app-dicts/sword-vulgate_hebps ~amd64
+sys-fs/ufsutils ~amd64
 www-plugins/mozplugger ~amd64
 sys-fs/dmg2img ~amd64
 www-servers/xsp ~amd64
