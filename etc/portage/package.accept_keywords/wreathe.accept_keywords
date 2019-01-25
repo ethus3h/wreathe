@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/stardict-cedict-zh-en-big5 ~amd64
 app-dicts/stardict-xdict-zh-en-gb ~amd64
 app-forensics/afl ~amd64
+sci-geosciences/opencpn-plugin-squiddio ~amd64
 sci-geosciences/opencpn-plugin-watchdog ~amd64
 sci-geosciences/opencpn-plugin-launcher ~amd64
 sci-geosciences/opencpn-plugin-polar ~amd64
