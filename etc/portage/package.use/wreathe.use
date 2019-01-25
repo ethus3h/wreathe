@@ -499,6 +499,7 @@ media-libs/freetype abi_x86_32
 media-libs/game-music-emu abi_x86_32
 media-libs/gd abi_x86_32
 media-libs/glu abi_x86_32
+media-libs/graphene abi_x86_32
 media-libs/gst-plugins-bad abi_x86_32
 media-libs/gst-plugins-base abi_x86_32
 media-libs/gst-plugins-good abi_x86_32
