@@ -3,6 +3,9 @@
 
 # Unmask packages from overlays (masked by wreathe.mask)
 media-gfx/utsushi::sirjaren
+sci-misc/xmedcon::imaging
+x11-misc/touchegg::stintel
+x11-misc/touchegg-gui::stintel
 
 # Otherwise masked by "KDE SC 4.8+ drop miller columns from Dolphin" rule.
 =kde-apps/dolphin-9999::wreathe-overlay
