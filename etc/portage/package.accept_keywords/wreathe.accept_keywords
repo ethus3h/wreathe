@@ -226,7 +226,7 @@ app-dicts/stardict-cdict-en-zh-gb ~amd64
 app-dicts/freedict-eng-swe ~amd64
 app-dicts/stardict-quick-eng-fra ~amd64
 net-print/pkpgcounter ~amd64
-dev-java/openjdk ~amd64
+dev-java/icedtea ~amd64
 net-print/sshlpr ~amd64
 app-dicts/stardict-oxford-en-zh-gb ~amd64
 app-dicts/stardict-quick-eng-jpn ~amd64
