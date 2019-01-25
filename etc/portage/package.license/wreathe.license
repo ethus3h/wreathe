@@ -9,6 +9,7 @@ app-text/pstotext PSTT
 sys-kernel/gentoo-sources freedist linux-firmware
 sci-libs/szip szip
 app-arch/zoo zoo
+app-arch/p7zip unRAR
 app-arch/unrar unRAR
 media-gfx/jpeg2ps free-noncomm
 net-misc/hylafaxplus hylafaxplus
