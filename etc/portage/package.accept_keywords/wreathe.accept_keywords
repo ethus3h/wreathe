@@ -280,8 +280,6 @@ dev-vcs/bfg ~amd64
 # For freemind (the stable alternative is non-libre)
 dev-java/glassfish-jms-api ~amd64
 
-# Needed for calibre
-
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
 =app-misc/ember-information-technology-environment-9999::wreathe-overlay **
