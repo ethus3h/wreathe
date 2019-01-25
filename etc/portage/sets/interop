@@ -26,7 +26,7 @@ app-emulation/simh
 app-emulation/virtualbox
 app-emulation/virtualbox-modules
 app-emulation/wine-vanilla
-app-pda/gtkpod
+#app-pda/gtkpod
 app-pda/ideviceinstaller
 app-pda/ifuse
 app-pda/usbmuxd
