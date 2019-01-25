@@ -278,6 +278,9 @@ dev-vcs/bfg ~amd64
 # xine-lib-1.2.6-r2 failed to build
 #media-libs/xine-lib ~amd64
 
+# Needed for the latest stable bash
+app-shells/bashdb ~amd64
+
 # For freemind (the stable alternative is non-libre)
 dev-java/glassfish-jms-api ~amd64
 
