@@ -37,6 +37,7 @@ sci-geosciences/opencpn-plugin-iacfleet ~amd64
 sci-misc/xmedcon ~amd64
 sci-geosciences/opencpn-plugin-ocpndebugger ~amd64
 sci-geosciences/opencpn-plugin-logbookkonni ~amd64
+net-print/dymo-cups-drivers ~amd64
 sci-geosciences/opencpn ~amd64
 sci-geosciences/opencpn-plugin-findit ~amd64
 sci-geosciences/opencpn-plugin-otcurrent ~amd64
