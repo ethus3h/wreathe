@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/sword-tsk ~amd64
 app-dicts/sword-vulgate_hebps ~amd64
 app-dicts/sword-ylt ~amd64
+games-action/minetest_game ~amd64
 games-board/sjeng ~amd64
 games-board/pouetchess ~amd64
 games-action/minetest ~amd64
