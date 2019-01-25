@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/sword-tyndale ~amd64
 app-dicts/sword-dbd ~amd64
 app-dicts/sword-klviklingon_en ~amd64
+app-dicts/sword-tcr ~amd64
 app-dicts/sword-est ~amd64
 app-dicts/sword-personal ~amd64
 app-dicts/sword-bulveren ~amd64
