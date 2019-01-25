@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/stardict-cedict-zh-en-big5 ~amd64
 app-dicts/stardict-xdict-zh-en-gb ~amd64
 app-forensics/afl ~amd64
+app-dicts/stardict-xdict-en-zh-gb ~amd64
 app-text/csvfix ~amd64
 app-dicts/stardict-langdao-en-zh-gb ~amd64
 app-dicts/freedict-eng-fra ~amd64
