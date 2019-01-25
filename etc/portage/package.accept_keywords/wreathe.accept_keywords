@@ -15,7 +15,8 @@ www-client/firefox ~amd64
 www-client/firefox-bin ~amd64
 
 # Apps with no stable version
-app-editors/atom ~amd64
+app-dicts/freedict-eng-ita ~amd64
+#app-editors/atom ~amd64
 app-forensics/afl ~amd64
 app-text/csvfix ~amd64
 dev-lang/gforth ~amd64
