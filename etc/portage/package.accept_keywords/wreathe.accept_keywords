@@ -1,5 +1,3 @@
-dev-java/openjdk-bin ~amd64
-
 # for dumpgenerator.py
 dev-python/kitchen ~amd64
 
