@@ -1,7 +1,7 @@
 app-admin/testdisk
 app-emulation/docker
 app-emulation/docker-proxy
-app-misc/rdfind
+#app-misc/rdfind
 app-shells/bashdb
 net-analyzer/nethogs
 sys-apps/hwinfo
