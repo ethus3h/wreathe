@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/stardict-cedict-zh-en-big5 ~amd64
 app-dicts/stardict-xdict-zh-en-gb ~amd64
 app-forensics/afl ~amd64
+app-dicts/sword-burjudson ~amd64
 dev-util/vmtouch ~amd64
 media-gfx/displaycal ~amd64
 media-gfx/synnefo ~amd64
