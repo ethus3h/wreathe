@@ -37,6 +37,7 @@ app-dicts/stardict-langdao-zh-en-gb ~amd64
 net-print/foo2zjs **
 app-dicts/freedict-fra-eng ~amd64
 app-dicts/stardict-mova-smiley ~amd64
+net-print/adobeps ~amd64
 dev-lang/gforth ~amd64
 dev-util/shellcheck ~amd64
 app-dicts/stardict-xdict-zh-en-big5 ~amd64
