@@ -91,7 +91,6 @@ media-sound/wildmidi -alsa
 
 # Can only have one of gles2/egl or opengl.
 media-libs/gst-plugins-bad -gles2
-net-libs/webkit-gtk -gles2
 dev-libs/efl -egl
 
 # Can only have one of gcrypt or openssl.
