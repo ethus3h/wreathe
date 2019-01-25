@@ -29,7 +29,7 @@ media-sound/drumstick
 media-sound/frescobaldi
 #media-sound/gnome-music
 media-sound/jack-rack
-media-sound/lilypond
+#media-sound/lilypond
 media-sound/mixxx
 media-sound/mpd
 media-sound/musescore
