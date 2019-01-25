@@ -76,7 +76,7 @@ media-video/sswf
 net-dialup/freeradius-client
 net-dialup/mgetty
 net-dialup/rp-pppoe
-net-libs/xulrunner
+#net-libs/xulrunner
 net-mail/mailutils
 net-mail/metamail
 net-misc/asterisk
