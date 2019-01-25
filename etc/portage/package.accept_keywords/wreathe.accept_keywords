@@ -21,6 +21,7 @@ app-dicts/stardict-quick-jpn-eng ~amd64
 app-dicts/freedict-deu-eng ~amd64
 net-print/c2esp ~amd64
 #app-editors/atom ~amd64
+app-dicts/sword-vulgate_hebps ~amd64
 app-dicts/sword-ylt ~amd64
 app-dicts/sword-hunkar ~amd64
 app-dicts/sword-montgomery ~amd64
