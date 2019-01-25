@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/sword-korean ~amd64
 app-dicts/sword-fresegond ~amd64
 app-dicts/stardict-cedict-zh-en-big5 ~amd64
+app-dicts/sword-abbott ~amd64
 app-dicts/sword-esperanto ~amd64
 app-dicts/sword-wesley ~amd64
 app-dicts/sword-ukjv ~amd64
