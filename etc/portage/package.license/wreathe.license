@@ -7,7 +7,6 @@ net-print/adobeps AdobePS
 sci-visualization/gnuplot free-noncomm
 app-text/pstotext PSTT
 sys-kernel/gentoo-sources freedist linux-firmware
-sys-kernel/wreathe-kernel linux-firmware
 sci-libs/szip szip
 app-arch/zoo zoo
 app-arch/unrar unRAR
@@ -15,10 +14,8 @@ media-gfx/jpeg2ps free-noncomm
 net-misc/hylafaxplus hylafaxplus
 app-dicts/myspell-ru myspell-ru_RU-AlexanderLebedev
 app-text/mpage freedist
-app-text/calibre unRAR
 net-print/brother-genml1-bin brother-eula
 games-fps/sauerbraten freedist
-app-arch/p7zip unRAR
 
 # Accept freedist license for wreathe-overlay since it uses it for documentation; if packages in there have evil licenses they should be removed from the overlay
 */*::wreathe-overlay freedist
