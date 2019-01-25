@@ -16,6 +16,7 @@ www-client/firefox-bin ~amd64
 
 # Apps with no stable version
 app-editors/atom ~amd64
+app-forensics/afl ~amd64
 app-text/csvfix ~amd64
 dev-lang/gforth ~amd64
 dev-util/shellcheck ~amd64
