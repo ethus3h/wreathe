@@ -24,6 +24,7 @@ net-print/c2esp ~amd64
 app-dicts/sword-hunkar ~amd64
 app-dicts/sword-montgomery ~amd64
 app-dicts/sword-josephus ~amd64
+app-dicts/sword-geneva ~amd64
 app-dicts/sword-tyndale ~amd64
 app-dicts/sword-orthodoxy ~amd64
 app-dicts/sword-peshitta ~amd64
