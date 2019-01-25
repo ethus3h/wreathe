@@ -9,8 +9,8 @@ app-text/getxbook ~amd64
 media-plugins/calf ~amd64
 
 # Use the latest versions of these apps
-app-text/calibre ~amd64
-media-sound/gmusicbrowser ~amd64
+#app-text/calibre ~amd64
+#media-sound/gmusicbrowser ~amd64
 
 # Apps with no stable version
 app-dicts/freedict-eng-ita ~amd64
@@ -269,16 +269,18 @@ www-apps/dokuwiki ~amd64
 dev-vcs/bfg ~amd64
 
 # Until >=clisp-2.49.60 stabilized
-dev-lisp/clisp ~amd64
+#dev-lisp/clisp ~amd64
 
 # Until tar 1.30+ is stabilized
-app-arch/tar ~amd64
+#app-arch/tar ~amd64
 
 # xine-lib-1.2.6-r2 failed to build
-media-libs/xine-lib ~amd64
+#media-libs/xine-lib ~amd64
 
 # For freemind (the stable alternative is non-libre)
 dev-java/glassfish-jms-api ~amd64
+
+# Needed for calibre
 
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
