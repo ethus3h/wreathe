@@ -34,6 +34,7 @@ app-dicts/sword-chincvs ~amd64
 app-dicts/sword-family ~amd64
 app-dicts/sword-kjv ~amd64
 app-dicts/sword-frebbb ~amd64
+app-dicts/sword-chiun ~amd64
 app-dicts/sword-swahili ~amd64
 app-dicts/sword-kjvd ~amd64
 app-dicts/sword-alb ~amd64
