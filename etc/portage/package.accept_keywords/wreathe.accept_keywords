@@ -16,13 +16,21 @@ www-client/firefox-bin ~amd64
 
 # Apps with no stable version
 app-dicts/freedict-eng-ita ~amd64
+app-dicts/stardict-cdict-en-zh-big5 ~amd64
+app-dicts/stardict-quick-jpn-eng ~amd64
+app-dicts/freedict-deu-eng ~amd64
+net-print/c2esp ~amd64
 #app-editors/atom ~amd64
 app-forensics/afl ~amd64
 app-text/csvfix ~amd64
 dev-lang/gforth ~amd64
 dev-util/shellcheck ~amd64
-dev-python/awscli ~amd64
+app-dicts/stardict-xdict-zh-en-big5 ~amd64
+app-dicts/freedict-ita-eng ~amd64
+net-print/apsfilter ~amd64
+#dev-python/awscli ~amd64
 games-action/extreme-tuxracer ~amd64
+net-print/epson-inkjet-printer-escpr ~amd64
 games-board/knights ~amd64
 games-simulation/openttd ~amd64
 media-plugins/audacious-plugins ~amd64
@@ -35,6 +43,7 @@ media-video/obs-studio ~amd64
 net-misc/plowshare ~amd64
 net-misc/rclone ~amd64
 net-p2p/tribler ~amd64
+net-print/pnm2ppa ~amd64
 net-wireless/gnuradio ~amd64
 sci-electronics/fritzing ~amd64
 sci-mathematics/form ~amd64
