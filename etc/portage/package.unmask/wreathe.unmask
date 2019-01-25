@@ -4,6 +4,7 @@
 # Unmask packages from overlays (masked by wreathe.mask)
 media-gfx/utsushi::sirjaren
 sci-misc/xmedcon::imaging
+x11-libs/geis::stintel
 x11-misc/touchegg::stintel
 x11-misc/touchegg-gui::stintel
 
