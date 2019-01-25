@@ -106,9 +106,7 @@ sys-fs/progsreiserfs
 sys-fs/reiserfsprogs
 sys-fs/ufsutils
 virtual/cdrtools
-www-plugins/adobe-flash
 www-plugins/freshplayerplugin
-www-plugins/gnash
 www-plugins/lightspark
 www-plugins/mozplugger
 www-servers/xsp
