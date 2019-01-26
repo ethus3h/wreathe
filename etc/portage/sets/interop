@@ -84,8 +84,8 @@ net-misc/asterisk-core-sounds
 net-misc/asterisk-extra-sounds
 net-misc/asterisk-moh-opsound
 net-misc/dagr
-net-misc/dahdi
-net-misc/dahdi-tools
+#net-misc/dahdi
+#net-misc/dahdi-tools
 net-misc/dhcpcd
 net-misc/hylafaxplus
 net-misc/iperf

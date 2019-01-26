@@ -1,4 +1,12 @@
 {
+    "dev-libs/userspace-rcu:0": [
+        "dev-libs/userspace-rcu-0.10.1", 
+        "27324", 
+        [
+            "/usr/lib64/liburcu.so.4.0.0", 
+            "/usr/lib64/liburcu.so.4"
+        ]
+    ], 
     "dev-scheme/guile:12": [
         "dev-scheme/guile-1.8.8-r3", 
         "26787", 
