@@ -20,6 +20,7 @@ dev-ruby/kpeg -doc
 dev-ruby/mustache -doc
 dev-ruby/racc -doc
 dev-ruby/rake -doc
+dev-ruby/rdoc -doc
 media-libs/openimageio -colorio
 
 # Wreathe overlay
