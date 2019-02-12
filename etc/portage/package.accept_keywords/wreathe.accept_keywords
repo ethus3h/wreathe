@@ -1,3 +1,6 @@
+# Until WebAssembly target is available in stable
+sys-devel/clang **
+
 # for dumpgenerator.py
 dev-python/kitchen ~amd64
 
