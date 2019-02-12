@@ -22,6 +22,7 @@ dev-ruby/mustache -doc
 dev-ruby/racc -doc
 dev-ruby/rake -doc
 dev-ruby/rdoc -doc
+kde-frameworks/extra-cmake-modules -doc
 media-libs/openimageio -colorio
 
 # Wreathe overlay
