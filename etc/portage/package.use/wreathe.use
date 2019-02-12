@@ -24,6 +24,7 @@ dev-ruby/rake -doc
 dev-ruby/rdoc -doc
 kde-frameworks/extra-cmake-modules -doc
 media-libs/openimageio -colorio
+sys-devel/llvm -doc
 
 # Wreathe overlay
 dev-libs/libdbusmenu-qt qt4
