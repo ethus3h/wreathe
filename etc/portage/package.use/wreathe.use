@@ -15,6 +15,7 @@ dev-python/pygments -doc
 dev-python/pyopenssl -doc
 dev-python/urllib3 -doc
 dev-python/cffi -doc
+dev-python/sphinx -doc
 dev-ruby/json -doc
 dev-ruby/kpeg -doc
 dev-ruby/mustache -doc
