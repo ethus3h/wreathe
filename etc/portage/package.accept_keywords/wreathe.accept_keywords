@@ -2,6 +2,7 @@
 sys-libs/compiler-rt-sanitizers **
 sys-libs/compiler-rt **
 sys-libs/libcxx **
+sys-libs/libcxxabi **
 sys-libs/libomp **
 sys-devel/clang **
 sys-devel/clang-runtime **
