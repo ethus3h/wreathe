@@ -1,6 +1,7 @@
 # Until WebAssembly target is available in stable
 sys-libs/compiler-rt-sanitizers **
 sys-libs/compiler-rt **
+sys-libs/libcxx **
 sys-libs/libomp **
 sys-devel/clang **
 sys-devel/clang-runtime **
