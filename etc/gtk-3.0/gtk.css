@@ -2,4 +2,18 @@
   -GtkScrollbar-has-forward-stepper: true;
   -GtkScrollbar-has-backward-stepper: true;
 }
+*{
+  -GtkRange-slider-width: 20;
+}
+.scrollbar {
+  -GtkScrollbar-has-backward-stepper: true;
+  -GtkScrollbar-has-forward-stepper: true;
+  -GtkRange-slider-width: 20;
+  -GtkRange-stepper-size: 20;
+  min-width: 15px;
+}
 
+.scrollbar.vertical slider,
+scrollbar.vertical slider {
+min-width: 15px;
+} 
