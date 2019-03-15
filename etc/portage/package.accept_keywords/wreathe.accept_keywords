@@ -17,7 +17,7 @@ media-sound/musescore **
 
 # For tribler
 dev-python/plyvel ~amd64
-dev-python/leveldb ~amd64
+dev-libs/leveldb ~amd64
 
 # Use the latest versions of these apps
 
