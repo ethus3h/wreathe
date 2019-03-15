@@ -575,6 +575,7 @@ media-libs/tiff abi_x86_32
 media-libs/vamp-plugin-sdk abi_x86_32
 media-libs/vo-aacenc abi_x86_32
 media-libs/vo-amrwbenc abi_x86_32
+media-libs/vulkan-loader abi_x86_32
 media-libs/x264 abi_x86_32
 media-libs/x265 abi_x86_32
 media-libs/xvid abi_x86_32
