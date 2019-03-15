@@ -15,6 +15,9 @@ dev-python/kitchen ~amd64
 # Until native-theme patch applies to ~amd64
 media-sound/musescore **
 
+# For tribler
+dev-python/plyvel ~amd64
+
 # Use the latest versions of these apps
 
 sys-apps/nix ~amd64
