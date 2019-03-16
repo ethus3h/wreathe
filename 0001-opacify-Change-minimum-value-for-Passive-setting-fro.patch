@@ -1,0 +1,25 @@
+From 78d830adf2f7d67ce1b9e12a25ae6972e6474e82 Mon Sep 17 00:00:00 2001
+From: ethus3h <kolubat@gmail.com>
+Date: Sat, 16 Mar 2019 14:41:58 -0400
+Subject: [PATCH] opacify: Change minimum value for Passive setting from 1 to 0
+
+---
+ metadata/opacify.xml.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/metadata/opacify.xml.in b/metadata/opacify.xml.in
+index f9fa342..22994bc 100644
+--- a/metadata/opacify.xml.in
++++ b/metadata/opacify.xml.in
+@@ -76,7 +76,7 @@
+             <_short>Passive Opacity</_short>
+             <_long>The maximum opacity percentage a window blocking the current targeted window can have. A blocking window will have either this opacity or the preset opacity, whichever is lower.</_long>
+             <default>10</default>
+-            <min>1</min>
++            <min>0</min>
+             <max>100</max>
+           </option>
+         </subgroup>
+-- 
+2.16.4
+
