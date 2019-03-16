@@ -4,14 +4,14 @@ index 0fa06c80..3c579f38 100644
 +++ b/metadata/wall.xml.in
 @@ -25,12 +25,12 @@
  				<option name="miniscreen" type="bool">
- 					<_short>Show Live Viewport Previews</_short>
- 					<_long>Show live viewport previews in switcher window</_long>
+ 					<short>Show Live Viewport Previews</short>
+ 					<long>Show live viewport previews in switcher window</long>
 -					<default>false</default>
 +					<default>true</default>
  				</option>
  				<option name="preview_timeout" type="float">
- 					<_short>Switch Target Preview Visibility Time</_short>
- 					<_long>Duration (in s) the switch target preview should remain visible after switching ends.</_long>
+ 					<short>Switch Target Preview Visibility Time</short>
+ 					<long>Duration (in s) the switch target preview should remain visible after switching ends.</long>
 -					<default>0.4</default>
 +					<default>0.129900</default>
  					<min>0.0</min>
@@ -19,24 +19,24 @@ index 0fa06c80..3c579f38 100644
  					<precision>0.05</precision>
 @@ -45,14 +45,14 @@
  				<option name="edge_radius" type="int">
- 					<_short>Edge Radius</_short>
- 					<_long>Radius of the rounded edge</_long>
+ 					<short>Edge Radius</short>
+ 					<long>Radius of the rounded edge</long>
 -					<default>5</default>
 +					<default>0</default>
  					<min>0</min>
  					<max>20</max>
  				</option>
  				<option name="border_width" type="int">
- 					<_short>Border Width</_short>
- 					<_long>Width of the border between the previews</_long>
+ 					<short>Border Width</short>
+ 					<long>Width of the border between the previews</long>
 -					<default>10</default>
 +					<default>8</default>
  					<min>0</min>
  					<max>30</max>
  				</option>
 @@ -60,9 +60,9 @@
- 					<_short>Outline Color</_short>
- 					<_long>Outline color of the switcher window.</_long>
+ 					<short>Outline Color</short>
+ 					<long>Outline color of the switcher window.</long>
  					<default>
 -						<red>0x3333</red>
 -						<green>0x3333</green>
@@ -48,8 +48,8 @@ index 0fa06c80..3c579f38 100644
  						</default>
  				</option>
 @@ -73,7 +73,7 @@
- 						<_short>Base Color</_short>
- 						<_long>First color for the background gradient of the switcher window.</_long>
+ 						<short>Base Color</short>
+ 						<long>First color for the background gradient of the switcher window.</long>
  						<default>
 -							<red>0xcccc</red>
 +							<red>0xe5e5</red>
@@ -57,8 +57,8 @@ index 0fa06c80..3c579f38 100644
  							<blue>0xe665</blue>
  							<alpha>0xd998</alpha>
 @@ -83,9 +83,9 @@
- 						<_short>Highlight Color</_short>
- 						<_long>Second color for the background gradient of the switcher window.</_long>
+ 						<short>Highlight Color</short>
+ 						<long>Second color for the background gradient of the switcher window.</long>
  						<default>
 -							<red>0xf332</red>
 -							<green>0xf332</green>
@@ -70,8 +70,8 @@ index 0fa06c80..3c579f38 100644
  						</default>
  					</option>
 @@ -93,9 +93,9 @@
- 						<_short>Shadow Color</_short>
- 						<_long>Third color for the background gradient of the switcher window.</_long>
+ 						<short>Shadow Color</short>
+ 						<long>Third color for the background gradient of the switcher window.</long>
  						<default>
 -							<red>0xf332</red>
 -							<green>0xf332</green>
@@ -83,8 +83,8 @@ index 0fa06c80..3c579f38 100644
  						</default>
  					</option>
 @@ -107,20 +107,20 @@
- 						<_short>Base Color</_short>
- 						<_long>First color for the thumb gradient of the switcher window.</_long>
+ 						<short>Base Color</short>
+ 						<long>First color for the thumb gradient of the switcher window.</long>
  						<default>
 -							<red>0x3333</red>
 -							<green>0x3333</green>
@@ -97,8 +97,8 @@ index 0fa06c80..3c579f38 100644
  						</default>
  					</option>
  					<option name="thumb_gradient_highlight_color" type="color">
- 						<_short>Highlight Color</_short>
- 						<_long>Second color for the thumb gradient of the switcher window.</_long>
+ 						<short>Highlight Color</short>
+ 						<long>Second color for the thumb gradient of the switcher window.</long>
  						<default>
 -							<red>0x3fff</red>
 -							<green>0x3fff</green>
@@ -112,7 +112,7 @@ index 0fa06c80..3c579f38 100644
  					</option>
  				</subgroup>
 @@ -132,8 +132,8 @@
- 						<_long>First color for the thumb highlight gradient of the switcher window.</_long>
+ 						<long>First color for the thumb highlight gradient of the switcher window.</long>
  						<default>
  							<red>0xffff</red>
 -							<green>0xffff</green>
@@ -123,8 +123,8 @@ index 0fa06c80..3c579f38 100644
  						</default>
  					</option>
 @@ -141,9 +141,9 @@
- 						<_short>Shadow Color</_short>
- 						<_long>Second color for the thumb highlight gradient of the switcher window.</_long>
+ 						<short>Shadow Color</short>
+ 						<long>Second color for the thumb highlight gradient of the switcher window.</long>
  						<default>
 -							<red>0xdfff</red>
 -							<green>0xdfff</green>
@@ -136,8 +136,8 @@ index 0fa06c80..3c579f38 100644
  						</default>
  					</option>
 @@ -155,9 +155,9 @@
- 						<_short>Base Color</_short>
- 						<_long>First color of the arrow of the switcher window.</_long>
+ 						<short>Base Color</short>
+ 						<long>First color of the arrow of the switcher window.</long>
  						<default>
 -							<red>0xe665</red>
 -							<green>0xe665</green>
@@ -149,8 +149,8 @@ index 0fa06c80..3c579f38 100644
  						</default>
  					</option>
 @@ -165,9 +165,9 @@
- 						<_short>Shadow Color</_short>
- 						<_long>Second color of the arrow of the switcher window.</_long>
+ 						<short>Shadow Color</short>
+ 						<long>Second color of the arrow of the switcher window.</long>
  						<default>
 -							<red>0xdc28</red>
 -							<green>0xdc28</green>
@@ -163,8 +163,8 @@ index 0fa06c80..3c579f38 100644
  					</option>
 @@ -183,7 +183,7 @@
  				<option name="slide_duration" type="float">
- 					<_short>Wall Sliding Duration</_short>
- 					<_long>Duration (in s) for wall sliding viewport switching animation</_long>
+ 					<short>Wall Sliding Duration</short>
+ 					<long>Duration (in s) for wall sliding viewport switching animation</long>
 -					<default>0.3</default>
 +					<default>1.0</default>
  					<min>0.0</min>
@@ -172,25 +172,25 @@ index 0fa06c80..3c579f38 100644
  					<precision>0.05</precision>
 @@ -256,12 +256,12 @@
  					<option name="left_window_key" type="key">
- 						<_short>Move Left With Window</_short>
- 						<_long>Move with window along the wall to the left</_long>
+ 						<short>Move Left With Window</short>
+ 						<long>Move with window along the wall to the left</long>
 -						<default>&lt;Primary&gt;&lt;Alt&gt;&lt;Shift&gt;Left</default>
 +						<default></default>
  					</option>
  					<option name="right_window_key" type="key">
- 						<_short>Move Right With Window</_short>
- 						<_long>Move with window along the wall to the right</_long>
+ 						<short>Move Right With Window</short>
+ 						<long>Move with window along the wall to the right</long>
 -						<default>&lt;Primary&gt;&lt;Alt&gt;&lt;Shift&gt;Right</default>
 +						<default></default>
  					</option>
  					<option name="up_window_key" type="key">
- 						<_short>Move Up With Window</_short>
+ 						<short>Move Up With Window</short>
 @@ -348,7 +348,7 @@
  				<option name="edgeflip_move" type="bool">
- 					<_short>Edge Flip Move</_short>
- 					<_long>Flip viewport when moving a window to a screen edge</_long>
+ 					<short>Edge Flip Move</short>
+ 					<long>Flip viewport when moving a window to a screen edge</long>
 -					<default>true</default>
 +					<default>false</default>
  				</option>
  				<option name="edgeflip_dnd" type="bool">
- 					<_short>Edge Flip DnD</_short>
+ 					<short>Edge Flip DnD</short>

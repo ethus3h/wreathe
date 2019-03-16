@@ -4,8 +4,8 @@ index 1fb8d615..af23a6b2 100644
 +++ b/metadata/move.xml.in
 @@ -18,7 +18,7 @@
  	    <option name="opacity" type="int">
- 		<_short>Opacity</_short>
- 		<_long>Opacity level of moving windows</_long>
+ 		<short>Opacity</short>
+ 		<long>Opacity level of moving windows</long>
 -		<default>100</default>
 +		<default>75</default>
  		<min>1</min>

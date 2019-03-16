@@ -4,32 +4,32 @@ index 518e7b84..7a1cdf7b 100644
 +++ b/metadata/obs.xml.in
 @@ -21,7 +21,7 @@
  		<option name="opacity_increase_button" type="button">
- 		    <_short>Increase Opacity</_short>
- 		    <_long>Opacity Increase</_long>
+ 		    <short>Increase Opacity</short>
+ 		    <long>Opacity Increase</long>
 -		    <default>&lt;Alt&gt;Button4</default>
 +		    <default>&lt;Primary&gt;&lt;Alt&gt;Button3</default>
  		</option>
  		<option name="opacity_decrease_key" type="key">
- 		    <_short>Decrease Opacity</_short>
+ 		    <short>Decrease Opacity</short>
 @@ -31,7 +31,7 @@
  		<option name="opacity_decrease_button" type="button">
- 		    <_short>Decrease Opacity</_short>
- 		    <_long>Opacity Decrease</_long>
+ 		    <short>Decrease Opacity</short>
+ 		    <long>Opacity Decrease</long>
 -		    <default>&lt;Alt&gt;Button5</default>
 +		    <default>&lt;Primary&gt;&lt;Alt&gt;Button1</default>
  		</option>
  	    </group>
  	    <group>
 @@ -97,15 +97,15 @@
- 			<_short>Windows</_short>
- 			<_long>Windows that should have a different opacity by default</_long>
+ 			<short>Windows</short>
+ 			<long>Windows that should have a different opacity by default</long>
  			<type>match</type>
 -			<default/>
 +			<default>name=xvisbell</default>
  		    </option>
  		    <option name="opacity_values" type="list">
- 			<_short>Window values</_short>
- 			<_long>Opacity values for windows</_long>
+ 			<short>Window values</short>
+ 			<long>Opacity values for windows</long>
  			<type>int</type>
 -			<default/>
  			<min>0</min>

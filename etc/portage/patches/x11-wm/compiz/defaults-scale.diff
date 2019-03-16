@@ -4,8 +4,8 @@ index 2dc9f149..b1111933 100644
 +++ b/metadata/scale.xml.in
 @@ -28,9 +28,7 @@
  		<option name="initiate_edge" type="edge">
- 		    <_short>Initiate Window Picker</_short>
- 		    <_long>Layout and start transforming windows</_long>
+ 		    <short>Initiate Window Picker</short>
+ 		    <long>Layout and start transforming windows</long>
 -		    <default>
 -			<edge name="TopRight"/>
 -		    </default>
@@ -14,29 +14,29 @@ index 2dc9f149..b1111933 100644
  		</option>
  		<option name="initiate_key" type="key">
 @@ -46,14 +44,19 @@
- 		    <_short>Initiate Window Picker For All Windows</_short>
- 		    <_long>Layout and start transforming all windows</_long>
+ 		    <short>Initiate Window Picker For All Windows</short>
+ 		    <long>Layout and start transforming all windows</long>
  		    <allowed edgednd="true"/>
 +		    <default>
 +			<edge name="Bottom"/>
 +		    </default>
  		</option>
  		<option name="initiate_all_button" type="button">
- 		    <_short>Initiate Window Picker For All Windows</_short>
- 		    <_long>Layout and start transforming all windows</_long>
+ 		    <short>Initiate Window Picker For All Windows</short>
+ 		    <long>Layout and start transforming all windows</long>
 +		    <default>&lt;LeftEdge&gt;&lt;BottomEdge&gt;&lt;BottomLeftEdge&gt;Button1</default>
  		</option>
  		<option name="initiate_all_key" type="key">
- 		    <_short>Initiate Window Picker For All Windows</_short>
- 		    <_long>Layout and start transforming all windows</_long>
+ 		    <short>Initiate Window Picker For All Windows</short>
+ 		    <long>Layout and start transforming all windows</long>
 +		    <default>F13</default>
  		</option>
  		<option name="initiate_group_edge" type="edge">
- 		    <_short>Initiate Window Picker For Window Group</_short>
+ 		    <short>Initiate Window Picker For Window Group</short>
 @@ -87,7 +90,7 @@
  		<option name="show_desktop" type="bool">
- 		    <_short>Click Desktop to Show Desktop</_short>
- 		    <_long>Enter Show Desktop mode when Desktop is clicked during Scale</_long>
+ 		    <short>Click Desktop to Show Desktop</short>
+ 		    <long>Enter Show Desktop mode when Desktop is clicked during Scale</long>
 -		    <default>true</default>
 +		    <default>false</default>
  		</option>
@@ -44,8 +44,8 @@ index 2dc9f149..b1111933 100644
  	</display>
 @@ -112,7 +115,7 @@
  		<option name="timestep" type="float">
- 		    <_short>Timestep</_short>
- 		    <_long>Scale timestep</_long>
+ 		    <short>Timestep</short>
+ 		    <long>Scale timestep</long>
 -		    <default>1.2</default>
 +		    <default>0.1</default>
  		    <min>0.1</min>
@@ -53,14 +53,14 @@ index 2dc9f149..b1111933 100644
  		    <precision>0.1</precision>
 @@ -120,12 +123,12 @@
  		<option name="darken_back" type="bool">
- 		    <_short>Darken Background</_short>
- 		    <_long>Darken background when scaling windows</_long>
+ 		    <short>Darken Background</short>
+ 		    <long>Darken background when scaling windows</long>
 -		    <default>true</default>
 +		    <default>false</default>
  		</option>
  		<option name="opacity" type="int">
- 		    <_short>Opacity</_short>
- 		    <_long>Amount of opacity in percent</_long>
+ 		    <short>Opacity</short>
+ 		    <long>Amount of opacity in percent</long>
 -		    <default>75</default>
 +		    <default>90</default>
  		    <min>0</min>

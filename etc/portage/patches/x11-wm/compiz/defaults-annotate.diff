@@ -4,25 +4,25 @@ index 377563c4..321eda83 100644
 +++ b/metadata/annotate.xml.in
 @@ -8,7 +8,7 @@
  	    <option name="initiate_free_draw_button" type="button">
- 		<_short>Initiate Free Draw</_short>
- 		<_long>Initiate freehand drawing</_long>
+ 		<short>Initiate Free Draw</short>
+ 		<long>Initiate freehand drawing</long>
 -		<default>&lt;Super&gt;&lt;Alt&gt;Button1</default>
 +		<default>&lt;Shift&gt;&lt;Primary&gt;Button2</default>
  	    </option>
  	    <option name="initiate_line_button" type="button">
- 		<_short>Initiate Line</_short>
+ 		<short>Initiate Line</short>
 @@ -33,12 +33,12 @@
  	    <option name="erase_button" type="button">
- 		<_short>Initiate erase</_short>
- 		<_long>Initiate annotate erasing</_long>
+ 		<short>Initiate erase</short>
+ 		<long>Initiate annotate erasing</long>
 -		<default>&lt;Super&gt;&lt;Alt&gt;Button3</default>
 +		<default>&lt;Shift&gt;&lt;Primary&gt;&lt;Alt&gt;Button2</default>
  	    </option>
  	    <option name="clear_key" type="key">
- 		<_short>Clear</_short>
- 		<_long>Clear</_long>
+ 		<short>Clear</short>
+ 		<long>Clear</long>
 -		<default>&lt;Super&gt;&lt;Alt&gt;k</default>
 +		<default>&lt;Shift&gt;&lt;Primary&gt;colon</default>
  	    </option>
  	    <option name="clear_button" type="button">
- 		<_short>Clear</_short>
+ 		<short>Clear</short>

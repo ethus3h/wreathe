@@ -4,8 +4,8 @@ index 74ce4319..52191bbb 100644
 +++ b/metadata/place.xml.in
 @@ -13,7 +13,7 @@
  	    <option name="mode" type="int">
- 		<_short>Placement Mode</_short>
- 		<_long>Algorithm to use for window placement</_long>
+ 		<short>Placement Mode</short>
+ 		<long>Algorithm to use for window placement</long>
 -		<default>0</default>
 +		<default>2</default>
  		<min>0</min>
