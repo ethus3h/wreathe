@@ -35,6 +35,6 @@ index f9fa342..f13b132 100644
              <_long>The maximum opacity percentage a window blocking the current targeted window can have. A blocking window will have either this opacity or the preset opacity, whichever is lower.</_long>
 -            <default>10</default>
 +            <default>50</default>
-             <min>1</min>
+             <min>0</min>
              <max>100</max>
            </option>
