@@ -1,0 +1,25 @@
+From 8ceb84e3ec0fd495669d54bfb24e26f618069e47 Mon Sep 17 00:00:00 2001
+From: ethus3h <kolubat@gmail.com>
+Date: Sat, 16 Mar 2019 15:37:36 -0400
+Subject: [PATCH] move: Change minimum value for opacity from 1 to 0
+
+---
+ metadata/move.xml.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/metadata/move.xml.in b/metadata/move.xml.in
+index 3c8bc50b..9ddaf0a6 100644
+--- a/metadata/move.xml.in
++++ b/metadata/move.xml.in
+@@ -21,7 +21,7 @@
+ 		    <short>Opacity</short>
+ 		    <long>Opacity level of moving windows</long>
+ 		    <default>100</default>
+-		    <min>1</min>
++		    <min>0</min>
+ 		    <max>100</max>
+ 		</option>
+ 		<option name="constrain_y" type="bool">
+-- 
+2.16.4
+

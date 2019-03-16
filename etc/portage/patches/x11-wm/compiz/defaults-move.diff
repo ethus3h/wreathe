@@ -8,6 +8,6 @@ index 1fb8d615..af23a6b2 100644
  		<long>Opacity level of moving windows</long>
 -		<default>100</default>
 +		<default>75</default>
- 		<min>1</min>
+ 		<min>0</min>
  		<max>100</max>
  	    </option>
