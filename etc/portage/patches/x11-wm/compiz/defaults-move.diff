@@ -2,7 +2,7 @@ diff --git a/metadata/move.xml.in b/metadata/move.xml.in
 index 1fb8d615..af23a6b2 100644
 --- a/metadata/move.xml.in
 +++ b/metadata/move.xml.in
-@@ -18,7 +18,7 @@
+@@ -20,7 +20,7 @@
  	    <option name="opacity" type="int">
  		<short>Opacity</short>
  		<long>Opacity level of moving windows</long>
