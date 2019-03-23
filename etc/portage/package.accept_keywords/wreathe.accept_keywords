@@ -300,6 +300,7 @@ dev-java/glassfish-jms-api ~amd64
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
 =app-misc/ember-information-technology-environment-9999::wreathe-overlay **
+=app-misc/eite-wasm-toolchain-9999::wreathe-overlay **
 =app-misc/wreathe-base-9999::wreathe-overlay **
 =app-misc/wreathe-overlays-redist-9999::wreathe-overlay **
 =games-arcade/gunmetal-grey-9999::wreathe-overlay **
