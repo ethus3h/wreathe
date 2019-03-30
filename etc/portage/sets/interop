@@ -57,7 +57,6 @@ app-text/wdiff
 app-text/wv
 dev-python/github-backup
 dev-vcs/bzr
-dev-vcs/bzr-fastimport
 dev-vcs/cssc
 dev-vcs/darcs
 dev-vcs/subversion
@@ -108,7 +107,6 @@ sys-fs/ufsutils
 virtual/cdrtools
 #www-plugins/freshplayerplugin
 www-plugins/lightspark
-www-plugins/mozplugger
 www-servers/xsp
 x11-misc/xcb
 x11-terms/x3270
