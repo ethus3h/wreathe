@@ -246,6 +246,7 @@ dev-libs/libcec cubox exynos raspberry-pi
 dev-libs/xmlsec nss
 dev-python/ipython nbconvert notebook
 dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
+games-fps/sauerbraten server
 media-fonts/culmus ancient fancy taamey
 media-gfx/asymptote offscreen sigsegv
 media-gfx/imagemagick fpx hdri lqr
