@@ -15,6 +15,7 @@ app-misc/jq
 app-misc/rlwrap
 app-text/csvfix
 app-text/tree
+dev-db/mariadb
 dev-util/cloc
 net-analyzer/net-snmp
 net-analyzer/netcat
