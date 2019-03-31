@@ -26,6 +26,7 @@ app-text/getxbook ~amd64
 media-plugins/calf ~amd64
 
 # Apps with no stable version
+net-im/quaternion ~amd64
 app-dicts/freedict-eng-ita ~amd64
 app-dicts/stardict-cdict-en-zh-big5 ~amd64
 app-dicts/stardict-quick-jpn-eng ~amd64

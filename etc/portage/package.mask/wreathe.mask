@@ -2,6 +2,7 @@
 #*/*::brother-overlay
 */*::dotnet
 */*::imaging
+*/*::matrix
 */*::R_Overlay
 */*::sirjaren
 */*::stintel
