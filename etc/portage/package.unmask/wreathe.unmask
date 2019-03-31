@@ -9,6 +9,7 @@ media-gfx/utsushi::sirjaren
 sci-misc/xmedcon::imaging
 dev-libs/frame::stintel
 dev-libs/grail::stintel
+dev-libs/libqmatrixclient::matrix
 net-im/quaternion::matrix
 x11-libs/geis::stintel
 x11-misc/touchegg::stintel
