@@ -1,3 +1,6 @@
+# Required for net-im/quaternion, but not in the ebuild
+dev-qt/qtmultimedia
+
 app-arch/alien
 app-arch/cabextract
 app-arch/cfv
@@ -75,6 +78,7 @@ media-video/mjpegtools
 net-dialup/freeradius-client
 net-dialup/mgetty
 net-dialup/rp-pppoe
+net-im/quaternion
 #net-libs/xulrunner
 net-mail/mailutils
 net-mail/metamail
