@@ -41,6 +41,14 @@
             "/usr/lib64/libicui18n.so.60"
         ]
     ], 
+    "dev-libs/json-c:0": [
+        "dev-libs/json-c-0.13.1-r1", 
+        "28314", 
+        [
+            "/usr/lib64/libjson-c.so.2.0.1", 
+            "/usr/lib64/libjson-c.so.2"
+        ]
+    ], 
     "dev-libs/libcdio:0": [
         "dev-libs/libcdio-2.0.0-r1", 
         "27916", 
@@ -111,12 +119,36 @@
             "/usr/lib32/libkvazaar.so.3"
         ]
     ], 
+    "media-libs/libmetalink:0": [
+        "media-libs/libmetalink-0.1.3", 
+        "28349", 
+        [
+            "/usr/lib64/libmetalink.so.2.0.0", 
+            "/usr/lib64/libmetalink.so.2"
+        ]
+    ], 
+    "media-libs/libsidplayfp:0": [
+        "media-libs/libsidplayfp-1.8.8", 
+        "28281", 
+        [
+            "/usr/lib64/libsidplayfp.so.3.0.4", 
+            "/usr/lib64/libsidplayfp.so.3"
+        ]
+    ], 
     "media-libs/x265:0": [
         "media-libs/x265-2.8", 
         "28000", 
         [
             "/usr/lib32/libx265.so.146", 
             "/usr/lib64/libx265.so.146"
+        ]
+    ], 
+    "sys-apps/lm_sensors:0": [
+        "sys-apps/lm_sensors-3.5.0", 
+        "28309", 
+        [
+            "/usr/lib64/libsensors.so.4.4.0", 
+            "/usr/lib64/libsensors.so.4"
         ]
     ], 
     "sys-libs/binutils-libs:0": [
