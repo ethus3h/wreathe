@@ -71,8 +71,13 @@ media-gfx/svg2rlg
 media-sound/abcm2ps
 media-sound/abcmidi
 media-sound/dcadec
+media-sound/mac
+media-sound/mp3gain
+media-sound/opus-tools
 media-sound/toolame
+media-sound/ttaenc
 media-sound/vorbis-tools
+media-sound/vorbisgain
 media-video/mjpegtools
 #media-video/sswf
 net-dialup/freeradius-client
