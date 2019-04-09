@@ -315,6 +315,7 @@ dev-java/glassfish-jms-api ~amd64
 
 # Overlays
 */*::compiz-reloaded **
+x11-plugins/compiz-extra-models::compiz-reloaded ~amd64
 
 # Epson scanner driver (depends on gnulib)
 =media-gfx/utsushi-9999 **
