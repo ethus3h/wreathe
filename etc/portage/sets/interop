@@ -82,7 +82,7 @@ media-video/mjpegtools
 net-dialup/freeradius-client
 net-dialup/mgetty
 net-dialup/rp-pppoe
-net-im/quaternion
+#net-im/quaternion
 #net-libs/xulrunner
 net-mail/mailutils
 net-mail/metamail
