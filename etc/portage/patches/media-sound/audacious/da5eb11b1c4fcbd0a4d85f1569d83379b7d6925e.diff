@@ -9,7 +9,7 @@ index 603a4752e..4444f3a21 100644
 -                data->set_str (FallbackArtist, second);
 -                data->set_str (FallbackAlbum, first);
 +                data->set_str (FallbackArtist, first);
-+                data->set_str (FallbackAlbum, nullptr);
++                data->set_str (FallbackAlbum, "");
              }
              else
                  data->set_str (artist ? FallbackAlbum : FallbackArtist, first);
