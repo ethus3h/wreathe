@@ -1,0 +1,13 @@
+diff --git a/src/scrobbler2/config_window.cc b/src/scrobbler2/config_window.cc
+index 374c04b73..3663cdb1d 100644
+--- a/src/scrobbler2/config_window.cc
++++ b/src/scrobbler2/config_window.cc
+@@ -37,7 +37,7 @@ static gboolean permission_checker_thread (void *) {
+             auto msg1 = _("Permission denied.  Open the following "
+              "URL in a browser, allow Audacious access to your account, and "
+              "then click 'Check Permission' again:");
+-            auto url = str_printf("http://www.last.fm/api/auth/?api_key=%s"
++            auto url = str_printf("http://beta.listenbrainz.org/api/auth/?api_key=%s"
+              "&token=%s", SCROBBLER_API_KEY, (const char *)request_token);
+ 
+             hook_call("ui show error", (void *)(const char *)str_concat
