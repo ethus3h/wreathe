@@ -649,6 +649,7 @@ net-libs/libcapi abi_x86_32
 net-libs/libnsl abi_x86_32
 net-libs/libpcap abi_x86_32
 net-libs/libproxy abi_x86_32
+net-libs/libpsl abi_x86_32
 net-libs/libsoup abi_x86_32
 net-libs/libssh abi_x86_32
 net-libs/libtirpc abi_x86_32
