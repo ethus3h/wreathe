@@ -127,14 +127,6 @@
             "/usr/lib64/libmetalink.so.2"
         ]
     ], 
-    "media-libs/libsidplayfp:0": [
-        "media-libs/libsidplayfp-1.8.8", 
-        "28281", 
-        [
-            "/usr/lib64/libsidplayfp.so.3.0.4", 
-            "/usr/lib64/libsidplayfp.so.3"
-        ]
-    ], 
     "media-libs/x265:0": [
         "media-libs/x265-2.8", 
         "28000", 

@@ -254,7 +254,7 @@ media-libs/libcanberra gtk3 tdb
 media-libs/mesa d3d9 gles1 gles2 xa
 media-libs/speex utils
 media-libs/xine-lib vdr
-media-sound/audacious-plugins aosd bs2b cue fluidsynth gme http libnotify qtmedia scrobbler sid soxr speedpitch
+media-plugins/audacious-plugins aosd bs2b cue fluidsynth gme http libnotify qtmedia scrobbler sid soxr speedpitch
 media-tv/kodi webserver
 media-video/minitube download
 net-analyzer/nmap nping
