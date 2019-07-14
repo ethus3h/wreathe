@@ -350,6 +350,7 @@ cross-avr/gdb ~amd64
 
 # build failure with stable
 =app-antivirus/clamav-0.99.2-r1 ~amd64
+gnustep-base/gnustep-gui ~amd64
 
 # Not yet stabilized, used by recent Firefox
 dev-libs/nss ~amd64
