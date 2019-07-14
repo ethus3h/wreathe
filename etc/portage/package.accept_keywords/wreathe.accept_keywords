@@ -49,6 +49,7 @@ games-board/pychess ~amd64
 app-dicts/sword-ylt ~amd64
 games-action/minetest_game ~amd64
 games-board/sjeng ~amd64
+dev-libs/angelscript ~amd64
 games-board/pouetchess ~amd64
 games-action/minetest ~amd64
 games-fps/sauerbraten ~amd64
