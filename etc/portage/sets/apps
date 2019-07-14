@@ -66,4 +66,5 @@ virtual/ooo
 www-client/firefox
 www-client/links
 www-client/lynx
+www-client/w3m
 www-misc/htdig
