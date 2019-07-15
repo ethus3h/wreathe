@@ -1,0 +1,18 @@
+diff --git a/src/scrobbler2/scrobbler_communication.cc b/src/scrobbler2/scrobbler_communication.cc
+index 29dfbcf96..e4294b670 100644
+--- a/src/scrobbler2/scrobbler_communication.cc
++++ b/src/scrobbler2/scrobbler_communication.cc
+@@ -216,10 +216,10 @@ static gboolean scrobbler_test_connection() {
+     gboolean success = send_message_to_lastfm(testmsg);
+ 
+     if (success == false) {
+-        AUDDBG("Network problems. Will not scrobble any tracks.\n");
+-        scrobbling_enabled = false;
++        AUDERR("Network problems. Will not scrobble any tracks.\n");
++        scrobbling_enabled = true;
+         if (permission_check_requested) {
+-            perm_result = PERMISSION_NONET;
++            perm_result = PERMISSION_ALLOWED;
+         }
+         return false;
+     }
