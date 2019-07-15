@@ -1,0 +1,35 @@
+diff --git a/src/scrobbler2/scrobbler_communication.cc b/src/scrobbler2/scrobbler_communication.cc
+index 29dfbcf96..ee5db8d3d 100644
+--- a/src/scrobbler2/scrobbler_communication.cc
++++ b/src/scrobbler2/scrobbler_communication.cc
+@@ -217,11 +217,11 @@ static gboolean scrobbler_test_connection() {
+ 
+     if (success == false) {
+         AUDDBG("Network problems. Will not scrobble any tracks.\n");
+-        scrobbling_enabled = false;
++        scrobbling_enabled = true;
+         if (permission_check_requested) {
+-            perm_result = PERMISSION_NONET;
++            perm_result = PERMISSION_ALLOWED;
+         }
+-        return false;
++        return true;
+     }
+ 
+     String error_code;
+@@ -236,12 +236,12 @@ static gboolean scrobbler_test_connection() {
+             )) {
+             session_key = String();
+             aud_set_str("scrobbler", "session_key", "");
+-            scrobbling_enabled = false;
++            scrobbling_enabled = true;
+         } else {
+             //network problem.
+-            scrobbling_enabled = false;
++            scrobbling_enabled = true;
+             AUDDBG("Connection NOT OK. Scrobbling disabled\n");
+-            success = false;
++            success = true;
+         }
+     } else {
+         //THIS IS THE ONLY PLACE WHERE SCROBBLING IS SET TO ENABLED IN RUN-TIME
