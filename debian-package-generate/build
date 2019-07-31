@@ -12,8 +12,8 @@ function buildRpm() {
 
 targets=(emerald-themes)
 targetCount="${#targets[@]}"
-mkdir rpm-output
-mkdir deb-output
+mkdir -p rpm-output
+mkdir -p deb-output
 cd rpm-output
 for (( i=0; i<targetCount; i++ )); do
     buildRpm "${targets[$i]}"
