@@ -41,7 +41,7 @@ targets=(
     ember-shared
     futuramerlin-web-toolkit
     wreathe-backgrounds
-    wreathe-typefaces-family
+    wreathe-typeface-family
     wreathe-typefaces-redist
 
     kde-frameworks/kdelibs:4
