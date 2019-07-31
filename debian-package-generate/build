@@ -7,6 +7,7 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
 packageToPackage="$1"
+shift
 
 function buildPackages() {
     path="$(equery w "$1")"
@@ -36,7 +37,7 @@ cd ~
 mkdir -p ember-wreathe-packages/rpm-output
 mkdir -p ember-wreathe-packages/deb-output
 cd ember-wreathe-packages
-if [[ -n "$packageToPackage" ]]; then
+if [[ -z "$packageToPackage" ]]; then
     for (( i=0; i<targetCount; i++ )); do
         buildPackages "${targets[$i]}"
     done
