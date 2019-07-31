@@ -13,7 +13,7 @@ function buildRpm() {
     categoryName="$(dirname "$packageName")"
     packageName="$(basename "$packageName")"
     categoryName="$(basename "$categoryName")"
-    cp /var/tmp/portage/
+    cp /var/tmp/portage/"$categoryName"/"$packageName"
 }
 
 targets=(emerald-themes)
