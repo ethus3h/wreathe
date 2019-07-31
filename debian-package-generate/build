@@ -15,6 +15,6 @@ targetCount="${#targets[@]}"
 mkdir rpm-output
 mkdir deb-output
 cd rpm-output
-for (( i=0; i<tokenCount; i++ )); do
-    
+for (( i=0; i<targetCount; i++ )); do
+    buildRpm "${targets[$i]}"
 done
