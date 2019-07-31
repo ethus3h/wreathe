@@ -21,7 +21,8 @@ function buildPackages() {
     ebuildName="$(basename "$path")"
     ebuildName="${ebuildName%.ebuild}"
     #rpmPath=/var/tmp/portage/"$categoryName"/"$ebuildName"/temp/rpmbuild/RPMS/x86_64/
-    rpmPath=./rpm-output/temp/"$categoryName"/
+    #rpmPath=./rpm-output/temp/"$categoryName"/
+    rpmPath=/usr/portage/rpm/"$categoryName"/
     #rpmFile="$(find "$rpmPath" -type f -print -and -quit)"
     rpmFile="$(find "$rpmPath" -name "$ebuildName"'*' -type f -print -and -quit)"
     rpmName="$(basename "$rpmFile")"
