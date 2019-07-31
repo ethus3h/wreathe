@@ -10,7 +10,7 @@ packageToPackage="$1"
 
 function buildPackages() {
     echo "Compiling and making RPM for $1..."
-    #path="$(equery w "$1")"
+    path="$(equery w "$1")"
     #PKGDIR=./rpm-output/temp/ emerge --pkg-format "rpm" --buildpkgonly "$1"
     emerge --pkg-format "rpm" --buildpkgonly "$1"
     #ebuild "$path" rpm
