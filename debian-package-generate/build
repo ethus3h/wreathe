@@ -32,7 +32,7 @@ function buildPackages() {
 targets=(emerald-themes)
 targetCount="${#targets[@]}"
 (
-cd ~
+cd /home/kyan/
 mkdir -p ember-wreathe-packages/rpm-output
 mkdir -p ember-wreathe-packages/deb-output
 cd ember-wreathe-packages
@@ -43,4 +43,6 @@ if [[ -z "$packageToPackage" ]]; then
 else
     buildPackages "$packageToPackage"
 fi
+chown -R kyan:kyan ./ember-wreathe-packages/rpm-output
+chown -R kyan:kyan ./ember-wreathe-packages/deb-output
 )
