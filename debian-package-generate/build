@@ -7,14 +7,23 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
 function buildRpm() {
-    ebuild "$(equery w "$1")" rpm
+    path="$(equery w "$1")"
+    ebuild "$path" rpm
+    packageName="$(dirname "$path")"
+    categoryName="$(dirname "$packageName")"
+    packageName="$(basename "$packageName")"
+    categoryName="$(basename "$categoryName")"
+    cp /var/tmp/portage/
 }
 
 targets=(emerald-themes)
 targetCount="${#targets[@]}"
-mkdir -p rpm-output
-mkdir -p deb-output
+(
+cd ~
+mkdir -p ember-wreathe-packages/rpm-output
+mkdir -p ember-wreathe-packages/deb-output
 cd rpm-output
 for (( i=0; i<targetCount; i++ )); do
     buildRpm "${targets[$i]}"
 done
+)
