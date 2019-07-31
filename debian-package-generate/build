@@ -27,7 +27,7 @@ function buildPackages() {
     rpmFile="$(find "$rpmPath" -name "$ebuildName"'*' -type f -print -and -quit)"
     rpmName="$(basename "$rpmFile")"
     cp "$rpmFile" ./rpm-output/
-    echo "Compiling and making DEB for $1..."
+    echo "Making DEB for $1..."
     cp ./rpm-output/"$rpmName" ./deb-output/
     (
         cd ./deb-output/
