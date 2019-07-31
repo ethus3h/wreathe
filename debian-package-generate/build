@@ -48,6 +48,9 @@ targets=(
     kde-apps/libkonq:4
     kdebase-kioslaves
     kde-apps/dolphin:4
+    dev-qt/qtcore:4
+    dev-qt/qtgui:4
+    dev-qt/qtscript:4
 
     dev-python/compizconfig-python
     x11-apps/compiz-boxmenu
