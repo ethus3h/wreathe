@@ -13,7 +13,9 @@ function buildRpm() {
     categoryName="$(dirname "$packageName")"
     packageName="$(basename "$packageName")"
     categoryName="$(basename "$categoryName")"
-    cp /var/tmp/portage/"$categoryName"/"$packageName"
+    ebuildName="$(basename "$path")"
+    ebuildName="${ebuildName%.ebuild}"
+    mv /var/tmp/portage/"$categoryName"/"$packageName"/temp/rpmbuild/RPMS/x86_64/* ./rpm-output/
 }
 
 targets=(emerald-themes)
@@ -22,7 +24,7 @@ targetCount="${#targets[@]}"
 cd ~
 mkdir -p ember-wreathe-packages/rpm-output
 mkdir -p ember-wreathe-packages/deb-output
-cd rpm-output
+cd ember-wreathe-packages
 for (( i=0; i<targetCount; i++ )); do
     buildRpm "${targets[$i]}"
 done
