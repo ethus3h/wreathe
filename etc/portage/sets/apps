@@ -27,7 +27,7 @@ media-sound/jorgan
 media-sound/lmms
 media-sound/mumble
 media-sound/soundconverter
-media-sound/supercollider
+#media-sound/supercollider
 media-tv/kodi
 media-video/cheese
 media-video/obs-studio
