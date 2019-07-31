@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd): The required dependency ember-shared could not be found (or ember_bash_setup could not be sourced for some other reason)." >&2; printf '%b' '\033[0m' >&2; exit 1; }
+#set -x
+
+((EUID)) && exec sudo -- "$0" "$@"
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+
+packageToPackage="$1"
+
+function buildPackages() {
+    echo "Compiling and making RPM for $1..."
+    path="$(equery w "$1")"
+    #PKGDIR=./rpm-output/temp/ emerge --pkg-format "rpm" --buildpkgonly "$1"
+    emerge --pkg-format "rpm" --buildpkgonly "$1"
+    #ebuild "$path" rpm
+    packageName="$(dirname "$path")"
+    categoryName="$(dirname "$packageName")"
+    packageName="$(basename "$packageName")"
+    categoryName="$(basename "$categoryName")"
+    ebuildName="$(basename "$path")"
+    ebuildName="${ebuildName%.ebuild}"
+    #rpmPath=/var/tmp/portage/"$categoryName"/"$ebuildName"/temp/rpmbuild/RPMS/x86_64/
+    #rpmPath=./rpm-output/temp/"$categoryName"/
+    rpmPath=/usr/portage/rpm/"$categoryName"/
+    #rpmFile="$(find "$rpmPath" -type f -print -and -quit)"
+    rpmFile="$(find "$rpmPath" -name "$ebuildName"'*' -type f -print -and -quit)"
+    rpmName="$(basename "$rpmFile")"
+    cp "$rpmFile" ./rpm-output/
+    echo "Making DEB for $1..."
+    cp ./rpm-output/"$rpmName" ./deb-output/
+    (
+        cd ./deb-output/
+        alien --to-deb "./$rpmName"
+        rm "./$rpmName"
+    )
+}
+
+targets=(
+    crystallize
+    ember-shared
+    futuramerlin-web-toolkit
+    wreathe-backgrounds
+    wreathe-typeface-family
+    wreathe-typefaces-redist
+
+    kde-frameworks/kdelibs:4
+    kde-apps/libkonq:4
+    kdebase-kioslaves
+    kde-apps/dolphin:4
+    dev-qt/qtcore:4
+    dev-qt/qtgui:4
+    dev-qt/qtscript:4
+
+    dev-python/compizconfig-python
+    x11-apps/compiz-boxmenu
+    x11-apps/compiz-manager
+    x11-apps/fusion-icon
+    x11-libs/compiz-bcop
+    x11-libs/libcompizconfig
+    x11-misc/ccsm
+    x11-misc/compiz-debug-utils
+    x11-misc/simple-ccsm
+    x11-plugins/compicc
+    x11-plugins/compiz-extra-snowflake-textures
+    x11-plugins/compiz-plugins-community
+    x11-plugins/compiz-plugins-experimental
+    x11-plugins/compiz-plugins-extra
+    x11-plugins/compiz-plugins-main
+    x11-plugins/compiz-plugins-meta
+    x11-themes/emerald-themes
+    x11-wm/compiz
+    x11-wm/compiz-meta
+    x11-wm/emerald
+)
+targetCount="${#targets[@]}"
+(
+    cd /home/kyan/
+    mkdir -p ./ember-wreathe-packages/rpm-output/temp
+    mkdir -p ./ember-wreathe-packages/deb-output
+    (
+        cd ember-wreathe-packages
+        if [[ -z "$packageToPackage" ]]; then
+            for (( i=0; i<targetCount; i++ )); do
+                buildPackages "${targets[$i]}"
+            done
+        else
+            buildPackages "$packageToPackage"
+        fi
+    )
+    chown -R kyan:kyan ./ember-wreathe-packages/rpm-output
+    chown -R kyan:kyan ./ember-wreathe-packages/deb-output
+)
