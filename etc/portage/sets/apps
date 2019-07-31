@@ -2,7 +2,7 @@ app-antivirus/clamav
 app-misc/freemind
 app-misc/ranger
 app-misc/tmux
-app-text/calibre
+#app-text/calibre
 app-text/sword
 dev-db/sqlitebrowser
 dev-python/internetarchive
