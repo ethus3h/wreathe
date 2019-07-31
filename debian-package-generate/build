@@ -15,7 +15,8 @@ function buildRpm() {
     categoryName="$(basename "$categoryName")"
     ebuildName="$(basename "$path")"
     ebuildName="${ebuildName%.ebuild}"
-    mv /var/tmp/portage/"$categoryName"/"$packageName"/temp/rpmbuild/RPMS/x86_64/* ./rpm-output/
+    rpmPath=/var/tmp/portage/"$categoryName"/"$packageName"/temp/rpmbuild/RPMS/x86_64/
+    fileName="$"* ./rpm-output/
 }
 
 targets=(emerald-themes)
