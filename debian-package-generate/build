@@ -6,6 +6,8 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 # Only if needed: ((EUID)) && exec sudo -- "$0" "$@"
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
+packageToPackage="$1"
+
 function buildRpm() {
     path="$(equery w "$1")"
     ebuild "$path" rpm
@@ -15,7 +17,7 @@ function buildRpm() {
     categoryName="$(basename "$categoryName")"
     ebuildName="$(basename "$path")"
     ebuildName="${ebuildName%.ebuild}"
-    rpmPath=/var/tmp/portage/"$categoryName"/"$packageName"/temp/rpmbuild/RPMS/x86_64/
+    rpmPath=/var/tmp/portage/"$categoryName"/"$ebuildName"/temp/rpmbuild/RPMS/x86_64/
     rpmFile="$(find "$rpmPath" -type f -print -and -quit)"
     rpmName="$(basename "$rpmFile")"
     mv "$rpmFile" ./rpm-output/
@@ -34,7 +36,10 @@ cd ~
 mkdir -p ember-wreathe-packages/rpm-output
 mkdir -p ember-wreathe-packages/deb-output
 cd ember-wreathe-packages
-for (( i=0; i<targetCount; i++ )); do
-    buildRpm "${targets[$i]}"
-done
+if [[ -n "$packageToPackage" ]]; then
+    for (( i=0; i<targetCount; i++ )); do
+        buildRpm "${targets[$i]}"
+    done
+else
+    buildRpm
 )
