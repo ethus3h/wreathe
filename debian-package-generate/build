@@ -8,7 +8,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 packageToPackage="$1"
 
-function buildRpm() {
+function buildPackages() {
     path="$(equery w "$1")"
     ebuild "$path" rpm
     packageName="$(dirname "$path")"
@@ -38,8 +38,9 @@ mkdir -p ember-wreathe-packages/deb-output
 cd ember-wreathe-packages
 if [[ -n "$packageToPackage" ]]; then
     for (( i=0; i<targetCount; i++ )); do
-        buildRpm "${targets[$i]}"
+        buildPackages "${targets[$i]}"
     done
 else
-    buildRpm
+    buildPackages "$packageToPackage"
+fi
 )
