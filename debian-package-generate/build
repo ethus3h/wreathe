@@ -16,7 +16,15 @@ function buildRpm() {
     ebuildName="$(basename "$path")"
     ebuildName="${ebuildName%.ebuild}"
     rpmPath=/var/tmp/portage/"$categoryName"/"$packageName"/temp/rpmbuild/RPMS/x86_64/
-    fileName="$"* ./rpm-output/
+    rpmFile="$(find "$rpmPath" -type f -print -and -quit)"
+    rpmName="$(basename "$rpmFile")"
+    mv "$rpmFile" ./rpm-output/
+    cp ./rpm-output/"$rpmName" ./deb-output/
+    (
+    cd ./deb-output/
+    alien --to-deb "./$rpmName"
+    rm "./$rpmName"
+    )
 }
 
 targets=(emerald-themes)
