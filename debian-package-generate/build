@@ -11,7 +11,10 @@ function buildRpm() {
 }
 
 targets=(emerald-themes)
-tokenCount="${#tokens[@]}"
+targetCount="${#targets[@]}"
 mkdir rpm-output
 mkdir deb-output
 cd rpm-output
+for (( i=0; i<tokenCount; i++ )); do
+    
+done
