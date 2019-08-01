@@ -30,6 +30,7 @@ sys-devel/llvm -doc
 dev-libs/libdbusmenu-qt qt4
 dev-python/doublethink -python_targets_python3_6
 dev-python/warcprox -python_targets_python3_6
+kde-frameworks/kdelibs -jpeg2k
 media-libs/phonon qt4
 media-libs/phonon-gstreamer qt4
 media-libs/phonon-vlc qt4

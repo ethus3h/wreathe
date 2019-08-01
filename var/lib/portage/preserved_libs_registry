@@ -154,8 +154,8 @@
         ]
     ], 
     "sys-libs/binutils-libs:0": [
-        "sys-libs/binutils-libs-2.30-r4", 
-        "27920", 
+        "sys-libs/binutils-libs-2.32-r1", 
+        "28550", 
         [
             "/usr/lib32/libbfd-2.30.0.so", 
             "/usr/lib64/libbfd-2.30.0.so"
