@@ -561,6 +561,7 @@ media-libs/libvisual abi_x86_32
 media-libs/libvorbis abi_x86_32
 media-libs/libvpx abi_x86_32
 media-libs/libwebp abi_x86_32
+media-libs/lilv abi_x86_32
 media-libs/mesa abi_x86_32
 media-libs/nas abi_x86_32
 media-libs/openal abi_x86_32
