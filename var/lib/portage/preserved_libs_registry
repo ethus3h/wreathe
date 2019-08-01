@@ -109,6 +109,16 @@
             "/usr/lib64/libMagickCore-7.Q16HDRI.so.5"
         ]
     ], 
+    "media-libs/jasper:0": [
+        "media-libs/jasper-2.0.14", 
+        "23946", 
+        [
+            "/usr/lib32/libjasper.so.4.0.0", 
+            "/usr/lib64/libjasper.so.4.0.0", 
+            "/usr/lib64/libjasper.so.4", 
+            "/usr/lib32/libjasper.so.4"
+        ]
+    ], 
     "media-libs/kvazaar:0": [
         "media-libs/kvazaar-1.2.0-r1", 
         "28002", 
