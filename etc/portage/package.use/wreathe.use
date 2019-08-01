@@ -577,6 +577,7 @@ media-libs/schroedinger abi_x86_32
 media-libs/soxr abi_x86_32
 media-libs/speex abi_x86_32
 media-libs/speexdsp abi_x86_32
+media-libs/sratom abi_x86_32
 media-libs/taglib abi_x86_32
 media-libs/tiff abi_x86_32
 media-libs/vamp-plugin-sdk abi_x86_32
