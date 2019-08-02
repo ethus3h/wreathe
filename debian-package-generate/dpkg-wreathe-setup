@@ -7,10 +7,11 @@ trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported
 # shellcheck disable=SC1091
 source ./targets &> /dev/null
 
-pip install internetarchive
-
 (
-    sudo apt-get --yes install aptitude git ranger
+    apt-get update
+    apt-get --yes upgrade
+    apt-get --yes install aptitude git ranger python3-pip
+    pip3 install internetarchive
     mkdir -p /var/ember-wreathe-packages-repository
     cd /var/ember-wreathe-packages-repository
     ia download Wreathe-GNU-Linux-Multisystem-Packages --glob='*.deb'
