@@ -20,5 +20,5 @@ source ./targets &> /dev/null
     mkdir -p /var/ember-wreathe-packages-repository
     cd /var/ember-wreathe-packages-repository
     ia download Wreathe-GNU-Linux-Multisystem-Packages --glob='*.deb'
-    dpkg -i ./Wreathe-GNU-Linux-Multisystem-Packages/*.deb
+    dpkg -i ./Wreathe-GNU-Linux-Multisystem-Packages/deb-output/*.deb
 )
