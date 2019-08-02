@@ -13,17 +13,11 @@ source ./targets &> /dev/null
 
 function buildPackages() {
     getPackageData "$1"
-    echo "Compiling and making RPM for $1..."
-    path="$(equery w "$1")"
-    #PKGDIR=./rpm-output/temp/ emerge --pkg-format "rpm" --buildpkgonly "$1"
-    emerge --pkg-format "rpm" --buildpkgonly "$1"
+    echo "Compiling and making RPM for $packageAtom..."
+    path="$(equery w "$packageAtom")"
+    #PKGDIR=./rpm-output/temp/ emerge --pkg-format "rpm" --buildpkgonly "$packageAtom"
+    emerge --pkg-format "rpm" --buildpkgonly "$packageAtom"
     #ebuild "$path" rpm
-    packageName="$(dirname "$path")"
-    categoryName="$(dirname "$packageName")"
-    packageName="$(basename "$packageName")"
-    categoryName="$(basename "$categoryName")"
-    ebuildName="$(basename "$path")"
-    ebuildName="${ebuildName%.ebuild}"
     #rpmPath=/var/tmp/portage/"$categoryName"/"$ebuildName"/temp/rpmbuild/RPMS/x86_64/
     #rpmPath=./rpm-output/temp/"$categoryName"/
     rpmPath=/usr/portage/rpm/"$categoryName"/
@@ -31,7 +25,7 @@ function buildPackages() {
     rpmFile="$(find "$rpmPath" -name "$ebuildName"'*' -type f -print -and -quit)"
     rpmName="$(basename "$rpmFile")"
     cp "$rpmFile" ./rpm-output/
-    echo "Making DEB for $1..."
+    echo "Making DEB for $packageAtom..."
     cp ./rpm-output/"$rpmName" ./deb-output/
     (
         cd ./deb-output/
