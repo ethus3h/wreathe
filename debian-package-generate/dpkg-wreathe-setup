@@ -17,5 +17,5 @@ trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported
     mkdir -p /var/ember-wreathe-packages-repository
     cd /var/ember-wreathe-packages-repository
     ia download Wreathe-GNU-Linux-Multisystem-Packages --glob='*.deb'
-    dpkg -i ./Wreathe-GNU-Linux-Multisystem-Packages/deb-output/*.deb
+    dpkg -i ./Wreathe-GNU-Linux-Multisystem-Packages/Wreathe-GNU-Linux-Multisystem-Packages/deb-output/*.deb
 )
