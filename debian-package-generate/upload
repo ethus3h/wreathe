@@ -11,6 +11,8 @@ packageToPackage="$1"
 # shellcheck disable=SC1091
 source ./targets &> /dev/null
 
+scriptDir="$(pwd)"
+
 function buildPackages() {
     ia upload Wreathe-GNU-Linux-Multisystem-Packages --remote-name="${1#./}" "$1"
 }
@@ -18,7 +20,7 @@ function buildPackages() {
 (
     cd /home/kyan/
     cd ./ember-wreathe-packages
-    find . -name '*.deb' -or -name '*.rpm'
+    find . -name '*.deb' -or -name '*.rpm' -exec "$scriptDir"/upload-single {} \;
     mkdir -p ./ember-wreathe-packages/rpm-output/temp
     mkdir -p ./ember-wreathe-packages/deb-output
     (
