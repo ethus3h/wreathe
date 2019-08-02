@@ -6,7 +6,7 @@ trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported
 
 apt-get update
 apt-get --yes upgrade
-apt-get --yes install aptitude git ranger python3-pip kde-standard
+apt-get --yes install aptitude git ranger python3-pip kde-full
 apt-get --yes remove compiz compiz-bcop compiz-core compiz-dev compiz-gnome compiz-mate compiz-plugins compiz-plugins-default compiz-plugins-experimental compiz-plugins-extra compiz-plugins-main compizconfig-settings-manager libcompizconfig0 libcompizconfig0-dev python-compizconfig
 git clone https://github.com/ethus3h/crystallize.git
 (
