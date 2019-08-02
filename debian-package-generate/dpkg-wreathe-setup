@@ -11,6 +11,11 @@ source ./targets &> /dev/null
     apt-get update
     apt-get --yes upgrade
     apt-get --yes install aptitude git ranger python3-pip
+    git clone https://github.com/ethus3h/crystallize.git
+    (
+        cd crystallize
+        make autodep
+    )
     pip3 install internetarchive
     mkdir -p /var/ember-wreathe-packages-repository
     cd /var/ember-wreathe-packages-repository
