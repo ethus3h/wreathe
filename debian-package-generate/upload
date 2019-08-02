@@ -9,7 +9,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 packageToPackage="$1"
 
 function buildPackages() {
-    echo "Compiling and making RPM for $1..."
+    echo "Uploading RPM for $1..."
     path="$(equery w "$1")"
     #PKGDIR=./rpm-output/temp/ emerge --pkg-format "rpm" --buildpkgonly "$1"
     emerge --pkg-format "rpm" --buildpkgonly "$1"
