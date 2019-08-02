@@ -8,7 +8,6 @@ apt-get update
 apt-get --yes upgrade
 apt-get --yes install aptitude git ranger python3-pip kde-full wget
 apt-get --yes remove compiz compiz-bcop compiz-core compiz-dev compiz-gnome compiz-mate compiz-plugins compiz-plugins-default compiz-plugins-experimental compiz-plugins-extra compiz-plugins-main compizconfig-settings-manager libcompizconfig0 libcompizconfig0-dev python-compizconfig
-aptitude hold compizconfig-python compiz-boxmenu compiz-manager fusion-icon compiz-bcop libcompizconfig ccsm compiz-debug-utils simple-ccsm compicc compiz-extra-snowflake-textures compiz-plugins-community compiz-plugins-experimental compiz-plugins-extra compiz-plugins-main compiz-plugins-meta emerald-themes compiz compiz-meta emerald
 git clone https://github.com/ethus3h/crystallize.git
 (
     cd crystallize
@@ -19,3 +18,24 @@ mkdir -p /var/ember-wreathe-packages-repository
 cd /var/ember-wreathe-packages-repository
 ia download Wreathe-GNU-Linux-Multisystem-Packages --glob='*.deb' || { echo "Could not fetch packages."; exit 1 }
 dpkg -i ./Wreathe-GNU-Linux-Multisystem-Packages/Wreathe-GNU-Linux-Multisystem-Packages/deb-output/*.deb
+aptitude hold compizconfig-python compiz-boxmenu compiz-manager fusion-icon compiz-bcop libcompizconfig ccsm compiz-debug-utils simple-ccsm compicc compiz-extra-snowflake-textures compiz-plugins-community compiz-plugins-experimental compiz-plugins-extra compiz-plugins-main compiz-plugins-meta emerald-themes compiz compiz-meta emerald
+echo "compizconfig-python hold" | dpkg --set-selections
+echo "compiz-boxmenu hold" | dpkg --set-selections
+echo "compiz-manager hold" | dpkg --set-selections
+echo "fusion-icon hold" | dpkg --set-selections
+echo "compiz-bcop hold" | dpkg --set-selections
+echo "libcompizconfig hold" | dpkg --set-selections
+echo "ccsm hold" | dpkg --set-selections
+echo "compiz-debug-utils hold" | dpkg --set-selections
+echo "simple-ccsm hold" | dpkg --set-selections
+echo "compicc hold" | dpkg --set-selections
+echo "compiz-extra-snowflake-textures hold" | dpkg --set-selections
+echo "compiz-plugins-community hold" | dpkg --set-selections
+echo "compiz-plugins-experimental hold" | dpkg --set-selections
+echo "compiz-plugins-extra hold" | dpkg --set-selections
+echo "compiz-plugins-main hold" | dpkg --set-selections
+echo "compiz-plugins-meta hold" | dpkg --set-selections
+echo "emerald-themes hold" | dpkg --set-selections
+echo "compiz hold" | dpkg --set-selections
+echo "compiz-meta hold" | dpkg --set-selections
+echo "emerald hold" | dpkg --set-selections
