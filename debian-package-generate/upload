@@ -13,26 +13,8 @@ source ./targets &> /dev/null
 
 scriptDir="$(pwd)"
 
-function buildPackages() {
-    ia upload Wreathe-GNU-Linux-Multisystem-Packages --remote-name="${1#./}" "$1"
-}
-
 (
     cd /home/kyan/
     cd ./ember-wreathe-packages
     find . -name '*.deb' -or -name '*.rpm' -exec "$scriptDir"/upload-single {} \;
-    mkdir -p ./ember-wreathe-packages/rpm-output/temp
-    mkdir -p ./ember-wreathe-packages/deb-output
-    (
-        cd ember-wreathe-packages
-        if [[ -z "$packageToPackage" ]]; then
-            for (( i=0; i<targetCount; i++ )); do
-                buildPackages "${targets[$i]}"
-            done
-        else
-            buildPackages "$packageToPackage"
-        fi
-    )
-    chown -R kyan:kyan ./ember-wreathe-packages/rpm-output
-    chown -R kyan:kyan ./ember-wreathe-packages/deb-output
 )
