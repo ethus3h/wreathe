@@ -14,9 +14,9 @@ source ./targets &> /dev/null
 function buildPackages() {
     getPackageData "$1"
     echo "Uploading RPM for $1..."
-    rpmPath=/usr/portage/rpm/"$categoryName"/
-    #rpmFile="$(find "$rpmPath" -type f -print -and -quit)"
+    rpmPath=./rpm-output/
     rpmFile="$(find "$rpmPath" -name "$ebuildName"'*' -type f -print -and -quit)"
+    ia uplo
     rpmName="$(basename "$rpmFile")"
     cp "$rpmFile" ./rpm-output/
     echo "Making DEB for $1..."

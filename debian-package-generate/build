@@ -14,14 +14,8 @@ source ./targets &> /dev/null
 function buildPackages() {
     getPackageData "$1"
     echo "Compiling and making RPM for $packageAtom..."
-    path="$(equery w "$packageAtom")"
-    #PKGDIR=./rpm-output/temp/ emerge --pkg-format "rpm" --buildpkgonly "$packageAtom"
     emerge --pkg-format "rpm" --buildpkgonly "$packageAtom"
-    #ebuild "$path" rpm
-    #rpmPath=/var/tmp/portage/"$categoryName"/"$ebuildName"/temp/rpmbuild/RPMS/x86_64/
-    #rpmPath=./rpm-output/temp/"$categoryName"/
     rpmPath=/usr/portage/rpm/"$categoryName"/
-    #rpmFile="$(find "$rpmPath" -type f -print -and -quit)"
     rpmFile="$(find "$rpmPath" -name "$ebuildName"'*' -type f -print -and -quit)"
     rpmName="$(basename "$rpmFile")"
     cp "$rpmFile" ./rpm-output/
