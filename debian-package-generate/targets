@@ -41,3 +41,14 @@ targets=(
     x11-wm/emerald
 )
 targetCount="${#targets[@]}"
+
+function getPackageData() {
+    packageAtom="$1"
+    packagePath="$(equery w "$packageAtom")"
+    packageName="$(dirname "$packagePath")"
+    categoryName="$(dirname "$packageName")"
+    packageName="$(basename "$packageName")"
+    categoryName="$(basename "$categoryName")"
+    ebuildName="$(basename "$path")"
+    ebuildName="${ebuildName%.ebuild}"
+}

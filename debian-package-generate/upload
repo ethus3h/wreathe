@@ -8,7 +8,11 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 packageToPackage="$1"
 
+# shellcheck disable=SC1091
+source ./targets &> /dev/null
+
 function buildPackages() {
+    getPackageData "$1"
     echo "Uploading RPM for $1..."
     path="$(equery w "$1")"
     #PKGDIR=./rpm-output/temp/ emerge --pkg-format "rpm" --buildpkgonly "$1"
@@ -35,9 +39,6 @@ function buildPackages() {
         rm "./$rpmName"
     )
 }
-
-# shellcheck disable=SC1091
-source ./targets &> /dev/null
 
 (
     cd /home/kyan/
