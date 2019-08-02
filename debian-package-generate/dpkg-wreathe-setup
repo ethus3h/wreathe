@@ -9,25 +9,6 @@ packageToPackage="$1"
 # shellcheck disable=SC1091
 source ./targets &> /dev/null
 
-function buildPackages() {
-    getPackageData "$1"
-    echo "Downloading DEB for $packageAtom..."
-    dpkg -i 
-    
-    emerge --pkg-format "rpm" --buildpkgonly "$packageAtom"
-    rpmPath=/usr/portage/rpm/"$categoryName"/
-    rpmFile="$(find "$rpmPath" -name "$ebuildName"'*' -type f -print -and -quit)"
-    rpmName="$(basename "$rpmFile")"
-    cp "$rpmFile" ./rpm-output/
-    echo "Making DEB for $packageAtom..."
-    cp ./rpm-output/"$rpmName" ./deb-output/
-    (
-        cd ./deb-output/
-        alien --to-deb "./$rpmName"
-        rm "./$rpmName"
-    )
-}
-
 pip install internetarchive
 
 (
