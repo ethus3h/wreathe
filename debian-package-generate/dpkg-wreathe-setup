@@ -10,6 +10,7 @@ source ./targets &> /dev/null
 pip install internetarchive
 
 (
+    sudo apt-get --yes install aptitude git ranger
     mkdir -p /var/ember-wreathe-packages-repository
     cd /var/ember-wreathe-packages-repository
     ia download Wreathe-GNU-Linux-Multisystem-Packages --glob='*.deb'
