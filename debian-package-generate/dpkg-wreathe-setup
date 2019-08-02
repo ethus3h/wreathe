@@ -4,9 +4,6 @@
 ((EUID)) && exec sudo -- "$0" "$@"
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
-# shellcheck disable=SC1091
-source ./targets &> /dev/null
-
 (
     apt-get update
     apt-get --yes upgrade
