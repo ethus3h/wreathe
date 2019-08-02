@@ -41,6 +41,7 @@ targets=(
     ember-shared
     futuramerlin-web-toolkit
     wreathe-backgrounds
+    wreathe-base
     wreathe-typeface-family
     wreathe-typefaces-redist
 
