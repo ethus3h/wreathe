@@ -12,24 +12,13 @@ packageToPackage="$1"
 source ./targets &> /dev/null
 
 function buildPackages() {
-    getPackageData "$1"
-    echo "Uploading RPM for $1..."
-    rpmPath=./rpm-output/
-    rpmFile="$(find "$rpmPath" -name "$ebuildName"'*' -type f -print -and -quit)"
-    ia uplo
-    rpmName="$(basename "$rpmFile")"
-    cp "$rpmFile" ./rpm-output/
-    echo "Making DEB for $1..."
-    cp ./rpm-output/"$rpmName" ./deb-output/
-    (
-        cd ./deb-output/
-        alien --to-deb "./$rpmName"
-        rm "./$rpmName"
-    )
+    ia upload Wreathe-GNU-Linux-Multisystem-Packages --remote-name="${1#./}" "$1"
 }
 
 (
     cd /home/kyan/
+    cd ./ember-wreathe-packages
+    find . -name '*.deb' -or -name '*.rpm'
     mkdir -p ./ember-wreathe-packages/rpm-output/temp
     mkdir -p ./ember-wreathe-packages/deb-output
     (
