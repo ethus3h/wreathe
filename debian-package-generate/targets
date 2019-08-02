@@ -11,6 +11,9 @@ targets=(
     wreathe-typeface-family
     wreathe-typefaces-redist
 
+    media-sound/audacious
+    media-plugins/audacious-plugins
+
     kde-frameworks/kdelibs:4
     kde-apps/libkonq:4
     kdebase-kioslaves
