@@ -8,9 +8,15 @@ apt-get update
 apt-get --yes upgrade
 apt-get --yes install aptitude git ranger python3-pip kde-full wget
 apt-get --yes remove compiz compiz-bcop compiz-core compiz-dev compiz-gnome compiz-mate compiz-plugins compiz-plugins-default compiz-plugins-experimental compiz-plugins-extra compiz-plugins-main compizconfig-settings-manager libcompizconfig0 libcompizconfig0-dev python-compizconfig
-git clone https://github.com/ethus3h/crystallize.git
+mkdir -p crystallize-git-wreathe-setup
 (
-    cd crystallize
+    cd crystallize-git-wreathe-setup
+    rm -r ./crystallize
+    git clone https://github.com/ethus3h/crystallize.git
+)
+mv crystallize-git-wreathe-setup/crystallize crystallize-git-wreathe-setup-b
+(
+    cd crystallize-git-wreathe-setup-b
     make autodep
 )
 pip3 install internetarchive
