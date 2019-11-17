@@ -135,8 +135,8 @@ dev-lang/ghc -binary
 trinity-base/tdelibs -lua
 
 # For Firefox
-dev-db/sqlite +secure-delete
-media-libs/libvpx +postproc
+dev-db/sqlite secure-delete
+media-libs/libvpx postproc
 
 # Requires outdated libktorrent
 kde-apps/kget -bittorrent
