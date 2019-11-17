@@ -134,6 +134,9 @@ dev-lang/ghc -binary
 # Doesn't support lua yet
 trinity-base/tdelibs -lua
 
+# For Firefox
+media-libs/libvpx +postproc
+
 # Requires outdated libktorrent
 kde-apps/kget -bittorrent
 
