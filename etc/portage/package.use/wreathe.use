@@ -179,6 +179,8 @@ dev-libs/redland-bindings -ruby
 
 # https://bugs.gentoo.org/show_bug.cgi?id=444470
 media-video/ffmpeg -libilbc
+# https://bugs.gentoo.org/683870
+media-video/ffmpeg -flite
 
 # Only install lightspark's nsplugin
 www-plugins/gnash -nsplugin
