@@ -269,6 +269,7 @@ net-analyzer/nmap nping
 net-misc/plowshare view-captcha
 net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb
+sys-apps/util-linux caps fdformat tty-helpers
 sys-libs/libomp ompt
 www-plugins/gnash agg cygnal dump gtk gnome ffmpeg
 x11-libs/gtk+ broadway

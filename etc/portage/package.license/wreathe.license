@@ -25,7 +25,7 @@ games-fps/sauerbraten freedist
 sys-kernel/wreathe-kernel freedist
 
 # Required for Intel wifi to work
-sys-kernel/linux-firmware freedist no-source-code linux-firmware
+sys-kernel/linux-firmware freedist no-source-code linux-firmware linux-fw-redistributable
 
 # License is basically WTFPL, provided you don't misrepresent authorship.
 app-misc/sl freedist
