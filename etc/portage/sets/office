@@ -54,7 +54,6 @@ app-text/poppler
 app-text/stardict
 app-text/texlive
 net-mail/mailbase
-net-print/adobeps
 net-print/apsfilter
 net-print/c2esp
 net-print/cups-bjnp
