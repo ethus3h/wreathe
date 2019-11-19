@@ -19,6 +19,9 @@ media-sound/musescore **
 dev-python/plyvel ~amd64
 dev-libs/leveldb ~amd64
 
+# For nix
+dev-libs/editline ~amd64
+
 # Use the latest versions of these apps
 
 sys-apps/nix ~amd64
