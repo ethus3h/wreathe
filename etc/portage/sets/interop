@@ -53,9 +53,10 @@ app-text/mpage
 app-text/noweb
 app-text/podofo
 app-text/pstotext
+app-text/rarian
 app-text/recode
 app-text/ronn
-app-text/scrollkeeper
+#app-text/scrollkeeper
 app-text/wdiff
 app-text/wv
 dev-python/github-backup
