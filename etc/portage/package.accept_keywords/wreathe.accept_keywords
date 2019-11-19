@@ -355,8 +355,8 @@ cross-avr/gdb ~amd64
 gnustep-base/gnustep-gui ~amd64
 
 # Not yet stabilized, used by recent Firefox
-dev-libs/nss ~amd64
-dev-libs/nspr ~amd64
+#dev-libs/nss ~amd64
+#dev-libs/nspr ~amd64
 
 # Not yet stabilised, used by infinality
 media-fonts/infinality-ultimate-meta ~amd64
