@@ -19,15 +19,12 @@ media-sound/musescore **
 dev-python/plyvel ~amd64
 dev-libs/leveldb ~amd64
 
-# For nix
-#dev-libs/editline ~amd64
-
 # For sqlitebrowser
 app-editors/qhexedit2 ~amd64
 
 # Use the latest versions of these apps
 
-#sys-apps/nix ~amd64
+sys-apps/guix ~amd64
 app-text/getxbook ~amd64
 media-plugins/calf ~amd64
 
@@ -292,21 +289,6 @@ sci-mathematics/form ~amd64
 www-apps/dokuwiki ~amd64
 dev-vcs/bfg ~amd64
 
-# Until >=clisp-2.49.60 stabilized
-#dev-lisp/clisp ~amd64
-
-# Until tar 1.30+ is stabilized
-#app-arch/tar ~amd64
-
-# xine-lib-1.2.6-r2 failed to build
-#media-libs/xine-lib ~amd64
-
-# Needed for the latest stable bash
-app-shells/bashdb ~amd64
-
-# For freemind (the stable alternative is non-libre)
-dev-java/glassfish-jms-api ~amd64
-
 # Wreathe overlay
 */*::wreathe-overlay ~amd64
 =app-misc/ember-information-technology-environment-9999::wreathe-overlay **
@@ -343,27 +325,9 @@ dev-python/python-poppler-qt5 ~amd64
 # Not yet stabilized, used by warcprox
 dev-python/python-rethinkdb ~amd64
 
-# Not yet stabilized, used by Ring
-=net-libs/opendht-9999 **
-=net-voip/ring-daemon-9999 **
-=net-libs/libringclient-9999 **
-=net-voip/gnome-ring-9999 **
-dev-libs/msgpack ~amd64
-net-libs/pjsip ~amd64
-
-# For Arduino
-cross-avr/binutils ~amd64
-cross-avr/gcc ~amd64
-cross-avr/avr-libc ~amd64
-cross-avr/gdb ~amd64
-
 # build failure with stable
 =app-antivirus/clamav-0.99.2-r1 ~amd64
 gnustep-base/gnustep-gui ~amd64
-
-# Not yet stabilized, used by recent Firefox
-#dev-libs/nss ~amd64
-#dev-libs/nspr ~amd64
 
 # Not yet stabilised, used by infinality
 media-fonts/infinality-ultimate-meta ~amd64
