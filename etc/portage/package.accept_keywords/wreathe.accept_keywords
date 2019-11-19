@@ -50,6 +50,7 @@ x11-misc/accessx ~amd64
 x11-misc/xcalib ~amd64
 games-board/pychess ~amd64
 app-dicts/sword-ylt ~amd64
+dev-db/sqlitebrowser ~amd64
 games-action/minetest_game ~amd64
 games-board/sjeng ~amd64
 dev-libs/angelscript ~amd64
