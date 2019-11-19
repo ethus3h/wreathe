@@ -6,7 +6,7 @@ app-shells/bashdb
 net-analyzer/nethogs
 sys-apps/hwinfo
 sys-apps/lshw
-sys-apps/nix
+#sys-apps/nix
 sys-boot/efibootmgr
 sys-fs/ddrescue
 sys-fs/dosfstools

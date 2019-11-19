@@ -23,7 +23,6 @@ sys-apps/cpuid
 sys-apps/dmidecode
 sys-apps/fakeroot
 sys-apps/memtest86+
-#sys-apps/nix
 sys-apps/pcmciautils
 sys-apps/portage
 sys-apps/preload
