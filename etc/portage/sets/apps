@@ -1,5 +1,5 @@
 app-antivirus/clamav
-app-misc/freemind
+#app-misc/freemind
 app-misc/ranger
 app-misc/tmux
 #app-text/calibre
