@@ -41,9 +41,17 @@
             "/usr/lib64/libicui18n.so.60"
         ]
     ], 
+    "dev-libs/isl:0": [
+        "dev-libs/isl-0.21", 
+        "29124", 
+        [
+            "/usr/lib64/libisl.so.15.0.0", 
+            "/usr/lib64/libisl.so.15"
+        ]
+    ], 
     "dev-libs/json-c:0": [
         "dev-libs/json-c-0.13.1-r1", 
-        "28314", 
+        "29094", 
         [
             "/usr/lib64/libjson-c.so.2.0.1", 
             "/usr/lib64/libjson-c.so.2"
@@ -57,22 +65,44 @@
             "/usr/lib64/libcdio.so.16"
         ]
     ], 
+    "dev-libs/libffi:0": [
+        "dev-libs/libffi-3.3_rc0", 
+        "28709", 
+        [
+            "/usr/lib32/libffi.so.6.0.4", 
+            "/usr/lib64/libffi.so.6.0.4", 
+            "/usr/lib32/libffi.so.6", 
+            "/usr/lib64/libffi.so.6"
+        ]
+    ], 
     "dev-libs/libsodium:0": [
         "dev-libs/libsodium-1.0.16-r2", 
-        "27849", 
+        "29118", 
         [
             "/usr/lib64/libsodium.so.18.1.1", 
             "/usr/lib64/libsodium.so.18"
         ]
     ], 
+    "dev-libs/mpfr:0": [
+        "dev-libs/mpfr-4.0.2", 
+        "29090", 
+        [
+            "/usr/lib64/libmpfr.so.4.1.6", 
+            "/usr/lib64/libmpfr.so.4"
+        ]
+    ], 
     "dev-libs/protobuf:0": [
-        "dev-libs/protobuf-3.6.1", 
-        "27846", 
+        "dev-libs/protobuf-3.8.0", 
+        "29097", 
         [
             "/usr/lib64/libprotobuf-lite.so.15.0.1", 
             "/usr/lib64/libprotobuf.so.15.0.1", 
+            "/usr/lib64/libprotobuf.so.17.0.0", 
+            "/usr/lib64/libprotoc.so.17.0.0", 
             "/usr/lib64/libprotobuf-lite.so.15", 
-            "/usr/lib64/libprotobuf.so.15"
+            "/usr/lib64/libprotoc.so.17", 
+            "/usr/lib64/libprotobuf.so.15", 
+            "/usr/lib64/libprotobuf.so.17"
         ]
     ], 
     "dev-libs/re2:0": [
@@ -93,7 +123,7 @@
     ], 
     "dev-libs/userspace-rcu:0": [
         "dev-libs/userspace-rcu-0.10.1", 
-        "27324", 
+        "28855", 
         [
             "/usr/lib64/liburcu.so.4.0.0", 
             "/usr/lib64/liburcu.so.4"
@@ -107,6 +137,22 @@
             "/usr/lib64/libMagickWand-7.Q16HDRI.so.5.0.0", 
             "/usr/lib64/libMagickWand-7.Q16HDRI.so.5", 
             "/usr/lib64/libMagickCore-7.Q16HDRI.so.5"
+        ]
+    ], 
+    "media-libs/ilmbase:0": [
+        "media-libs/ilmbase-2.3.0", 
+        "28919", 
+        [
+            "/usr/lib64/libHalf.so.12.0.0", 
+            "/usr/lib64/libIex-2_2.so.12.0.0", 
+            "/usr/lib64/libIexMath-2_2.so.12.0.0", 
+            "/usr/lib64/libIlmThread-2_2.so.12.0.0", 
+            "/usr/lib64/libImath-2_2.so.12.0.0", 
+            "/usr/lib64/libIexMath-2_2.so.12", 
+            "/usr/lib64/libIex-2_2.so.12", 
+            "/usr/lib64/libImath-2_2.so.12", 
+            "/usr/lib64/libHalf.so.12", 
+            "/usr/lib64/libIlmThread-2_2.so.12"
         ]
     ], 
     "media-libs/jasper:0": [
@@ -137,12 +183,38 @@
             "/usr/lib64/libmetalink.so.2"
         ]
     ], 
+    "media-libs/openexr:0": [
+        "media-libs/openexr-2.3.0", 
+        "29082", 
+        [
+            "/usr/lib64/libIlmImf-2_2.so.22.0.0", 
+            "/usr/lib64/libIlmImf-2_2.so.22"
+        ]
+    ], 
     "media-libs/x265:0": [
         "media-libs/x265-2.8", 
         "28000", 
         [
             "/usr/lib32/libx265.so.146", 
             "/usr/lib64/libx265.so.146"
+        ]
+    ], 
+    "sci-libs/gsl:0": [
+        "sci-libs/gsl-2.5", 
+        "29105", 
+        [
+            "/usr/lib64/libgsl.so.0.17.0", 
+            "/usr/lib64/libgsl.so.0"
+        ]
+    ], 
+    "sci-libs/hdf5:0": [
+        "sci-libs/hdf5-1.10.5", 
+        "29161", 
+        [
+            "/usr/lib64/libhdf5.so.10.2.1", 
+            "/usr/lib64/libhdf5_hl.so.10.1.1", 
+            "/usr/lib64/libhdf5.so.10", 
+            "/usr/lib64/libhdf5_hl.so.10"
         ]
     ], 
     "sys-apps/lm_sensors:0": [
