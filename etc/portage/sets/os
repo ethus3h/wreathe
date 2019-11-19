@@ -28,8 +28,6 @@ sys-apps/portage
 sys-apps/preload
 sys-apps/smartmontools
 sys-apps/usbutils
-sys-block/open-iscsi
-sys-block/open-isns
 sys-block/partitionmanager
 sys-boot/gnu-efi
 sys-boot/os-prober
