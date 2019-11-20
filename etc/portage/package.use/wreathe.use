@@ -4,6 +4,9 @@ dev-python/github-backup -git-lfs
 # FIXME: Until mpich builds
 media-video/ffmpeg -rubberband
 
+# stable mailutils requires stable Guile; prioritizing unstable Guile for Guix
+net-mail/mailutils -guile
+
 # To prevent circular dependencies when updating, uncomment these lines, then recomment and re-update @world to get the packages built.
 dev-python/Babel -doc
 dev-python/ipython -doc
