@@ -9,6 +9,9 @@ sys-devel/clang-runtime **
 sys-devel/llvm **
 sys-devel/lld **
 
+# Until stable builds (3.4-r3 doesn't) (#669946)
+net-mail/mailutils ~amd64
+
 # for dumpgenerator.py
 dev-python/kitchen ~amd64
 
