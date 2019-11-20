@@ -16,6 +16,7 @@ dev-python/kitchen ~amd64
 media-sound/musescore **
 
 # For guix
+dev-scheme/guile ~amd64
 dev-scheme/guile-git ~amd64
 
 # For tribler
