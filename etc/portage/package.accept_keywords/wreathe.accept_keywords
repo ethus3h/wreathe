@@ -18,7 +18,10 @@ media-sound/musescore **
 # For guix
 dev-scheme/bytestructures ~amd64
 dev-scheme/guile ~amd64
+dev-scheme/guile-gcrypt ~amd64
 dev-scheme/guile-git ~amd64
+dev-scheme/guile-json ~amd64
+dev-scheme/guile-sqlite3 ~amd64
 
 # For tribler
 dev-python/plyvel ~amd64
