@@ -15,6 +15,9 @@ dev-python/kitchen ~amd64
 # Until native-theme patch applies to ~amd64
 media-sound/musescore **
 
+# For guix
+dev-scheme/guile-git ~amd64
+
 # For tribler
 dev-python/plyvel ~amd64
 dev-libs/leveldb ~amd64
