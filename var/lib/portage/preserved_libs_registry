@@ -100,8 +100,8 @@
             "/usr/lib64/libprotobuf.so.17.0.0", 
             "/usr/lib64/libprotoc.so.17.0.0", 
             "/usr/lib64/libprotobuf-lite.so.15", 
-            "/usr/lib64/libprotobuf.so.15", 
             "/usr/lib64/libprotoc.so.17", 
+            "/usr/lib64/libprotobuf.so.15", 
             "/usr/lib64/libprotobuf.so.17"
         ]
     ], 
