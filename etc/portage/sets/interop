@@ -85,7 +85,7 @@ net-dialup/mgetty
 net-dialup/rp-pppoe
 #net-im/quaternion
 #net-libs/xulrunner
-net-mail/mailutils
+#Until it builds: net-mail/mailutils
 net-mail/metamail
 net-misc/asterisk
 net-misc/asterisk-core-sounds
