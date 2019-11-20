@@ -100,8 +100,8 @@
             "/usr/lib64/libprotobuf.so.17.0.0", 
             "/usr/lib64/libprotoc.so.17.0.0", 
             "/usr/lib64/libprotobuf-lite.so.15", 
-            "/usr/lib64/libprotoc.so.17", 
             "/usr/lib64/libprotobuf.so.15", 
+            "/usr/lib64/libprotoc.so.17", 
             "/usr/lib64/libprotobuf.so.17"
         ]
     ], 
@@ -127,6 +127,14 @@
         [
             "/usr/lib64/liburcu.so.4.0.0", 
             "/usr/lib64/liburcu.so.4"
+        ]
+    ], 
+    "dev-scheme/guile:12": [
+        "dev-scheme/guile-2.2.4", 
+        "29181", 
+        [
+            "/usr/lib64/libguile-2.0.so.22.8.1", 
+            "/usr/lib64/libguile-2.0.so.22"
         ]
     ], 
     "media-gfx/imagemagick:0": [
