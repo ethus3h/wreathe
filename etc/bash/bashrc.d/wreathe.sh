@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 source ember_bash_setup
 
+export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
+
 if ! ((EUID)); then
     if [[ -f ~/.bash_history.keep-public-mirror ]]; then
 	mkdir -p /.bash_history.public-mirror-dir
