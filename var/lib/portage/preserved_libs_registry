@@ -266,7 +266,7 @@
     ], 
     "media-libs/mesa:0": [
         "media-libs/mesa-19.1.8", 
-        "30690", 
+        "30707", 
         [
             "/usr/lib32/OpenCL/vendors/mesa/libOpenCL.so.1.0.0", 
             "/usr/lib64/OpenCL/vendors/mesa/libOpenCL.so.1.0.0", 
