@@ -102,7 +102,7 @@
     ], 
     "dev-libs/libgit2:0": [
         "dev-libs/libgit2-0.28.3", 
-        "30460", 
+        "30782", 
         [
             "/usr/lib64/libgit2.so.0.26.4", 
             "/usr/lib64/libgit2.so.26"
@@ -266,7 +266,7 @@
     ], 
     "media-libs/mesa:0": [
         "media-libs/mesa-19.1.8", 
-        "30707", 
+        "30716", 
         [
             "/usr/lib32/OpenCL/vendors/mesa/libOpenCL.so.1.0.0", 
             "/usr/lib64/OpenCL/vendors/mesa/libOpenCL.so.1.0.0", 
@@ -320,9 +320,25 @@
             "/usr/lib64/libnetsnmp.so.30"
         ]
     ], 
+    "net-libs/http-parser:0": [
+        "net-libs/http-parser-2.9.2", 
+        "30718", 
+        [
+            "/usr/lib64/libhttp_parser.so.2.8.1", 
+            "/usr/lib64/libhttp_parser.so.2.8"
+        ]
+    ], 
+    "sci-libs/blas-reference:0": [
+        "sci-libs/blas-reference-20070226-r4", 
+        "29707", 
+        [
+            "/usr/lib64/blas/reference/libblas.so.0.0.0", 
+            "/usr/lib64/blas/reference/libblas.so.0"
+        ]
+    ], 
     "sci-libs/gsl:0": [
-        "sci-libs/gsl-2.5", 
-        "29105", 
+        "sci-libs/gsl-2.5-r1", 
+        "30730", 
         [
             "/usr/lib64/libgsl.so.0.17.0", 
             "/usr/lib64/libgsl.so.0"
@@ -336,6 +352,14 @@
             "/usr/lib64/libhdf5_hl.so.10.1.1", 
             "/usr/lib64/libhdf5.so.10", 
             "/usr/lib64/libhdf5_hl.so.10"
+        ]
+    ], 
+    "sci-libs/lapack-reference:0": [
+        "sci-libs/lapack-reference-3.2.1-r4", 
+        "29708", 
+        [
+            "/usr/lib64/lapack/reference/liblapack.so.0.0.0", 
+            "/usr/lib64/lapack/reference/liblapack.so.0"
         ]
     ], 
     "sci-libs/libqalculate:0": [
