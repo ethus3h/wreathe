@@ -100,14 +100,6 @@
             "/usr/lib64/libffi.so.6"
         ]
     ], 
-    "dev-libs/libgit2:0": [
-        "dev-libs/libgit2-0.28.3", 
-        "30782", 
-        [
-            "/usr/lib64/libgit2.so.0.26.4", 
-            "/usr/lib64/libgit2.so.26"
-        ]
-    ], 
     "dev-libs/libical:0": [
         "dev-libs/libical-3.0.6", 
         "30411", 
@@ -306,6 +298,14 @@
             "/usr/lib64/libfluidsynth.so.1"
         ]
     ], 
+    "media-video/movit:0": [
+        "media-video/movit-1.6.2", 
+        "30855", 
+        [
+            "/usr/lib64/libmovit.so.3.0.0", 
+            "/usr/lib64/libmovit.so.3"
+        ]
+    ], 
     "net-analyzer/net-snmp:0": [
         "net-analyzer/net-snmp-5.8-r1", 
         "30238", 
@@ -318,14 +318,6 @@
             "/usr/lib64/libnetsnmpagent.so.30", 
             "/usr/lib64/libnetsnmptrapd.so.30", 
             "/usr/lib64/libnetsnmp.so.30"
-        ]
-    ], 
-    "net-libs/http-parser:0": [
-        "net-libs/http-parser-2.9.2", 
-        "30718", 
-        [
-            "/usr/lib64/libhttp_parser.so.2.8.1", 
-            "/usr/lib64/libhttp_parser.so.2.8"
         ]
     ], 
     "sci-libs/blas-reference:0": [
