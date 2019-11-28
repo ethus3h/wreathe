@@ -1,6 +1,6 @@
 diff -uraN src/Profile.cpp src.new/Profile.cpp
 --- src/Profile.cpp	2019-11-27 19:34:41.220591743 -0500
-+++ src.new/Profile.cpp	2019-11-27 19:37:37.460866288 -0500
++++ src/Profile.cpp	2019-11-27 19:37:37.460866288 -0500
 @@ -164,11 +164,11 @@
      setProperty(Arguments, QStringList() << QString::fromUtf8(qgetenv("SHELL")));
      setProperty(Icon, QStringLiteral("utilities-terminal"));
