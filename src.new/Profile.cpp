@@ -164,11 +164,11 @@ void Profile::useFallback()
     setProperty(Arguments, QStringList() << QString::fromUtf8(qgetenv("SHELL")));
     setProperty(Icon, QStringLiteral("utilities-terminal"));
     setProperty(Environment, QStringList() << QStringLiteral("TERM=xterm-256color") << QStringLiteral("COLORTERM=truecolor"));
-    setProperty(LocalTabTitleFormat, QStringLiteral("%d : %n"));
+    setProperty(LocalTabTitleFormat, QStringLiteral("%n: %d — %w"));
     setProperty(RemoteTabTitleFormat, QStringLiteral("(%u) %H"));
     setProperty(ShowTerminalSizeHint, true);
     setProperty(DimWhenInactive, false);
-    setProperty(StartInCurrentSessionDir, true);
+    setProperty(StartInCurrentSessionDir, false);
     setProperty(MenuIndex, QStringLiteral("0"));
     setProperty(SilenceSeconds, 10);
     setProperty(TerminalColumns, 80);
@@ -182,19 +182,19 @@ void Profile::useFallback()
     setProperty(ColorScheme, QStringLiteral("Breeze"));
     setProperty(Font, QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
-    setProperty(HistoryMode, Enum::FixedSizeHistory);
+    setProperty(HistoryMode, Enum::UnlimitedHistory);
     setProperty(HistorySize, 1000);
     setProperty(ScrollBarPosition, Enum::ScrollBarRight);
     setProperty(ScrollFullPage, false);
 
-    setProperty(FlowControlEnabled, true);
+    setProperty(FlowControlEnabled, false);
     setProperty(UrlHintsModifiers, 0);
     setProperty(ReverseUrlHints, false);
     setProperty(BlinkingTextEnabled, true);
     setProperty(UnderlineLinksEnabled, true);
     setProperty(UnderlineFilesEnabled, false);
     setProperty(OpenLinksByDirectClickEnabled, false);
-    setProperty(CtrlRequiredForDrag, true);
+    setProperty(CtrlRequiredForDrag, false);
     setProperty(AutoCopySelectedText, false);
     setProperty(CopyTextAsHTML, true);
     setProperty(TrimLeadingSpacesInSelectedText, false);
@@ -205,7 +205,7 @@ void Profile::useFallback()
     setProperty(MiddleClickPasteMode, Enum::PasteFromX11Selection);
     setProperty(TripleClickMode, Enum::SelectWholeLine);
 
-    setProperty(BlinkingCursorEnabled, false);
+    setProperty(BlinkingCursorEnabled, true);
     setProperty(BidiRenderingEnabled, true);
     setProperty(LineSpacing, 0);
     setProperty(CursorShape, Enum::BlockCursor);
