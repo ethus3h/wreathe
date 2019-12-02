@@ -4,6 +4,9 @@ dev-python/github-backup -git-lfs
 # FIXME: Until mpich builds
 media-video/ffmpeg -rubberband
 
+# FIXME: Until it builds (until GCC-9.2.0 is stable, I think). See https://bugs.gentoo.org/684436
+media-libs/mlt -ruby
+
 # stable mailutils requires stable Guile; prioritizing unstable Guile for Guix
 net-mail/mailutils -guile
 
