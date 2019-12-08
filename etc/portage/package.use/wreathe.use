@@ -179,7 +179,7 @@ dev-qt/tqt -firebird
 # unset USE=threads on php and apache (until the issue's fixed).
 dev-lang/php -threads
 www-servers/apache -threads
->=dev-libs/redland-bindings-1.0.15 -perl
+>=dev-libs/redland-bindings-1.0.15 -perl -php
 
 # https://bugs.gentoo.org/show_bug.cgi?id=602584
 dev-libs/redland-bindings -ruby
