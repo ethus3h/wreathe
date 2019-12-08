@@ -37,7 +37,7 @@ dev-libs/libdbusmenu-qt qt4
 dev-python/doublethink -python_targets_python3_6
 dev-python/warcprox -python_targets_python3_6
 # jpeg2k for kdelibs requires jasper which is removed from portage (security issues)
-kde-apps/kdebase-kioslaves -handbook
+kde-frameworks/kdebase-kioslaves -handbook
 kde-frameworks/kdelibs -doc -handbook -jpeg2k -kerberos -plasma -spell -ssl -upower -zeroconf
 media-libs/phonon qt4
 media-libs/phonon-gstreamer qt4
