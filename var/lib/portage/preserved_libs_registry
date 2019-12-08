@@ -7,14 +7,6 @@
             "/usr/lib64/libqca.so.2"
         ]
     ], 
-    "app-text/htmltidy:0": [
-        "app-text/htmltidy-20090325-r2", 
-        "24562", 
-        [
-            "/usr/lib64/libtidy-0.99.so.0.0.0", 
-            "/usr/lib64/libtidy-0.99.so.0"
-        ]
-    ], 
     "app-text/hunspell:0": [
         "app-text/hunspell-1.7.0-r1", 
         "29991", 
@@ -70,14 +62,12 @@
             "/usr/lib64/libicudata.so.63.1", 
             "/usr/lib64/libicui18n.so.60.2", 
             "/usr/lib64/libicui18n.so.63.1", 
-            "/usr/lib64/libicuio.so.60.2", 
             "/usr/lib64/libicuuc.so.60.2", 
             "/usr/lib64/libicuuc.so.63.1", 
             "/usr/lib64/libicuuc.so.63", 
             "/usr/lib64/libicuuc.so.60", 
             "/usr/lib64/libicudata.so.60", 
             "/usr/lib64/libicudata.so.63", 
-            "/usr/lib64/libicuio.so.60", 
             "/usr/lib64/libicui18n.so.60", 
             "/usr/lib64/libicui18n.so.63"
         ]
