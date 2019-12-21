@@ -2,10 +2,12 @@
 source ember_bash_setup
 
 export GUIX_PROFILE="$HOME/.config/guix/current"
-export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale"
-export PATH="$HOME/.config/guix/current/bin:$PATH"
-export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
 source "$GUIX_PROFILE/etc/profile"
+export GUIX_PROFILE="$HOME/.guix-profile"
+source "$GUIX_PROFILE/etc/profile"
+export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
+export PATH="$GUIX_PROFILE/bin:$PATH"
+export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
 
 if ! ((EUID)); then
     if [[ -f ~/.bash_history.keep-public-mirror ]]; then
