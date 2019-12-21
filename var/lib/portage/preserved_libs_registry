@@ -7,6 +7,13 @@
             "/usr/lib64/libhunspell-1.6.so.0"
         ]
     ], 
+    "app-text/podofo:0": [
+        "app-text/podofo-0.9.6_p20180715", 
+        "31079", 
+        [
+            "/usr/lib64/libpodofo.so.0.9.6_pre20170508"
+        ]
+    ], 
     "app-text/poppler:0": [
         "app-text/poppler-0.79.0-r1", 
         "30356", 
@@ -200,10 +207,8 @@
         "media-libs/jasper-2.0.14", 
         "23946", 
         [
-            "/usr/lib32/libjasper.so.4.0.0", 
             "/usr/lib64/libjasper.so.4.0.0", 
-            "/usr/lib64/libjasper.so.4", 
-            "/usr/lib32/libjasper.so.4"
+            "/usr/lib64/libjasper.so.4"
         ]
     ], 
     "media-libs/kvazaar:0": [
