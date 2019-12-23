@@ -39,6 +39,7 @@ dev-python/warcprox -python_targets_python3_6
 # jpeg2k for kdelibs requires jasper which is removed from portage (security issues)
 kde-apps/kdebase-kioslaves -handbook
 #kde-apps/libkexiv2 -xmp
+=kde-apps/libkexiv2-15.08.3 -xmp
 kde-frameworks/kdelibs -doc -handbook -jpeg2k -kerberos -plasma -qt3support -spell -ssl -upower -zeroconf
 media-libs/phonon qt4
 media-libs/phonon-gstreamer qt4
