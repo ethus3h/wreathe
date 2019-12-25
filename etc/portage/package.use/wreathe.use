@@ -340,7 +340,7 @@ gnome-extra/evolution-data-server vala gtk
 gnome-extra/libgda gtk
 gnome-extra/sushi office
 gnustep-base/gnustep-make native-exceptions
-kde-apps/dolphin -semantic-desktop thumbnail
+kde-apps/dolphin -semantic-desktop -thumbnail
 kde-apps/kalzium editor solver
 kde-apps/kde4-l10n minimal
 kde-apps/kdebase-data -wallpapers
