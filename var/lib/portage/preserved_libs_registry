@@ -134,8 +134,8 @@
         ]
     ], 
     "dev-libs/openssl:0": [
-        "dev-libs/openssl-1.1.1d-r2", 
-        "29670", 
+        "dev-libs/openssl-1.1.1d-r3", 
+        "31159", 
         [
             "/usr/lib32/libcrypto.so.1.0.0", 
             "/usr/lib32/libssl.so.1.0.0", 
@@ -154,8 +154,8 @@
         ]
     ], 
     "dev-scheme/guile:12": [
-        "dev-scheme/guile-2.2.4", 
-        "29181", 
+        "dev-scheme/guile-2.2.6", 
+        "31176", 
         [
             "/usr/lib64/libguile-2.0.so.22.8.1", 
             "/usr/lib64/libguile-2.0.so.22"
