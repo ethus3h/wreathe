@@ -8,6 +8,10 @@ dev-db/sqlitebrowser
 dev-python/internetarchive
 dev-python/warcprox
 dev-python/warctools
+dev-util/kdevelop
+dev-util/kdevelop-clang-tidy
+dev-util/kdevelop-php
+dev-util/kdevelop-python
 gnome-extra/gucharmap
 kde-apps/kwave
 kde-apps/thumbnailers:5
