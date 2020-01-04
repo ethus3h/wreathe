@@ -8,6 +8,9 @@
 */*::stintel
 =dev-libs/libplatform-9999::wreathe-overlay
 
+# Until I can get it more updated/building/not conflicting with things
+=kde-apps/dolphin-9999::wreathe-overlay
+
 # Misc. nonlibre software
 app-arch/unrar
 net-wireless/broadcom-sta
