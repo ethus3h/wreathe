@@ -20,9 +20,9 @@ x11-apps/compiz-boxmenu
 x11-apps/compiz-manager
 x11-apps/fusion-icon
 x11-libs/compiz-bcop
-x11-libs/gtk+:2
+#x11-libs/gtk+:2
 x11-libs/libcompizconfig
-x11-misc/cairo-dock
+#x11-misc/cairo-dock
 x11-misc/ccsm
 x11-misc/compiz-debug-utils
 x11-misc/gtk3-nocsd
@@ -34,8 +34,8 @@ x11-misc/simple-ccsm
 x11-misc/skippy
 x11-misc/skippy-xd
 x11-misc/tint2
-x11-misc/touchegg
-x11-misc/touchegg-gui
+#x11-misc/touchegg
+#x11-misc/touchegg-gui
 x11-plugins/compicc
 x11-plugins/compiz-extra-snowflake-textures
 x11-plugins/compiz-plugins-community
