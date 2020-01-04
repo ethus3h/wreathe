@@ -15,11 +15,13 @@
         ]
     ], 
     "app-text/poppler:0": [
-        "app-text/poppler-0.79.0-r1", 
-        "30356", 
+        "app-text/poppler-0.82.0", 
+        "31261", 
         [
             "/usr/lib64/libpoppler.so.73.0.0", 
-            "/usr/lib64/libpoppler.so.73"
+            "/usr/lib64/libpoppler.so.89.0.0", 
+            "/usr/lib64/libpoppler.so.73", 
+            "/usr/lib64/libpoppler.so.89"
         ]
     ], 
     "dev-lang/perl:0": [
@@ -238,8 +240,8 @@
         ]
     ], 
     "media-libs/libvpx:0": [
-        "media-libs/libvpx-1.7.0", 
-        "29756", 
+        "media-libs/libvpx-1.7.0-r1", 
+        "31242", 
         [
             "/usr/lib64/libvpx.so.3.0.0", 
             "/usr/lib64/libvpx.so.3"
@@ -279,14 +281,6 @@
             "/usr/lib64/libIlmImf-2_2.so.22"
         ]
     ], 
-    "media-libs/openimageio:0": [
-        "media-libs/openimageio-1.8.17-r1", 
-        "31049", 
-        [
-            "/usr/lib64/libOpenImageIO.so.1.7.17", 
-            "/usr/lib64/libOpenImageIO.so.1.7"
-        ]
-    ], 
     "media-libs/rtaudio:0": [
         "media-libs/rtaudio-4.1.2", 
         "31031", 
@@ -310,8 +304,8 @@
         ]
     ], 
     "media-sound/fluidsynth:0": [
-        "media-sound/fluidsynth-2.0.4", 
-        "30090", 
+        "media-sound/fluidsynth-2.0.7", 
+        "31275", 
         [
             "/usr/lib64/libfluidsynth.so.1.5.2", 
             "/usr/lib64/libfluidsynth.so.1"
