@@ -5,7 +5,7 @@ app-admin/sudo
 app-i18n/anthy
 app-i18n/canna
 app-i18n/freewnn
-app-laptop/configure-trackpoint
+#app-laptop/configure-trackpoint
 app-laptop/tp_smapi
 app-portage/eix
 app-portage/genlop
