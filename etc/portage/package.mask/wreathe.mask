@@ -11,6 +11,8 @@
 # Until I can get it more updated/building/not conflicting with things
 =kde-apps/dolphin-9999::wreathe-overlay
 
+net-libs/webkit-gtk
+
 # Misc. nonlibre software
 app-arch/unrar
 net-wireless/broadcom-sta

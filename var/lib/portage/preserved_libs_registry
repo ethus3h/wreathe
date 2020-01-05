@@ -163,6 +163,14 @@
             "/usr/lib64/libguile-2.0.so.22"
         ]
     ], 
+    "gnome-base/gnome-desktop:3": [
+        "gnome-base/gnome-desktop-3.32.2", 
+        "31418", 
+        [
+            "/usr/lib64/libgnome-desktop-3.so.12.2.0", 
+            "/usr/lib64/libgnome-desktop-3.so.12"
+        ]
+    ], 
     "kde-plasma/kdecoration:5": [
         "kde-plasma/kdecoration-5.17.4", 
         "31306", 
@@ -265,14 +273,6 @@
             "/usr/lib64/libIlmImf-2_2.so.22"
         ]
     ], 
-    "media-libs/rtaudio:0": [
-        "media-libs/rtaudio-4.1.2", 
-        "31031", 
-        [
-            "/usr/lib64/librtaudio.so.4.0.12", 
-            "/usr/lib64/librtaudio.so.4"
-        ]
-    ], 
     "media-libs/x264:0": [
         "media-libs/x264-0.0.20190214", 
         "31128", 
@@ -317,14 +317,6 @@
             "/usr/lib64/libavformat.so.57", 
             "/usr/lib64/libavfilter.so.6", 
             "/usr/lib64/libswresample.so.2"
-        ]
-    ], 
-    "media-video/movit:0": [
-        "media-video/movit-1.6.2", 
-        "30855", 
-        [
-            "/usr/lib64/libmovit.so.3.0.0", 
-            "/usr/lib64/libmovit.so.3"
         ]
     ], 
     "net-analyzer/net-snmp:0": [

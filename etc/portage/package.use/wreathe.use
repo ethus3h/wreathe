@@ -49,6 +49,7 @@ sys-auth/polkit-qt qt4
 media-sound/denemo -evince
 
 # Prevent webkit-gtk
+dev-util/glade -webkit
 x11-libs/wxGTK -webkit
 net-libs/libproxy -webkit
 
