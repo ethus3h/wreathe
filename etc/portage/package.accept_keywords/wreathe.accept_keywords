@@ -10,7 +10,7 @@
 #sys-devel/lld **
 
 # Until stable builds (3.4-r3 doesn't) (#669946)
-net-mail/mailutils ~amd64
+#net-mail/mailutils ~amd64
 
 # for dumpgenerator.py
 dev-python/kitchen ~amd64
@@ -71,8 +71,7 @@ games-fps/sauerbraten ~amd64
 games-action/supertuxkart ~amd64
 media-sound/supercollider ~amd64
 net-nntp/sabnzbd ~amd64
-media-sound/mumble **
-www-apps/owncloud ~amd64
+media-sound/mumble ~amd64
 www-apps/wordpress ~amd64
 app-dicts/sword-hitchcock ~amd64
 app-dicts/sword-cbc ~amd64
