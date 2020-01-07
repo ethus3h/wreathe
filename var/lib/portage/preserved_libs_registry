@@ -29,15 +29,13 @@
         "29446", 
         [
             "/usr/lib64/libperl.so.5.24.3", 
-            "/usr/lib64/libperl.so.5.26.2", 
             "/usr/lib64/perl5/5.24.3/x86_64-linux/CORE/libperl.so.5.24", 
-            "/usr/lib64/libperl.so.5.24", 
-            "/usr/lib64/libperl.so.5.26"
+            "/usr/lib64/libperl.so.5.24"
         ]
     ], 
     "dev-libs/boost:0": [
         "dev-libs/boost-1.71.0", 
-        "30180", 
+        "31674", 
         [
             "/usr/lib64/libboost_atomic.so.1.65.0", 
             "/usr/lib64/libboost_chrono.so.1.65.0", 
@@ -54,21 +52,29 @@
         ]
     ], 
     "dev-libs/icu:0": [
-        "dev-libs/icu-64.2", 
-        "29950", 
+        "dev-libs/icu-65.1", 
+        "31582", 
         [
             "//usr/lib64/libicui18n.so.63.1", 
             "//usr/lib64/libicuuc.so.63.1", 
             "/usr/lib64/libicudata.so.60.2", 
             "/usr/lib64/libicudata.so.63.1", 
+            "/usr/lib64/libicudata.so.64.2", 
             "/usr/lib64/libicui18n.so.60.2", 
             "/usr/lib64/libicui18n.so.63.1", 
+            "/usr/lib64/libicui18n.so.64.2", 
+            "/usr/lib64/libicuio.so.64.2", 
             "/usr/lib64/libicuuc.so.60.2", 
             "/usr/lib64/libicuuc.so.63.1", 
+            "/usr/lib64/libicuuc.so.64.2", 
+            "/usr/lib64/libicuuc.so.64", 
             "/usr/lib64/libicuuc.so.63", 
             "/usr/lib64/libicuuc.so.60", 
+            "/usr/lib64/libicudata.so.64", 
+            "/usr/lib64/libicuio.so.64", 
             "/usr/lib64/libicudata.so.60", 
             "/usr/lib64/libicudata.so.63", 
+            "/usr/lib64/libicui18n.so.64", 
             "/usr/lib64/libicui18n.so.60", 
             "/usr/lib64/libicui18n.so.63"
         ]
@@ -101,12 +107,10 @@
     ], 
     "dev-libs/libical:0": [
         "dev-libs/libical-3.0.6", 
-        "30411", 
+        "31684", 
         [
             "/usr/lib64/libical.so.2.0.0", 
-            "/usr/lib64/libicalss.so.2.0.0", 
-            "/usr/lib64/libical.so.2", 
-            "/usr/lib64/libicalss.so.2"
+            "/usr/lib64/libical.so.2"
         ]
     ], 
     "dev-libs/libofx:0": [
@@ -163,14 +167,6 @@
             "/usr/lib64/libguile-2.0.so.22"
         ]
     ], 
-    "gnome-base/gnome-desktop:3": [
-        "gnome-base/gnome-desktop-3.32.2", 
-        "31418", 
-        [
-            "/usr/lib64/libgnome-desktop-3.so.12.2.0", 
-            "/usr/lib64/libgnome-desktop-3.so.12"
-        ]
-    ], 
     "kde-plasma/kdecoration:5": [
         "kde-plasma/kdecoration-5.17.4", 
         "31306", 
@@ -188,12 +184,16 @@
         ]
     ], 
     "media-gfx/imagemagick:0": [
-        "media-gfx/imagemagick-7.0.9.5", 
-        "31022", 
+        "media-gfx/imagemagick-6.9.10.78", 
+        "31784", 
         [
+            "/usr/lib64/libMagick++-7.Q16HDRI.so.4.0.0", 
             "/usr/lib64/libMagickCore-7.Q16HDRI.so.5.0.0", 
-            "/usr/lib64/libMagickWand-7.Q16HDRI.so.5.0.0", 
-            "/usr/lib64/libMagickWand-7.Q16HDRI.so.5", 
+            "/usr/lib64/libMagickCore-7.Q16HDRI.so.7.0.0", 
+            "/usr/lib64/libMagickWand-7.Q16HDRI.so.7.0.0", 
+            "/usr/lib64/libMagickWand-7.Q16HDRI.so.7", 
+            "/usr/lib64/libMagickCore-7.Q16HDRI.so.7", 
+            "/usr/lib64/libMagick++-7.Q16HDRI.so.4", 
             "/usr/lib64/libMagickCore-7.Q16HDRI.so.5"
         ]
     ], 
@@ -227,14 +227,6 @@
         [
             "/usr/lib64/libkvazaar.so.3.15.0", 
             "/usr/lib64/libkvazaar.so.3"
-        ]
-    ], 
-    "media-libs/libcue:0": [
-        "media-libs/libcue-2.2.1", 
-        "31230", 
-        [
-            "/usr/lib64/libcue.so.1.0.4", 
-            "/usr/lib64/libcue.so.1"
         ]
     ], 
     "media-libs/libraw:0": [
@@ -319,18 +311,12 @@
             "/usr/lib64/libswresample.so.2"
         ]
     ], 
-    "net-analyzer/net-snmp:0": [
-        "net-analyzer/net-snmp-5.8-r1", 
-        "30238", 
+    "net-libs/telepathy-qt:0": [
+        "net-libs/telepathy-qt-0.9.8", 
+        "31606", 
         [
-            "/usr/lib64/libnetsnmp.so.30.0.3", 
-            "/usr/lib64/libnetsnmpagent.so.30.0.3", 
-            "/usr/lib64/libnetsnmpmibs.so.30.0.3", 
-            "/usr/lib64/libnetsnmptrapd.so.30.0.3", 
-            "/usr/lib64/libnetsnmpmibs.so.30", 
-            "/usr/lib64/libnetsnmpagent.so.30", 
-            "/usr/lib64/libnetsnmptrapd.so.30", 
-            "/usr/lib64/libnetsnmp.so.30"
+            "/usr/lib64/libtelepathy-qt5-service.so.0.0.9.7", 
+            "/usr/lib64/libtelepathy-qt5-service.so.0"
         ]
     ], 
     "net-libs/webkit-gtk:4": [
@@ -379,7 +365,7 @@
     ], 
     "sci-libs/libqalculate:0": [
         "sci-libs/libqalculate-2.8.1", 
-        "30023", 
+        "31716", 
         [
             "/usr/lib64/libqalculate.so.6.0.0", 
             "/usr/lib64/libqalculate.so.6"
@@ -391,14 +377,6 @@
         [
             "/usr/lib64/libnetcdf.so.7.2.0", 
             "/usr/lib64/libnetcdf.so.7"
-        ]
-    ], 
-    "sys-apps/lm_sensors:0": [
-        "sys-apps/lm_sensors-3.5.0", 
-        "28309", 
-        [
-            "/usr/lib64/libsensors.so.4.4.0", 
-            "/usr/lib64/libsensors.so.4"
         ]
     ], 
     "sys-fs/cryptsetup:0": [
@@ -413,26 +391,12 @@
         "x11-libs/libva-2.5.0-r1", 
         "30037", 
         [
-            "/usr/lib32/libva-drm.so.1.3904.0", 
-            "/usr/lib32/libva-x11.so.1.3904.0", 
-            "/usr/lib32/libva.so.1.3904.0", 
             "/usr/lib64/libva-drm.so.1.3904.0", 
             "/usr/lib64/libva-x11.so.1.3904.0", 
             "/usr/lib64/libva.so.1.3904.0", 
             "/usr/lib64/libva-drm.so.1", 
-            "/usr/lib64/libva.so.1", 
-            "/usr/lib32/libva.so.1", 
-            "/usr/lib32/libva-drm.so.1", 
             "/usr/lib64/libva-x11.so.1", 
-            "/usr/lib32/libva-x11.so.1"
-        ]
-    ], 
-    "xfce-base/xfconf:0": [
-        "xfce-base/xfconf-4.14.1", 
-        "30325", 
-        [
-            "/usr/lib64/libxfconf-0.so.2.0.0", 
-            "/usr/lib64/libxfconf-0.so.2"
+            "/usr/lib64/libva.so.1"
         ]
     ]
 }

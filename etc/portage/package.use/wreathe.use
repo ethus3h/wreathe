@@ -254,7 +254,7 @@ media-libs/openimageio -doc
 x11-themes/oxygen-gtk -doc
 
 # Various extra capabilities
-app-doc/doxygen clang dot doxysearch
+app-doc/doxygen -clang dot doxysearch # -clang because it fails to build /var/tmp/portage/app-doc/doxygen-1.8.16-r1/work/doxygen-1.8.16/src/clangparser.cpp:6:10: fatal error: clang-c/Index.h: No such file or directory
 sys-boot/grub mount
 app-office/libreoffice binfilter gtk odk quickstarter vlc libreoffice_extensions_nlpsolver libreoffice_extensions_scripting-beanshell libreoffice_extensions_scripting-javascript libreoffice_extensions_wiki-publisher java
 app-office/scribus scripts
