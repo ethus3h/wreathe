@@ -16,7 +16,7 @@ net-mail/mailutils ~amd64
 dev-python/kitchen ~amd64
 
 # Until native-theme patch applies to ~amd64
-media-sound/musescore **
+#media-sound/musescore **
 
 # For guix
 dev-scheme/bytestructures ~amd64
