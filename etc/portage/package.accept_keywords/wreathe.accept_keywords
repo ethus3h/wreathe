@@ -280,7 +280,8 @@ net-print/apsfilter ~amd64
 #dev-python/awscli ~amd64
 games-action/extreme-tuxracer ~amd64
 net-print/epson-inkjet-printer-escpr ~amd64
-games-board/knights ~amd64
+# move games-board/knights kde-apps/knights
+kde-apps/knights ~amd64
 games-simulation/openttd ~amd64
 media-plugins/audacious-plugins ~amd64
 media-sound/ardour ~amd64
