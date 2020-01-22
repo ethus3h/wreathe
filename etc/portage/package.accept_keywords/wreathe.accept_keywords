@@ -40,6 +40,7 @@ app-text/getxbook ~amd64
 media-plugins/calf ~amd64
 
 # Apps with no stable version
+media-gfx/png2ico ~amd64
 dev-libs/libqmatrixclient ~amd64
 net-im/quaternion ~amd64
 app-dicts/freedict-eng-ita ~amd64
