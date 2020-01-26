@@ -11,8 +11,7 @@ kde-apps/akonadi
 kde-apps/baloo-widgets
 kde-apps/dolphin
 #kde-apps/dolphin:4
-kde-apps/dolphin-plugins
-#kde-apps/dolphin-plugins:4
+#kde-apps/dolphin-plugins
 kde-apps/kde-meta
 kde-apps/konsole
 media-fonts/infinality-ultimate-meta

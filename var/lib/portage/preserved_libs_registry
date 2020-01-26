@@ -181,14 +181,6 @@
             "/usr/lib64/libkvazaar.so.3"
         ]
     ], 
-    "media-libs/libraw:0": [
-        "media-libs/libraw-0.19.3", 
-        "30408", 
-        [
-            "/usr/lib64/libraw_r.so.16.0.0", 
-            "/usr/lib64/libraw_r.so.16"
-        ]
-    ], 
     "media-libs/libvpx:0": [
         "media-libs/libvpx-1.7.0-r1", 
         "31242", 
