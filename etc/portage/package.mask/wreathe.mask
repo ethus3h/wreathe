@@ -11,6 +11,7 @@
 # Until I can get it more updated/building/not conflicting with things
 =kde-apps/dolphin-9999::wreathe-overlay
 =kde-apps/dolphin-plugins-9999::wreathe-overlay
+=kde-apps/thumbnailers-9999::wreathe-overlay
 
 net-libs/webkit-gtk
 
