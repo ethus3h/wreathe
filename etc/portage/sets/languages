@@ -13,4 +13,4 @@ dev-lang/ruby
 dev-lang/snap
 dev-lang/vala
 games-kids/scratch
-virtual/perl6
+#virtual/perl6
