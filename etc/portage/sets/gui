@@ -15,9 +15,11 @@ kde-apps/dolphin
 kde-apps/kde-meta
 kde-apps/konsole
 media-fonts/infinality-ultimate-meta
+media-gfx/xli
 x11-apps/compiz-boxmenu
 x11-apps/compiz-manager
 x11-apps/fusion-icon
+x11-apps/xset
 x11-libs/compiz-bcop
 #x11-libs/gtk+:2
 x11-libs/libcompizconfig

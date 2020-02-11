@@ -137,18 +137,6 @@
             "/usr/lib64/libexiv2.so.26"
         ]
     ], 
-    "media-gfx/imagemagick:0": [
-        "media-gfx/imagemagick-6.9.10.78", 
-        "31786", 
-        [
-            "/usr/lib64/libMagick++-7.Q16HDRI.so.4.0.0", 
-            "/usr/lib64/libMagickCore-7.Q16HDRI.so.7.0.0", 
-            "/usr/lib64/libMagickWand-7.Q16HDRI.so.7.0.0", 
-            "/usr/lib64/libMagickWand-7.Q16HDRI.so.7", 
-            "/usr/lib64/libMagickCore-7.Q16HDRI.so.7", 
-            "/usr/lib64/libMagick++-7.Q16HDRI.so.4"
-        ]
-    ], 
     "media-libs/ilmbase:0": [
         "media-libs/ilmbase-2.3.0", 
         "28919", 
