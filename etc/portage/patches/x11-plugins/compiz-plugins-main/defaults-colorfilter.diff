@@ -1,7 +1,6 @@
-diff --git a/metadata/colorfilter.xml.in b/metadata/colorfilter.xml.in
-index ba111bd..61e24f3 100644
---- a/metadata/colorfilter.xml.in
-+++ b/metadata/colorfilter.xml.in
+diff -uraN a/colorfilter.xml.in b/colorfilter.xml.in
+--- a/colorfilter.xml.in	2020-03-11 20:51:43.000000000 -0400
++++ b/colorfilter.xml.in	2020-03-11 20:52:56.000000000 -0400
 @@ -18,7 +18,7 @@
        <option name="toggle_screen_key" type="key">
          <_short>Toggle screen filtering</_short>
@@ -20,15 +19,16 @@ index ba111bd..61e24f3 100644
        </option>
        <option name="filter_match" type="match">
          <_short>Filtered windows</_short>
-@@ -40,32 +40,15 @@
+@@ -40,7 +40,7 @@
        <option name="exclude_match" type="match">
          <_short>Exclude windows</_short>
          <_long>Windows to exclude from filtering.</_long>
 -        <default>Dock | type=Desktop</default>
 +        <default></default>
        </option>
-       <option name="filters" type="list">
-         <_short>Filters files</_short>
+       <option name="notifications_enable" type="bool">
+         <_short>Enable notifications upon filter change</_short>
+@@ -62,25 +62,7 @@
          <_long>List of plain text filter files that should be applied when filtering windows or screen.</_long>
          <type>string</type>
          <default>
