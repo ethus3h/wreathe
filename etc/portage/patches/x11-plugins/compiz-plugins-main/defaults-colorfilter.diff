@@ -20,7 +20,7 @@ index ba111bd..61e24f3 100644
        </option>
        <option name="filter_match" type="match">
          <_short>Filtered windows</_short>
-@@ -40,31 +40,14 @@
+@@ -40,32 +40,15 @@
        <option name="exclude_match" type="match">
          <_short>Exclude windows</_short>
          <_long>Windows to exclude from filtering.</_long>
