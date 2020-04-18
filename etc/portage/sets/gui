@@ -7,6 +7,7 @@ app-misc/onboard-emoji
 app-misc/wreathe-base
 app-misc/wreathe-meta
 dev-python/compizconfig-python
+gnustep-apps/gworkspace
 kde-apps/akonadi
 kde-apps/baloo-widgets
 kde-apps/dolphin
