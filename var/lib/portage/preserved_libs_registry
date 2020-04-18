@@ -112,13 +112,11 @@
         "32191", 
         [
             "/usr/lib64/libprotobuf.so.15.0.1", 
-            "/usr/lib64/libprotobuf.so.17.0.0", 
             "/usr/lib64/libprotobuf.so.19.0.0", 
             "/usr/lib64/libprotoc.so.19.0.0", 
             "/usr/lib64/libprotobuf.so.19", 
             "/usr/lib64/libprotoc.so.19", 
-            "/usr/lib64/libprotobuf.so.15", 
-            "/usr/lib64/libprotobuf.so.17"
+            "/usr/lib64/libprotobuf.so.15"
         ]
     ], 
     "dev-scheme/guile:12": [
