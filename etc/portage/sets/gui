@@ -47,6 +47,7 @@ x11-plugins/compiz-plugins-extra
 x11-plugins/compiz-plugins-main
 x11-plugins/compiz-plugins-meta
 x11-themes/emerald-themes
+x11-themes/gnustep-silver-theme
 x11-themes/gtk-chtheme
 x11-themes/gtk-engines-murrine
 x11-themes/gtk-theme-switch
