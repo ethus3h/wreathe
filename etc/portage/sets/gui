@@ -8,6 +8,7 @@ app-misc/wreathe-base
 app-misc/wreathe-meta
 dev-python/compizconfig-python
 gnustep-apps/gworkspace
+gnustep-apps/systempreferences
 kde-apps/akonadi
 kde-apps/baloo-widgets
 kde-apps/dolphin
