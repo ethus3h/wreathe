@@ -1,0 +1,15 @@
+diff --git a/src/libaudcore/tuple.cc b/src/libaudcore/tuple.cc
+index 81c52c84f..299819c2d 100644
+--- a/src/libaudcore/tuple.cc
++++ b/src/libaudcore/tuple.cc
+@@ -836,8 +836,8 @@ EXPORT void Tuple::generate_fallbacks()
+         {
+             if (second && !artist && !album)
+             {
+-                data->set_str(FallbackArtist, second);
+-                data->set_str(FallbackAlbum, first);
++                data->set_str(FallbackArtist, first);
++                data->set_str(FallbackAlbum, "");
+             }
+             else
+                 data->set_str(artist ? FallbackAlbum : FallbackArtist, first);
