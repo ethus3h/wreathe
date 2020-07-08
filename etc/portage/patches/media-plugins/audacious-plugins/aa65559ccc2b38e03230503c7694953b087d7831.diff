@@ -7,7 +7,7 @@ index 374c04b73..3663cdb1d 100644
               "URL in a browser, allow Audacious access to your account, and "
               "then click 'Check Permission' again:");
 -            auto url = str_printf("http://www.last.fm/api/auth/?api_key=%s"
-+            auto url = str_printf("http://listenbrainz.org/api/auth/?api_key=%s"
++            auto url = str_printf("https://listenbrainz.org/api/auth/?api_key=%s"
               "&token=%s", SCROBBLER_API_KEY, (const char *)request_token);
  
              hook_call("ui show error", (void *)(const char *)str_concat
