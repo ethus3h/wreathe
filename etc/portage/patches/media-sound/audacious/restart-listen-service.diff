@@ -7,7 +7,7 @@ index 804b27ce3..9ce805ddf 100644
  Icon=audacious
  Categories=AudioVideo;Audio;Player;
 -Exec=audacious %U
-+Exec=bash -c 'audacious %U; sleep 1; systemctl --user restart mpris-scrobbler.service'
++Exec=bash -c 'audacious %U &; sleep 1; systemctl --user restart mpris-scrobbler.service'
  TryExec=audacious
  StartupNotify=false
  Terminal=false
