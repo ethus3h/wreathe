@@ -1,5 +1,5 @@
 diff --git a/src/scrobbler2/scrobbler.cc b/src/scrobbler2/scrobbler.cc
-index 9c44b9465..81e79174a 100644
+index 9c44b9465..4d954ef96 100644
 --- a/src/scrobbler2/scrobbler.cc
 +++ b/src/scrobbler2/scrobbler.cc
 @@ -7,6 +7,7 @@
@@ -14,16 +14,16 @@ index 9c44b9465..81e79174a 100644
  
      char *queuepath = g_strconcat(aud_get_path(AudPath::UserDir),"/scrobbler.log", nullptr);
  
-+    std::regex filter ("-(([-\w]{11})|(\d{9,10}))$");
++    std::regex filter ("-(([-\\w]{11})|(\\d{9,10}))$");
 +
      StringBuf artist = clean_string (playing_track.get_str (Tuple::Artist));
 -    StringBuf title  = clean_string (playing_track.get_str (Tuple::Title));
-+    StringBuf title  = std::regex_replace(clean_string (playing_track.get_str (Tuple::Title)), filter);
++    StringBuf title  = std::regex_replace((clean_string (playing_track.get_str (Tuple::Title))).str(), filter);
      StringBuf album  = clean_string (playing_track.get_str (Tuple::Album));
  
      int track  = playing_track.get_int (Tuple::Track);
 diff --git a/src/scrobbler2/scrobbler_communication.cc b/src/scrobbler2/scrobbler_communication.cc
-index b3d343c37..119f71f43 100644
+index b3d343c37..deed9ee0c 100644
 --- a/src/scrobbler2/scrobbler_communication.cc
 +++ b/src/scrobbler2/scrobbler_communication.cc
 @@ -3,6 +3,7 @@
@@ -38,11 +38,11 @@ index b3d343c37..119f71f43 100644
     */
    Tuple curr_track = now_playing_track.ref ();
  
-+  std::regex filter ("-(([-\w]{11})|(\d{9,10}))$");
++  std::regex filter ("-(([-\\w]{11})|(\\d{9,10}))$");
 +
    StringBuf artist = clean_string (curr_track.get_str (Tuple::Artist));
 -  StringBuf title = clean_string (curr_track.get_str (Tuple::Title));
-+  StringBuf title = std::regex_replace(clean_string (curr_track.get_str (Tuple::Title)), filter);
++  StringBuf title = std::regex_replace((clean_string (curr_track.get_str (Tuple::Title))).str(), filter);
    StringBuf album = clean_string (curr_track.get_str (Tuple::Album));
  
    int track  = curr_track.get_int (Tuple::Track);
