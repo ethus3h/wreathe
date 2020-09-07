@@ -1,8 +1,16 @@
 diff --git a/src/scrobbler2/scrobbler.cc b/src/scrobbler2/scrobbler.cc
-index 9c44b9465..d47259837 100644
+index 9c44b9465..81e79174a 100644
 --- a/src/scrobbler2/scrobbler.cc
 +++ b/src/scrobbler2/scrobbler.cc
-@@ -91,8 +91,10 @@ static gboolean queue_track_to_scrobble (void * data) {
+@@ -7,6 +7,7 @@
+  * It is licensed under the GNU General Public License, version 3.
+  */
+ 
++#include <regex>
+ #include <glib/gstdio.h>
+ 
+ //audacious includes
+@@ -91,8 +92,10 @@ static gboolean queue_track_to_scrobble (void * data) {
  
      char *queuepath = g_strconcat(aud_get_path(AudPath::UserDir),"/scrobbler.log", nullptr);
  
@@ -15,10 +23,18 @@ index 9c44b9465..d47259837 100644
  
      int track  = playing_track.get_int (Tuple::Track);
 diff --git a/src/scrobbler2/scrobbler_communication.cc b/src/scrobbler2/scrobbler_communication.cc
-index b3d343c37..d0925493e 100644
+index b3d343c37..119f71f43 100644
 --- a/src/scrobbler2/scrobbler_communication.cc
 +++ b/src/scrobbler2/scrobbler_communication.cc
-@@ -500,8 +500,10 @@ static void send_now_playing() {
+@@ -3,6 +3,7 @@
+ #include <stdarg.h>
+ #include <stdlib.h>
+ #include <sys/time.h>
++#include <regex>
+ #include <curl/curl.h>
+ 
+ #include <glib.h>
+@@ -500,8 +501,10 @@ static void send_now_playing() {
     */
    Tuple curr_track = now_playing_track.ref ();
  
@@ -30,7 +46,7 @@ index b3d343c37..d0925493e 100644
    StringBuf album = clean_string (curr_track.get_str (Tuple::Album));
  
    int track  = curr_track.get_int (Tuple::Track);
-@@ -517,7 +519,8 @@ static void send_now_playing() {
+@@ -517,7 +520,8 @@ static void send_now_playing() {
       "duration", (const char *) length_str, "api_key", SCROBBLER_API_KEY,
       "sk", (const char *) session_key);
  
