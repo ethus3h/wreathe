@@ -24,7 +24,7 @@ index 9c44b9465..865080bd8 100644
  
      int track  = playing_track.get_int (Tuple::Track);
 diff --git a/src/scrobbler2/scrobbler_communication.cc b/src/scrobbler2/scrobbler_communication.cc
-index b3d343c37..eec491a6d 100644
+index b3d343c37..6c5a9c809 100644
 --- a/src/scrobbler2/scrobbler_communication.cc
 +++ b/src/scrobbler2/scrobbler_communication.cc
 @@ -3,6 +3,7 @@
@@ -44,7 +44,7 @@ index b3d343c37..eec491a6d 100644
    StringBuf artist = clean_string (curr_track.get_str (Tuple::Artist));
 -  StringBuf title = clean_string (curr_track.get_str (Tuple::Title));
 +  StringBuf titletemp = clean_string (curr_track.get_str (Tuple::Title));
-+  StringBuf title = std::regex_replace((const char *)titletemp, filter, "");
++  StringBuf title = std::regex_replace((const char *)titletemp, filter, "").c_str();
    StringBuf album = clean_string (curr_track.get_str (Tuple::Album));
  
    int track  = curr_track.get_int (Tuple::Track);
