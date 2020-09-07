@@ -25,7 +25,7 @@ index 9c44b9465..45a0593c2 100644
  
      int track  = playing_track.get_int (Tuple::Track);
 diff --git a/src/scrobbler2/scrobbler_communication.cc b/src/scrobbler2/scrobbler_communication.cc
-index b3d343c37..6c5a9c809 100644
+index b3d343c37..8795dbdd0 100644
 --- a/src/scrobbler2/scrobbler_communication.cc
 +++ b/src/scrobbler2/scrobbler_communication.cc
 @@ -3,6 +3,7 @@
@@ -36,7 +36,7 @@ index b3d343c37..6c5a9c809 100644
  #include <curl/curl.h>
  
  #include <glib.h>
-@@ -500,8 +501,11 @@ static void send_now_playing() {
+@@ -500,8 +501,12 @@ static void send_now_playing() {
     */
    Tuple curr_track = now_playing_track.ref ();
  
@@ -45,11 +45,12 @@ index b3d343c37..6c5a9c809 100644
    StringBuf artist = clean_string (curr_track.get_str (Tuple::Artist));
 -  StringBuf title = clean_string (curr_track.get_str (Tuple::Title));
 +  StringBuf titletemp = clean_string (curr_track.get_str (Tuple::Title));
-+  StringBuf title = std::regex_replace((const char *)titletemp, filter, "").c_str();
++  char * titletempb =  std::regex_replace((const char *)titletemp, filter, "").c_str();
++  StringBuf title = str_copy(titletempb);
    StringBuf album = clean_string (curr_track.get_str (Tuple::Album));
  
    int track  = curr_track.get_int (Tuple::Track);
-@@ -517,7 +521,8 @@ static void send_now_playing() {
+@@ -517,7 +522,8 @@ static void send_now_playing() {
       "duration", (const char *) length_str, "api_key", SCROBBLER_API_KEY,
       "sk", (const char *) session_key);
  
