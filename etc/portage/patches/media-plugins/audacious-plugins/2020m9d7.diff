@@ -1,5 +1,5 @@
 diff --git a/src/scrobbler2/scrobbler.cc b/src/scrobbler2/scrobbler.cc
-index 9c44b9465..45a0593c2 100644
+index 9c44b9465..5ab1cef8e 100644
 --- a/src/scrobbler2/scrobbler.cc
 +++ b/src/scrobbler2/scrobbler.cc
 @@ -7,6 +7,7 @@
@@ -19,7 +19,7 @@ index 9c44b9465..45a0593c2 100644
      StringBuf artist = clean_string (playing_track.get_str (Tuple::Artist));
 -    StringBuf title  = clean_string (playing_track.get_str (Tuple::Title));
 +    StringBuf titletemp  = clean_string (playing_track.get_str (Tuple::Title));
-+    char * titletempb =  std::regex_replace((const char *)titletemp, filter, "").c_str();
++    const char * titletempb =  std::regex_replace((const char *)titletemp, filter, "").c_str();
 +    StringBuf title = str_copy(titletempb);
      StringBuf album  = clean_string (playing_track.get_str (Tuple::Album));
  
