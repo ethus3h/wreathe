@@ -1,25 +1,26 @@
 diff --git a/src/scrobbler2/scrobbler.cc b/src/scrobbler2/scrobbler.cc
-index 9c44b9465..5ab1cef8e 100644
+index 9c44b9465..b7098c6cf 100644
 --- a/src/scrobbler2/scrobbler.cc
 +++ b/src/scrobbler2/scrobbler.cc
-@@ -7,6 +7,7 @@
+@@ -7,6 +7,8 @@
   * It is licensed under the GNU General Public License, version 3.
   */
  
 +#include <regex>
++#include <string>
  #include <glib/gstdio.h>
  
  //audacious includes
-@@ -91,8 +92,12 @@ static gboolean queue_track_to_scrobble (void * data) {
+@@ -91,8 +93,12 @@ static gboolean queue_track_to_scrobble (void * data) {
  
      char *queuepath = g_strconcat(aud_get_path(AudPath::UserDir),"/scrobbler.log", nullptr);
  
-+    std::regex filter ("-(([-\\w]{11})|(\\d{9,10}))$");
++    std::regex filter ("(-(([-\\w]{11})|(\\d{9,10})))$");
 +
      StringBuf artist = clean_string (playing_track.get_str (Tuple::Artist));
 -    StringBuf title  = clean_string (playing_track.get_str (Tuple::Title));
 +    StringBuf titletemp  = clean_string (playing_track.get_str (Tuple::Title));
-+    const char * titletempb =  std::regex_replace((const char *)titletemp, filter, "").c_str();
++    const char * titletempb =  std::regex_replace(std::string str(titletemp), filter, "").c_str();
 +    StringBuf title = str_copy(titletempb);
      StringBuf album  = clean_string (playing_track.get_str (Tuple::Album));
  
