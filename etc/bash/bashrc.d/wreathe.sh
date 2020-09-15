@@ -11,6 +11,7 @@ if [[ -z "$GUIX_PROFILE" ]]; then
     export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
 fi
 #set +x
+source "$GUIX_PROFILE/etc/profile"
 
 if ! ((EUID)); then
     if [[ -f ~/.bash_history.keep-public-mirror ]]; then
