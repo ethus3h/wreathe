@@ -6,12 +6,12 @@ if [[ -z "$GUIX_PROFILE" ]]; then
     source "$GUIX_PROFILE/etc/profile"
     export GUIX_PROFILE="$HOME/.guix-profile"
     source "$GUIX_PROFILE/etc/profile"
-    export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
-    export PATH="$GUIX_PROFILE/bin:$PATH"
-    export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
 fi
 #set +x
 source "$GUIX_PROFILE/etc/profile"
+    export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
+    export PATH="$GUIX_PROFILE/bin:$PATH"
+    export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
 
 if ! ((EUID)); then
     if [[ -f ~/.bash_history.keep-public-mirror ]]; then
