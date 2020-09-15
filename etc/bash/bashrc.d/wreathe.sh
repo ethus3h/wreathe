@@ -9,9 +9,9 @@ if [[ -z "$GUIX_PROFILE" ]]; then
 fi
 #set +x
 source "$GUIX_PROFILE/etc/profile"
-    export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
-    export PATH="$GUIX_PROFILE/bin:$PATH"
-    export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
+export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
+export PATH="$GUIX_PROFILE/bin:$PATH"
+export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
 
 if ! ((EUID)); then
     if [[ -f ~/.bash_history.keep-public-mirror ]]; then
