@@ -10,7 +10,7 @@ if [[ -z "$GUIX_PROFILE" ]]; then
     export PATH="$GUIX_PROFILE/bin:$PATH"
     export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
 fi
-set +x
+#set +x
 
 if ! ((EUID)); then
     if [[ -f ~/.bash_history.keep-public-mirror ]]; then
