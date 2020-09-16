@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 source ember_bash_setup
-# Provide packge manager
+# Provides package manager
 export GUIX_PROFILE="$HOME/.config/guix/current"
 source "$GUIX_PROFILE/etc/profile"
 # Provides packages
