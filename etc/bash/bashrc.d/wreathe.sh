@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 source ember_bash_setup
-    export GUIX_PROFILE="$HOME/.config/guix/current"
-    source "$GUIX_PROFILE/etc/profile"
-    export GUIX_PROFILE="$HOME/.guix-profile"
-    source "$GUIX_PROFILE/etc/profile"
+export GUIX_PROFILE="$HOME/.config/guix/current"
+source "$GUIX_PROFILE/etc/profile"
+export GUIX_PROFILE="$HOME/.guix-profile"
+source "$GUIX_PROFILE/etc/profile"
 export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
 export PATH="$GUIX_PROFILE/bin:$PATH"
 export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
