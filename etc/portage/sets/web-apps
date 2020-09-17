@@ -1,6 +1,6 @@
-www-apps/bugzilla
-www-apps/cgit
-www-apps/dokuwiki
-www-apps/mediawiki
+#www-apps/bugzilla
+#www-apps/cgit
+#www-apps/dokuwiki
+#www-apps/mediawiki
 #www-apps/owncloud: has bundled dependencies, apparently?
-www-apps/wordpress
+#www-apps/wordpress
