@@ -1,4 +1,4 @@
-app-eselect/eselect-infinality
+#app-eselect/eselect-infinality
 app-misc/crystallize
 app-misc/ember-information-technology-environment
 app-misc/ember-shared
@@ -7,8 +7,8 @@ app-misc/onboard-emoji
 app-misc/wreathe-base
 app-misc/wreathe-meta
 dev-python/compizconfig-python
-gnustep-apps/gworkspace
-gnustep-apps/systempreferences
+#gnustep-apps/gworkspace
+#gnustep-apps/systempreferences
 kde-apps/akonadi
 kde-apps/baloo-widgets
 kde-apps/dolphin
@@ -16,8 +16,8 @@ kde-apps/dolphin
 #kde-apps/dolphin-plugins
 kde-apps/kde-meta
 kde-apps/konsole
-media-fonts/infinality-ultimate-meta
-media-gfx/xli
+#media-fonts/infinality-ultimate-meta
+#media-gfx/xli
 x11-apps/compiz-boxmenu
 x11-apps/compiz-manager
 x11-apps/fusion-icon
