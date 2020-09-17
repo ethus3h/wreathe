@@ -1,4 +1,4 @@
-dev-embedded/arduino
+#dev-embedded/arduino
 sci-chemistry/chemical-mime-data
 # https://bugs.gentoo.org/681058
 #sci-geosciences/opencpn
