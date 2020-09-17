@@ -33,12 +33,12 @@ app-emulation/wine-vanilla
 app-pda/ideviceinstaller
 app-pda/ifuse
 app-pda/usbmuxd
-app-shells/looptest
-app-shells/osh
+#app-shells/looptest
+#app-shells/osh
 app-text/a2ps
 app-text/antiword
 app-text/catdoc
-app-text/chasen
+#app-text/chasen
 app-text/convertlit
 app-text/dblatex
 #app-text/dictd
