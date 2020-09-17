@@ -4,7 +4,7 @@ games-action/minetest
 games-action/supertuxkart
 games-board/gnuchess
 games-board/gnugo
-games-board/pouetchess
+#games-board/pouetchess
 games-board/pychess
 games-board/sjeng
 games-board/stockfish
@@ -12,5 +12,5 @@ games-board/xboard
 games-fps/sauerbraten
 #kde-apps/tomoyo-kde-amor
 #trinity-apps/kfouleggs
-x11-terms/cool-retro-term
-x11-terms/x026
+#x11-terms/cool-retro-term
+#x11-terms/x026
