@@ -290,7 +290,7 @@ x11-misc/colord extra-print-profiles
 x11-wm/xpra client clipboard csc dec_avcodec2 enc_ffmpeg enc_264 enc_x265 lz4 pillow server
 
 # FIXME: Figure out what of this bunch is needed, and if anything's breaking anything.
-app-admin/gkrellm hddtemp lm_sensors ntlm ssl
+app-admin/gkrellm hddtemp lm-sensors ntlm ssl
 app-crypt/gcr gtk
 app-crypt/heimdal -ssl
 app-crypt/pinentry gnome-keyring ncurses gtk -qt4 qt5
