@@ -1,12 +1,12 @@
 # Required for net-im/quaternion, but not in the ebuild
 dev-qt/qtmultimedia
 
-app-arch/alien
+#app-arch/alien
 app-arch/cabextract
-app-arch/cfv
-app-arch/deb2targz
+#app-arch/cfv
+#app-arch/deb2targz
 app-arch/dpkg
-app-arch/gcab
+#app-arch/gcab
 app-arch/lha
 app-arch/lziprecover
 app-arch/lzop
@@ -59,12 +59,12 @@ app-text/rarian
 #app-text/scrollkeeper
 #app-text/wdiff
 #app-text/wv
-dev-python/github-backup
-dev-vcs/bzr
+#dev-python/github-backup
+#dev-vcs/bzr
 #dev-vcs/cssc
 #dev-vcs/darcs
-dev-vcs/subversion
-gnustep-base/gnustep-base
+#dev-vcs/subversion
+#gnustep-base/gnustep-base
 media-gfx/jpeg2ps
 media-gfx/pdf2svg
 media-gfx/svg2rlg
