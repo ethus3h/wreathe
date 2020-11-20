@@ -1,4 +1,4 @@
-dev-java/icedtea
+#dev-java/icedtea
 #dev-lang/fpc
 #dev-lang/gforth
 #dev-lang/gnat-gpl
@@ -10,7 +10,7 @@ dev-lang/php
 dev-lang/python
 #dev-lang/R
 #dev-lang/ruby
-dev-lang/snap
+#dev-lang/snap
 #dev-lang/vala
 #games-kids/scratch
 #virtual/perl6
