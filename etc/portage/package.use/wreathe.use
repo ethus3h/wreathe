@@ -310,7 +310,7 @@ dev-dotnet/mono-addins gtk
 dev-haskell/json generic hscolour parsec pretty
 dev-java/icedtea webstart
 dev-java/jython readline
-dev-lang/php -sharedmem cgi cli embed enchant fileinfo filter fpm gd hash intl json ldap-sasl pdo phar phpdbg xmlreader xmlwriter xslt
+dev-lang/php -sharedmem cgi cli embed enchant fileinfo filter fpm gd hash intl json pdo phar
 dev-lang/python tk
 dev-lang/rakudo moar
 #dev-libs/appstream apt
