@@ -1,5 +1,5 @@
-*/* PYTHON_TARGETS: -python3_7 python3_6
-*/* PYTHON_SINGLE_TARGET: -* python3_6
+#*/* PYTHON_TARGETS: -python3_7 python3_6
+#*/* PYTHON_SINGLE_TARGET: -* python3_6
 
 # FIXME: Until it doesn't cause problems (see https://github.com/git-lfs/git-lfs/issues/3044)
 dev-python/github-backup -git-lfs
@@ -68,14 +68,14 @@ kde-frameworks/kfilemetadata:4 -mobi -pdf
 kde-frameworks/nepomuk-core:4 -pdf
 
 # TODO: Not available for Python 3 yet, apparently
-app-text/asciidoc python_single_target_python2_7
-gnome-base/libglade python_single_target_python2_7
+#app-text/asciidoc python_single_target_python2_7
+#gnome-base/libglade python_single_target_python2_7
 # Needed for ibus which has target 3.4
-dev-python/pygobject python_targets_python3_4
-dev-python/pycairo python_targets_python3_4
+#dev-python/pygobject python_targets_python3_4
+#dev-python/pycairo python_targets_python3_4
 # Needed for awscli via s3transfer and botocore (why is it not set by default?)
-dev-python/python-dateutil python_targets_python3_6
-dev-python/setuptools_scm python_targets_python3_6
+#dev-python/python-dateutil python_targets_python3_6
+#dev-python/setuptools_scm python_targets_python3_6
 
 dev-libs/efl -gles
 # Use firmware blobs until I can use wi-fi without it
@@ -257,55 +257,55 @@ media-libs/openimageio -doc
 x11-themes/oxygen-gtk -doc
 
 # Various extra capabilities
-app-doc/doxygen -clang dot doxysearch # -clang because it fails to build /var/tmp/portage/app-doc/doxygen-1.8.16-r1/work/doxygen-1.8.16/src/clangparser.cpp:6:10: fatal error: clang-c/Index.h: No such file or directory
+app-doc/doxygen -clang #dot doxysearch # -clang because it fails to build /var/tmp/portage/app-doc/doxygen-1.8.16-r1/work/doxygen-1.8.16/src/clangparser.cpp:6:10: fatal error: clang-c/Index.h: No such file or directory
 sys-boot/grub mount
-app-office/libreoffice binfilter gtk odk quickstarter vlc libreoffice_extensions_nlpsolver libreoffice_extensions_scripting-beanshell libreoffice_extensions_scripting-javascript libreoffice_extensions_wiki-publisher java
-app-office/scribus scripts
-app-text/pandoc https network-uri trypandoc
-dev-java/miglayout swt
-dev-libs/libcec cubox exynos raspberry-pi
-dev-libs/xmlsec nss
-dev-python/ipython nbconvert notebook
-dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
+#app-office/libreoffice binfilter gtk odk quickstarter vlc libreoffice_extensions_nlpsolver libreoffice_extensions_scripting-beanshell libreoffice_extensions_scripting-javascript libreoffice_extensions_wiki-publisher java
+#app-office/scribus scripts
+#app-text/pandoc https network-uri trypandoc
+#dev-java/miglayout swt
+#dev-libs/libcec cubox exynos raspberry-pi
+#dev-libs/xmlsec nss
+#dev-python/ipython nbconvert notebook
+#dev-python/PyQt5 bluetooth dbus declarative designer help location multimedia network opengl positioning printsupport sensors serialport testlib webchannel webengine webkit websockets widgets x11extras xmlpatterns
 games-fps/sauerbraten server
 media-fonts/culmus ancient fancy taamey
-media-gfx/asymptote offscreen sigsegv
+#media-gfx/asymptote offscreen sigsegv
 media-gfx/imagemagick fpx hdri lqr
-media-libs/libcanberra gtk3 tdb
+#media-libs/libcanberra gtk3 tdb
 media-libs/mesa d3d9 gles1 gles2 xa
 media-libs/speex utils
 media-libs/xine-lib vdr
 media-plugins/audacious-plugins aosd bs2b cue fluidsynth gme http libnotify qtmedia scrobbler sid soxr speedpitch
-media-tv/kodi webserver
-media-video/minitube download
+#media-tv/kodi webserver
+#media-video/minitube download
 net-analyzer/nmap nping
 net-misc/plowshare view-captcha
-net-misc/youtube-dl offensive
+#net-misc/youtube-dl offensive
 sys-apps/smartmontools update_drivedb
 sys-apps/util-linux caps fdformat tty-helpers
 sys-libs/libomp ompt
 www-plugins/gnash agg cygnal dump gtk gnome ffmpeg
-x11-libs/gtk+ broadway
-x11-misc/colord extra-print-profiles
-x11-wm/xpra client clipboard csc dec_avcodec2 enc_ffmpeg enc_264 enc_x265 lz4 pillow server
+#x11-libs/gtk+ broadway
+#x11-misc/colord extra-print-profiles
+#x11-wm/xpra client clipboard csc dec_avcodec2 enc_ffmpeg enc_264 enc_x265 lz4 pillow server
 
 # FIXME: Figure out what of this bunch is needed, and if anything's breaking anything.
-app-admin/gkrellm hddtemp lm-sensors ntlm ssl
-app-crypt/gcr gtk
-app-crypt/heimdal -ssl
+#app-admin/gkrellm hddtemp lm-sensors ntlm ssl
+#app-crypt/gcr gtk
+#app-crypt/heimdal -ssl
 app-crypt/pinentry gnome-keyring ncurses gtk -qt4 qt5
-app-emulation/qemu fdt glusterfs gtk2 nfs spice usb uuid vde vhost-net virgl virtfs xattr xen xfs
-app-emulation/wine-any themes
+#app-emulation/qemu fdt glusterfs gtk2 nfs spice usb uuid vde vhost-net virgl virtfs xattr xen xfs
+#app-emulation/wine-any themes
 app-eselect/eselect-php fpm
-app-i18n/ibus gtk3
-app-laptop/ibam gkrellm
-app-misc/geoclue gtk manual
-app-misc/recoll camelcase info webkit -fam
+#app-i18n/ibus gtk3
+#app-laptop/ibam gkrellm
+#app-misc/geoclue gtk manual
+#app-misc/recoll camelcase info webkit -fam
 app-misc/strigi clucene
 app-misc/tracker -ffmpeg
 app-office/calligra xbase
 app-text/evince -nsplugin
-app-text/tesseract scrollview training l10n_ar l10n_bg l10n_ca l10n_chr l10n_cs l10n_da l10n_el l10n_es l10n_fi l10n_fr l10n_he l10n_hi l10n_hu l10n_id l10n_it l10n_ja l10n_ko l10n_lt l10n_lv l10n_nl l10n_no l10n_pl l10n_pt l10n_ro l10n_ru l10n_sk l10n_sl l10n_sr l10n_sv l10n_th l10n_tl l10n_tr l10n_uk l10n_vi l10n_zh-CN l10n_zh-TW
+app-text/tesseract scrollview #training l10n_ar l10n_bg l10n_ca l10n_chr l10n_cs l10n_da l10n_el l10n_es l10n_fi l10n_fr l10n_he l10n_hi l10n_hu l10n_id l10n_it l10n_ja l10n_ko l10n_lt l10n_lv l10n_nl l10n_no l10n_pl l10n_pt l10n_ro l10n_ru l10n_sk l10n_sl l10n_sr l10n_sv l10n_th l10n_tl l10n_tr l10n_uk l10n_vi l10n_zh-CN l10n_zh-TW
 dev-dotnet/mono-addins gtk
 dev-haskell/json generic hscolour parsec pretty
 dev-java/icedtea webstart
@@ -313,26 +313,26 @@ dev-java/jython readline
 dev-lang/php -sharedmem cgi cli embed enchant fileinfo filter fpm gd hash intl json ldap-sasl pdo phar phpdbg xmlreader xmlwriter xslt
 dev-lang/python tk
 dev-lang/rakudo moar
-dev-libs/appstream apt
-dev-libs/botan threads
-dev-libs/elfutils static-libs
-dev-libs/folks eds
-dev-libs/libdbusmenu gtk
-dev-libs/libdbusmenu gtk3
+#dev-libs/appstream apt
+#dev-libs/botan threads
+#dev-libs/elfutils static-libs
+#dev-libs/folks eds
+#dev-libs/libdbusmenu gtk
+#dev-libs/libdbusmenu gtk3
 dev-libs/libgit2 ssh
 dev-libs/libgit2 threads
 dev-libs/libgit2-glib ssh
 dev-libs/libpeas gtk
-dev-libs/quazip qt4
+#dev-libs/quazip qt4
 dev-libs/soprano raptor redland virtuoso
-dev-python/PyQt4 help
-dev-python/PyQt5 webkit
-dev-qt/qt firebird nis
-dev-qt/qtdeclarative webkit
+#dev-python/PyQt4 help
+#dev-python/PyQt5 webkit
+#dev-qt/qt firebird nis
+#dev-qt/qtdeclarative webkit
 dev-qt/qtgui gtk gtkstyle
 dev-qt/qtmultimedia gstreamer
 dev-qt/qtwebkit -gstreamer -gstreamer010 multimedia printsupport
-dev-scheme/guile networking
+#dev-scheme/guile networking
 dev-util/shellcheck hscolour
 dev-vcs/git blksha1 cgi curl gpg gtk highlight mediawiki subversion tk webdav cvs pcre pcre
 dev-vcs/subversion -dso
@@ -354,8 +354,8 @@ kde-apps/marble designer-plugin
 kde-apps/solid-runtime -bluetooth
 kde-frameworks/baloo:4 minimal
 kde-plasma/plasma-desktop legacy-systray gtk3
-mail-client/thunderbird bindist lightning
-media-gfx/blender boost dds cycles game-engine player ffmpeg
+#mail-client/thunderbird bindist lightning
+#media-gfx/blender boost dds cycles game-engine player ffmpeg
 media-gfx/inkscape inkjar
 media-gfx/ufraw gtk
 media-gfx/utsushi -network gtk
@@ -386,7 +386,7 @@ net-dns/avahi mdnsresponder-compat autoipd gtk3
 net-dns/bind-tools gssapi
 net-fs/cifs-utils ads
 net-fs/s3ql contrib
-net-fs/samba addc addns ads bundled-heimdal client cluster dmapi fam iprint quota -system-mitkrb5 gnutls winbind
+#net-fs/samba addc addns ads bundled-heimdal client cluster dmapi fam iprint quota -system-mitkrb5 gnutls winbind
 net-im/pidgin prediction -gnutls openssl
 net-irc/hexchat gtk
 net-libs/gnutls pkcs11
@@ -409,11 +409,11 @@ sci-libs/vtk tbb all-modules gdal web xdmf2
 sci-mathematics/octave openssl sparse gui
 sci-visualization/gnuplot bitmap compat gd libcerf thin-splines
 sys-apps/busybox -pam
-sys-block/open-iscsi rdma tcp
-sys-cluster/openmpi threads
-sys-devel/gcc altivec awt cilk d fixed-point gcj graphite mpx sanitize
+#sys-block/open-iscsi rdma tcp
+#sys-cluster/openmpi threads
+#sys-devel/gcc altivec awt cilk d fixed-point gcj graphite mpx sanitize
 sys-devel/llvm clang lldb multitarget ncurses
-sys-fabric/ofed dapl diags ibacm mstflint opensm perftest qperf rds srp
+#sys-fabric/ofed dapl diags ibacm mstflint opensm perftest qperf rds srp
 sys-kernel/gentoo-sources deblob
 trinity-apps/kasteroids arts
 trinity-apps/kolf arts
@@ -423,13 +423,13 @@ www-servers/apache apache2_modules_auth_digest
 x11-apps/fusion-icon -qt4
 x11-base/xorg-server dmx
 x11-base/xorg-server xvfb
-x11-libs/goffice gnome
-x11-libs/gtk+ broadway
+#x11-libs/goffice gnome
+#x11-libs/gtk+ broadway
 x11-libs/libdrm libkms video_cards_amdgpu video_cards_radeon
 x11-misc/ccsm -python_targets_python3_4
 x11-misc/colord extra-print-profiles
 x11-misc/spacefm -gtk3
-x11-plugins/bfm gkrellm
+#x11-plugins/bfm gkrellm
 x11-wm/compiz -kde gtk
 x11-wm/compiz-fusion emerald
 x11-wm/compiz-meta boxmenu
