@@ -4,7 +4,7 @@ app-editors/ee
 app-editors/emacs
 app-editors/nano
 app-editors/okteta
-app-forensics/afl
+#app-forensics/afl
 app-i18n/uchardet
 app-misc/banner
 app-misc/binwalk
