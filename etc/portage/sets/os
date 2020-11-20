@@ -9,7 +9,7 @@ app-admin/sudo
 #app-laptop/tp_smapi
 app-portage/eix
 app-portage/genlop
-app-portage/porthole
+#app-portage/porthole
 app-portage/smart-live-rebuild
 app-shells/bash-completion
 app-shells/gentoo-bashcomp
