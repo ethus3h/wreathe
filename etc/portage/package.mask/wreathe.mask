@@ -22,7 +22,7 @@ x11-drivers/ati-drivers
 x11-drivers/nvidia-drivers
 www-plugins/adobe-flash
 
-# Fake source packages that are actually binaries (WTF?!) Seriously, what the fuck?
+# Fake source packages that are actually binaries
 dev-util/android-studio
 dev-util/idea-community
 dev-util/pycharm-community
