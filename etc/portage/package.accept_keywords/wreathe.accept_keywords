@@ -42,6 +42,7 @@ app-editors/qhexedit2 ~amd64
 # Apps with no stable version
 x11-themes/gnustep-silver-theme ~amd64
 media-gfx/png2ico ~amd64
+media-sound/spek ~amd64
 #dev-libs/libqmatrixclient ~amd64
 #net-im/quaternion ~amd64
 #app-dicts/freedict-eng-ita ~amd64
