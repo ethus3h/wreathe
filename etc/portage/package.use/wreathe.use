@@ -1,5 +1,5 @@
-#*/* PYTHON_TARGETS: -python3_7 python3_6
-#*/* PYTHON_SINGLE_TARGET: -* python3_6
+*/* PYTHON_TARGETS: -python3_7 python3_6
+*/* PYTHON_SINGLE_TARGET: -* python3_6
 
 # FIXME: Until it doesn't cause problems (see https://github.com/git-lfs/git-lfs/issues/3044)
 dev-python/github-backup -git-lfs
