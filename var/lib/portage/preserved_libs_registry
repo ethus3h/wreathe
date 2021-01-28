@@ -127,14 +127,6 @@
             "/usr/lib64/libguile-2.0.so.22"
         ]
     ], 
-    "media-gfx/exiv2:0": [
-        "media-gfx/exiv2-0.27.2", 
-        "30060", 
-        [
-            "/usr/lib64/libexiv2.so.26.0.0", 
-            "/usr/lib64/libexiv2.so.26"
-        ]
-    ], 
     "media-libs/ilmbase:0": [
         "media-libs/ilmbase-2.3.0", 
         "28919", 
