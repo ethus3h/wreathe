@@ -13,7 +13,7 @@ app-misc/fpart
 app-misc/gnuit
 app-misc/jq
 app-misc/rlwrap
-app-text/csvfix
+#app-text/csvfix
 app-text/tree
 dev-db/mariadb
 dev-util/cloc
